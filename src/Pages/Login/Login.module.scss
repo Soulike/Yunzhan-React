@@ -1,0 +1,14 @@
+@import "../../Static/Input.module";
+@import "../../Static/Button.module";
+@import "../../Static/Constants.module";
+@import "../../Static/LoginShare.module";
+
+.Login {
+    @extend .LoginShare;
+
+    .forgetPassword {
+        display: inline-block;
+        float: right;
+        font-size: 0.8rem;
+    }
+}

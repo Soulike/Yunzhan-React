@@ -1,0 +1,88 @@
+@import "./Constants.module";
+@import "./Button.module";
+@import "./Input.module";
+
+.LoginShare {
+    $formPadding: 1.25rem;
+    width: 17 + 2*$formPadding;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+
+    .titleWrapper {
+        text-align: center;
+
+        .icon {
+            font-size: 3rem;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-family: $serif;
+            font-weight: bolder;
+            margin-top: 2rem;
+        }
+    }
+
+    .form {
+        display: block;
+        background-color: #FFF;
+        padding: 1.5rem $formPadding;
+        border-radius: 0.25rem;
+        border: 1px solid #DDD;
+        box-shadow: 0 0 5px #DDD;
+        margin-top: 1.5rem;
+
+        .inputWrapper {
+            margin-top: 1rem;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            .label {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            .input {
+                @extend .Input;
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        .submitButton {
+            @extend .btn-primary, .btn-lg;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 2rem;
+        }
+    }
+
+    .hint {
+        margin-top: 1rem;
+        line-height: 2rem;
+        text-align: center;
+        border: 1px solid #DDD;
+        box-shadow: 0 0 5px #DDD;
+        padding: 1rem 2rem;
+        background-color: #FFF;
+        border-radius: 0.25rem;
+    }
+
+    .codeInput {
+        @extend .Input;
+        width: 55%;
+        box-sizing: border-box;
+    }
+
+    .getCodeButton {
+        @extend .btn-primary;
+        width: 40%;
+        box-sizing: border-box;
+        float: right;
+    }
+}

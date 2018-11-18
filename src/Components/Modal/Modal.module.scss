@@ -1,0 +1,52 @@
+@import "../../Static/Button.module";
+
+.Modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    user-select: none;
+    min-width: 20rem;
+    box-shadow: 1px 1px 10px #666;
+
+    .title {
+        font-size: 1.5rem;
+        text-align: center;
+        border-bottom: 1px solid #333;
+        padding: 1rem 0;
+    }
+
+    .content {
+        padding: 2rem 0;
+        border-bottom: 1px solid #333;
+    }
+
+    .buttonArea {
+        float: right;
+        margin-top: 2rem;
+
+        button {
+            margin-left: 1rem;
+        }
+    }
+
+    .confirmButton {
+        @extend .btn-primary
+    }
+
+    .cancelButton {
+        @extend .btn-danger
+    }
+}
+
+.modalWrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+}
