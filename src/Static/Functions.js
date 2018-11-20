@@ -81,6 +81,11 @@ export function getHash(text, hashMethod)
     return hash.digest('hex');
 }
 
+export function getSHA256(text)
+{
+    return getHash(text, 'sha256');
+}
+
 export function generateTimeStr(time)
 {
     const MILLISECONDS = {
