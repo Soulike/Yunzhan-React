@@ -1,3 +1,46 @@
 .Root {
+    $sidebarWidth: 7.5rem;
 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    .sidebar {
+        display: inline-block;
+        width: $sidebarWidth;
+        height: 100%;
+        background-color: #222;
+        box-shadow: 1px 0 5px #666;
+
+        .iconWrapper {
+            width: 100%;
+            text-align: center;
+            margin-top: 4rem;
+
+            .icon {
+                color: #DDD;
+                font-size: 4rem;
+                transition: 0.5s color;
+
+                &:hover {
+                    color: #FFF;
+                }
+            }
+        }
+
+        .menuWrapper {
+            margin-top: 5rem;
+        }
+    }
+
+    .page {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: $sidebarWidth;
+        right: 0;
+        bottom: 0;
+    }
 }
