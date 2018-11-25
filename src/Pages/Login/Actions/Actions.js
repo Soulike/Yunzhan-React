@@ -1,4 +1,5 @@
 import * as ActionTypes from './ActionTypes';
+import {browserHistory} from 'react-router';
 import {postAsync, requestPrefix} from '../../../Static/Functions';
 import {View as Alert} from '../../../Components/Alert';
 
@@ -16,7 +17,7 @@ export function login(email, password)
                 if (isSuccess)
                 {
                     dispatch(loginSucceed());
-                    // TODO: 跳转到管理界面
+                    browserHistory.push('/');
                 }
                 else
                 {
