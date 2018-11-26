@@ -1,40 +1,24 @@
 import React, {Component} from 'react';
-import {View as Item} from './Components/Item';
+import {ItemObjects, View as Item} from './Components/Item';
+import {Functions} from '../../../Login';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import style from './Menu.module.scss';
+import {FuncItem, LinkItem} from './Components/Item/Item';
 
 class Menu extends Component
 {
     constructor()
     {
         super(...arguments);
+        const {LinkItem, FuncItem} = ItemObjects;
         this.state = {
             items: [
-                {
-                    icon: solidIcon.faList,
-                    text: '概览',
-                    href: '/admin/overView'
-                },
-                {
-                    icon: solidIcon.faDesktop,
-                    text: '屏幕管理',
-                    href: '/admin/screenManagement'
-                },
-                {
-                    icon: solidIcon.faAd,
-                    text: '广告管理',
-                    href: '/admin/advertiseManagement'
-                },
-                {
-                    icon: solidIcon.faTags,
-                    text: '标签管理',
-                    href: '/admin/tagManagement'
-                },
-                {
-                    icon: solidIcon.faFileArchive,
-                    text: '资源包管理',
-                    href: '/admin/resourceManagement'
-                },
+                new LinkItem(solidIcon.faList, '概览', '/admin/overview'),
+                new LinkItem(solidIcon.faDesktop, '屏幕管理', '/admin/screenManagement'),
+                new LinkItem(solidIcon.faAd, '广告管理', '/admin/advertiseManagement'),
+                new LinkItem(solidIcon.faTags, '标签管理', '/admin/tagManagement'),
+                new LinkItem(solidIcon.faFileArchive, '资源包管理', '/admin/resourceManagement'),
+                new FuncItem(solidIcon.faDoorOpen, '退出', Functions.showLogoutModal)
             ],
             activeItemIndex: 0
         };
@@ -59,20 +43,29 @@ class Menu extends Component
                 {
                     items.map((item, i) =>
                     {
-                        if (i === activeItemIndex)
+                        if (item instanceof LinkItem)
                         {
-                            return (
-                                <span onClick={this.onItemClick(i)}>
+                            if (i === activeItemIndex)
+                            {
+                                return (
+                                    <span onClick={this.onItemClick(i)}>
                                     <Item {...item} key={item.href} isActive={true}/>
                                 </span>
-                            );
+                                );
+                            }
+                            else
+                            {
+                                return (
+                                    <span onClick={this.onItemClick(i)}>
+                                    <Item {...item} key={item.href} isActive={false}/>
+                                </span>
+                                );
+                            }
                         }
                         else
                         {
                             return (
-                                <span onClick={this.onItemClick(i)}>
-                                    <Item {...item} key={item.href} isActive={false}/>
-                                </span>
+                                <Item {...item} key={item.href} isActive={false}/>
                             );
                         }
                     })

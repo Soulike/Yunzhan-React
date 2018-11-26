@@ -8,13 +8,18 @@ class Item extends Component
 {
     render()
     {
-        const {icon, text, href, isActive} = this.props;
+        const {icon, text, href, isActive, func, isLink} = this.props;
         return (
             <div className={`${style.Item} ${isActive ? style.active : null}`}>
-                <Link to={href}>
-                    <FontAwesomeIcon icon={icon} className={style.icon}/>
-                    <div className={style.text}>{text}</div>
-                </Link>
+                {
+                    isLink ? (<Link to={href}>
+                        <FontAwesomeIcon icon={icon} className={style.icon}/>
+                        <div className={style.text}>{text}</div>
+                    </Link>) : (<span onClick={func}>
+                        <FontAwesomeIcon icon={icon} className={style.icon}/>
+                        <div className={style.text}>{text}</div>
+                    </span>)
+                }
             </div>
         );
     }
@@ -23,7 +28,9 @@ class Item extends Component
 Item.propTypes = {
     icon: PropTypes.object.isRequired,
     text: PropTypes.string.isRequired,
-    href: PropTypes.string.isRequired,
+    href: PropTypes.string,
+    func: PropTypes.func,
+    isLink: PropTypes.bool.isRequired,
     isActive: PropTypes.bool.isRequired
 };
 

@@ -30,6 +30,7 @@ Front part of project Yunzhan using React &amp; Redux.
 - 类型：GET
 - 提交数据：无
 - 返回数据：只需要 `isSuccess` 域指定是否获取成功
+- 说明：获取验证码
 
 ### `/forgetPassword`
 
@@ -77,3 +78,10 @@ Front part of project Yunzhan using React &amp; Redux.
 - 类型：GET
 - 提交数据：无
 - 返回数据：只需要 `isSuccess` 域指定这个请求的 Session 是否是有效的
+
+### `/logout`
+
+- 类型：POST
+- 提交数据：无
+- 返回数据：只需要 `isSuccess` 域指定这个请求的 Session 是否是有效的
+- 说明：使当前用户的 Session 立即失效

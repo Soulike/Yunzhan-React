@@ -33,16 +33,30 @@ export function login(email, password)
     };
 }
 
-function loginSucceed()
+export function loginSucceed()
 {
     return {
         type: ActionTypes.LOGIN_SUCCEED
     };
 }
 
-function loginFailed()
+export function loginFailed()
 {
     return {
         type: ActionTypes.LOGIN_FAILED
+    };
+}
+
+export function setOnline()
+{
+    return {
+        type: ActionTypes.SET_ONLINE
+    };
+}
+
+export function setOffline()
+{
+    return {
+        type: ActionTypes.SET_OFFLINE
     };
 }

@@ -1,3 +1,7 @@
 export const LOGIN_SUCCEED = 'LOGIN/SUCCEED';
 
 export const LOGIN_FAILED = 'LOGIN/FAILED';
+
+export const SET_ONLINE = 'LOGIN/SET_ONLINE';
+
+export const SET_OFFLINE = 'LOGIN/SET_OFFLINE';
