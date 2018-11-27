@@ -9,7 +9,7 @@ export function requireLogin(nextState, replace)
 {
     if (!isLoginTokenValid())
     {
-        Alert.show('请先登录');
+        Alert.show('请先登录', false);
         Store.dispatch(setOffline());
         replace('/login');
     }

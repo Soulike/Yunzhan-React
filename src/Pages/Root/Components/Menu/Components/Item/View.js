@@ -15,10 +15,10 @@ class Item extends Component
                     isLink ? (<Link to={href}>
                         <FontAwesomeIcon icon={icon} className={style.icon}/>
                         <div className={style.text}>{text}</div>
-                    </Link>) : (<span onClick={func}>
+                    </Link>) : (<div onClick={func}>
                         <FontAwesomeIcon icon={icon} className={style.icon}/>
                         <div className={style.text}>{text}</div>
-                    </span>)
+                    </div>)
                 }
             </div>
         );
