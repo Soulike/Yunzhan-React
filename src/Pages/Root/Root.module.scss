@@ -1,3 +1,5 @@
+@import "../../Static/Constants.module";
+
 .Root {
     $sidebarWidth: 7.5rem;
 
@@ -7,12 +9,14 @@
     right: 0;
     bottom: 0;
 
+    background-color: #EEE;
+
     .sidebar {
         display: inline-block;
         width: $sidebarWidth;
         height: 100%;
-        background-color: #222;
-        box-shadow: 1px 0 5px #666;
+        background-color: $rootSideBarBackgroundColor;
+        color: $rootSideBarColor;
 
         .iconWrapper {
             width: 100%;
@@ -20,7 +24,7 @@
             margin-top: 2rem;
 
             .icon {
-                color: #DDD;
+                color: $rootSideBarColor;
                 font-size: 4rem;
                 transition: 0.5s color;
 

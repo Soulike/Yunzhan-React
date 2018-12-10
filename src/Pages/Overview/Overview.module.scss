@@ -1,3 +1,28 @@
 .Overview {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
 
+    .cardWrapper {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        padding: 0 10rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .cardRow {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card {
+            width: 30rem;
+        }
+    }
 }
