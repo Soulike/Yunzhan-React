@@ -9,7 +9,7 @@ class ScreenManagement extends Component
     componentDidMount()
     {
         document.title = '屏幕管理 - 云展';
-        MenuFunctions.setActiveItemIndex(1);
+        MenuFunctions.setActiveItemId(1);
     }
 
     render()

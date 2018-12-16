@@ -3,9 +3,10 @@ import style from './Signup.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {browserHistory, Link} from 'react-router';
-import {getAsync, getSHA256, postAsync, requestPrefix} from '../../Static/Functions';
+import {getAsync, getSHA256, postAsync} from '../../Static/Functions';
 import {View as Alert} from '../../Components/Alert';
 import Regex from '../../Static/Regex';
+import {accountRequestPrefix} from '../../Static/AccountShare/AccountShare';
 
 class SignUp extends Component
 {
@@ -42,7 +43,7 @@ class SignUp extends Component
     onGetCodeButtonClick = e =>
     {
         e.preventDefault();
-        getAsync(requestPrefix('/getVerificationCode'), false)
+        getAsync(accountRequestPrefix('/getVerificationCode'), false)
             .then(res =>
             {
                 const {isSuccess, msg} = res;
@@ -103,7 +104,7 @@ class SignUp extends Component
                 password: getSHA256(password),
                 verificationCode
             };
-            postAsync(requestPrefix('/signUp'), requestBody)
+            postAsync(accountRequestPrefix('/signUp'), requestBody)
                 .then(res =>
                 {
                     const {isSuccess, msg} = res;

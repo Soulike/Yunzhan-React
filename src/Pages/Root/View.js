@@ -4,9 +4,19 @@ import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router';
 import style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
+import {getItemId, setActiveItemId} from './Components/Menu/Functions';
 
 class Root extends Component
 {
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        if (prevProps.children !== this.props.children)
+        {
+            setActiveItemId(getItemId(this.props.location.pathname));
+        }
+    }
+
+
     render()
     {
         return (

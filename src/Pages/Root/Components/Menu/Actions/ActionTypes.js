@@ -1,0 +1,1 @@
+export const SWITCH_ITEM = 'ROOT/SWITCH_ITEM';

@@ -9,7 +9,7 @@ class ResourceManagement extends Component
     componentDidMount()
     {
         document.title = '资源包管理 - 云展';
-        MenuFunctions.setActiveItemIndex(4);
+        MenuFunctions.setActiveItemId(4);
     }
 
     render()

@@ -9,7 +9,7 @@ class AdvertiseManagement extends Component
     componentDidMount()
     {
         document.title = '广告管理 - 云展';
-        MenuFunctions.setActiveItemIndex(2);
+        MenuFunctions.setActiveItemId(2);
     }
 
     render()

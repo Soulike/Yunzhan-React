@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
-import {ItemObjects, View as Item} from './Components/Item';
+import {connect} from 'react-redux';
+import {View as Item} from './Components/Item';
 import {Functions as LoginFunctions} from '../../../Login';
-import {setActiveItemIndex} from './Functions';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import style from './Menu.module.scss';
-import {FuncItem, LinkItem} from './Components/Item/Item';
-
+import {FuncItem, LinkItem} from './Components/Item/ItemObject';
+import {setActiveItemId} from './Functions';
 
 class Menu extends Component
 {
     constructor()
     {
         super(...arguments);
-        const {LinkItem, FuncItem} = ItemObjects;
         this.state = {
             items: [
                 new LinkItem(solidIcon.faList, '概览', '/admin/overview'),
@@ -21,40 +20,36 @@ class Menu extends Component
                 new LinkItem(solidIcon.faTags, '标签管理', '/admin/tagManagement'),
                 new LinkItem(solidIcon.faFileArchive, '资源包管理', '/admin/resourceManagement'),
                 new FuncItem(solidIcon.faDoorOpen, '退出', LoginFunctions.showLogoutModal)
-            ],
-            activeItemIndex: 0
+            ]
         };
     }
 
     componentDidMount()
     {
-        const activeItemIndex = sessionStorage.getItem('activeItemIndex');
-        if (activeItemIndex)
+        const activeItemId = sessionStorage.getItem('activeItemId');
+        if (activeItemId)
         {
-            this.setState({
-                activeItemIndex: parseInt(activeItemIndex)
-            });
+            setActiveItemId(activeItemId);
         }
         else
         {
-            setActiveItemIndex(0);
+            setActiveItemId(0);
         }
     }
 
-    onItemClick = itemIndex =>
+    onItemClick = itemId =>
     {
         return () =>
         {
-            this.setState({
-                activeItemIndex: itemIndex
-            });
+            setActiveItemId(itemId);
         };
     };
 
 
     render()
     {
-        const {items, activeItemIndex} = this.state;
+        const {currentActiveItemId} = this.props;
+        const {items} = this.state;
         return (
             <div className={style.Menu}>
                 {
@@ -62,7 +57,7 @@ class Menu extends Component
                     {
                         if (item instanceof LinkItem)
                         {
-                            if (i === activeItemIndex)
+                            if (i === currentActiveItemId)
                             {
                                 return (
                                     <span onClick={this.onItemClick(i)} key={item.href}>
@@ -92,4 +87,12 @@ class Menu extends Component
     }
 }
 
-export default Menu;
+const mapStateToProps = (state) =>
+{
+    const {currentActiveItemId} = state.RootMenu;
+    return {
+        currentActiveItemId
+    };
+};
+
+export default connect(mapStateToProps)(Menu);

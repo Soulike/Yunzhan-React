@@ -4,3 +4,7 @@ $sans-serif: "Noto Sans CJK SC", "Source Han Sans", "思源黑体", "sans-serif"
 
 $rootSideBarBackgroundColor: #333;
 $rootSideBarColor: #DDD;
+
+$titleFontSize: 1.5rem;
+$titleTopAndBottomPadding: 1rem;
+$titleHeight: $titleFontSize + $titleTopAndBottomPadding*2;

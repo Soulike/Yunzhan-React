@@ -1,13 +1,14 @@
 import * as ActionTypes from './ActionTypes';
 import {browserHistory} from 'react-router';
-import {postAsync, requestPrefix} from '../../../Static/Functions';
+import {postAsync} from '../../../Static/Functions';
 import {View as Alert} from '../../../Components/Alert';
+import {accountRequestPrefix} from '../../../Static/AccountShare/AccountShare';
 
 export function login(email, password)
 {
     return async (dispatch) =>
     {
-        postAsync(requestPrefix('/login'), {
+        postAsync(accountRequestPrefix('/login'), {
             email,
             password
         })

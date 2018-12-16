@@ -3,9 +3,10 @@ import {browserHistory, Link} from 'react-router';
 import style from './ForgetPassword.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
-import {getAsync, getSHA256, postAsync, requestPrefix} from '../../Static/Functions';
+import {getAsync, getSHA256, postAsync} from '../../Static/Functions';
 import {View as Alert} from '../../Components/Alert';
 import Regex from '../../Static/Regex';
+import {accountRequestPrefix} from '../../Static/AccountShare/AccountShare';
 
 
 class ForgetPassword extends Component
@@ -44,7 +45,7 @@ class ForgetPassword extends Component
     onGetCodeButtonClick = e =>
     {
         e.preventDefault();
-        getAsync(requestPrefix('/getVerificationCode'), false)
+        getAsync(accountRequestPrefix('/getVerificationCode'), false)
             .then(res =>
             {
                 const {isSuccess, msg} = res;
@@ -105,7 +106,7 @@ class ForgetPassword extends Component
                 newPassword: getSHA256(newPassword),
                 verificationCode
             };
-            postAsync(requestPrefix('/forgetPassword'), requestBody)
+            postAsync(accountRequestPrefix('/forgetPassword'), requestBody)
                 .then(res =>
                 {
                     const {isSuccess, msg} = res;

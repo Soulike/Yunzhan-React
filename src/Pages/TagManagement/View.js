@@ -9,7 +9,7 @@ class TagManagement extends Component
     componentDidMount()
     {
         document.title = '标签管理 - 云展';
-        MenuFunctions.setActiveItemIndex(3);
+        MenuFunctions.setActiveItemId(3);
     }
 
     render()

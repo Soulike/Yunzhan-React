@@ -1,28 +1,22 @@
-.Overview {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    top: 0;
+@import "../../Static/InnerWrapper.module";
 
+.Overview {
     .cardWrapper {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
+        @extend .InnerWrapper;
+        min-height: 40rem;
         padding: 0 10rem;
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-
-        .cardRow {
-            display: flex;
-            justify-content: space-between;
-        }
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        justify-items: flex-start;
+        align-content: space-evenly;
 
         .card {
             width: 30rem;
+
+            .data {
+                margin: 0 0.25rem;
+            }
         }
     }
 }

@@ -11,6 +11,20 @@ import {View as Alert} from '../../Components/Alert';
 
 class Login extends Component
 {
+    constructor()
+    {
+        super(...arguments);
+        this.state = {
+            email: '',
+            password: ''
+        };
+    }
+
+    componentDidMount()
+    {
+        document.title = '登录 - 云展';
+    }
+
     onEmailChange = e =>
     {
         this.setState({
@@ -18,17 +32,13 @@ class Login extends Component
         });
     };
 
-    componentDidMount()
-    {
-        document.title = '登录 - 云展';
-    }
-
     onPasswordChange = e =>
     {
         this.setState({
             password: e.target.value
         });
     };
+
     onFormSubmit = e =>
     {
         e.preventDefault();
@@ -47,19 +57,11 @@ class Login extends Component
         }
 
     };
+
     onSubmitButtonClick = e =>
     {
         this.onFormSubmit(e);
     };
-
-    constructor()
-    {
-        super(...arguments);
-        this.state = {
-            email: '',
-            password: ''
-        };
-    }
 
     render()
     {
