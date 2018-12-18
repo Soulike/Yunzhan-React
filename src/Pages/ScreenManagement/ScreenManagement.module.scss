@@ -1,0 +1,18 @@
+@import "../../Static/InnerWrapper.module";
+
+.ScreenManagement {
+    .cardWrapper {
+        @extend .InnerWrapper;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        .leftWrapper {
+            width: 30rem;
+        }
+
+        .rightWrapper {
+            width: 50rem;
+        }
+    }
+}

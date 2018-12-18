@@ -123,7 +123,7 @@ class Overview extends Component
                             <div>您现在共有<span className={style.data}>{currentScreenNumber}</span>个屏幕</div>
                             <div>其中有
                                 <span className={style.data}>{runningScreenNumber}</span>个正在运行，
-                                <span>{currentScreenNumber - runningScreenNumber}</span>个未在运行
+                                <span className={style.data}>{currentScreenNumber - runningScreenNumber}</span>个未在运行
                             </div>
                             <div><Link to={'/admin/screenManagement'}>前往屏幕管理页面查看详细信息 >></Link></div>
                         </Card>

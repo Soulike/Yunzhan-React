@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
-import style from './ScreenManagement.scss';
+import style from './ScreenManagement.module.scss';
 import {View as Title} from '../../Components/Title';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
+import {View as InfoCard} from './Components/InfoCard';
 
 class ScreenManagement extends Component
 {
@@ -17,6 +18,14 @@ class ScreenManagement extends Component
         return (
             <div className={style.ScreenManagement}>
                 <Title icon={solidIcon.faDesktop} text={'屏幕管理'}/>
+                <div className={style.cardWrapper}>
+                    <div className={style.leftWrapper}>
+                        <InfoCard/>
+                    </div>
+                    <div className={style.rightWrapper}>
+
+                    </div>
+                </div>
             </div>
         );
     }
