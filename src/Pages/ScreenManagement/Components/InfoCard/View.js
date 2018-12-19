@@ -4,7 +4,7 @@ import {View as Card} from '../../../../Components/Card';
 import {View as DividingLine} from './Components/DividingLine';
 import {getAsync, requestPrefix} from '../../../../Static/Functions';
 import {STATUS_CODE} from '../../../../Static/Constants';
-import Alert from '../../../../Components/Alert/View';
+import {View as Alert} from '../../../../Components/Alert';
 import {redirectToLogin} from '../../../Login/Functions';
 
 class InfoCard extends Component
