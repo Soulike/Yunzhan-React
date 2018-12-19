@@ -7,17 +7,28 @@ import {getAsync, getSHA256, postAsync} from '../../Static/Functions';
 import {View as Alert} from '../../Components/Alert';
 import Regex from '../../Static/Regex';
 import {accountRequestPrefix} from '../../Static/AccountShare/AccountShare';
+import {STATUS_CODE} from '../../Static/Constants';
 
 
 class ForgetPassword extends Component
 {
+    constructor()
+    {
+        super(...arguments);
+        this.state = {
+            email: '',
+            newPassword: '',
+            repeatNewPassword: '',
+            verificationCode: ''
+        };
+    }
+
     onEmailChange = e =>
     {
         this.setState({
             email: e.target.value
         });
     };
-
 
     componentDidMount()
     {
@@ -30,26 +41,29 @@ class ForgetPassword extends Component
             newPassword: e.target.value
         });
     };
+
     onRepeatNewPasswordChange = e =>
     {
         this.setState({
             repeatNewPassword: e.target.value
         });
     };
+
     onVerificationCodeChange = e =>
     {
         this.setState({
             verificationCode: e.target.value
         });
     };
+
     onGetCodeButtonClick = e =>
     {
         e.preventDefault();
         getAsync(accountRequestPrefix('/getVerificationCode'), false)
             .then(res =>
             {
-                const {isSuccess, msg} = res;
-                if (isSuccess)
+                const {code} = res;
+                if (code === STATUS_CODE.SUCCESS)
                 {
                     const $getCodeButton = document.querySelector(`.${style.getCodeButton}`);
                     $getCodeButton.setAttribute('disabled', 'disabled');
@@ -68,9 +82,9 @@ class ForgetPassword extends Component
                         $getCodeButton.innerHTML = '获取验证码';
                     }, secondsBeforeNextGetting * 1000);
                 }
-                else
+                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
                 {
-                    Alert.show(msg, false);
+                    Alert.show('服务器错误', false);
                 }
             })
             .catch(e =>
@@ -79,6 +93,7 @@ class ForgetPassword extends Component
                 console.log(e);
             });
     };
+
     onFormSubmit = e =>
     {
         e.preventDefault();
@@ -109,14 +124,27 @@ class ForgetPassword extends Component
             postAsync(accountRequestPrefix('/forgetPassword'), requestBody)
                 .then(res =>
                 {
-                    const {isSuccess, msg} = res;
-                    Alert.show(msg, isSuccess);
-                    if (isSuccess)
+                    const {code} = res;
+
+                    if (code === STATUS_CODE.SUCCESS)
                     {
+                        Alert.show('找回密码成功', true);
                         setTimeout(() =>
                         {
                             browserHistory.push('/');
                         }, 1000);
+                    }
+                    else if (code === STATUS_CODE.REJECTION)
+                    {
+                        Alert.show('验证码错误', false);
+                    }
+                    else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
+                    {
+                        Alert.show('用户不存在', false);
+                    }
+                    else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                    {
+                        Alert.show('服务器错误', false);
                     }
                 })
                 .catch(e =>
@@ -126,21 +154,11 @@ class ForgetPassword extends Component
                 });
         }
     };
+
     onSubmitButtonClick = e =>
     {
         this.onFormSubmit(e);
     };
-
-    constructor()
-    {
-        super(...arguments);
-        this.state = {
-            email: '',
-            newPassword: '',
-            repeatNewPassword: '',
-            verificationCode: ''
-        };
-    }
 
     render()
     {

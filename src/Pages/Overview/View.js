@@ -7,6 +7,8 @@ import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {View as Card} from '../../Components/Card';
 import {generateTimeStr, getAsync, requestPrefix} from '../../Static/Functions';
 import {View as Alert} from '../../Components/Alert';
+import {STATUS_CODE} from '../../Static/Constants';
+import {redirectToLogin} from '../Login/Functions';
 
 class Overview extends Component
 {
@@ -29,6 +31,17 @@ class Overview extends Component
         };
     }
 
+    componentDidMount()
+    {
+        document.title = '概览 - 云展';
+        MenuFunctions.setActiveItemId(0);
+
+        this.getScreenInfo();
+        this.getAdvertiseInfo();
+        this.getResourceInfo();
+        this.getTagInfo();
+    }
+
     static overviewRequestPrefix(url)
     {
         while (url.charAt(0) === '/')
@@ -38,45 +51,113 @@ class Overview extends Component
         return requestPrefix(`/admin/overview/${url}`);
     }
 
-    static async getScreenInfoAsync()
+    getScreenInfo = () =>
     {
-        return getAsync(this.overviewRequestPrefix('/getScreenInfo'), false);
-    }
-
-    static async getAdvertiseInfoAsync()
-    {
-        return getAsync(this.overviewRequestPrefix('/getAdvertiseInfo'), false);
-    }
-
-    static async getResourceInfoAsync()
-    {
-        return getAsync(this.overviewRequestPrefix('/getResourceInfo'), false);
-    }
-
-    static async getTagInfoAsync()
-    {
-        return getAsync(this.overviewRequestPrefix('/getTagInfo'), false);
-    }
-
-    componentDidMount()
-    {
-        document.title = '概览 - 云展';
-        MenuFunctions.setActiveItemId(0);
-
-        Promise.all([Overview.getScreenInfoAsync(), Overview.getAdvertiseInfoAsync(), Overview.getResourceInfoAsync(), Overview.getTagInfoAsync()])
-            .then((infoArr) =>
+        getAsync(Overview.overviewRequestPrefix('/getScreenInfo'), false)
+            .then(res =>
             {
-                infoArr.forEach(info =>
+                const {code, data} = res;
+                if (code === STATUS_CODE.SUCCESS)
                 {
-                    this.setState({...info});
-                });
+                    this.setState({...data});
+                }
+                else if (code === STATUS_CODE.INVALID_SESSION)
+                {
+                    Alert.show('请先登录', false);
+                    redirectToLogin();
+                }
+                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                {
+                    Alert.show('服务器错误', false);
+                }
             })
             .catch(e =>
             {
-                Alert.show('获取信息失败', false);
+                Alert.show('获取屏幕信息失败', false);
                 console.log(e);
             });
-    }
+    };
+
+    getAdvertiseInfo = () =>
+    {
+        getAsync(Overview.overviewRequestPrefix('/getAdvertiseInfo'), false)
+            .then(res =>
+            {
+                const {code, data} = res;
+                if (code === STATUS_CODE.SUCCESS)
+                {
+                    this.setState({...data});
+                }
+                else if (code === STATUS_CODE.INVALID_SESSION)
+                {
+                    Alert.show('请先登录', false);
+                    redirectToLogin();
+                }
+                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                {
+                    Alert.show('服务器错误', false);
+                }
+            })
+            .catch(e =>
+            {
+                Alert.show('获取广告信息失败', false);
+                console.log(e);
+            });
+    };
+
+    getResourceInfo = () =>
+    {
+        getAsync(Overview.overviewRequestPrefix('/getResourceInfo'), false)
+            .then(res =>
+            {
+                const {code, data} = res;
+                if (code === STATUS_CODE.SUCCESS)
+                {
+                    this.setState({...data});
+                }
+                else if (code === STATUS_CODE.INVALID_SESSION)
+                {
+                    Alert.show('请先登录', false);
+                    redirectToLogin();
+                }
+                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                {
+                    Alert.show('服务器错误', false);
+                }
+            })
+            .catch(e =>
+            {
+                Alert.show('获取资源包信息失败', false);
+                console.log(e);
+            });
+    };
+
+    getTagInfo = () =>
+    {
+        getAsync(Overview.overviewRequestPrefix('/getTagInfo'), false)
+            .then(res =>
+            {
+                const {code, data} = res;
+                if (code === STATUS_CODE.SUCCESS)
+                {
+                    this.setState({...data});
+                }
+                else if (code === STATUS_CODE.INVALID_SESSION)
+                {
+                    Alert.show('请先登录', false);
+                    redirectToLogin();
+                }
+                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                {
+                    Alert.show('服务器错误', false);
+                }
+            })
+            .catch(e =>
+            {
+                Alert.show('获取标签信息失败', false);
+                console.log(e);
+            });
+    };
 
     getHelloString = () =>
     {

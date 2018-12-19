@@ -10,6 +10,7 @@ export function requestPrefix(url)
     return `/server/${url}`;
 }
 
+// TODO: 把之前所有的调用都改成 code 形式
 export async function getAsync(url, allowCache = true, params = {}, config = {})
 {
     return new Promise(async (resolve, reject) =>

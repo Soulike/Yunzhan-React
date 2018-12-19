@@ -7,6 +7,7 @@ import {getAsync, getSHA256, postAsync} from '../../Static/Functions';
 import {View as Alert} from '../../Components/Alert';
 import Regex from '../../Static/Regex';
 import {accountRequestPrefix} from '../../Static/AccountShare/AccountShare';
+import {STATUS_CODE} from '../../Static/Constants';
 
 class SignUp extends Component
 {
@@ -46,8 +47,8 @@ class SignUp extends Component
         getAsync(accountRequestPrefix('/getVerificationCode'), false)
             .then(res =>
             {
-                const {isSuccess, msg} = res;
-                if (isSuccess)
+                const {code} = res;
+                if (code === STATUS_CODE.SUCCESS)
                 {
                     const $getCodeButton = document.querySelector(`.${style.getCodeButton}`);
                     $getCodeButton.setAttribute('disabled', 'disabled');
@@ -66,9 +67,9 @@ class SignUp extends Component
                         $getCodeButton.innerHTML = '获取验证码';
                     }, secondsBeforeNextGetting * 1000);
                 }
-                else
+                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
                 {
-                    Alert.show(msg, false);
+                    Alert.show('服务器错误', false);
                 }
             })
             .catch(e =>
@@ -77,6 +78,8 @@ class SignUp extends Component
                 console.log(e);
             });
     };
+
+
     onFormSubmit = e =>
     {
         e.preventDefault();
@@ -104,17 +107,27 @@ class SignUp extends Component
                 password: getSHA256(password),
                 verificationCode
             };
+
             postAsync(accountRequestPrefix('/signUp'), requestBody)
                 .then(res =>
                 {
-                    const {isSuccess, msg} = res;
-                    Alert.show(msg, isSuccess);
-                    if (isSuccess)
+                    const {code} = res;
+
+                    if (code === STATUS_CODE.SUCCESS)
                     {
+                        Alert.show('注册成功', true);
                         setTimeout(() =>
                         {
                             browserHistory.push('/');
                         }, 1000);
+                    }
+                    else if (code === STATUS_CODE.REJECTION)
+                    {
+                        Alert.show('验证码错误', false);
+                    }
+                    else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                    {
+                        Alert.show('服务器错误', false);
                     }
                 })
                 .catch(e =>

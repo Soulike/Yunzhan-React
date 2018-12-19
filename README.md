@@ -1,7 +1,7 @@
 # Yunzhan-React
 Front part of project Yunzhan using React &amp; Redux.
 
-## 返回格式约定
+# 返回格式约定
 
 ```js
 {
@@ -23,11 +23,11 @@ Front part of project Yunzhan using React &amp; Redux.
 
 ---
 
-## 目前已完成的请求路由
+# 目前已完成的请求路由
 
 **目前计划所有请求都添加 `/server` 前缀以和 React 的路由区分。**
 
-### 登录注册部分
+## 登录注册部分
 
 #### 前缀为 `/account`
 
@@ -51,7 +51,7 @@ Front part of project Yunzhan using React &amp; Redux.
 }
 ```
 - data 域内容：不需要
-- 说明：code 404 代表用户不存在
+- 说明：code 404 代表用户不存在，403 表示验证码错误
 
 #### `/signUp`
 
@@ -66,6 +66,7 @@ Front part of project Yunzhan using React &amp; Redux.
 }
 ```
 - data 域内容：不需要
+- 说明：如果验证码错误就返回 403
 
 #### `/login`
 
@@ -97,11 +98,11 @@ Front part of project Yunzhan using React &amp; Redux.
 
 ---
 
-### 管理部分
+## 管理部分
 
-#### 前缀为 `/admin`
+### 前缀为 `/admin`
 
-#### 概览
+### 概览
 
 #### 前缀为 `/overview`
 
@@ -171,3 +172,21 @@ Front part of project Yunzhan using React &amp; Redux.
 }
 ```
 - 说明：获取当前标签的基本信息
+
+### 屏幕管理
+
+#### 前缀为 `/screenManagement`
+
+#### `/getBasicInfo`
+
+- 类型：GET
+- 提交数据：无
+- data 域内容：
+```js
+{
+    screenNum: 0,           // 总屏幕数
+    runningScreenNum: 0,    // 运行中屏幕数
+    abnormalEventNum: 0     // 异常事件个数
+}
+```
+- 说明：获取屏幕管理基本信息

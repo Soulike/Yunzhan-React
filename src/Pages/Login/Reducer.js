@@ -3,14 +3,14 @@ import * as ActionTypes from './Actions/ActionTypes';
 export default (state = {}, action) =>
 {
     const {type} = action;
-    if (type === ActionTypes.LOGIN_SUCCEED || type === ActionTypes.SET_ONLINE)
+    if (type === ActionTypes.LOGIN_SUCCEED || type === ActionTypes.LOGIN_STATE_VALID)
     {
         return {
             ...state,
             hasLoggedIn: true
         };
     }
-    else if (type === ActionTypes.LOGIN_FAILED || type === ActionTypes.SET_OFFLINE)
+    else if (type === ActionTypes.LOGIN_FAILED || type === ActionTypes.LOGIN_STATE_INVALID)
     {
         return {
             ...state,
