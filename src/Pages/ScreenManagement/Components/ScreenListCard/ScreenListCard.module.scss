@@ -1,0 +1,22 @@
+@import "../../../../Static/Button.module";
+
+.ScreenListCard {
+    .screenListWrapper {
+        overflow: auto;
+        //TODO: 高度统一设置
+    }
+
+    .buttonWrapper {
+        display: flex;
+        justify-content: flex-start;
+
+        .addScreenButton {
+            @extend .btn-primary;
+            margin-right: 1rem;
+        }
+
+        .deleteScreenButton {
+            @extend .btn-danger;
+        }
+    }
+}

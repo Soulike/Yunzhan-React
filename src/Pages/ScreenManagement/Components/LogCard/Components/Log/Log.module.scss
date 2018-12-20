@@ -1,0 +1,20 @@
+.Log {
+    display: flex;
+    padding: 0.25rem 0;
+    align-content: flex-start;
+
+    .dot {
+        font-size: 0.75rem;
+        width: 0.75rem;
+        margin-right: 0.25rem;
+    }
+
+    .time {
+        width: 6rem;
+    }
+
+    .text {
+        width: 19rem;
+        word-wrap: break-word;
+    }
+}

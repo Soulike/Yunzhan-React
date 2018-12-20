@@ -1,0 +1,11 @@
+.LogCard {
+    display: flex;
+    flex-direction: column;
+
+    .logList {
+        height: 30rem;
+        overflow: auto;
+        box-sizing: border-box;
+        padding: 1rem 0;
+    }
+}

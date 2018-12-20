@@ -134,3 +134,9 @@ export function generateTimeStr(time)
         return `刚刚`;
     }
 }
+
+export function generateDateStr(time)
+{
+    const date = new Date(time);
+    return `${date.getFullYear()}-${prefixZero(date.getMonth() + 1)}-${prefixZero(date.getDate())}`;
+}

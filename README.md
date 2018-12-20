@@ -190,3 +190,18 @@ Front part of project Yunzhan using React &amp; Redux.
 }
 ```
 - 说明：获取屏幕管理基本信息
+
+#### `/getLogList`
+
+- 类型：GET
+- 提交数据：无
+- data 域内容：
+```js
+[
+    {time: xxx, text: xxx},
+    {time: xxx, text: xxx},
+    {time: xxx, text: xxx},
+    {time: xxx, text: xxx},
+]
+```
+- 说明：获取屏幕相关的记录（添加删除异常情况等），按照时间顺序从近到远，返回前 20 条
