@@ -5,27 +5,38 @@
         @extend .InnerWrapper;
         display: flex;
         justify-content: space-evenly;
-        align-items: stretch;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 2rem;
+        box-sizing: border-box;
 
-        .leftWrapper {
-            padding: 2rem 0;
-            width: 30rem;
+        .leftWrapper, .rightWrapper {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
+        }
+
+        .leftWrapper {
+            width: 30rem;
         }
 
         .rightWrapper {
-            padding: 2rem 0;
-            width: 50rem;
+            width: 45rem;
         }
 
-        .infoCardWrapper {
+        @media (max-width: 1400px) {
+            .leftWrapper {
+                width: 100%;
+            }
 
+            .rightWrapper {
+                margin-top: 2rem;
+                width: 100%;
+            }
         }
 
         .logCardWrapper {
-            overflow: auto;
+            margin-top: 2rem;
         }
     }
 }

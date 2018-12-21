@@ -1,21 +1,59 @@
 @import "../../../../Static/Button.module";
 
 .ScreenListCard {
+
+    .headerWrapper {
+        width: 100%;
+    }
+
     .screenListWrapper {
         overflow: auto;
-        //TODO: 高度统一设置
+        height: 37rem;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .buttonWrapper {
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+        border-top: 1px solid #DDD;
+        padding-top: 1rem;
+
+        button {
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
 
         .addScreenButton {
             @extend .btn-primary;
-            margin-right: 1rem;
         }
 
         .deleteScreenButton {
+            @extend .btn-danger;
+        }
+
+        .startRunningButton {
+            @extend .btn-primary;
+        }
+
+        .stopRunningButton {
+            @extend .btn-danger;
+        }
+
+        .bindResourcePackButton {
+            @extend .btn-primary;
+        }
+
+        .unbindResourcePackButton {
             @extend .btn-danger;
         }
     }

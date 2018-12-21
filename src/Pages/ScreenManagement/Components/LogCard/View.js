@@ -11,9 +11,19 @@ class LogCard extends Component
 {
     constructor()
     {
+        const date = new Date();
         super(...arguments);
         this.state = {
-            logList: []
+            logList: [
+                {
+                    time: date.toISOString(),
+                    text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                },
+                {time: date.toISOString(), text: 'aaaaaaaaaaaaaaaaaaaaaaaa'},
+                {time: date.toISOString(), text: 'aaaaaaaaaaaaaaaaaaaaaaaa'},
+                {time: date.toISOString(), text: 'aaaaaaaaaaaaaaaaaaaaaaaa'},
+                {time: date.toISOString(), text: 'aaaaaaaaaaaaaaaaaaaaaaaa'},
+            ]
         };
     }
 
@@ -54,7 +64,7 @@ class LogCard extends Component
                     <div className={style.logList}>
                         {logList.map(log =>
                         {
-                            return <Log {...log}/>;
+                            return <Log {...log} key={log.time}/>;
                         })}
                     </div>
                 </Card>

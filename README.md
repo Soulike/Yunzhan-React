@@ -205,3 +205,30 @@ Front part of project Yunzhan using React &amp; Redux.
 ]
 ```
 - 说明：获取屏幕相关的记录（添加删除异常情况等），按照时间顺序从近到远，返回前 20 条
+
+### `/getScreenList`
+
+- 类型：GET
+- 提交数据：无
+- data 域内容：
+```js
+[
+    {
+        id: xx, 
+        uuid: xxxx, 
+        name: xxx, 
+        isRunning: true, 
+        resourcePackId: xxx, 
+        resourcePackName: xxx
+    },
+    {
+        id: xx, 
+        uuid: xxxx, 
+        name: xxx, 
+        isRunning: true, 
+        resourcePackId: xxx, 
+        resourcePackName: xxx
+    }
+]
+```
+- 说明：获取所有的屏幕信息。如果屏幕没有绑定资源包，资源包相关返回信息可以不写

@@ -5,7 +5,7 @@ import style from './Modal.module.scss';
 
 class Modal extends Component
 {
-    static show = (title, content, onConfirm) =>
+    static show = (title, children, onConfirm) =>
     {
         const root = document.getElementById('root');
         const node = document.createElement('div');
@@ -13,11 +13,10 @@ class Modal extends Component
         const wrapper = root.appendChild(node);
         ReactDOM.render(<Modal {...{
             title,
-            content,
             onConfirm,
             node,
             wrapper
-        }}/>, wrapper);
+        }}>{children}</Modal>, wrapper);
     };
 
     onConfirmButtonClick = () =>
@@ -37,11 +36,11 @@ class Modal extends Component
 
     render()
     {
-        const {title, content} = this.props;
+        const {title, children} = this.props;
         return (
             <div className={style.Modal}>
                 <div className={style.title}>{title}</div>
-                <div className={style.content}>{content}</div>
+                <div className={style.childrenWrapper}>{children}</div>
                 <div className={style.buttonArea}>
                     <button className={style.confirmButton} onClick={this.onConfirmButtonClick}>确定</button>
                     <button className={style.cancelButton} onClick={this.onCancelButtonClick}>取消</button>
@@ -55,7 +54,7 @@ Modal.PropTypes = {
     wrapper: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
     onConfirm: PropTypes.func.isRequired
 };
 

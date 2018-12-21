@@ -8,15 +8,19 @@
     left: 0;
     right: 0;
     bottom: 0;
+    overflow: hidden;
 
     background-color: #EEE;
 
     .sidebar {
+        overflow: auto;
         display: inline-block;
         width: $sidebarWidth;
         height: 100%;
         background-color: $rootSideBarBackgroundColor;
         color: $rootSideBarColor;
+        position: fixed;
+        z-index: 9999;
 
         .iconWrapper {
             width: 100%;

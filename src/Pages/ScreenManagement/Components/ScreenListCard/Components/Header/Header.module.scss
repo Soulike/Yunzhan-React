@@ -1,0 +1,41 @@
+@import "../../../../../../Static/Constants.module";
+@import "../Screen/Screen.module";
+
+.Header {
+    $fontSize: 1.2rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: $padding;
+    font-size: $fontSize;
+    line-height: $fontSize;
+    font-weight: bold;
+    font-family: $serif;
+    border-bottom: 1px solid #DDD;
+    height: $fontSize;
+
+    .checkbox {
+        @extend .checkbox;
+    }
+
+    .checkboxLabel {
+        @extend .checkboxLabel;
+    }
+
+    .name {
+        width: $nameWrapperWidth;
+    }
+
+    .runningInfo {
+        width: $runningInfoWidth;
+    }
+
+    .resourcePackName {
+        width: $resourcePackNameWidth;
+        text-align: center;
+    }
+
+    .button {
+        width: $buttonWidth;
+    }
+}

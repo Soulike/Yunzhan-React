@@ -1,10 +1,10 @@
 .LogCard {
-    display: flex;
-    flex-direction: column;
-
     .logList {
-        height: 30rem;
-        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        height: 31.5rem;
         box-sizing: border-box;
         padding: 1rem 0;
     }
