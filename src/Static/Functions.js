@@ -140,3 +140,22 @@ export function generateDateStr(time)
     const date = new Date(time);
     return `${date.getFullYear()}-${prefixZero(date.getMonth() + 1)}-${prefixZero(date.getDate())}`;
 }
+
+export function setsEqual(setA, setB)
+{
+    if (setA.size !== setB.size)
+    {
+        return false;
+    }
+    else
+    {
+        for (const key of setA.keys())
+        {
+            if (!setB.has(key))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}

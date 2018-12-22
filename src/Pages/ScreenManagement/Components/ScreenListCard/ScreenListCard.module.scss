@@ -1,4 +1,5 @@
 @import "../../../../Static/Button.module";
+@import "../../../../Static/Input.module";
 
 .ScreenListCard {
 
@@ -56,5 +57,15 @@
         .unbindResourcePackButton {
             @extend .btn-danger;
         }
+    }
+}
+
+.addScreenModalContent {
+    text-align: center;
+
+    .uuidInput {
+        @extend .Input;
+        text-align: center;
+        font-size: 1.25rem;
     }
 }
