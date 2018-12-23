@@ -284,3 +284,39 @@ Front part of project Yunzhan using React &amp; Redux.
 ```
 - data 域内容：无
 - 说明：停止屏幕播放。如果 id 对应屏幕不存在返回 404，如果 id 对应屏幕不属于该用户或停止失败返回 403。如果屏幕本来就是停止状态，不用做任何操作。
+
+### `/getResourcePackList`
+
+- 类型：GET
+- 提交数据：无
+- data 域数据：
+```js
+[
+    {
+        id: xxx,                // 资源包 ID
+        name: xxx,              // 资源包名
+        advertiseNumber: xxx,   // 内含广告数量
+        description: xxx        // 资源包备注
+    },
+    {
+        id: xxx,                // 资源包 ID
+        name: xxx,              // 资源包名
+        advertiseNumber: xxx,   // 内含广告数量
+        description: xxx        // 资源包备注
+    },
+]
+```
+- 说明：获取当前用户资源包列表
+
+### `/bindResourcePack`
+
+- 类型：POST
+- 提交数据：
+```js
+{
+    screenIds: [id1,id2,id3],   // 绑定资源包的屏幕 id 列表
+    resourcePackId: id          // 被绑定资源包的 id
+} 
+```
+- data 域数据：无
+- 说明：为屏幕绑定资源包。如果原来绑定别的资源包，就解绑并绑定现在的资源包。如果资源包或屏幕不存在，返回 404，如果存在资源包或屏幕不属于当前用户，返回 403。

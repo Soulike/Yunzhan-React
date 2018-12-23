@@ -1,0 +1,23 @@
+@import "../ResourcePack/ResourcePack.module";
+@import "../../../../../../../../Static/Constants.module";
+
+.Header {
+    @extend .ResourcePack;
+
+    &:hover {
+        background: none;
+    }
+
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-family: $serif;
+    font-weight: bold;
+
+    .advertiseNumber {
+        color: #333;
+    }
+
+    .description {
+        text-align: center;
+    }
+}

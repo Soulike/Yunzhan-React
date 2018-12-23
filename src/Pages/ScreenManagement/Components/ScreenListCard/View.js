@@ -3,7 +3,7 @@ import style from './ScreenListCard.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {View as Card} from '../../../../Components/Card';
-import Screen from './Components/Screen/View';
+import {View as Screen} from './Components/Screen';
 import {View as Header} from './Components/Header';
 import * as Actions from './Actions/Actions';
 import Store from '../../../../Store';
@@ -11,10 +11,11 @@ import {connect} from 'react-redux';
 import {View as Modal} from '../../../../Components/Modal';
 import {postAsync, requestPrefix} from '../../../../Static/Functions';
 import REGEX from '../../../../Static/Regex';
-import Alert from '../../../../Components/Alert/View';
+import {View as Alert} from '../../../../Components/Alert';
 import {STATUS_CODE} from '../../../../Static/Constants';
 import {refreshScreenList} from './Functions';
 import {redirectToLogin} from '../../../Login/Functions';
+import {View as ResourcePackList} from './Components/ResourcePackList';
 
 class ScreenListCard extends Component
 {
@@ -231,6 +232,57 @@ class ScreenListCard extends Component
         }
     };
 
+    onBindResourcePackButtonClick = e =>
+    {
+        e.preventDefault();
+        Modal.show('绑定资源包', (<ResourcePackList/>), () =>
+            {
+                const {selectedResourcePackId, selectedScreenSet} = this.props;
+                if (selectedResourcePackId === null)
+                {
+                    Alert.show('请选择资源包', false);
+                }
+                else
+                {
+                    postAsync(requestPrefix('/admin/screenManagement/bindResourcePack'), {
+                        screenIds: Array.from(selectedScreenSet.keys()),
+                        selectedResourcePackId
+                    })
+                        .then(res =>
+                        {
+                            const {code} = res;
+                            if (code === STATUS_CODE.SUCCESS)
+                            {
+                                Alert.show('绑定成功', true);
+                            }
+                            else if (code === STATUS_CODE.INVALID_SESSION)
+                            {
+                                Alert.show('请先登录', false);
+                                redirectToLogin();
+                            }
+                            else if (code === STATUS_CODE.REJECTION)
+                            {
+                                Alert.show('由于权限问题，部分绑定失败', false);
+                            }
+                            else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
+                            {
+                                Alert.show('资源包或屏幕不存在，部分绑定失败', false);
+                            }
+                            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                            {
+                                Alert.show('服务器错误', false);
+                            }
+                        })
+                        .catch(e =>
+                        {
+                            Alert.show('绑定失败', false);
+                            console.log(e);
+                        });
+                }
+            }
+        );
+    };
+
     onUnbindResourcePacksButtonClick = e =>
     {
         e.preventDefault();
@@ -279,8 +331,6 @@ class ScreenListCard extends Component
         }
     };
 
-
-    // TODO: 批量绑定资源包
     render()
     {
         const {screenList} = this.props;
@@ -318,7 +368,8 @@ class ScreenListCard extends Component
                                 onClick={this.onStopRunningButtonClick}>
                             <FontAwesomeIcon icon={solidIcon.faPowerOff}/>
                         </button>
-                        <button className={style.bindResourcePackButton} title={'批量绑定资源包'}>
+                        <button className={style.bindResourcePackButton} title={'批量绑定资源包'}
+                                onClick={this.onBindResourcePackButtonClick}>
                             <FontAwesomeIcon icon={solidIcon.faFileArchive}/>
                         </button>
                         <button className={style.unbindResourcePackButton} title={'批量解绑资源包'}

@@ -1,13 +1,22 @@
 @import "../../Static/Button.module";
 
+@keyframes ModalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 .Modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    animation: ModalFadeIn 0.5s;
     background-color: #FFF;
     padding: 1rem 2rem;
-    border-radius: 1rem;
+    border-radius: 0.2rem;
     user-select: none;
     min-width: 20rem;
     box-shadow: 1px 1px 10px #666;
@@ -20,13 +29,13 @@
     }
 
     .childrenWrapper {
-        padding: 2rem 0;
+        padding: 1rem 0;
         border-bottom: 1px solid #333;
     }
 
     .buttonArea {
         float: right;
-        margin-top: 2rem;
+        margin-top: 1rem;
 
         button {
             margin-left: 1rem;
@@ -42,11 +51,24 @@
     }
 }
 
+@keyframes ModalWrapperFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .modalWrapper {
+    animation: ModalWrapperFadeIn 0.5s;
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

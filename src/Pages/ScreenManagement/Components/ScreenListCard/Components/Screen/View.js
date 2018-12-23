@@ -10,6 +10,7 @@ import {STATUS_CODE} from '../../../../../../Static/Constants';
 import {View as Alert} from '../../../../../../Components/Alert';
 import {refreshScreenList} from '../../Functions';
 import {redirectToLogin} from '../../../../../Login/Functions';
+import {View as ResourcePackList} from '../ResourcePackList';
 
 class Screen extends Component
 {
@@ -47,6 +48,56 @@ class Screen extends Component
         {
             Store.dispatch(Actions.selectScreen(id));
         }
+    };
+
+    onBindResourcePackButtonClick = e =>
+    {
+        e.preventDefault();
+        Modal.show('绑定资源包', (<ResourcePackList/>), () =>
+        {
+            const {id, selectedResourcePackId} = this.props;
+            if (selectedResourcePackId === null)
+            {
+                Alert.show('请选择资源包', false);
+            }
+            else
+            {
+                postAsync(requestPrefix('/admin/screenManagement/bindResourcePack'), {
+                    screenIds: [id],
+                    selectedResourcePackId
+                })
+                    .then(res =>
+                    {
+                        const {code} = res;
+                        if (code === STATUS_CODE.SUCCESS)
+                        {
+                            Alert.show('绑定成功', true);
+                        }
+                        else if (code === STATUS_CODE.INVALID_SESSION)
+                        {
+                            Alert.show('请先登录', false);
+                            redirectToLogin();
+                        }
+                        else if (code === STATUS_CODE.REJECTION)
+                        {
+                            Alert.show('由于权限问题，部分绑定失败', false);
+                        }
+                        else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
+                        {
+                            Alert.show('资源包或屏幕不存在，部分绑定失败', false);
+                        }
+                        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                        {
+                            Alert.show('服务器错误', false);
+                        }
+                    })
+                    .catch(e =>
+                    {
+                        Alert.show('绑定失败', false);
+                        console.log(e);
+                    });
+            }
+        });
     };
 
     onUnbindResourcePackButtonClick = e =>
@@ -91,8 +142,6 @@ class Screen extends Component
             });
     };
 
-    //TODO: 绑定资源包模态框
-
     render()
     {
         const {id, uuid, name, isRunning, resourcePackId, resourcePackName} = this.props;
@@ -113,7 +162,8 @@ class Screen extends Component
                 <div className={style.resourcePackName}>{resourcePackName}</div>
                 <div className={style.buttonWrapper}>
                     {resourcePackId === undefined ?
-                        <button className={style.bindResourcePackButton}>绑定资源包</button> :
+                        <button className={style.bindResourcePackButton}
+                                onClick={this.onBindResourcePackButtonClick}>绑定资源包</button> :
                         <button className={style.unbindResourcePackButton}
                                 onClick={this.onUnbindResourcePackButtonClick}>解绑资源包</button>}
                 </div>
@@ -134,8 +184,10 @@ Screen.propTypes = {
 const mapStateToProps = state =>
 {
     const {selectedScreenSet} = state.ScreenListCard;
+    const {selectedResourcePackId} = state.ScreenManagementResourcePackList;
     return {
-        selectedScreenSet
+        selectedScreenSet,
+        selectedResourcePackId
     };
 };
 

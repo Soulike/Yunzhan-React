@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import {Reducer as LoginReducer} from './Pages/Login';
 import {Reducer as RootMenuReducer} from './Pages/Root/Components/Menu';
 import {Reducer as ScreenListCardReducer} from './Pages/ScreenManagement/Components/ScreenListCard';
+import {Reducer as ScreenManagementResourcePackListReducer} from './Pages/ScreenManagement/Components/ScreenListCard/Components/ResourcePackList';
 
 // Store 中的初始值，根据开发需要进行改变
 const initValues = {
@@ -77,6 +78,9 @@ const initValues = {
                 isRunning: false
             },
         ]
+    },
+    ScreenManagementResourcePackList: {
+        selectedResourcePackId: null
     }
 };
 
@@ -91,7 +95,8 @@ const storeEnhancers = compose(
 const Reducer = combineReducers({
     Login: LoginReducer,
     RootMenu: RootMenuReducer,
-    ScreenListCard: ScreenListCardReducer
+    ScreenListCard: ScreenListCardReducer,
+    ScreenManagementResourcePackList: ScreenManagementResourcePackListReducer
 });
 
 export default createStore(Reducer, initValues, storeEnhancers);
