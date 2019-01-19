@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import style from './Signup.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
-import {browserHistory, Link} from 'react-router';
-import {getAsync, getSHA256, postAsync} from '../../Static/Functions';
+import {Link} from 'react-router';
+import Functions from '../../Functions';
 import {View as Alert} from '../../Components/Alert';
 import Regex from '../../Static/Regex';
-import {accountRequestPrefix} from '../../Static/AccountShare/AccountShare';
-import {STATUS_CODE} from '../../Static/Constants';
+import RequestProcessors from '../../RequestProcessors';
+
+const {getSHA256, postAsync} = Functions;
 
 class SignUp extends Component
 {
@@ -44,39 +45,8 @@ class SignUp extends Component
     onGetCodeButtonClick = e =>
     {
         e.preventDefault();
-        getAsync(accountRequestPrefix('/getVerificationCode'), false)
-            .then(res =>
-            {
-                const {code} = res;
-                if (code === STATUS_CODE.SUCCESS)
-                {
-                    const $getCodeButton = document.querySelector(`.${style.getCodeButton}`);
-                    $getCodeButton.setAttribute('disabled', 'disabled');
-                    const secondsBeforeNextGetting = 30;
-                    let secondsLeft = secondsBeforeNextGetting;
-                    const interval = setInterval(() =>
-                    {
-                        $getCodeButton.innerHTML = secondsLeft.toString();
-                        secondsLeft--;
-                    }, 1000);
-
-                    setTimeout(() =>
-                    {
-                        clearInterval(interval);
-                        $getCodeButton.removeAttribute('disabled');
-                        $getCodeButton.innerHTML = '获取验证码';
-                    }, secondsBeforeNextGetting * 1000);
-                }
-                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                {
-                    Alert.show('服务器错误', false);
-                }
-            })
-            .catch(e =>
-            {
-                Alert.show('获取验证码失败，请重试', false);
-                console.log(e);
-            });
+        const $getCodeButton = document.querySelector(`.${style.getCodeButton}`);
+        RequestProcessors.sendGetVerificationCodeRequest.apply(this, [$getCodeButton]);
     };
 
 
@@ -102,39 +72,7 @@ class SignUp extends Component
         }
         else
         {
-            const requestBody = {
-                email,
-                password: getSHA256(password),
-                verificationCode
-            };
-
-            postAsync(accountRequestPrefix('/signUp'), requestBody)
-                .then(res =>
-                {
-                    const {code} = res;
-
-                    if (code === STATUS_CODE.SUCCESS)
-                    {
-                        Alert.show('注册成功', true);
-                        setTimeout(() =>
-                        {
-                            browserHistory.push('/');
-                        }, 1000);
-                    }
-                    else if (code === STATUS_CODE.REJECTION)
-                    {
-                        Alert.show('验证码错误', false);
-                    }
-                    else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                    {
-                        Alert.show('服务器错误', false);
-                    }
-                })
-                .catch(e =>
-                {
-                    Alert.show('提交失败，请重试', false);
-                    console.log(e);
-                });
+            RequestProcessors.sendPostSignUpRequest.apply(this);
         }
     };
     onSubmitButtonClick = e =>

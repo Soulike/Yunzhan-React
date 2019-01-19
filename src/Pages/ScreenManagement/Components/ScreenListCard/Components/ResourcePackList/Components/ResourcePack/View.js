@@ -4,19 +4,23 @@ import style from './ResourcePack.module.scss';
 import Store from '../../../../../../../../Store';
 import * as Actions from './Actions/Actions';
 import {connect} from 'react-redux';
+import NAMESPACE from '../../../../../../../../Namespace';
 
 class ResourcePack extends Component
 {
     componentDidUpdate(prevProps, prevState, snapshot)
     {
-        const {selectedResourcePackId, id} = this.props;
+        const {
+            selectedResourcePackId,
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: id
+        } = this.props;
         const $radioInput = document.querySelector(`#resource_pack_${id}`);
         $radioInput.checked = (selectedResourcePackId === id);
     }
 
     onResourcePackClick = () =>
     {
-        const {id} = this.props;
+        const {[NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: id} = this.props;
         Store.dispatch(Actions.resourcePackClick(id));
     };
 
@@ -27,13 +31,18 @@ class ResourcePack extends Component
 
     render()
     {
-        const {id, name, advertiseNumber, description} = this.props;
+        const {
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: id,
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: name,
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: advertisementNumber,
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: description
+        } = this.props;
         return (
             <div className={style.ResourcePack} onClick={this.onResourcePackClick}>
                 <input type="radio" id={`resource_pack_${id}`} className={style.radioInput}
                        onClick={this.onRadioInputClick}/>
                 <div className={style.name}>{name}</div>
-                <div className={style.advertiseNumber}>{advertiseNumber}</div>
+                <div className={style.advertiseNumber}>{advertisementNumber}</div>
                 <div className={style.description}>{description}</div>
             </div>
         );
@@ -41,10 +50,10 @@ class ResourcePack extends Component
 }
 
 ResourcePack.propTypes = {
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    advertiseNumber: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: PropTypes.number.isRequired,
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: PropTypes.string.isRequired,
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: PropTypes.number.isRequired,
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state =>

@@ -1,25 +1,31 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import style from './Log.module.scss';
-import {generateDateStr} from '../../../../../../Static/Functions';
+import Functions from '../../../../../../Functions';
+import NAMESPACE from '../../../../../../Namespace';
+
+const {generateDateStr} = Functions;
 
 class Log extends Component
 {
     render()
     {
-        const {time, text} = this.props;
+        const {
+            [NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]: time,
+            [NAMESPACE.SCREEN_MANAGEMENT.LOG.CONTENT]: content
+        } = this.props;
         return (
             <div className={style.Log}>
                 <div className={style.time}>{generateDateStr(time)}</div>
-                <div className={style.text}>{text}</div>
+                <div className={style.content}>{content}</div>
             </div>
         );
     }
 }
 
 Log.propTypes = {
-    time: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
+    [NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]: PropTypes.string.isRequired,
+    [NAMESPACE.SCREEN_MANAGEMENT.LOG.CONTENT]: PropTypes.string.isRequired
 };
 
 export default Log;

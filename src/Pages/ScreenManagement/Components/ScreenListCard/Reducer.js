@@ -9,7 +9,7 @@ export default (state = {}, action) =>
         selectedScreenSet.add(id);
         return {
             ...state,
-            selectedScreenSet: new Set(selectedScreenSet.keys())
+            selectedScreenIdSet: new Set(selectedScreenSet.keys())
         };
     }
     else if (type === ActionTypes.UNSELECT_SCREEN)
@@ -17,21 +17,21 @@ export default (state = {}, action) =>
         selectedScreenSet.delete(id);
         return {
             ...state,
-            selectedScreenSet: new Set(selectedScreenSet.keys())
+            selectedScreenIdSet: new Set(selectedScreenSet.keys())
         };
     }
     else if (type === ActionTypes.SELECT_ALL_SCREENS)
     {
         return {
             ...state,
-            selectedScreenSet: new Set(screenIdSet.keys())
+            selectedScreenIdSet: new Set(screenIdSet.keys())
         };
     }
     else if (type === ActionTypes.UNSELECT_ALL_SCREENS)
     {
         return {
             ...state,
-            selectedScreenSet: new Set()
+            selectedScreenIdSet: new Set()
         };
     }
     else if (type === ActionTypes.GET_SCREEN_LIST_SUCCEED)
@@ -39,7 +39,7 @@ export default (state = {}, action) =>
         return {
             ...state,
             screenList,
-            selectedScreenSet: new Set()
+            selectedScreenIdSet: new Set()
         };
     }
     else if (type === ActionTypes.GET_SCREEN_LIST_FAILED)

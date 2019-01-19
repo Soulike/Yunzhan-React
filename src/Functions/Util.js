@@ -1,68 +1,11 @@
-import axios from 'axios';
-import crypto from 'crypto';
+export default {
+    prefixZero,
+    generateTimeStr,
+    generateDateStr,
+    setsEqual
+};
 
-export function requestPrefix(url)
-{
-    while (url.charAt(0) === '/')
-    {
-        url = url.substring(1);
-    }
-    return `/server/${url}`;
-}
-
-// TODO: 把之前所有的调用都改成 code 形式
-export async function getAsync(url, allowCache = true, params = {}, config = {})
-{
-    return new Promise(async (resolve, reject) =>
-    {
-        try
-        {
-            const res = await axios.get(url, allowCache ? {params, ...config} : {
-                params: {
-                    ...params,
-                    _t: Date.now()
-                },
-                ...config
-            });
-            resolve(res.data);
-        }
-        catch (e)
-        {
-            reject(e);
-        }
-    });
-
-}
-
-export async function postAsync(url, params = {}, config = {})
-{
-    return new Promise(async (resolve, reject) =>
-    {
-        try
-        {
-            const res = await axios.post(url, params, config);
-            resolve(res.data);
-        }
-        catch (e)
-        {
-            reject(e);
-        }
-    });
-}
-
-export function downloadFile(url)
-{
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = url;
-    iframe.onload = function ()
-    {
-        document.body.removeChild(iframe);
-    };
-    document.body.appendChild(iframe);
-}
-
-export function prefixZero(num)
+function prefixZero(num)
 {
     if (num >= 0 && num < 10)
     {
@@ -72,22 +15,9 @@ export function prefixZero(num)
     {
         return num.toString();
     }
-
 }
 
-export function getHash(text, hashMethod)
-{
-    const hash = crypto.createHash(hashMethod);
-    hash.update(text);
-    return hash.digest('hex');
-}
-
-export function getSHA256(text)
-{
-    return getHash(text, 'sha256');
-}
-
-export function generateTimeStr(time)
+function generateTimeStr(time)
 {
     const MILLISECONDS = {
         YEAR: 365 * 24 * 60 * 60 * 1000,
@@ -135,13 +65,13 @@ export function generateTimeStr(time)
     }
 }
 
-export function generateDateStr(time)
+function generateDateStr(time)
 {
     const date = new Date(time);
     return `${date.getFullYear()}-${prefixZero(date.getMonth() + 1)}-${prefixZero(date.getDate())}`;
 }
 
-export function setsEqual(setA, setB)
+function setsEqual(setA, setB)
 {
     if (setA.size !== setB.size)
     {

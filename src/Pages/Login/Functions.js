@@ -1,10 +1,12 @@
-import {getAsync, getHash, postAsync, requestPrefix} from '../../Static/Functions';
+import Functions from '../../Functions';
 import {loginStateInvalid, loginStateValid} from './Actions/Actions';
 import {browserHistory} from 'react-router';
 import {View as Alert} from '../../Components/Alert';
 import Store from '../../Store';
 import {View as Modal} from '../../Components/Modal';
-import {STATUS_CODE} from '../../Static/Constants';
+import RequestProcessors from '../../RequestProcessors';
+
+const {getHash, postAsync, requestPrefix} = Functions;
 
 export function requireLogin(nextState, replace)
 {
@@ -23,23 +25,7 @@ export function requireLogin(nextState, replace)
 
 function checkLoginState()
 {
-    getAsync(requestPrefix('/verifySession'), false)
-        .then(res =>
-        {
-            const {code} = res;
-            if (code === STATUS_CODE.SUCCESS)
-            {
-                setOnline();
-            }
-            else if (code === STATUS_CODE.INVALID_SESSION)
-            {
-                setOffline();
-            }
-            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-            {
-                Alert.show('服务器错误', false);
-            }
-        });
+    RequestProcessors.sendGetVerifySessionRequest();
 }
 
 export function setOnline()
@@ -67,26 +53,7 @@ export function showLogoutModal()
 
 function sendLogoutRequest()
 {
-    postAsync(requestPrefix('/logout'))
-        .then(res =>
-        {
-            const {code} = res;
-            if (code === STATUS_CODE.SUCCESS)
-            {
-                Alert.show('退出成功', true);
-                setOffline();
-                browserHistory.push('/login');
-            }
-            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-            {
-                Alert.show('服务器错误', false);
-            }
-        })
-        .catch(e =>
-        {
-            console.log(e);
-            Alert.show('退出失败，请重试', false);
-        });
+    RequestProcessors.sendPostLogoutRequest();
 }
 
 function setLoginToken()

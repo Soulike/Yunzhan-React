@@ -5,27 +5,39 @@ import Store from '../../../../../../Store';
 import * as Actions from '../../Actions/Actions';
 import {connect} from 'react-redux';
 import {View as Modal} from '../../../../../../Components/Modal';
-import {postAsync, requestPrefix} from '../../../../../../Static/Functions';
-import {STATUS_CODE} from '../../../../../../Static/Constants';
 import {View as Alert} from '../../../../../../Components/Alert';
-import {refreshScreenList} from '../../Functions';
-import {redirectToLogin} from '../../../../../Login/Functions';
 import {View as ResourcePackList} from '../ResourcePackList';
+import NAMESPACE from '../../../../../../Namespace';
+import RequestProcessors from '../../../../../../RequestProcessors';
 
 class Screen extends Component
 {
+    constructor()
+    {
+        super(...arguments);
+        const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId} = this.props;
+        this.state = {
+            [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: [screenId]
+        };
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot)
     {
-        const {id, selectedScreenSet} = this.props;
+        const {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: id,
+            selectedScreenIdSet
+        } = this.props;
         const $checkbox = document.querySelector(`#_${id}`);
-        $checkbox.checked = selectedScreenSet.has(id);
+        $checkbox.checked = selectedScreenIdSet.has(id);
     }
 
     onNameWrapperClick = e =>
     {
         e.preventDefault();
         this.dispatchCheckboxSwitchAction();
-        const {id} = this.props;
+        const {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: id
+        } = this.props;
         const $checkbox = document.querySelector(`#_${id}`);
         $checkbox.checked = !$checkbox.checked;
     };
@@ -37,7 +49,9 @@ class Screen extends Component
 
     dispatchCheckboxSwitchAction = () =>
     {
-        const {id} = this.props;
+        const {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: id
+        } = this.props;
         const $checkbox = document.querySelector(`#_${id}`);
 
         if ($checkbox.checked)
@@ -55,47 +69,14 @@ class Screen extends Component
         e.preventDefault();
         Modal.show('绑定资源包', (<ResourcePackList/>), () =>
         {
-            const {id, selectedResourcePackId} = this.props;
+            const {selectedResourcePackId} = this.props;
             if (selectedResourcePackId === null)
             {
                 Alert.show('请选择资源包', false);
             }
             else
             {
-                postAsync(requestPrefix('/admin/screenManagement/bindResourcePack'), {
-                    screenIds: [id],
-                    selectedResourcePackId
-                })
-                    .then(res =>
-                    {
-                        const {code} = res;
-                        if (code === STATUS_CODE.SUCCESS)
-                        {
-                            Alert.show('绑定成功', true);
-                        }
-                        else if (code === STATUS_CODE.INVALID_SESSION)
-                        {
-                            Alert.show('请先登录', false);
-                            redirectToLogin();
-                        }
-                        else if (code === STATUS_CODE.REJECTION)
-                        {
-                            Alert.show('由于权限问题，部分绑定失败', false);
-                        }
-                        else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-                        {
-                            Alert.show('资源包或屏幕不存在，部分绑定失败', false);
-                        }
-                        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                        {
-                            Alert.show('服务器错误', false);
-                        }
-                    })
-                    .catch(e =>
-                    {
-                        Alert.show('绑定失败', false);
-                        console.log(e);
-                    });
+                RequestProcessors.sendPostBindResourcePackRequest.apply(this);
             }
         });
     };
@@ -103,48 +84,29 @@ class Screen extends Component
     onUnbindResourcePackButtonClick = e =>
     {
         e.preventDefault();
-        const {id, name, resourcePackName} = this.props;
+        const {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: name,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: resourcePackName
+        } = this.props;
         Modal.show('解绑资源包',
             (<span>确认要为屏幕 <span style={{color: '#F00'}}>{name}</span> 解绑资源包 <span
                 style={{color: '#F00'}}>{resourcePackName}</span>？</span>),
             () =>
             {
-                postAsync(requestPrefix('/admin/screenManagement/unbindResourcePacks'), [id])
-                    .then(res =>
-                    {
-                        const {code} = res;
-                        if (code === STATUS_CODE.SUCCESS)
-                        {
-                            Alert.show('解绑成功', true);
-                            refreshScreenList();
-                        }
-                        else if (code === STATUS_CODE.INVALID_SESSION)
-                        {
-                            Alert.show('请先登录', false);
-                            redirectToLogin();
-                        }
-                        else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-                        {
-                            Alert.show('屏幕不存在', false);
-                            refreshScreenList();
-                        }
-                        else if (code === STATUS_CODE.REJECTION)
-                        {
-                            Alert.show('你无权解绑该屏幕的资源包', false);
-                            refreshScreenList();
-                        }
-                    })
-                    .catch(e =>
-                    {
-                        Alert.show('解绑失败', false);
-                        console.log(e);
-                    });
+                RequestProcessors.sendPostUnbindResourcePackRequest.apply(this);
             });
     };
 
     render()
     {
-        const {id, uuid, name, isRunning, resourcePackId, resourcePackName} = this.props;
+        const {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: id,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: name,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: isRunning,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_ID]: resourcePackId,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: resourcePackName
+        } = this.props;
         return (
             <div className={style.Screen}>
                 <input type="checkbox" className={style.checkbox} id={`_${id}`}/>
@@ -173,20 +135,20 @@ class Screen extends Component
 }
 
 Screen.propTypes = {
-    id: PropTypes.number.isRequired,
-    uuid: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    isRunning: PropTypes.bool.isRequired,
-    resourcePackId: PropTypes.number,
-    resourcePackName: PropTypes.string
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: PropTypes.number.isRequired,
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: PropTypes.string.isRequired,
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: PropTypes.string.isRequired,
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: PropTypes.bool.isRequired,
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_ID]: PropTypes.number,
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: PropTypes.string
 };
 
 const mapStateToProps = state =>
 {
-    const {selectedScreenSet} = state.ScreenListCard;
+    const {selectedScreenIdSet} = state.ScreenListCard;
     const {selectedResourcePackId} = state.ScreenManagementResourcePackList;
     return {
-        selectedScreenSet,
+        selectedScreenIdSet,
         selectedResourcePackId
     };
 };

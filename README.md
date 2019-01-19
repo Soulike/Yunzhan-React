@@ -23,300 +23,348 @@ Front part of project Yunzhan using React &amp; Redux.
 
 ---
 
-# 目前已完成的请求路由
+# 各个请求的详细信息 (所有请求前缀均为 /server)
 
-**目前计划所有请求都添加 `/server` 前缀以和 React 的路由区分。**
+信息格式：
 
-## 登录注册部分
-
-#### 前缀为 `/account`
-
-#### `/getVerificationCode`
-
-- 类型：GET
-- 提交数据：无
-- data 域内容：不需要
-- 说明：获取验证码
-
-#### `/forgetPassword`
-
-- 类型：POST
-- 提交数据：
-    - 注意密码格式现在使用 SHA-256 传输
-```js
-{
-    email: 'user@example.com',
-    newPassword: 'SHA256',
-    verificationCode: 'aaaa'
-}
+```markdown
+- 功能说明：    // 请求实现的功能
+- 请求方法：    // HTTP 请求方法
+- 请求体：      // 请求体
+- 响应体：      // 响应体，不包括状态码部分，即 data 部分
+- 其他说明：    // 其他补充说明
 ```
-- data 域内容：不需要
-- 说明：code 404 代表用户不存在，403 表示验证码错误
 
-#### `/signUp`
+其中请求体与响应体中内容需要标识类型。
 
-- 类型：POST
-- 提交数据：
-    - 注意密码格式现在使用 SHA-256 传输
-```js
-{
-    email: 'user@example.com',
-    password: 'SHA256',
-    verificationCode: 'aaaa'
-}
-```
-- data 域内容：不需要
-- 说明：如果验证码错误就返回 403
+**所有的键名已经替换成命名空间形式以便维护。文件处于项目 Namespace 文件夹下。**
 
-#### `/login`
-
-- 类型：POST
-- 提交数据：
-    - 注意密码格式现在使用 SHA-256 传输
-```js
-{
-    email: 'user@example.com',
-    password: 'SHA256',
-}
-```
-- data 域内容：不需要
-- 说明：使用 code 403 代表密码错误，code 404 代表用户不存在
-
-#### `/verifySession`
-
-- 类型：GET
-- 提交数据：无
-- data 域内容：不需要
-- 说明：使用 code 401 代表 Session 失效，200 代表 Session 有效
-
-#### `/logout`
-
-- 类型：POST
-- 提交数据：无
-- data 域内容：不需要
-- 说明：使当前用户的 Session 立即失效
+**注释 index.js 下的 `export default` 并启用 `module.export` 即可在 Node 下使用。**
 
 ---
 
-## 管理部分
+## 登录注册部分 (前缀为 `/account`) 
 
-### 前缀为 `/admin`
+#### `/getVerificationCode`
 
-### 概览
+- 功能说明：获取验证码
+- 请求方法：GET
+- 请求体：无
+- 响应体：无
+- 其他说明：无
 
-#### 前缀为 `/overview`
+#### `/forgetPassword`
+
+- 功能说明：发送忘记密码请求
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: String,
+    [NAMESPACE.ACCOUNT.VERIFICATION.NEW_PASSWORD]: String,
+    [NAMESPACE.ACCOUNT.VERIFICATION.VERIFICATION_CODE]: String
+}
+```
+- 响应体：无
+- 其他说明：code 404 代表用户不存在，403 表示验证码错误。
+
+#### `/signUp`
+
+- 功能说明：发送注册信息
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: String,
+    [NAMESPACE.ACCOUNT.VERIFICATION.PASSWORD]: String,
+    [NAMESPACE.ACCOUNT.VERIFICATION.VERIFICATION_CODE]: String
+}
+```
+- 响应体：无
+- 其他说明：如果验证码错误就返回 403
+
+#### `/login`
+
+- 功能说明：发送登录信息
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]:String,
+    [NAMESPACE.ACCOUNT.ACCOUNT.PASSWORD]:String
+}
+```
+- 响应体：无
+- 其他说明：使用 code 403 代表密码错误，code 404 代表用户不存在
+
+#### `/verifySession`
+
+- 功能说明：验证当前 Session 是否有效
+- 请求方法：GET
+- 请求体：无
+- 响应体：无
+- 其他说明：使用 code 401 代表 Session 失效，200 代表 Session 有效
+
+#### `/logout`
+
+- 功能说明：使当前用户 Session 立即失效
+- 请求方法：POST
+- 请求体：无
+- 响应体：无
+- 其他说明：无
+
+---
+
+## 管理部分 (前缀为 `/admin`)
+
+### 概览 (前缀为 `/overview`)
 
 #### `/getLoginInfo`
 
-- 类型：GET
-- 提交数据：无
-- data 域内容：
+- 功能说明：获取本次登录的基本信息
+- 请求方法：GET
+- 请求体：无
+- 响应体：
 ```js
 {
-    email: 'example@example.com',   // 本次登录用的 email
-    lastLoginIp: '0.0.0.0',         // 上次登录 IP
-    loginIp: '0.0.0.0',             // 本次登录 IP
-    lastLoginTime: 0                // 上次登录时间，可以直接传数据库提取结果
+    [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: String,
+    [NAMESPACE.OVERVIEW.LOGIN_INFO.LAST_LOGIN_IP]: String,//上次登录 IP
+    [NAMESPACE.OVERVIEW.LOGIN_INFO.CURRENT_LOGIN_IP]: String,// 本次登录 IP
+    [NAMESPACE.OVERVIEW.LOGIN_INFO.LAST_LOGIN_TIME]: String,// 上次登录时间
 }
 ```
-- 说明：获取本次登录的基本信息
+- 其他说明：无
 
 #### `/getScreenInfo`
 
-- 类型：GET
-- 提交数据：无
-- data 域内容：
+- 功能说明：获取当前屏幕的基本信息
+- 请求方法：GET
+- 请求体：无
+- 响应体：
 ```js
 {
-    currentScreenNumber: 0,     // 当前共有多少个屏幕
-    runningScreenNumber: 0      // 当前有多少个屏幕是在运行的
+    [NAMESPACE.OVERVIEW.SCREEN_INFO.CURRENT_SCREEN_AMOUNT]: Number,// 总共有多少个屏幕
+    [NAMESPACE.OVERVIEW.SCREEN_INFO.RUNNING_SCREEN_AMOUNT]: Number,// 现在有多少个屏幕在运行
 }
 ```
-- 说明：获取当前屏幕的基本信息
+- 其他说明：无
 
-#### `/getAdvertiseInfo`
+#### `/getAdvertisementInfo`
 
-- 类型：GET
-- 提交数据：无
-- data 域内容：
+- 功能说明：获取当前广告的基本信息
+- 请求方法：GET
+- 请求体：无
+- 响应体：
 ```js
 {
-    currentAdvertisementNumber: 0,      // 当前共有多少个广告
-    currentPictureNumber: 0,            // 当前有多少个广告是图片
-    advertiseFileSize: 0                // 当前广告文件占用总空间大小
+    [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.CURRENT_ADVERTISEMENT_AMOUNT]: Number,// 总共有多少广告
+    [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.CURRENT_IMAGE_AMOUNT]: Number,// 有多少广告是图片形式的
+    [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.ADVERTISEMENT_FILE_SIZE]: Number,// 广告占用了多少存储空间
 }
 ```
-- 说明：获取当前广告的基本信息
+- 其他说明：无
 
-#### `/getResourceInfo`
+#### `/getResourcePackInfo`
 
-- 类型：GET
-- 提交数据：无
-- data 域内容：
+- 功能说明：获取当前资源包的基本信息
+- 请求方法：GET
+- 请求体：无
+- 响应体：
 ```js
 {
-    currentResourcePackNumber: 0,       // 当前资源包总个数
-    currentUsingResourcePackNumber: 0   // 当前正在被使用的资源包个数
+    [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_AMOUNT]: 0,// 当前资源包总个数
+    [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_IN_USING_AMOUNT]: 0, // 当前正在被使用的资源包个数
 }
 ```
-- 说明：获取当前资源包的基本信息
+- 其他说明：无
 
 #### `/getTagInfo`
 
-- 类型：GET
-- 提交数据：无
-- data 域内容：
+- 功能说明：获取当前标签的基本信息
+- 请求方法：GET
+- 请求体：无
+- 响应体：
 ```js
 {
-    currentTagNumber: 0     // 当前有多少个 Tag
+    [NAMESPACE.OVERVIEW.TAG_INFO.CURRENT_TAG_AMOUNT]: 0     // 当前有多少个 Tag
 }
 ```
-- 说明：获取当前标签的基本信息
+- 其他说明：无
 
-### 屏幕管理
-
-#### 前缀为 `/screenManagement`
+### 屏幕管理 (前缀为 `/screenManagement`) 
 
 #### `/getBasicInfo`
 
-- 类型：GET
-- 提交数据：无
-- data 域内容：
+- 功能说明：获取屏幕管理基本信息
+- 请求方法：GET
+- 请求体：无
+- 响应体：
 ```js
 {
-    screenNum: 0,           // 总屏幕数
-    runningScreenNum: 0,    // 运行中屏幕数
-    abnormalEventNum: 0     // 异常事件个数
+    [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.SCREEN_AMOUNT]: 0,// 总屏幕数
+    [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.RUNNING_SCREEN_AMOUNT]: 0,// 运行中屏幕数
+    [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.ABNORMAL_EVENT_AMOUNT]: 0// 异常事件个数
 }
 ```
-- 说明：获取屏幕管理基本信息
+- 其他说明：无
 
 #### `/getLogList`
 
-- 类型：GET
-- 提交数据：无
-- data 域内容：
+- 功能说明：获取屏幕相关的记录（添加删除异常情况等），按照时间顺序从近到远，返回前 20 条
+- 请求方法：GET
+- 请求体：无
+- 响应体：
 ```js
-[
-    {time: xxx, text: xxx},
-    {time: xxx, text: xxx},
-    {time: xxx, text: xxx},
-    {time: xxx, text: xxx},
-]
+{
+    [NAMESPACE.SCREEN_MANAGEMENT.LIST.LOG]: [
+        {
+            [NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.LOG.CONTENT]: String
+        },
+        {
+            [NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.LOG.CONTENT]: String
+        },
+        {
+            [NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.LOG.CONTENT]: String
+        },
+    ]
+}
 ```
-- 说明：获取屏幕相关的记录（添加删除异常情况等），按照时间顺序从近到远，返回前 20 条
+- 其他说明：无
 
-### `/getScreenList`
+#### `/getScreenList`
 
-- 类型：GET
-- 提交数据：无
-- data 域内容：
+- 功能说明：获取所有的屏幕信息。如果屏幕没有绑定资源包，资源包相关返回信息可以不写
+- 请求方法：GET
+- 请求体：无
+- 响应体：
 ```js
-[
-    {
-        id: xx, 
-        uuid: xxxx, 
-        name: xxx, 
-        isRunning: true, 
-        resourcePackId: xxx, 
-        resourcePackName: xxx
-    },
-    {
-        id: xx, 
-        uuid: xxxx, 
-        name: xxx, 
-        isRunning: true, 
-        resourcePackId: xxx, 
-        resourcePackName: xxx
-    }
-]
+{
+    [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: [
+        {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: Number,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: Boolean,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_ID]: Number,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: String
+        },
+        {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: Number,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: Boolean,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_ID]: Number,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: String
+        }
+    ]
+}
 ```
-- 说明：获取所有的屏幕信息。如果屏幕没有绑定资源包，资源包相关返回信息可以不写
+- 其他说明：无
 
-### `/unbindResourcePacks`
+#### `/unbindResourcePack`
 
-- 类型：POST
-- 提交数据：
+- 功能说明：为屏幕解绑资源包。
+- 请求方法：GET
+- 请求体：
 ```js
-[id1, id2, id3] // 所有解绑资源包屏幕的 ID 数组
+{
+    [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array // 所有解绑资源包屏幕的 ID 数组
+}
 ```
-- data 域内容：无
-- 说明：为屏幕解绑资源包。返回 403 如果有屏幕根本不属于该用户，返回 404 如果其中有屏幕不存在。如果屏幕本来就没有绑定资源包，不作操作。
+- 响应体：无
+- 其他说明：返回 403 如果有屏幕根本不属于该用户，返回 404 如果其中有屏幕不存在。如果屏幕本来就没有绑定资源包，不作操作。
 
-### `/addScreen`
+#### `/addScreen`
 
-- 类型：POST
-- 提交数据：
+- 功能说明：添加屏幕。
+- 请求方法：POST
+- 请求体：
 ```js
 {
     uuid: xxx
 }
 ```
-- data 域内容：无
-- 说明：添加屏幕。如果 uuid 对应屏幕不存在返回 404
+- 响应体：无
+- 其他说明：如果 uuid 对应屏幕不存在返回 404
 
-### `/deleteScreens`
+#### `/deleteScreen`
 
-- 类型：POST
-- 提交数据：
-```js
-[id1, id2, id3] // 所有被删除屏幕的 ID 数组
-```
-- data 域内容：无
-- 说明：删除屏幕。如果 id 对应屏幕不存在返回 404，如果 id 对应屏幕不属于该用户返回 403
-
-### `/startScreens`
-
-- 类型：POST
-- 提交数据：
-```js
-[id1, id2, id3] // 所有尝试开始播放屏幕的 ID 数组
-```
-- data 域内容：无
-- 说明：使屏幕开始播放。如果 id 对应屏幕不存在返回 404，如果 id 对应屏幕不属于该用户或启动失败返回 403。如果屏幕本来就是播放状态，不用做任何操作。
-
-### `/stopScreens`
-
-- 类型：POST
-- 提交数据：
-```js
-[id1, id2, id3] // 所有停止播放屏幕的 ID 数组
-```
-- data 域内容：无
-- 说明：停止屏幕播放。如果 id 对应屏幕不存在返回 404，如果 id 对应屏幕不属于该用户或停止失败返回 403。如果屏幕本来就是停止状态，不用做任何操作。
-
-### `/getResourcePackList`
-
-- 类型：GET
-- 提交数据：无
-- data 域数据：
-```js
-[
-    {
-        id: xxx,                // 资源包 ID
-        name: xxx,              // 资源包名
-        advertiseNumber: xxx,   // 内含广告数量
-        description: xxx        // 资源包备注
-    },
-    {
-        id: xxx,                // 资源包 ID
-        name: xxx,              // 资源包名
-        advertiseNumber: xxx,   // 内含广告数量
-        description: xxx        // 资源包备注
-    },
-]
-```
-- 说明：获取当前用户资源包列表
-
-### `/bindResourcePack`
-
-- 类型：POST
-- 提交数据：
+- 功能说明：删除屏幕。
+- 请求方法：POST
+- 请求体：
 ```js
 {
-    screenIds: [id1,id2,id3],   // 绑定资源包的屏幕 id 列表
-    resourcePackId: id          // 被绑定资源包的 id
+    [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array// 所有被删除屏幕的 ID 数组
+}
+```
+- 响应体：无
+- 其他说明：如果 id 对应屏幕不存在返回 404，如果 id 对应屏幕不属于该用户返回 403
+
+#### `/startScreen`
+
+- 功能说明：使屏幕开始播放。
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array// 所有开始播放屏幕的 ID 数组
+}
+```
+- 响应体：无
+- 其他说明：如果 id 对应屏幕不存在返回 404，如果 id 对应屏幕不属于该用户或启动失败返回 403。如果屏幕本来就是播放状态，不用做任何操作。
+
+#### `/stopScreen`
+
+- 功能说明：停止屏幕播放。
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array// 所有停止播放屏幕的 ID 数组
+}
+```
+- 响应体：无
+- 其他说明：如果 id 对应屏幕不存在返回 404，如果 id 对应屏幕不属于该用户或停止失败返回 403。如果屏幕本来就是停止状态，不用做任何操作。
+
+#### `/getResourcePackList`
+
+- 功能说明：获取当前用户资源包列表。
+- 请求方法：GET
+- 请求体：无
+- 响应体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]:[
+        {
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 资源包名
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: Number,// 内含广告数量
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String// 资源包备注
+        },
+        {
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 资源包名
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: Number,// 内含广告数量
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String// 资源包备注
+        },
+    ]
+}
+```
+- 其他说明：无
+
+#### `/bindResourcePack`
+
+- 功能说明：为屏幕绑定资源包。
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: Array,   // 绑定资源包的屏幕 id 列表
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number          // 被绑定资源包的 id
 } 
 ```
-- data 域数据：无
-- 说明：为屏幕绑定资源包。如果原来绑定别的资源包，就解绑并绑定现在的资源包。如果资源包或屏幕不存在，返回 404，如果存在资源包或屏幕不属于当前用户，返回 403。
+- 响应体：无
+- 其他说明：如果原来绑定别的资源包，就解绑并绑定现在的资源包。如果资源包或屏幕不存在，返回 404，如果存在资源包或屏幕不属于当前用户，返回 403。

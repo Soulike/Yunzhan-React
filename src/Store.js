@@ -1,4 +1,5 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
+import NAMESPACE from './Namespace';
 import thunk from 'redux-thunk';
 // import 所有 Reducer
 import {Reducer as LoginReducer} from './Pages/Login';
@@ -15,69 +16,8 @@ const initValues = {
         currentActiveItemId: 0
     },
     ScreenListCard: {
-        selectedScreenSet: new Set(),
-        screenList: [
-            {
-                id: 1,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: true,
-                resourcePackId: 1,
-                resourcePackName: 'xxx'
-            },
-            {
-                id: 2,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: true,
-                resourcePackId: 1,
-                resourcePackName: 'xxx'
-            },
-            {
-                id: 3,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: true,
-                resourcePackId: 1,
-                resourcePackName: 'xxx'
-            },
-            {
-                id: 4,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: false
-            },
-            {
-                id: 5,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: false
-            },
-            {
-                id: 6,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: false
-            },
-            {
-                id: 7,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: false
-            },
-            {
-                id: 8,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: false
-            },
-            {
-                id: 9,
-                uuid: 'aaaa',
-                name: 'afafafeafaef',
-                isRunning: false
-            },
-        ]
+        selectedScreenIdSet: new Set(),
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: []
     },
     ScreenManagementResourcePackList: {
         selectedResourcePackId: null

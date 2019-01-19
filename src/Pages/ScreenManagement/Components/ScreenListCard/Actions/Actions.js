@@ -1,39 +1,12 @@
 import * as ActionTypes from './ActionTypes';
-import {getAsync, requestPrefix} from '../../../../../Static/Functions';
-import {STATUS_CODE} from '../../../../../Static/Constants';
-import {redirectToLogin} from '../../../../Login/Functions';
-import {View as Alert} from '../../../../../Components/Alert';
+import RequestProcessors from '../../../../../RequestProcessors';
+import NAMESPACE from '../../../../../Namespace';
 
 export function getScreenList()
 {
     return async dispatch =>
     {
-        getAsync(requestPrefix('/admin/screenManagement/getScreenList'), false)
-            .then(res =>
-            {
-                const {code, data: screenList} = res;
-                if (code === STATUS_CODE.SUCCESS)
-                {
-                    dispatch(getScreenListSucceed(screenList));
-                }
-                else if (code === STATUS_CODE.INVALID_SESSION)
-                {
-                    Alert.show('请先登录', false);
-                    dispatch(getScreenListFailed());
-                    redirectToLogin();
-                }
-                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                {
-                    Alert.show('服务器错误', false);
-                    dispatch(getScreenListFailed());
-                }
-            })
-            .catch(e =>
-            {
-                Alert.show('获取屏幕列表失败', false);
-                dispatch(getScreenListFailed());
-                console.log(e);
-            });
+        return RequestProcessors.sendGetScreenListRequestAsync(dispatch, getScreenListSucceed, getScreenListFailed);
     };
 }
 
@@ -73,13 +46,13 @@ export function getScreenListSucceed(screenList)
 {
     return {
         type: ActionTypes.GET_SCREEN_LIST_SUCCEED,
-        screenList
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList
     };
 }
 
 export function getScreenListFailed()
 {
     return {
-        type: ActionTypes.GET_SCREEN_LIST_FAILED,
+        type: ActionTypes.GET_SCREEN_LIST_FAILED
     };
 }

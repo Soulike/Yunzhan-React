@@ -9,16 +9,29 @@ import * as Actions from './Actions/Actions';
 import Store from '../../../../Store';
 import {connect} from 'react-redux';
 import {View as Modal} from '../../../../Components/Modal';
-import {postAsync, requestPrefix} from '../../../../Static/Functions';
+import Functions from '../../../../Functions';
 import REGEX from '../../../../Static/Regex';
 import {View as Alert} from '../../../../Components/Alert';
 import {STATUS_CODE} from '../../../../Static/Constants';
 import {refreshScreenList} from './Functions';
 import {redirectToLogin} from '../../../Login/Functions';
 import {View as ResourcePackList} from './Components/ResourcePackList';
+import NAMESPACE from '../../../../Namespace';
+import RequestProcessors from '../../../../RequestProcessors';
+
+const {postAsync, requestPrefix} = Functions;
 
 class ScreenListCard extends Component
 {
+    constructor()
+    {
+        super(...arguments);
+        this.state = {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: ''
+        };
+    }
+
+
     componentDidMount()
     {
         Store.dispatch(Actions.getScreenList());
@@ -29,97 +42,46 @@ class ScreenListCard extends Component
         e.preventDefault();
         Modal.show('添加屏幕',
             (<div className={style.addScreenModalContent}>
-                <input type="text" className={style.uuidInput} placeholder={'被添加屏幕的 UUID'} autoFocus={true}/>
+                <input type="text"
+                       className={style.uuidInput}
+                       placeholder={'被添加屏幕的 UUID'}
+                       autoFocus={true}
+                       onChange={this.onAddScreenModalInputChange}/>
             </div>),
             () =>
             {
-                const $input = document.querySelector(`.${style.uuidInput}`);
-                const uuid = $input.value;
+                const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid} = this.state;
                 if (!REGEX.UUID.test(uuid))
                 {
                     Alert.show('UUID 对应的屏幕不存在', false);
                 }
                 else
                 {
-                    postAsync('/admin/screenManagement/addScreen', {uuid})
-                        .then(res =>
-                        {
-                            const {code} = res;
-                            if (code === STATUS_CODE.SUCCESS)
-                            {
-                                Alert.show('添加成功', true);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.WRONG_PARAMETER)
-                            {
-                                Alert.show('参数无效', false);
-                            }
-                            else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-                            {
-                                Alert.show('UUID 对应的屏幕不存在', false);
-                            }
-                            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                            {
-                                Alert.show('服务器错误', false);
-                            }
-                        })
-                        .catch(e =>
-                        {
-                            Alert.show('添加失败', false);
-                            console.log(e);
-                        });
+                    RequestProcessors.sendPostAddScreenRequest.apply(this);
                 }
             });
+    };
+
+    onAddScreenModalInputChange = e =>
+    {
+        this.setState({[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: e.target.value});
     };
 
     onDeleteScreenButtonClick = e =>
     {
         e.preventDefault();
-        const {selectedScreenSet} = this.props;
-        if (selectedScreenSet.size === 0)
+        const {selectedScreenIdSet} = this.props;
+        if (selectedScreenIdSet.size === 0)
         {
             Alert.show('未选中任何屏幕', false);
         }
         else
         {
             Modal.show('删除屏幕', (
-                    <span>确认删除选中的 {selectedScreenSet.size} 个屏幕吗？<span style={{color: '#F00'}}>此操作不可逆！</span></span>),
+                    <span>确认删除选中的 {selectedScreenIdSet.size} 个屏幕吗？<span style={{color: '#F00'}}>此操作不可逆！</span></span>),
                 () =>
                 {
-                    postAsync('/admin/screenManagement/deleteScreens', Array.from(selectedScreenSet.keys()))
-                        .then(res =>
-                        {
-                            const {code} = res;
-                            if (code === STATUS_CODE.SUCCESS)
-                            {
-                                Alert.show('删除成功', true);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.REJECTION)
-                            {
-                                Alert.show('不能删除他人屏幕', false);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.INVALID_SESSION)
-                            {
-                                Alert.show('请先登录', false);
-                                redirectToLogin();
-                            }
-                            else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-                            {
-                                Alert.show('被删除屏幕不存在', false);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                            {
-                                Alert.show('服务器错误', false);
-                            }
-                        })
-                        .catch(e =>
-                        {
-                            Alert.show('删除失败', false);
-                            console.log(e);
-                        });
+                    RequestProcessors.sendPostDeleteScreenRequest.apply(this);
                 }
             );
         }
@@ -128,51 +90,18 @@ class ScreenListCard extends Component
     onStartRunningButtonClick = e =>
     {
         e.preventDefault();
-        const {selectedScreenSet} = this.props;
-        if (selectedScreenSet.size === 0)
+        const {selectedScreenIdSet} = this.props;
+        if (selectedScreenIdSet.size === 0)
         {
             Alert.show('未选中任何屏幕', false);
         }
         else
         {
             Modal.show('开始播放', (
-                    <span>确认使选中的 {selectedScreenSet.size} 个屏幕开始播放吗？</span>),
+                    <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕开始播放吗？</span>),
                 () =>
                 {
-                    postAsync('/admin/screenManagement/startScreens', Array.from(selectedScreenSet.keys()))
-                        .then(res =>
-                        {
-                            const {code} = res;
-                            if (code === STATUS_CODE.SUCCESS)
-                            {
-                                Alert.show('全部开始播放成功', true);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.REJECTION)
-                            {
-                                Alert.show('部分开始播放失败，请确认所有屏幕上 APP 处于运行状态', false);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.INVALID_SESSION)
-                            {
-                                Alert.show('请先登录', false);
-                                redirectToLogin();
-                            }
-                            else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-                            {
-                                Alert.show('部分开始播放屏幕不存在', false);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                            {
-                                Alert.show('服务器错误', false);
-                            }
-                        })
-                        .catch(e =>
-                        {
-                            Alert.show('开始播放失败', false);
-                            console.log(e);
-                        });
+                    RequestProcessors.sendPostStartScreenRequest.apply(this);
                 }
             );
         }
@@ -181,52 +110,18 @@ class ScreenListCard extends Component
     onStopRunningButtonClick = e =>
     {
         e.preventDefault();
-        e.preventDefault();
-        const {selectedScreenSet} = this.props;
-        if (selectedScreenSet.size === 0)
+        const {selectedScreenIdSet} = this.props;
+        if (selectedScreenIdSet.size === 0)
         {
             Alert.show('未选中任何屏幕', false);
         }
         else
         {
             Modal.show('停止播放', (
-                    <span>确认使选中的 {selectedScreenSet.size} 个屏幕停止播放吗？</span>),
+                    <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕停止播放吗？</span>),
                 () =>
                 {
-                    postAsync('/admin/screenManagement/stopScreens', Array.from(selectedScreenSet.keys()))
-                        .then(res =>
-                        {
-                            const {code} = res;
-                            if (code === STATUS_CODE.SUCCESS)
-                            {
-                                Alert.show('全部停止播放成功', true);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.REJECTION)
-                            {
-                                Alert.show('部分停止播放失败，请确认所有屏幕的网络状态', false);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.INVALID_SESSION)
-                            {
-                                Alert.show('请先登录', false);
-                                redirectToLogin();
-                            }
-                            else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-                            {
-                                Alert.show('部分停止播放屏幕不存在', false);
-                                refreshScreenList();
-                            }
-                            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                            {
-                                Alert.show('服务器错误', false);
-                            }
-                        })
-                        .catch(e =>
-                        {
-                            Alert.show('停止播放失败', false);
-                            console.log(e);
-                        });
+                    RequestProcessors.sendPostStopScreenRequest.apply(this);
                 }
             );
         }
@@ -237,47 +132,14 @@ class ScreenListCard extends Component
         e.preventDefault();
         Modal.show('绑定资源包', (<ResourcePackList/>), () =>
             {
-                const {selectedResourcePackId, selectedScreenSet} = this.props;
+                const {selectedResourcePackId} = this.props;
                 if (selectedResourcePackId === null)
                 {
                     Alert.show('请选择资源包', false);
                 }
                 else
                 {
-                    postAsync(requestPrefix('/admin/screenManagement/bindResourcePack'), {
-                        screenIds: Array.from(selectedScreenSet.keys()),
-                        selectedResourcePackId
-                    })
-                        .then(res =>
-                        {
-                            const {code} = res;
-                            if (code === STATUS_CODE.SUCCESS)
-                            {
-                                Alert.show('绑定成功', true);
-                            }
-                            else if (code === STATUS_CODE.INVALID_SESSION)
-                            {
-                                Alert.show('请先登录', false);
-                                redirectToLogin();
-                            }
-                            else if (code === STATUS_CODE.REJECTION)
-                            {
-                                Alert.show('由于权限问题，部分绑定失败', false);
-                            }
-                            else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-                            {
-                                Alert.show('资源包或屏幕不存在，部分绑定失败', false);
-                            }
-                            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                            {
-                                Alert.show('服务器错误', false);
-                            }
-                        })
-                        .catch(e =>
-                        {
-                            Alert.show('绑定失败', false);
-                            console.log(e);
-                        });
+                    RequestProcessors.sendBindResourcePackRequest.apply(this);
                 }
             }
         );
@@ -286,18 +148,18 @@ class ScreenListCard extends Component
     onUnbindResourcePacksButtonClick = e =>
     {
         e.preventDefault();
-        const {selectedScreenSet} = this.props;
-        if (selectedScreenSet.size === 0)
+        const {selectedScreenIdSet} = this.props;
+        if (selectedScreenIdSet.size === 0)
         {
             Alert.show('未选中任何屏幕', false);
         }
         else
         {
             Modal.show('解绑资源包',
-                (<span>确认要为选中的 {selectedScreenSet.size} 个屏幕解绑资源包吗？</span>),
+                (<span>确认要为选中的 {selectedScreenIdSet.size} 个屏幕解绑资源包吗？</span>),
                 () =>
                 {
-                    postAsync(requestPrefix('/admin/screenManagement/unbindResourcePacks'), Array.from(selectedScreenSet.keys()))
+                    postAsync(requestPrefix('/admin/screenManagement/unbindResourcePacks'), Array.from(selectedScreenIdSet.keys()))
                         .then(res =>
                         {
                             const {code} = res;
@@ -333,7 +195,7 @@ class ScreenListCard extends Component
 
     render()
     {
-        const {screenList} = this.props;
+        const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList} = this.props;
 
         const screenIdSet = new Set();
         screenList.forEach(screen =>
@@ -385,10 +247,12 @@ class ScreenListCard extends Component
 
 const mapStateToProps = state =>
 {
-    const {screenList, selectedScreenSet} = state.ScreenListCard;
+    const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList, selectedScreenIdSet} = state.ScreenListCard;
+    const {selectedResourcePackId} = state.ScreenManagementResourcePackList;
     return {
-        screenList,
-        selectedScreenSet
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList,
+        selectedScreenIdSet,
+        selectedResourcePackId
     };
 };
 

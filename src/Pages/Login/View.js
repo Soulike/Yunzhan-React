@@ -5,9 +5,11 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {connect} from 'react-redux';
 import {login} from './Actions/Actions';
-import {getSHA256} from '../../Static/Functions';
+import Functions from '../../Functions';
 import Regex from '../../Static/Regex';
 import {View as Alert} from '../../Components/Alert';
+
+const {getSHA256} = Functions;
 
 class Login extends Component
 {

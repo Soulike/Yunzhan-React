@@ -1,4 +1,6 @@
-import {requestPrefix} from '../Functions';
+import Functions from '../../Functions';
+
+const {requestPrefix} = Functions;
 
 export function accountRequestPrefix(url)
 {

@@ -4,10 +4,8 @@ import {View as ResourcePack} from './Components/ResourcePack';
 import {View as Header} from './Components/Header';
 import {Provider} from 'react-redux';
 import Store from '../../../../../../Store';
-import {getAsync, requestPrefix} from '../../../../../../Static/Functions';
-import {STATUS_CODE} from '../../../../../../Static/Constants';
-import {View as Alert} from '../../../../../../Components/Alert';
-import {redirectToLogin} from '../../../../../Login/Functions';
+import NAMESPACE from '../../../../../../Namespace';
+import RequestProcessors from '../../../../../../RequestProcessors';
 
 class ResourcePackList extends Component
 {
@@ -15,41 +13,19 @@ class ResourcePackList extends Component
     {
         super(...arguments);
         this.state = {
-            resourcePackList: []
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]: []
         };
     }
 
 
     componentDidMount()
     {
-        getAsync(requestPrefix('/admin/screenManagement/getResourcePackList'), false)
-            .then(res =>
-            {
-                const {code, data} = res;
-                if (code === STATUS_CODE.SUCCESS)
-                {
-                    this.setState({resourcePackList: data});
-                }
-                else if (code === STATUS_CODE.INVALID_SESSION)
-                {
-                    Alert.show('请先登录', false);
-                    redirectToLogin();
-                }
-                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                {
-                    Alert.show('服务器错误', false);
-                }
-            })
-            .catch(e =>
-            {
-                Alert.show('获取资源包列表失败', false);
-                console.log(e);
-            });
+        RequestProcessors.sendGetResourcePackListRequest.apply(this);
     }
 
     render()
     {
-        const {resourcePackList} = this.state;
+        const {[NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]: resourcePackList} = this.state;
         return (
             <div className={style.ResourcePackList}>
                 <Header/>
@@ -57,7 +33,8 @@ class ResourcePackList extends Component
                     <div className={style.listWrapper}>
                         {resourcePackList.map(resourcePack =>
                         {
-                            return (<ResourcePack {...resourcePack} key={resourcePack.id}/>);
+                            return (
+                                <ResourcePack {...resourcePack} key={resourcePack[NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]}/>);
                         })}
                     </div>
                 </Provider>

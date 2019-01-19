@@ -5,29 +5,31 @@ import style from './Overview.module.scss';
 import {View as Title} from '../../Components/Title';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {View as Card} from '../../Components/Card';
-import {generateTimeStr, getAsync, requestPrefix} from '../../Static/Functions';
-import {View as Alert} from '../../Components/Alert';
-import {STATUS_CODE} from '../../Static/Constants';
-import {redirectToLogin} from '../Login/Functions';
+import Functions from '../../Functions';
+import RequestProcessors from '../../RequestProcessors';
+import NAMESPACE from '../../Namespace';
+
+const {generateTimeStr} = Functions;
 
 class Overview extends Component
 {
     constructor()
     {
         super(...arguments);
+        const date = new Date();
         this.state = {
-            email: 'example@example.com',
-            lastLoginIp: '0.0.0.0',
-            loginIp: '0.0.0.0',
-            lastLoginTime: 0,
-            currentScreenNumber: 0,
-            runningScreenNumber: 0,
-            currentAdvertisementNumber: 0,
-            currentPictureNumber: 0,
-            advertiseFileSize: 0,
-            currentResourcePackNumber: 0,
-            currentUsingResourcePackNumber: 0,
-            currentTagNumber: 0
+            [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: 'example@example.com',
+            [NAMESPACE.OVERVIEW.LOGIN_INFO.LAST_LOGIN_IP]: '0.0.0.0',
+            [NAMESPACE.OVERVIEW.LOGIN_INFO.CURRENT_LOGIN_IP]: '0.0.0.0',
+            [NAMESPACE.OVERVIEW.LOGIN_INFO.LAST_LOGIN_TIME]: date.toISOString(),
+            [NAMESPACE.OVERVIEW.SCREEN_INFO.CURRENT_SCREEN_AMOUNT]: 0,
+            [NAMESPACE.OVERVIEW.SCREEN_INFO.RUNNING_SCREEN_AMOUNT]: 0,
+            [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.CURRENT_ADVERTISEMENT_AMOUNT]: 0,
+            [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.CURRENT_IMAGE_AMOUNT]: 0,
+            [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.ADVERTISEMENT_FILE_SIZE]: 0,
+            [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_AMOUNT]: 0,
+            [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_IN_USING_AMOUNT]: 0,
+            [NAMESPACE.OVERVIEW.TAG_INFO.CURRENT_TAG_AMOUNT]: 0
         };
     }
 
@@ -35,131 +37,14 @@ class Overview extends Component
     {
         document.title = '概览 - 云展';
         MenuFunctions.setActiveItemId(0);
-
-        this.getScreenInfo();
-        this.getAdvertiseInfo();
-        this.getResourceInfo();
-        this.getTagInfo();
+        RequestProcessors.sendGetLoginInfoRequest.apply(this);
+        RequestProcessors.sendGetScreenInfoRequest.apply(this);
+        RequestProcessors.sendGetAdvertisementInfoRequest.apply(this);
+        RequestProcessors.sendGetResourcePackInfoRequest.apply(this);
+        RequestProcessors.sendGetTagInfoRequest.apply(this);
     }
 
-    static overviewRequestPrefix(url)
-    {
-        while (url.charAt(0) === '/')
-        {
-            url = url.substring(1);
-        }
-        return requestPrefix(`/admin/overview/${url}`);
-    }
-
-    getScreenInfo = () =>
-    {
-        getAsync(Overview.overviewRequestPrefix('/getScreenInfo'), false)
-            .then(res =>
-            {
-                const {code, data} = res;
-                if (code === STATUS_CODE.SUCCESS)
-                {
-                    this.setState({...data});
-                }
-                else if (code === STATUS_CODE.INVALID_SESSION)
-                {
-                    Alert.show('请先登录', false);
-                    redirectToLogin();
-                }
-                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                {
-                    Alert.show('服务器错误', false);
-                }
-            })
-            .catch(e =>
-            {
-                Alert.show('获取屏幕信息失败', false);
-                console.log(e);
-            });
-    };
-
-    getAdvertiseInfo = () =>
-    {
-        getAsync(Overview.overviewRequestPrefix('/getAdvertiseInfo'), false)
-            .then(res =>
-            {
-                const {code, data} = res;
-                if (code === STATUS_CODE.SUCCESS)
-                {
-                    this.setState({...data});
-                }
-                else if (code === STATUS_CODE.INVALID_SESSION)
-                {
-                    Alert.show('请先登录', false);
-                    redirectToLogin();
-                }
-                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                {
-                    Alert.show('服务器错误', false);
-                }
-            })
-            .catch(e =>
-            {
-                Alert.show('获取广告信息失败', false);
-                console.log(e);
-            });
-    };
-
-    getResourceInfo = () =>
-    {
-        getAsync(Overview.overviewRequestPrefix('/getResourceInfo'), false)
-            .then(res =>
-            {
-                const {code, data} = res;
-                if (code === STATUS_CODE.SUCCESS)
-                {
-                    this.setState({...data});
-                }
-                else if (code === STATUS_CODE.INVALID_SESSION)
-                {
-                    Alert.show('请先登录', false);
-                    redirectToLogin();
-                }
-                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                {
-                    Alert.show('服务器错误', false);
-                }
-            })
-            .catch(e =>
-            {
-                Alert.show('获取资源包信息失败', false);
-                console.log(e);
-            });
-    };
-
-    getTagInfo = () =>
-    {
-        getAsync(Overview.overviewRequestPrefix('/getTagInfo'), false)
-            .then(res =>
-            {
-                const {code, data} = res;
-                if (code === STATUS_CODE.SUCCESS)
-                {
-                    this.setState({...data});
-                }
-                else if (code === STATUS_CODE.INVALID_SESSION)
-                {
-                    Alert.show('请先登录', false);
-                    redirectToLogin();
-                }
-                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-                {
-                    Alert.show('服务器错误', false);
-                }
-            })
-            .catch(e =>
-            {
-                Alert.show('获取标签信息失败', false);
-                console.log(e);
-            });
-    };
-
-    getHelloString = () =>
+    generateHelloString = () =>
     {
         const date = new Date();
         const hour = date.getHours();
@@ -186,49 +71,62 @@ class Overview extends Component
 
     render()
     {
-        const {email, lastLoginIp, loginIp, lastLoginTime, currentScreenNumber, runningScreenNumber, currentAdvertisementNumber, currentPictureNumber, advertiseFileSize, currentResourcePackNumber, currentUsingResourcePackNumber, currentTagNumber} = this.state;
+        const {
+            [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
+            [NAMESPACE.OVERVIEW.LOGIN_INFO.LAST_LOGIN_IP]: lastLoginIp,
+            [NAMESPACE.OVERVIEW.LOGIN_INFO.CURRENT_LOGIN_IP]: currentLoginIp,
+            [NAMESPACE.OVERVIEW.LOGIN_INFO.LAST_LOGIN_TIME]: lastLoginTime,
+            [NAMESPACE.OVERVIEW.SCREEN_INFO.CURRENT_SCREEN_AMOUNT]: currentScreenAmount,
+            [NAMESPACE.OVERVIEW.SCREEN_INFO.RUNNING_SCREEN_AMOUNT]: runningScreenAmount,
+            [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.CURRENT_ADVERTISEMENT_AMOUNT]: currentAdvertisementAmount,
+            [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.CURRENT_IMAGE_AMOUNT]: currentImageAmount,
+            [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.ADVERTISEMENT_FILE_SIZE]: advertisementFileSize,
+            [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_AMOUNT]: currentResourcePackAmount,
+            [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_IN_USING_AMOUNT]: currentResourcePackInUsingAmount,
+            [NAMESPACE.OVERVIEW.TAG_INFO.CURRENT_TAG_AMOUNT]: currentTagAmount
+        } = this.state;
         return (
             <div className={style.Overview}>
                 <Title icon={solidIcon.faList} text={'概览'}/>
                 <div className={style.cardWrapper}>
                     <div className={style.card}>
                         <Card title={'登录信息'}>
-                            <div>{this.getHelloString()}好，<span className={style.data}>{email}</span></div>
+                            <div>{this.generateHelloString()}好，<span className={style.data}>{email}</span></div>
                             <div>上次登录 IP：<span className={style.data}>{lastLoginIp}</span></div>
-                            <div>本次登录 IP：<span className={style.data}>{loginIp}</span></div>
+                            <div>本次登录 IP：<span className={style.data}>{currentLoginIp}</span></div>
                             <div>上次登录时间：<span className={style.data}>{generateTimeStr(lastLoginTime)}</span></div>
                         </Card>
                     </div>
                     <div className={style.card}>
                         <Card title={'屏幕信息'}>
-                            <div>您现在共有<span className={style.data}>{currentScreenNumber}</span>个屏幕</div>
+                            <div>您现在共有<span className={style.data}>{currentScreenAmount}</span>个屏幕</div>
                             <div>其中有
-                                <span className={style.data}>{runningScreenNumber}</span>个正在运行，
-                                <span className={style.data}>{currentScreenNumber - runningScreenNumber}</span>个未在运行
+                                <span className={style.data}>{runningScreenAmount}</span>个正在运行，
+                                <span className={style.data}>{currentScreenAmount - runningScreenAmount}</span>个未在运行
                             </div>
                             <div><Link to={'/admin/screenManagement'}>前往屏幕管理页面查看详细信息 >></Link></div>
                         </Card>
                     </div>
                     <div className={style.card}>
                         <Card title={'广告信息'}>
-                            <div>您现在共有<span className={style.data}>{currentAdvertisementNumber}</span>个广告</div>
+                            <div>您现在共有<span className={style.data}>{currentAdvertisementAmount}</span>个广告</div>
                             <div>其中
-                                <span className={style.data}>{currentPictureNumber}</span>个图片，
-                                <span className={style.data}>{currentAdvertisementNumber - currentPictureNumber}</span>个视频
+                                <span className={style.data}>{currentImageAmount}</span>个图片，
+                                <span className={style.data}>{currentAdvertisementAmount - currentImageAmount}</span>个视频
                             </div>
-                            <div>共占用空间<span className={style.data}>{advertiseFileSize}</span>MB</div>
+                            <div>共占用空间<span className={style.data}>{advertisementFileSize}</span>MB</div>
                             <div><Link to={'/admin/screenManagement'}>前往广告管理页面查看详细信息 >></Link></div>
                         </Card>
                     </div>
                     <div className={style.card}>
                         <Card title={'资源包信息'}>
-                            <div>您现在共有<span className={style.data}>{currentResourcePackNumber}</span>个资源包</div>
+                            <div>您现在共有<span className={style.data}>{currentResourcePackAmount}</span>个资源包</div>
                             <div>其中
-                                <span className={style.data}>{currentUsingResourcePackNumber}</span>个已启用，
+                                <span className={style.data}>{currentResourcePackInUsingAmount}</span>个已启用，
                                 <span
-                                    className={style.data}>{currentResourcePackNumber - currentUsingResourcePackNumber}</span>个未启用
+                                    className={style.data}>{currentResourcePackAmount - currentResourcePackInUsingAmount}</span>个未启用
                             </div>
-                            <div>您现在共有<span className={style.data}>{currentTagNumber}</span>个标签</div>
+                            <div>您现在共有<span className={style.data}>{currentTagAmount}</span>个标签</div>
                             <div><Link to={'/admin/resourceManagement'}>前往资源包管理页面查看详细信息 >></Link></div>
                             <div><Link to={'/admin/tagManagement'}>前往标签管理页面查看详细信息 >></Link></div>
                         </Card>

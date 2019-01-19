@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import * as Actions from '../../Actions/Actions';
 import style from './Header.module.scss';
 import Store from '../../../../../../Store';
-import {setsEqual} from '../../../../../../Static/Functions';
+import Functions from '../../../../../../Functions';
 import {connect} from 'react-redux';
+
+const {setsEqual} = Functions;
 
 class Header extends Component
 {
     componentDidUpdate(prevProps, prevState, snapshot)
     {
-        const {selectedScreenSet, screenIdSet} = this.props;
+        const {selectedScreenIdSet, screenIdSet} = this.props;
         const $input = document.querySelector(`#_0`);
-        const isEqual = setsEqual(selectedScreenSet, screenIdSet);
+        const isEqual = setsEqual(selectedScreenIdSet, screenIdSet);
         if ($input.checked && !isEqual)
         {
             $input.checked = false;
@@ -61,9 +63,9 @@ Header.propTypes = {
 
 const mapStateToProps = state =>
 {
-    const {selectedScreenSet} = state.ScreenListCard;
+    const {selectedScreenIdSet} = state.ScreenListCard;
     return {
-        selectedScreenSet
+        selectedScreenIdSet
     };
 };
 
