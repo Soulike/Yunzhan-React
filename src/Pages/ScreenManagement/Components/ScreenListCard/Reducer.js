@@ -3,21 +3,21 @@ import * as ActionTypes from './Actions/ActionTypes';
 export default (state = {}, action) =>
 {
     const {type, id, screenIdSet, screenList} = action;
-    const {selectedScreenSet} = state;
+    const {selectedScreenIdSet} = state;
     if (type === ActionTypes.SELECT_SCREEN)
     {
-        selectedScreenSet.add(id);
+        selectedScreenIdSet.add(id);
         return {
             ...state,
-            selectedScreenIdSet: new Set(selectedScreenSet.keys())
+            selectedScreenIdSet: new Set(selectedScreenIdSet.keys()),
         };
     }
     else if (type === ActionTypes.UNSELECT_SCREEN)
     {
-        selectedScreenSet.delete(id);
+        selectedScreenIdSet.delete(id);
         return {
             ...state,
-            selectedScreenIdSet: new Set(selectedScreenSet.keys())
+            selectedScreenIdSet: new Set(selectedScreenIdSet.keys()),
         };
     }
     else if (type === ActionTypes.SELECT_ALL_SCREENS)

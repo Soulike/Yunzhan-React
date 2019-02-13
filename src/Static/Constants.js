@@ -13,4 +13,9 @@ export const MODAL_ID = {
     ADD_SCREEN_MODAL: 'addScreenModal',
     BIND_RESOURCE_PACK_MODAL: 'bindResourcePackModal',
     UNBIND_RESOURCE_PACK_MODAL: 'unbindResourcePackModal',
+    DELETE_SCREEN_MODAL: 'deleteScreenModal',
+    START_SCREEN_RUNNING_MODAL: 'startScreenRunningModal',
+    STOP_SCREEN_RUNNING_MODAL: 'stopScreenRunningModal',
+    BATCH_BIND_RESOURCE_PACK_MODAL: 'batchBindResourcePackModal',
+    BATCH_UNBIND_RESOURCE_PACK_MODAL: 'batchUnbindResourcePackModal',
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import {browserHistory, IndexRedirect, Route, Router} from 'react-router';
 // 所有页面的 View 在此处导入
-import {View as Login} from './Pages/Login';
+import {Functions as LoginFunctions, View as Login} from './Pages/Login';
 import {View as SignUp} from './Pages/SignUp';
 import {View as ForgetPassword} from './Pages/ForgetPassword';
 import {View as Root} from './Pages/Root';
@@ -11,8 +11,8 @@ import {View as AdvertiseManagement} from './Pages/AdvertiseManagement';
 import {View as ResourceManagement} from './Pages/ResourceManagement';
 import {View as TagManagement} from './Pages/TagManagement';
 
-//const {requireLogin} = LoginFunctions;
-const requireLogin = null;
+const {requireLogin} = LoginFunctions;
+//const requireLogin = null;
 
 
 const Routes = () => (

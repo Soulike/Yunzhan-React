@@ -15,7 +15,7 @@ class Header extends Component
         const {selectedScreenIdSet, screenIdSet} = this.props;
         const $input = document.querySelector(`#_0`);
         const isEqual = setsEqual(selectedScreenIdSet, screenIdSet);
-        if ($input.checked && !isEqual)
+        if (($input.checked && !isEqual) || screenIdSet.size === 0)
         {
             $input.checked = false;
         }

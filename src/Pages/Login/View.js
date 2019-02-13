@@ -8,6 +8,7 @@ import {login} from './Actions/Actions';
 import Functions from '../../Functions';
 import Regex from '../../Static/Regex';
 import {WarningAlert} from '../../Components/Alerts';
+import {View as Card} from '../../Components/Card';
 
 const {getSHA256} = Functions;
 
@@ -18,7 +19,7 @@ class Login extends Component
         super(...arguments);
         this.state = {
             email: '',
-            password: ''
+            password: '',
         };
     }
 
@@ -30,14 +31,14 @@ class Login extends Component
     onEmailChange = e =>
     {
         this.setState({
-            email: e.target.value
+            email: e.target.value,
         });
     };
 
     onPasswordChange = e =>
     {
         this.setState({
-            password: e.target.value
+            password: e.target.value,
         });
     };
 
@@ -70,28 +71,31 @@ class Login extends Component
         return (
             <div className={style.Login}>
                 <div className={style.titleWrapper}>
-                    <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon}/>
+                    <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon} />
                     <div className={style.title}>登录到云展</div>
                 </div>
-                <form action="#" className={style.form} onSubmit={this.onFormSubmit}>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>邮箱</div>
-                        <input type="text" className={style.input} onChange={this.onEmailChange}/>
-                    </div>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>密码
-                            <div className={style.forgetPassword}><Link onlyActiveOnIndex={false}
-                                                                        to={'/forgetPassword'}>
-                                忘记密码了？</Link>
-                            </div>
+                <Card className={style.formWrapper}>
+                    <form action="#" onSubmit={this.onFormSubmit}>
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>邮箱</div>
+                            <input type="text" className={style.input} onChange={this.onEmailChange} autoFocus />
                         </div>
-                        <input type="password" className={style.input} onChange={this.onPasswordChange}/>
-                    </div>
-                    <button className={style.submitButton} onClick={this.onSubmitButtonClick}>登录</button>
-                </form>
-                <div className={style.hint}>
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>密码
+                                <div className={style.forgetPassword}><Link onlyActiveOnIndex={false}
+                                                                            to={'/forgetPassword'}>
+                                    忘记密码了？</Link>
+                                </div>
+                            </div>
+                            <input type="password" className={style.input} onChange={this.onPasswordChange} />
+                        </div>
+                        <button className={style.submitButton} onClick={this.onSubmitButtonClick}>登录</button>
+                    </form>
+                </Card>
+
+                <Card className={style.hint}>
                     新用户？<Link onlyActiveOnIndex={false} to={'/signUp'}>注册个账号吧</Link>
-                </div>
+                </Card>
             </div>
         );
     }
@@ -103,7 +107,7 @@ const mapDispatchToProps = (dispatch) =>
         onFormSubmit: (email, password) =>
         {
             dispatch(login(email, password));
-        }
+        },
     };
 };
 

@@ -12,6 +12,10 @@ html, body, #root {
     color: #333;
 }
 
+body {
+    min-height: 720px;
+}
+
 @media (min-width: 1920*1.25px) {
     html, body, #root {
         font-size: $pxPerRem*1.25;

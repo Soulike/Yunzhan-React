@@ -6,38 +6,45 @@ import {Link} from 'react-router';
 import Regex from '../../Static/Regex';
 import RequestProcessors from '../../RequestProcessors';
 import {WarningAlert} from '../../Components/Alerts';
+import Card from '../../Components/Card/View';
 
 
 class SignUp extends Component
 {
-    onEmailChange = e =>
+    constructor()
     {
-        this.setState({
-            email: e.target.value
-        });
-    };
+        super(...arguments);
+        this.state = {
+            email: '',
+            newPassword: '',
+            repeatNewPassword: '',
+            verificationCode: '',
+        };
+    }
 
     componentDidMount()
     {
         document.title = '注册 - 云展';
     }
 
+    onEmailChange = e =>
+    {
+        this.setState({
+            email: e.target.value,
+        });
+    };
+
     onPasswordChange = e =>
     {
         this.setState({
-            newPassword: e.target.value
+            newPassword: e.target.value,
         });
     };
+
     onRepeatPasswordChange = e =>
     {
         this.setState({
-            repeatNewPassword: e.target.value
-        });
-    };
-    onVerificationCodeChange = e =>
-    {
-        this.setState({
-            verificationCode: e.target.value
+            repeatNewPassword: e.target.value,
         });
     };
     onGetCodeButtonClick = e =>
@@ -78,50 +85,50 @@ class SignUp extends Component
         this.onFormSubmit(e);
     };
 
-    constructor()
+    onVerificationCodeChange = e =>
     {
-        super(...arguments);
-        this.state = {
-            email: '',
-            newPassword: '',
-            repeatNewPassword: '',
-            verificationCode: ''
-        };
-    }
+        this.setState({
+            verificationCode: e.target.value,
+        });
+    };
 
     render()
     {
         return (
             <div className={style.SignUp}>
                 <div className={style.titleWrapper}>
-                    <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon}/>
+                    <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon} />
                     <div className={style.title}>注册云展</div>
                 </div>
-                <form action="#" className={style.form} onSubmit={this.onFormSubmit}>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>邮箱</div>
-                        <input type="text" className={style.input} onChange={this.onEmailChange}/>
-                    </div>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>密码（最少 6 位）
+                <Card className={style.formWrapper}>
+                    <form action="#" onSubmit={this.onFormSubmit}>
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>邮箱</div>
+                            <input type="text" className={style.input} onChange={this.onEmailChange} autoFocus />
                         </div>
-                        <input type="password" className={style.input} onChange={this.onPasswordChange}/>
-                    </div>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>重复密码
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>密码（最少 6 位）
+                            </div>
+                            <input type="password" className={style.input} onChange={this.onPasswordChange} />
                         </div>
-                        <input type="password" className={style.input} onChange={this.onRepeatPasswordChange}/>
-                    </div>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>验证码</div>
-                        <input type="password" className={style.codeInput} onChange={this.onVerificationCodeChange}/>
-                        <button className={style.getCodeButton} onClick={this.onGetCodeButtonClick}>获取验证码</button>
-                    </div>
-                    <button className={style.submitButton} onClick={this.onSubmitButtonClick}>注册</button>
-                </form>
-                <div className={style.hint}>
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>重复密码
+                            </div>
+                            <input type="password" className={style.input} onChange={this.onRepeatPasswordChange} />
+                        </div>
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>验证码</div>
+                            <input type="password"
+                                   className={style.codeInput}
+                                   onChange={this.onVerificationCodeChange} />
+                            <button className={style.getCodeButton} onClick={this.onGetCodeButtonClick}>获取验证码</button>
+                        </div>
+                        <button className={style.submitButton} onClick={this.onSubmitButtonClick}>注册</button>
+                    </form>
+                </Card>
+                <Card className={style.hint}>
                     已有账号？<Link onlyActiveOnIndex={false} to={'/login'}>登录</Link>
-                </div>
+                </Card>
             </div>
         );
     }

@@ -6,7 +6,7 @@ class Modal extends Component
 {
     render()
     {
-        const {id, title, children, onConfirmButtonClickFunction, className, ...rest} = this.props;
+        const {id, title, children, className, onConfirmButtonClickFunction, ...rest} = this.props;
         return (
             <div className={`${Style.Modal} ${className}  modal fade`}
                  {...rest}
@@ -14,7 +14,7 @@ class Modal extends Component
                  tabIndex="-1"
                  role="dialog"
                  aria-hidden="true">
-                <div className="modal-dialog" role="document">
+                <div className="modal-dialog modal-sm" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">{title}</h5>

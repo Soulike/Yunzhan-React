@@ -9,11 +9,13 @@ class Card extends Component
 {
     render()
     {
-        const {title, children} = this.props;
+        const {title, children, className, ...rest} = this.props;
         return (
-            <div className={style.Card}>
-                {title ? <div className={style.title}>{title}</div> : null}
-                <div className={style.children}>{children}</div>
+            <div className={`card ${style.Card} ${className}`} {...rest}>
+                {title ? <div className="card-header">{title}</div> : null}
+                <div className="card-body">
+                    {children}
+                </div>
             </div>
         );
     }
@@ -21,7 +23,7 @@ class Card extends Component
 
 Card.propTypes = {
     title: PropTypes.string,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
 };
 
 export default Card;

@@ -29,7 +29,7 @@ class Overview extends Component
             [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.ADVERTISEMENT_FILE_SIZE]: 0,
             [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_AMOUNT]: 0,
             [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_IN_USING_AMOUNT]: 0,
-            [NAMESPACE.OVERVIEW.TAG_INFO.CURRENT_TAG_AMOUNT]: 0
+            [NAMESPACE.OVERVIEW.TAG_INFO.CURRENT_TAG_AMOUNT]: 0,
         };
     }
 
@@ -83,54 +83,46 @@ class Overview extends Component
             [NAMESPACE.OVERVIEW.ADVERTISEMENT_INFO.ADVERTISEMENT_FILE_SIZE]: advertisementFileSize,
             [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_AMOUNT]: currentResourcePackAmount,
             [NAMESPACE.OVERVIEW.RESOURCE_PACK_INFO.CURRENT_RESOURCE_PACK_IN_USING_AMOUNT]: currentResourcePackInUsingAmount,
-            [NAMESPACE.OVERVIEW.TAG_INFO.CURRENT_TAG_AMOUNT]: currentTagAmount
+            [NAMESPACE.OVERVIEW.TAG_INFO.CURRENT_TAG_AMOUNT]: currentTagAmount,
         } = this.state;
         return (
             <div className={style.Overview}>
-                <Title icon={solidIcon.faList} text={'概览'}/>
+                <Title icon={solidIcon.faList} text={'概览'} />
                 <div className={style.cardWrapper}>
-                    <div className={style.card}>
-                        <Card title={'登录信息'}>
-                            <div>{this.generateHelloString()}好，<span className={style.data}>{email}</span></div>
-                            <div>上次登录 IP：<span className={style.data}>{lastLoginIp}</span></div>
-                            <div>本次登录 IP：<span className={style.data}>{currentLoginIp}</span></div>
-                            <div>上次登录时间：<span className={style.data}>{generateTimeStr(lastLoginTime)}</span></div>
-                        </Card>
-                    </div>
-                    <div className={style.card}>
-                        <Card title={'屏幕信息'}>
-                            <div>您现在共有<span className={style.data}>{currentScreenAmount}</span>个屏幕</div>
-                            <div>其中有
-                                <span className={style.data}>{runningScreenAmount}</span>个正在运行，
-                                <span className={style.data}>{currentScreenAmount - runningScreenAmount}</span>个未在运行
-                            </div>
-                            <div><Link to={'/admin/screenManagement'}>前往屏幕管理页面查看详细信息 >></Link></div>
-                        </Card>
-                    </div>
-                    <div className={style.card}>
-                        <Card title={'广告信息'}>
-                            <div>您现在共有<span className={style.data}>{currentAdvertisementAmount}</span>个广告</div>
-                            <div>其中
-                                <span className={style.data}>{currentImageAmount}</span>个图片，
-                                <span className={style.data}>{currentAdvertisementAmount - currentImageAmount}</span>个视频
-                            </div>
-                            <div>共占用空间<span className={style.data}>{advertisementFileSize}</span>MB</div>
-                            <div><Link to={'/admin/screenManagement'}>前往广告管理页面查看详细信息 >></Link></div>
-                        </Card>
-                    </div>
-                    <div className={style.card}>
-                        <Card title={'资源包信息'}>
-                            <div>您现在共有<span className={style.data}>{currentResourcePackAmount}</span>个资源包</div>
-                            <div>其中
-                                <span className={style.data}>{currentResourcePackInUsingAmount}</span>个已启用，
-                                <span
-                                    className={style.data}>{currentResourcePackAmount - currentResourcePackInUsingAmount}</span>个未启用
-                            </div>
-                            <div>您现在共有<span className={style.data}>{currentTagAmount}</span>个标签</div>
-                            <div><Link to={'/admin/resourceManagement'}>前往资源包管理页面查看详细信息 >></Link></div>
-                            <div><Link to={'/admin/tagManagement'}>前往标签管理页面查看详细信息 >></Link></div>
-                        </Card>
-                    </div>
+                    <Card title={'登录信息'} className={style.card}>
+                        <div>{this.generateHelloString()}好，<span className={style.data}>{email}</span></div>
+                        <div>上次登录 IP：<span className={style.data}>{lastLoginIp}</span></div>
+                        <div>本次登录 IP：<span className={style.data}>{currentLoginIp}</span></div>
+                        <div>上次登录时间：<span className={style.data}>{generateTimeStr(lastLoginTime)}</span></div>
+                    </Card>
+                    <Card title={'屏幕信息'} className={style.card}>
+                        <div>您现在共有<span className={style.data}>{currentScreenAmount}</span>个屏幕</div>
+                        <div>其中有
+                            <span className={style.data}>{runningScreenAmount}</span>个正在运行，
+                            <span className={style.data}>{currentScreenAmount - runningScreenAmount}</span>个未在运行
+                        </div>
+                        <div><Link to={'/admin/screenManagement'}>前往屏幕管理页面查看详细信息 >></Link></div>
+                    </Card>
+                    <Card title={'广告信息'} className={style.card}>
+                        <div>您现在共有<span className={style.data}>{currentAdvertisementAmount}</span>个广告</div>
+                        <div>其中
+                            <span className={style.data}>{currentImageAmount}</span>个图片，
+                            <span className={style.data}>{currentAdvertisementAmount - currentImageAmount}</span>个视频
+                        </div>
+                        <div>共占用空间<span className={style.data}>{advertisementFileSize}</span>MB</div>
+                        <div><Link to={'/admin/screenManagement'}>前往广告管理页面查看详细信息 >></Link></div>
+                    </Card>
+                    <Card title={'资源包信息'} className={style.card}>
+                        <div>您现在共有<span className={style.data}>{currentResourcePackAmount}</span>个资源包</div>
+                        <div>其中
+                            <span className={style.data}>{currentResourcePackInUsingAmount}</span>个已启用，
+                            <span
+                                className={style.data}>{currentResourcePackAmount - currentResourcePackInUsingAmount}</span>个未启用
+                        </div>
+                        <div>您现在共有<span className={style.data}>{currentTagAmount}</span>个标签</div>
+                        <div><Link to={'/admin/resourceManagement'}>前往资源包管理页面查看详细信息 >></Link></div>
+                        <div><Link to={'/admin/tagManagement'}>前往标签管理页面查看详细信息 >></Link></div>
+                    </Card>
                 </div>
             </div>
         );

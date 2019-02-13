@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {View as ResourcePackList} from '../ResourcePackList';
 import NAMESPACE from '../../../../../../Namespace';
 import RequestProcessors from '../../../../../../RequestProcessors';
-import {Modal, ModalTriggeringButton} from '../../../../../../Components/Modal';
+import {LargeModal, ModalTriggeringButton, SmallModal} from '../../../../../../Components/Modal';
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import {MODAL_ID} from '../../../../../../Static/Constants';
 
@@ -100,35 +100,35 @@ class Screen extends Component
                     }
                 </div>
 
-                <Modal id={MODAL_ID.BIND_RESOURCE_PACK_MODAL}
-                       title={'绑定资源包'}
-                       onConfirmButtonClickFunction={() =>
-                       {
-                           const {selectedResourcePackId} = this.props;
-                           if (selectedResourcePackId === null)
-                           {
-                               WarningAlert.pop('请选择资源包');
-                           }
-                           else
-                           {
-                               RequestProcessors.sendPostBindResourcePackRequest.apply(this);
-                           }
-                       }}>
+                <LargeModal id={MODAL_ID.BIND_RESOURCE_PACK_MODAL}
+                            title={'绑定资源包'}
+                            onConfirmButtonClickFunction={() =>
+                            {
+                                const {selectedResourcePackId} = this.props;
+                                if (selectedResourcePackId === null)
+                                {
+                                    WarningAlert.pop('请选择资源包');
+                                }
+                                else
+                                {
+                                    RequestProcessors.sendPostBindResourcePackRequest.apply(this);
+                                }
+                            }}>
                     <ResourcePackList />
-                </Modal>
+                </LargeModal>
 
-                <Modal id={MODAL_ID.UNBIND_RESOURCE_PACK_MODAL}
-                       title={'解绑资源包'}
-                       onConfirmButtonClickFunction={() =>
-                       {
-                           RequestProcessors.sendPostUnbindResourcePackRequest.apply(this);
-                       }}>
+                <SmallModal id={MODAL_ID.UNBIND_RESOURCE_PACK_MODAL}
+                            title={'解绑资源包'}
+                            onConfirmButtonClickFunction={() =>
+                            {
+                                RequestProcessors.sendPostUnbindResourcePackRequest.apply(this);
+                            }}>
                     <span>确认要为屏幕
                         <span style={{color: '#F00'}}>{name}</span>
                           解绑资源包
                         <span style={{color: '#F00'}}>{resourcePackName}</span>？
                     </span>
-                </Modal>
+                </SmallModal>
             </div>
         );
     }

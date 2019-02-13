@@ -6,6 +6,7 @@ import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import Regex from '../../Static/Regex';
 import RequestProcessors from '../../RequestProcessors';
 import {WarningAlert} from '../../Components/Alerts';
+import Card from '../../Components/Card/View';
 
 class ForgetPassword extends Component
 {
@@ -16,14 +17,14 @@ class ForgetPassword extends Component
             email: '',
             newPassword: '',
             repeatNewPassword: '',
-            verificationCode: ''
+            verificationCode: '',
         };
     }
 
     onEmailChange = e =>
     {
         this.setState({
-            email: e.target.value
+            email: e.target.value,
         });
     };
 
@@ -35,21 +36,21 @@ class ForgetPassword extends Component
     onNewPasswordChange = e =>
     {
         this.setState({
-            newPassword: e.target.value
+            newPassword: e.target.value,
         });
     };
 
     onRepeatNewPasswordChange = e =>
     {
         this.setState({
-            repeatNewPassword: e.target.value
+            repeatNewPassword: e.target.value,
         });
     };
 
     onVerificationCodeChange = e =>
     {
         this.setState({
-            verificationCode: e.target.value
+            verificationCode: e.target.value,
         });
     };
 
@@ -96,35 +97,39 @@ class ForgetPassword extends Component
         return (
             <div className={style.ForgetPassword}>
                 <div className={style.titleWrapper}>
-                    <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon}/>
+                    <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon} />
                     <div className={style.title}>找回密码</div>
                 </div>
-                <form action="#" className={style.form} onSubmit={this.onFormSubmit}>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>邮箱</div>
-                        <input type="text" className={style.input} onChange={this.onEmailChange}/>
-                    </div>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>新密码（最少 6 位）
+                <Card className={style.formWrapper}>
+                    <form action="#" onSubmit={this.onFormSubmit}>
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>邮箱</div>
+                            <input type="text" className={style.input} onChange={this.onEmailChange} autoFocus />
                         </div>
-                        <input type="password" className={style.input} onChange={this.onNewPasswordChange}/>
-                    </div>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>重复新密码
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>新密码（最少 6 位）
+                            </div>
+                            <input type="password" className={style.input} onChange={this.onNewPasswordChange} />
                         </div>
-                        <input type="password" className={style.input} onChange={this.onRepeatNewPasswordChange}/>
-                    </div>
-                    <div className={style.inputWrapper}>
-                        <div className={style.label}>验证码</div>
-                        <input type="password" className={style.codeInput} onChange={this.onVerificationCodeChange}/>
-                        <button className={style.getCodeButton} onClick={this.onGetCodeButtonClick}>获取验证码</button>
-                    </div>
-                    <button className={style.submitButton} onClick={this.onSubmitButtonClick}>提交</button>
-                </form>
-                <div className={style.hint}>
-                    已有账号？<Link onlyActiveOnIndex={false} to={'/login'}>登录</Link><br/>
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>重复新密码
+                            </div>
+                            <input type="password" className={style.input} onChange={this.onRepeatNewPasswordChange} />
+                        </div>
+                        <div className={style.inputWrapper}>
+                            <div className={style.label}>验证码</div>
+                            <input type="password"
+                                   className={style.codeInput}
+                                   onChange={this.onVerificationCodeChange} />
+                            <button className={style.getCodeButton} onClick={this.onGetCodeButtonClick}>获取验证码</button>
+                        </div>
+                        <button className={style.submitButton} onClick={this.onSubmitButtonClick}>提交</button>
+                    </form>
+                </Card>
+                <Card className={style.hint}>
+                    已有账号？<Link onlyActiveOnIndex={false} to={'/login'}>登录</Link><br />
                     新用户？<Link onlyActiveOnIndex={false} to={'/signUp'}>注册个账号吧</Link>
-                </div>
+                </Card>
             </div>
         );
     }

@@ -1,7 +1,7 @@
 @import "../Constants.module";
 @import "~bootstrap/scss/bootstrap";
 
-.LoginShare {
+.AccountShare {
     $formPadding: 1.25rem;
     width: 17 + 2*$formPadding;
     margin-left: auto;
@@ -23,17 +23,11 @@
         }
     }
 
-    .form {
-        display: block;
-        background-color: #FFF;
-        padding: 1.5rem $formPadding;
-        border-radius: 0.25rem;
-        border: 1px solid #DDD;
-        box-shadow: 0 0 5px #DDD;
+    .formWrapper {
         margin-top: 1.5rem;
 
         .inputWrapper {
-            margin-top: 1rem;
+            margin-top: 0.5rem;
 
             &:first-child {
                 margin-top: 0;
@@ -64,20 +58,14 @@
     }
 
     .hint {
-        margin-top: 1rem;
-        line-height: 2rem;
-        text-align: center;
-        border: 1px solid #DDD;
-        box-shadow: 0 0 5px #DDD;
-        padding: 1rem 2rem;
-        background-color: #FFF;
-        border-radius: 0.25rem;
+        margin-top: 1.5rem;
     }
 
     .codeInput {
         @extend .form-control;
         width: 55%;
         box-sizing: border-box;
+        display: inline-block;
     }
 
     .getCodeButton {

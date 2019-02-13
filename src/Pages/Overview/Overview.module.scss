@@ -1,4 +1,5 @@
 @import "../../Static/InnerWrapper.module";
+@import "~bootstrap/scss/bootstrap";
 
 .Overview {
     .cardWrapper {
@@ -9,10 +10,11 @@
         flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
-        align-content: space-around;
+        align-content: space-evenly;
 
         .card {
             width: 30rem;
+            height: 13rem;
 
             .data {
                 margin: 0 0.25rem;

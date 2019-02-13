@@ -1,8 +1,7 @@
-@import "../../Static/Constants.module";
 @import "../../Static/AccountShare/AccountShare.module";
 
 .Login {
-    @extend .LoginShare;
+    @extend .AccountShare;
 
     .forgetPassword {
         display: inline-block;

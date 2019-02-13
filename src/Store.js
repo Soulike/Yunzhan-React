@@ -10,25 +10,40 @@ import {Reducer as ScreenManagementResourcePackListReducer} from './Pages/Screen
 // Store 中的初始值，根据开发需要进行改变
 const initValues = {
     Login: {
-        hasLoggedIn: false
+        hasLoggedIn: false,
     },
     RootMenu: {
-        currentActiveItemId: 0
+        currentActiveItemId: 0,
     },
     ScreenListCard: {
         selectedScreenIdSet: new Set(),
-        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: []
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: [
+            /*{
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: 1,
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: 'adwada',
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: 'dwaawdawd',
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: true,
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_ID]: 1,
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: 'pack',
+            },
+            {
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: 2,
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: 'awdaad',
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: 'awdawdwad',
+                [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: false,
+            },*/
+        ],
     },
     ScreenManagementResourcePackList: {
-        selectedResourcePackId: null
-    }
+        selectedResourcePackId: null,
+    },
 };
 
 // 所有中间件放在此处
 const middleWares = [thunk];
 
 const storeEnhancers = compose(
-    applyMiddleware(...middleWares)
+    applyMiddleware(...middleWares),
 );
 
 // 所有 Reducer 放在此处
@@ -36,7 +51,7 @@ const Reducer = combineReducers({
     Login: LoginReducer,
     RootMenu: RootMenuReducer,
     ScreenListCard: ScreenListCardReducer,
-    ScreenManagementResourcePackList: ScreenManagementResourcePackListReducer
+    ScreenManagementResourcePackList: ScreenManagementResourcePackListReducer,
 });
 
 export default createStore(Reducer, initValues, storeEnhancers);
