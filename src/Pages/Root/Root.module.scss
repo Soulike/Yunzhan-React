@@ -20,7 +20,7 @@
         background-color: $rootSideBarBackgroundColor;
         color: $rootSideBarColor;
         position: fixed;
-        z-index: 9999;
+        z-index: 1;
 
         .iconWrapper {
             width: 100%;
@@ -50,5 +50,9 @@
         left: $sidebarWidth;
         right: 0;
         bottom: 0;
+    }
+
+    .modalContainer {
+
     }
 }

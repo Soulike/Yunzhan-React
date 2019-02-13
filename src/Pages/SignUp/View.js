@@ -3,12 +3,10 @@ import style from './Signup.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router';
-import Functions from '../../Functions';
-import {View as Alert} from '../../Components/Alert';
 import Regex from '../../Static/Regex';
 import RequestProcessors from '../../RequestProcessors';
+import {WarningAlert} from '../../Components/Alerts';
 
-const {getSHA256, postAsync} = Functions;
 
 class SignUp extends Component
 {
@@ -56,19 +54,19 @@ class SignUp extends Component
         const {email, password, repeatPassword, verificationCode} = this.state;
         if (password !== repeatPassword)
         {
-            Alert.show('两次输入密码不一致', false);
+            WarningAlert.pop('两次输入密码不一致');
         }
         else if (!Regex.EMAIL.test(email))
         {
-            Alert.show('请输入正确的邮箱', false);
+            WarningAlert.pop('请输入正确的邮箱');
         }
         else if (!Regex.PASSWORD.test(password))
         {
-            Alert.show('请输入正确的新密码', false);
+            WarningAlert.pop('请输入正确的新密码');
         }
         else if (!Regex.VERIFICATION_CODE.test(verificationCode))
         {
-            Alert.show('请输入正确的验证码', false);
+            WarningAlert.pop('请输入正确的验证码');
         }
         else
         {

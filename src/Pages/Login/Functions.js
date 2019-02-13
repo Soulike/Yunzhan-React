@@ -1,19 +1,21 @@
 import Functions from '../../Functions';
 import {loginStateInvalid, loginStateValid} from './Actions/Actions';
 import {browserHistory} from 'react-router';
-import {View as Alert} from '../../Components/Alert';
 import Store from '../../Store';
-import {View as Modal} from '../../Components/Modal';
+import {Functions as ModalFunctions} from '../../Components/Modal';
 import RequestProcessors from '../../RequestProcessors';
+import {SuccessAlert} from '../../Components/Alerts';
+import {MODAL_ID} from '../../Static/Constants';
 
-const {getHash, postAsync, requestPrefix} = Functions;
+const {getHash} = Functions;
+const {showModal} = ModalFunctions;
 
 export function requireLogin(nextState, replace)
 {
     const {hasLoggedIn} = Store.getState()['Login'];
     if (!isLoginTokenValid()) // Token 无效，直接要求登录
     {
-        Alert.show('请先登录', false);
+        SuccessAlert.pop('请先登录');
         setOffline();
         replace('/login');
     }
@@ -48,12 +50,7 @@ export function redirectToLogin()
 
 export function showLogoutModal()
 {
-    Modal.show('确认退出', '您真的要退出云展吗？', sendLogoutRequest);
-}
-
-function sendLogoutRequest()
-{
-    RequestProcessors.sendPostLogoutRequest();
+    showModal(MODAL_ID.LOGOUT_MODAL);
 }
 
 function setLoginToken()

@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {login} from './Actions/Actions';
 import Functions from '../../Functions';
 import Regex from '../../Static/Regex';
-import {View as Alert} from '../../Components/Alert';
+import {WarningAlert} from '../../Components/Alerts';
 
 const {getSHA256} = Functions;
 
@@ -47,11 +47,11 @@ class Login extends Component
         const {email, password} = this.state;
         if (!Regex.EMAIL.test(email))
         {
-            Alert.show('请输入正确的邮箱', false);
+            WarningAlert.pop('请输入正确的邮箱');
         }
         else if (!Regex.PASSWORD.test(password))
         {
-            Alert.show('请输入正确的密码', false);
+            WarningAlert.pop('请输入正确的密码');
         }
         else
         {

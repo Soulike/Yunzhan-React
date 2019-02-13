@@ -19,8 +19,8 @@ class Menu extends Component
                 new LinkItem(solidIcon.faAd, '广告管理', '/admin/advertiseManagement'),
                 new LinkItem(solidIcon.faTags, '标签管理', '/admin/tagManagement'),
                 new LinkItem(solidIcon.faFileArchive, '资源包管理', '/admin/resourceManagement'),
-                new FuncItem(solidIcon.faDoorOpen, '退出', LoginFunctions.showLogoutModal)
-            ]
+                new FuncItem(solidIcon.faDoorOpen, '退出', LoginFunctions.showLogoutModal),
+            ],
         };
     }
 
@@ -61,7 +61,7 @@ class Menu extends Component
                             {
                                 return (
                                     <span onClick={this.onItemClick(i)} key={item.href}>
-                                    <Item {...item} isActive={true}/>
+                                    <Item {...item} isActive={true} />
                                 </span>
                                 );
                             }
@@ -69,7 +69,7 @@ class Menu extends Component
                             {
                                 return (
                                     <span onClick={this.onItemClick(i)} key={item.href}>
-                                    <Item {...item} isActive={false}/>
+                                    <Item {...item} isActive={false} />
                                 </span>
                                 );
                             }
@@ -77,7 +77,7 @@ class Menu extends Component
                         else
                         {
                             return (
-                                <Item {...item} key={i} isActive={false}/>
+                                <Item {...item} key={i} isActive={false} />
                             );
                         }
                     })
@@ -91,7 +91,7 @@ const mapStateToProps = (state) =>
 {
     const {currentActiveItemId} = state.RootMenu;
     return {
-        currentActiveItemId
+        currentActiveItemId,
     };
 };
 

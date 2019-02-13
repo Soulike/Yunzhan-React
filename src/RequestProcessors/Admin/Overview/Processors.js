@@ -1,8 +1,8 @@
 import {STATUS_CODE} from '../../../Static/Constants';
-import {View as Alert} from '../../../Components/Alert';
 import {redirectToLogin} from '../../../Pages/Login/Functions';
 import Functions from '../../../Functions';
 import {GET_ADVERTISE_INFO, GET_LOGIN_INFO, GET_RESOURCE_PACK_INFO, GET_SCREEN_INFO, GET_TAG_INFO} from './Route';
+import {DangerAlert, WarningAlert} from '../../../Components/Alerts';
 
 const {getAsync} = Functions;
 
@@ -26,17 +26,17 @@ function sendGetLoginInfoRequest()
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('获取登录信息失败', false);
+            WarningAlert.pop('获取登录信息失败');
             console.log(e);
         });
 }
@@ -53,17 +53,17 @@ function sendGetScreenInfoRequest()
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('获取屏幕信息失败', false);
+            WarningAlert.pop('获取屏幕信息失败');
             console.log(e);
         });
 }
@@ -80,17 +80,17 @@ function sendGetAdvertisementInfoRequest()
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('获取广告信息失败', false);
+            WarningAlert.pop('获取广告信息失败');
             console.log(e);
         });
 }
@@ -107,17 +107,17 @@ function sendGetResourcePackInfoRequest()
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('获取资源包信息失败', false);
+            WarningAlert.pop('获取资源包信息失败');
             console.log(e);
         });
 }
@@ -134,17 +134,17 @@ function sendGetTagInfoRequest()
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('获取标签信息失败', false);
+            WarningAlert.pop('获取标签信息失败');
             console.log(e);
         });
 }

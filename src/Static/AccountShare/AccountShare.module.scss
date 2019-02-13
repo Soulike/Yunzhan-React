@@ -1,6 +1,5 @@
 @import "../Constants.module";
-@import "../Button.module";
-@import "../Input.module";
+@import "~bootstrap/scss/bootstrap";
 
 .LoginShare {
     $formPadding: 1.25rem;
@@ -46,7 +45,7 @@
             }
 
             .input {
-                @extend .Input;
+                @extend .form-control;
                 display: block;
                 width: 100%;
                 box-sizing: border-box;
@@ -54,7 +53,9 @@
         }
 
         .submitButton {
-            @extend .btn-primary, .btn-lg;
+            @extend .btn;
+            @extend .btn-primary;
+            @extend .btn-lg;
             display: inline-block;
             width: 100%;
             box-sizing: border-box;
@@ -74,12 +75,13 @@
     }
 
     .codeInput {
-        @extend .Input;
+        @extend .form-control;
         width: 55%;
         box-sizing: border-box;
     }
 
     .getCodeButton {
+        @extend .btn;
         @extend .btn-primary;
         width: 40%;
         box-sizing: border-box;

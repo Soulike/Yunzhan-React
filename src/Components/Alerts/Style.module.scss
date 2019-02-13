@@ -1,0 +1,24 @@
+.alertWrapper {
+    @keyframes Alert {
+        0% {
+            display: none;
+            opacity: 0
+        }
+        50%, 100% {
+            display: block;
+            opacity: 1;
+        }
+    }
+
+    animation-name: Alert;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999;
+    min-width: 20rem;
+    text-align: center;
+}

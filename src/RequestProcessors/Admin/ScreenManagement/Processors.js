@@ -1,10 +1,21 @@
 import {STATUS_CODE} from '../../../Static/Constants';
 import {redirectToLogin} from '../../../Pages/Login/Functions';
-import {View as Alert} from '../../../Components/Alert';
 import Functions from '../../../Functions';
-import {ADD_SCREEN, BIND_RESOURCE_PACK, DELETE_SCREEN, GET_BASIC_INFO, GET_LOG_LIST, GET_RESOURCE_PACK_LIST, GET_SCREEN_LIST, START_SCREEN, STOP_SCREEN, UNBIND_RESOURCE_PACK} from './Route';
+import {
+    ADD_SCREEN,
+    BIND_RESOURCE_PACK,
+    DELETE_SCREEN,
+    GET_BASIC_INFO,
+    GET_LOG_LIST,
+    GET_RESOURCE_PACK_LIST,
+    GET_SCREEN_LIST,
+    START_SCREEN,
+    STOP_SCREEN,
+    UNBIND_RESOURCE_PACK,
+} from './Route';
 import NAMESPACE from '../../../Namespace';
 import {refreshScreenList} from '../../../Pages/ScreenManagement/Components/ScreenListCard/Functions';
+import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
 
 const {getAsync, postAsync} = Functions;
 
@@ -19,7 +30,7 @@ export default {
     sendPostStartScreenRequest,
     sendPostStopScreenRequest,
     sendGetResourcePackListRequest,
-    sendBindResourcePackRequest
+    sendBindResourcePackRequest,
 };
 
 function sendGetBasicInfoRequest()
@@ -35,16 +46,16 @@ function sendGetBasicInfoRequest()
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
                 redirectToLogin();
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('获取屏幕基本信息失败', false);
+            WarningAlert.pop('获取屏幕基本信息失败');
             console.log(e);
         });
 }
@@ -61,17 +72,17 @@ function sendGetLogListRequest()
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('获取最新消息失败', false);
+            WarningAlert.pop('获取最新消息失败');
             console.log(e);
         });
 }
@@ -89,19 +100,19 @@ async function sendGetScreenListRequestAsync(dispatch, successAction, failAction
         }
         else if (code === STATUS_CODE.INVALID_SESSION)
         {
-            Alert.show('请先登录', false);
+            WarningAlert.pop('请先登录');
             dispatch(failAction());
             redirectToLogin();
         }
         else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
         {
-            Alert.show('服务器错误', false);
+            DangerAlert.pop('服务器错误');
             dispatch(failAction());
         }
     }
     catch (e)
     {
-        Alert.show('获取屏幕列表失败', false);
+        WarningAlert.pop('获取屏幕列表失败');
         dispatch(failAction());
         console.log(e);
     }
@@ -110,7 +121,7 @@ async function sendGetScreenListRequestAsync(dispatch, successAction, failAction
 function sendPostUnbindResourcePackRequest()
 {
     const {
-        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList,
     } = this.state;
     postAsync(UNBIND_RESOURCE_PACK, {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: screenIdList})
         .then(res =>
@@ -118,28 +129,28 @@ function sendPostUnbindResourcePackRequest()
             const {code} = res;
             if (code === STATUS_CODE.SUCCESS)
             {
-                Alert.show('解绑成功', true);
+                SuccessAlert.pop('解绑成功');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
             {
-                Alert.show('屏幕不存在', false);
+                WarningAlert.pop('屏幕不存在');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.REJECTION)
             {
-                Alert.show('你无权解绑该屏幕的资源包', false);
+                WarningAlert.pop('你无权解绑该屏幕的资源包');
                 refreshScreenList();
             }
         })
         .catch(e =>
         {
-            Alert.show('解绑失败', false);
+            WarningAlert.pop('解绑失败');
             console.log(e);
         });
 }
@@ -147,44 +158,44 @@ function sendPostUnbindResourcePackRequest()
 function sendPostBindResourcePackRequest()
 {
     const {
-        selectedResourcePackId
+        selectedResourcePackId,
     } = this.props;
     const {
-        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList,
     } = this.state;
 
     postAsync(BIND_RESOURCE_PACK, {
         [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList,
-        [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: selectedResourcePackId
+        [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: selectedResourcePackId,
     })
         .then(res =>
         {
             const {code} = res;
             if (code === STATUS_CODE.SUCCESS)
             {
-                Alert.show('绑定成功', true);
+                SuccessAlert.pop('绑定成功');
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.REJECTION)
             {
-                Alert.show('由于权限问题，部分绑定失败', false);
+                WarningAlert.pop('由于权限问题，绑定失败');
             }
             else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
             {
-                Alert.show('资源包或屏幕不存在，部分绑定失败', false);
+                WarningAlert.pop('资源包或屏幕不存在，绑定失败');
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('绑定失败', false);
+            WarningAlert.pop('绑定失败');
             console.log(e);
         });
 }
@@ -198,25 +209,25 @@ function sendPostAddScreenRequest()
             const {code} = res;
             if (code === STATUS_CODE.SUCCESS)
             {
-                Alert.show('添加成功', true);
+                SuccessAlert.pop('添加成功');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.WRONG_PARAMETER)
             {
-                Alert.show('参数无效', false);
+                WarningAlert.pop('参数无效');
             }
             else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
             {
-                Alert.show('UUID 对应的屏幕不存在', false);
+                WarningAlert.pop('UUID 对应的屏幕不存在');
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('添加失败', false);
+            DangerAlert.pop('添加失败');
             console.log(e);
         });
 }
@@ -225,39 +236,39 @@ function sendPostDeleteScreenRequest()
 {
     const {selectedScreenIdSet} = this.props;
     postAsync(DELETE_SCREEN, {
-        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array.from(selectedScreenIdSet.keys())
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array.from(selectedScreenIdSet.keys()),
     })
         .then(res =>
         {
             const {code} = res;
             if (code === STATUS_CODE.SUCCESS)
             {
-                Alert.show('删除成功', true);
+                SuccessAlert.pop('删除成功');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.REJECTION)
             {
-                Alert.show('不能删除他人屏幕', false);
+                WarningAlert.pop('不能删除他人屏幕');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
             {
-                Alert.show('被删除屏幕不存在', false);
+                WarningAlert.pop('被删除屏幕不存在');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('删除失败', false);
+            WarningAlert.pop('删除失败');
             console.log(e);
         });
 }
@@ -266,39 +277,39 @@ function sendPostStartScreenRequest()
 {
     const {selectedScreenIdSet} = this.props;
     postAsync(START_SCREEN, {
-        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array.from(selectedScreenIdSet.keys())
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array.from(selectedScreenIdSet.keys()),
     })
         .then(res =>
         {
             const {code} = res;
             if (code === STATUS_CODE.SUCCESS)
             {
-                Alert.show('全部开始播放成功', true);
+                SuccessAlert.pop('全部开始播放成功');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.REJECTION)
             {
-                Alert.show('部分开始播放失败，请确认所有屏幕上 APP 处于运行状态', false);
+                WarningAlert.pop('部分开始播放失败，请确认所有屏幕上 APP 处于运行状态');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
             {
-                Alert.show('部分开始播放屏幕不存在', false);
+                WarningAlert.pop('部分开始播放屏幕不存在');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('开始播放失败', false);
+            WarningAlert.pop('开始播放失败');
             console.log(e);
         });
 }
@@ -307,39 +318,39 @@ function sendPostStopScreenRequest()
 {
     const {selectedScreenIdSet} = this.props;
     postAsync(STOP_SCREEN, {
-        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array.from(selectedScreenIdSet.keys())
+        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array.from(selectedScreenIdSet.keys()),
     })
         .then(res =>
         {
             const {code} = res;
             if (code === STATUS_CODE.SUCCESS)
             {
-                Alert.show('全部停止播放成功', true);
+                SuccessAlert.pop('全部停止播放成功');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.REJECTION)
             {
-                Alert.show('部分停止播放失败，请确认所有屏幕的网络状态', false);
+                WarningAlert.pop('部分停止播放失败，请确认所有屏幕的网络状态');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
             {
-                Alert.show('部分停止播放屏幕不存在', false);
+                WarningAlert.pop('部分停止播放屏幕不存在');
                 refreshScreenList();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('停止播放失败', false);
+            WarningAlert.pop('停止播放失败');
             console.log(e);
         });
 }
@@ -356,17 +367,17 @@ function sendGetResourcePackListRequest()
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('获取资源包列表失败', false);
+            WarningAlert.pop('获取资源包列表失败');
             console.log(e);
         });
 }
@@ -376,36 +387,36 @@ function sendBindResourcePackRequest()
     const {selectedResourcePackId, selectedScreenIdSet} = this.props;
     postAsync(BIND_RESOURCE_PACK, {
         [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: Array.from(selectedScreenIdSet.keys()),
-        [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: selectedResourcePackId
+        [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: selectedResourcePackId,
     })
         .then(res =>
         {
             const {code} = res;
             if (code === STATUS_CODE.SUCCESS)
             {
-                Alert.show('绑定成功', true);
+                SuccessAlert.pop('绑定成功');
             }
             else if (code === STATUS_CODE.INVALID_SESSION)
             {
-                Alert.show('请先登录', false);
+                WarningAlert.pop('请先登录');
                 redirectToLogin();
             }
             else if (code === STATUS_CODE.REJECTION)
             {
-                Alert.show('由于权限问题，部分绑定失败', false);
+                WarningAlert.pop('由于权限问题，绑定失败');
             }
             else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
             {
-                Alert.show('资源包或屏幕不存在，部分绑定失败', false);
+                WarningAlert.pop('资源包或屏幕不存在，绑定失败');
             }
             else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
             {
-                Alert.show('服务器错误', false);
+                DangerAlert.pop('服务器错误');
             }
         })
         .catch(e =>
         {
-            Alert.show('绑定失败', false);
+            WarningAlert.pop('绑定失败');
             console.log(e);
         });
 }

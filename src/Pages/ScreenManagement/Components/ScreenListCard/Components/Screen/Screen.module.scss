@@ -1,4 +1,4 @@
-@import "../../../../../../Static/Button.module";
+@import "~bootstrap/scss/bootstrap";
 @import "../../../../../../Static/Constants.module";
 
 // 这些变量被 Header 组件依赖
@@ -83,10 +83,12 @@ $padding: 0.75rem 0.5rem;
         width: $buttonWidth;
 
         .bindResourcePackButton {
+            @extend .btn;
             @extend .btn-primary;
         }
 
         .unbindResourcePackButton {
+            @extend .btn;
             @extend .btn-danger;
         }
     }

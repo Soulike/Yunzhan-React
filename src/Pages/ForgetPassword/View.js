@@ -3,12 +3,9 @@ import {Link} from 'react-router';
 import style from './ForgetPassword.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
-import Functions from '../../Functions';
-import {View as Alert} from '../../Components/Alert';
 import Regex from '../../Static/Regex';
 import RequestProcessors from '../../RequestProcessors';
-
-const {getSHA256, postAsync} = Functions;
+import {WarningAlert} from '../../Components/Alerts';
 
 class ForgetPassword extends Component
 {
@@ -69,19 +66,19 @@ class ForgetPassword extends Component
         const {email, newPassword, repeatNewPassword, verificationCode} = this.state;
         if (newPassword !== repeatNewPassword)
         {
-            Alert.show('两次输入密码不一致', false);
+            WarningAlert.pop('两次输入密码不一致');
         }
         else if (!Regex.EMAIL.test(email))
         {
-            Alert.show('请输入正确的邮箱', false);
+            WarningAlert.pop('请输入正确的邮箱');
         }
         else if (!Regex.PASSWORD.test(newPassword))
         {
-            Alert.show('请输入正确的新密码', false);
+            WarningAlert.pop('请输入正确的新密码');
         }
         else if (!Regex.VERIFICATION_CODE.test(verificationCode))
         {
-            Alert.show('请输入正确的验证码', false);
+            WarningAlert.pop('请输入正确的验证码');
         }
         else
         {
