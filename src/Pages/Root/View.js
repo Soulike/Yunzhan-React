@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
 import style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
 import {getItemId, setActiveItemId} from './Components/Menu/Functions';
 import RequestProcessors from '../../RequestProcessors';
 import {Modal} from '../../Components/Modal';
 import {MODAL_ID} from '../../Static/Constants';
+import Title from './Components/Title/View';
+import {itemIdToIcon, itemIdToName} from './Components/Menu/MenuItems';
 
 class Root extends Component
 {
@@ -15,15 +18,20 @@ class Root extends Component
     {
         if (prevProps.children !== this.props.children)
         {
-            setActiveItemId(getItemId(this.props.location.pathname));
+            const activeItemId = getItemId(this.props.location.pathname);
+            setActiveItemId(activeItemId);
         }
     }
 
 
     render()
     {
+        const {currentActiveItemId} = this.props;
         return (
             <div className={style.Root}>
+                <div className={style.titleWrapper}>
+                    <Title icon={itemIdToIcon[currentActiveItemId]} text={itemIdToName[currentActiveItemId]} />
+                </div>
                 <div className={style.sidebar}>
                     <div className={style.iconWrapper}>
                         <Link to={'/'}>
@@ -34,7 +42,7 @@ class Root extends Component
                         <Menu />
                     </div>
                 </div>
-                <div className={style.page}>
+                <div className={style.pageWrapper}>
                     {this.props.children}
                 </div>
 
@@ -48,4 +56,12 @@ class Root extends Component
     }
 }
 
-export default Root;
+const mapStateToProps = (state) =>
+{
+    const {currentActiveItemId} = state.RootMenu;
+    return {
+        currentActiveItemId,
+    };
+};
+
+export default connect(mapStateToProps)(Root);

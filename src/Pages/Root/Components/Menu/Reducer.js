@@ -7,7 +7,7 @@ export default (state = {}, action) =>
     {
         return {
             ...state,
-            currentActiveItemId: action.itemId
+            currentActiveItemId: action.itemId,
         };
     }
     else

@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import style from './AdvertiseManagement.module.scss';
-import {View as Title} from '../../Components/Title';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 
 class AdvertiseManagement extends Component
@@ -16,7 +14,7 @@ class AdvertiseManagement extends Component
     {
         return (
             <div className={style.AdvertiseManagement}>
-                <Title icon={solidIcon.faAd} text={'广告管理'}/>
+
             </div>
         );
     }

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router';
 import style from './Overview.module.scss';
-import {View as Title} from '../../Components/Title';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {View as Card} from '../../Components/Card';
 import Functions from '../../Functions';
@@ -87,7 +85,6 @@ class Overview extends Component
         } = this.state;
         return (
             <div className={style.Overview}>
-                <Title icon={solidIcon.faList} text={'概览'} />
                 <div className={style.cardWrapper}>
                     <Card title={'登录信息'} className={style.card}>
                         <div>{this.generateHelloString()}好，<span className={style.data}>{email}</span></div>

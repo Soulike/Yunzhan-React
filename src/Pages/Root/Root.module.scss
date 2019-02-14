@@ -1,8 +1,6 @@
 @import "../../Static/Constants.module";
 
 .Root {
-    $sidebarWidth: 7.5rem;
-
     position: absolute;
     top: 0;
     left: 0;
@@ -11,6 +9,13 @@
     overflow: hidden;
 
     background-color: #EEE;
+
+    .titleWrapper {
+        position: fixed;
+        left: $sidebarWidth;
+        width: 100%;
+        z-index: 1;
+    }
 
     .sidebar {
         overflow: auto;
@@ -43,16 +48,12 @@
         }
     }
 
-    .page {
-        display: inline-block;
+    .pageWrapper {
         position: absolute;
-        top: 0;
+        top: $titleHeight;
         left: $sidebarWidth;
         right: 0;
         bottom: 0;
-    }
-
-    .modalContainer {
-
+        overflow: auto;
     }
 }

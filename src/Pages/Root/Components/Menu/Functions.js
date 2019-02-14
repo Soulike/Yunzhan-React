@@ -1,6 +1,6 @@
 import {switchItem} from './Actions/Actions';
 import Store from '../../../../Store';
-import {Items} from './MenuItems';
+import {itemUrlToId} from './MenuItems';
 
 export function setActiveItemId(itemId)
 {
@@ -10,5 +10,5 @@ export function setActiveItemId(itemId)
 
 export function getItemId(url)
 {
-    return Items[url];
+    return itemUrlToId[url];
 }

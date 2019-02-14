@@ -1,10 +1,7 @@
-@import "../../Static/InnerWrapper.module";
-
 $PAGE_HEIGHT: 40rem;
 
 .ScreenManagement {
     .cardWrapper {
-        @extend .InnerWrapper;
         display: flex;
         justify-content: space-around;
         align-items: flex-start;

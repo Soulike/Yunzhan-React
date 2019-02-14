@@ -1,9 +1,7 @@
-@import "../../Static/InnerWrapper.module";
 @import "~bootstrap/scss/bootstrap";
 
 .Overview {
     .cardWrapper {
-        @extend .InnerWrapper;
         min-height: 40rem;
         padding: 0 12.5rem;
         display: flex;
