@@ -1,13 +1,12 @@
 import {STATUS_CODE} from '../../Static/Constants';
 import {browserHistory} from 'react-router';
 import Functions from '../../Functions';
-import {GET_VERIFICATION_CODE, LOGIN, SIGN_UP} from './Route';
-import {accountRequestPrefix} from '../../Static/AccountShare/AccountShare';
+import {FORGET_PASSWORD, GET_VERIFICATION_CODE, LOGIN, LOGOUT, SIGN_UP, VERIFY_SESSION} from './Route';
 import {setOffline, setOnline} from '../../Pages/Login/Functions';
 import NAMESPACE from '../../Namespace';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../Components/Alerts';
 
-const {requestPrefix, getAsync, postAsync, getSHA256} = Functions;
+const {getAsync, postAsync, getSHA256} = Functions;
 
 export default {
     sendPostLoginRequestAsync,
@@ -57,7 +56,7 @@ function sendGetVerificationCodeRequest($getCodeButton)
 function sendPostForgetPasswordRequest()
 {
     const {email, newPassword, verificationCode} = this.state;
-    postAsync(accountRequestPrefix('/forgetPassword'), {
+    postAsync(FORGET_PASSWORD, {
         [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
         [NAMESPACE.ACCOUNT.VERIFICATION.NEW_PASSWORD]: getSHA256(newPassword),
         [NAMESPACE.ACCOUNT.VERIFICATION.VERIFICATION_CODE]: verificationCode,
@@ -111,7 +110,7 @@ function sendPostSignUpRequest()
                 SuccessAlert.pop('注册成功');
                 setTimeout(() =>
                 {
-                    browserHistory.push('/');
+                    browserHistory.push('/login');
                 }, 1000);
             }
             else if (code === STATUS_CODE.REJECTION)
@@ -143,6 +142,7 @@ async function sendPostLoginRequestAsync(dispatch, successAction, failAction, em
         if (code === STATUS_CODE.SUCCESS)
         {
             dispatch(successAction());
+            setOnline();
             browserHistory.push('/');
         }
         else
@@ -177,7 +177,7 @@ async function sendPostLoginRequestAsync(dispatch, successAction, failAction, em
 
 function sendGetVerifySessionRequest()
 {
-    getAsync(requestPrefix('/verifySession'), false)
+    getAsync(VERIFY_SESSION, false)
         .then(res =>
         {
             const {code} = res;
@@ -198,7 +198,7 @@ function sendGetVerifySessionRequest()
 
 function sendPostLogoutRequest()
 {
-    postAsync(requestPrefix('/logout'))
+    postAsync(LOGOUT)
         .then(res =>
         {
             const {code} = res;

@@ -38,6 +38,11 @@ class ScreenListCard extends Component
         Store.dispatch(Actions.getScreenList());
     }
 
+    onAddScreenModalInputChange = e =>
+    {
+        this.setState({[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: e.target.value});
+    };
+
     onStartRunningButtonClick = e =>
     {
         e.preventDefault();
@@ -66,9 +71,37 @@ class ScreenListCard extends Component
         }
     };
 
+    onBatchBindResourcePackButtonClick = e =>
+    {
+        e.preventDefault();
+        const {selectedScreenIdSet} = this.props;
+        if (selectedScreenIdSet.size === 0)
+        {
+            WarningAlert.pop('未选中任何屏幕');
+        }
+        else
+        {
+            ModalFunctions.showModal(MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL);
+        }
+    };
+
+    onBatchUnbindResourcePackButtonClick = e =>
+    {
+        e.preventDefault();
+        const {selectedScreenIdSet} = this.props;
+        if (selectedScreenIdSet.size === 0)
+        {
+            WarningAlert.pop('未选中任何屏幕');
+        }
+        else
+        {
+            ModalFunctions.showModal(MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL);
+        }
+    };
+
     render()
     {
-        const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList, selectedScreenIdSet} = this.props;
+        const {screenList, selectedScreenIdSet} = this.props;
 
         const screenIdSet = new Set();
         screenList.forEach(screen =>
@@ -106,16 +139,18 @@ class ScreenListCard extends Component
                                 onClick={this.onStopRunningButtonClick}>
                             <FontAwesomeIcon icon={solidIcon.faPowerOff} />
                         </button>
-                        <ModalTriggeringButton modalId={MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL}
-                                               className={style.bindResourcePackButton}
-                                               title={'批量绑定资源包'}>
+                        <button
+                            className={style.batchBindResourcePackButton}
+                            title={'批量绑定资源包'}
+                            onClick={this.onBatchBindResourcePackButtonClick}>
                             <FontAwesomeIcon icon={solidIcon.faFileArchive} />
-                        </ModalTriggeringButton>
-                        <ModalTriggeringButton modalId={MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL}
-                                               className={style.unbindResourcePackButton}
-                                               title={'批量解绑资源包'}>
+                        </button>
+                        <button
+                            className={style.batchUnbindResourcePackButton}
+                            title={'批量解绑资源包'}
+                            onClick={this.onBatchUnbindResourcePackButtonClick}>
                             <FontAwesomeIcon icon={solidIcon.faTrashAlt} />
-                        </ModalTriggeringButton>
+                        </button>
                     </div>
                 </Card>
 

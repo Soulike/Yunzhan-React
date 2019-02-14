@@ -54,12 +54,12 @@
             @extend .btn-danger;
         }
 
-        .bindResourcePackButton {
+        .batchBindResourcePackButton {
             @extend .btn;
             @extend .btn-primary;
         }
 
-        .unbindResourcePackButton {
+        .batchUnbindResourcePackButton {
             @extend .btn;
             @extend .btn-danger;
         }

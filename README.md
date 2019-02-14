@@ -267,7 +267,7 @@ Front part of project Yunzhan using React &amp; Redux.
 #### `/unbindResourcePack`
 
 - 功能说明：为屏幕解绑资源包。
-- 请求方法：GET
+- 请求方法：POST
 - 请求体：
 ```js
 {

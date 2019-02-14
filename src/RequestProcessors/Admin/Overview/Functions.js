@@ -6,5 +6,5 @@ const {removePrependSlashes} = Functions;
 export function overviewPrefix(url)
 {
     url = removePrependSlashes(url);
-    return adminPrefix(`/admin/${url}`);
+    return adminPrefix(`/overview/${url}`);
 }
