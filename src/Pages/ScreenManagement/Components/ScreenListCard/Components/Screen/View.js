@@ -94,9 +94,9 @@ class Screen extends Component
                     {
                         resourcePackId === undefined ?
                             <ModalTriggeringButton modalId={MODAL_ID.BIND_RESOURCE_PACK_MODAL}
-                                                   className={style.bindResourcePackButton}>绑定资源包</ModalTriggeringButton> :
+                                                   className={style.batchBindResourcePackButton}>绑定资源包</ModalTriggeringButton> :
                             <ModalTriggeringButton modalId={MODAL_ID.UNBIND_RESOURCE_PACK_MODAL}
-                                                   className={style.unbindResourcePackButton}>解绑资源包</ModalTriggeringButton>
+                                                   className={style.batchUnbindResourcePackButton}>解绑资源包</ModalTriggeringButton>
                     }
                 </div>
 

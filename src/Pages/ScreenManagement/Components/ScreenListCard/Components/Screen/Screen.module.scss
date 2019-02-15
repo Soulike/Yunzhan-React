@@ -18,8 +18,7 @@ $padding: 0.75rem 0.5rem;
     width: 100%;
 
     &:hover {
-        background-color: #FAFAFA;
-        background: linear-gradient(to right, #FAFAFA, transparent);
+        background: #FAFAFA linear-gradient(to right, #FAFAFA, transparent);
     }
 
     .nameWrapper {

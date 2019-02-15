@@ -5,12 +5,12 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
-import {getItemId, setActiveItemId} from './Components/Menu/Functions';
+import {setActiveItemId} from './Components/Menu/Functions';
 import RequestProcessors from '../../RequestProcessors';
 import {Modal} from '../../Components/Modal';
 import {MODAL_ID} from '../../Static/Constants';
 import Title from './Components/Title/View';
-import {itemIdToIcon, itemIdToName} from './Components/Menu/MenuItems';
+import {itemIdToIcon, itemIdToName, itemUrlToId} from './Components/Menu/MenuItems';
 
 class Root extends Component
 {
@@ -18,7 +18,7 @@ class Root extends Component
     {
         if (prevProps.children !== this.props.children)
         {
-            const activeItemId = getItemId(this.props.location.pathname);
+            const activeItemId = itemUrlToId[this.props.location.pathname];
             setActiveItemId(activeItemId);
         }
     }
