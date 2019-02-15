@@ -20,8 +20,8 @@ import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alert
 const {getAsync, postAsync} = Functions;
 
 export default {
-    sendGetBasicInfoRequest,
-    sendGetLogListRequest,
+    sendGetScreenBasicInfoRequest,
+    sendGetScreenLogListRequest,
     sendGetScreenListRequestAsync,
     sendPostUnbindResourcePackRequest,
     sendPostBindResourcePackRequest,
@@ -33,7 +33,7 @@ export default {
     sendBindResourcePackRequest,
 };
 
-function sendGetBasicInfoRequest()
+function sendGetScreenBasicInfoRequest()
 {
     getAsync(GET_BASIC_INFO, false)
         .then(res =>
@@ -60,7 +60,7 @@ function sendGetBasicInfoRequest()
         });
 }
 
-function sendGetLogListRequest()
+function sendGetScreenLogListRequest()
 {
     getAsync(GET_LOG_LIST, false)
         .then(res =>

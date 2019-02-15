@@ -18,7 +18,7 @@ class LogCard extends Component
 
     componentDidMount()
     {
-        RequestProcessors.sendGetLogListRequest.apply(this);
+        RequestProcessors.sendGetScreenLogListRequest.apply(this);
     }
 
 

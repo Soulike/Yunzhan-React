@@ -10,7 +10,7 @@ import RequestProcessors from '../../RequestProcessors';
 import {Modal} from '../../Components/Modal';
 import {MODAL_ID} from '../../Static/Constants';
 import Title from './Components/Title/View';
-import {itemIdToIcon, itemIdToName, itemUrlToId} from './Components/Menu/MenuItems';
+import {itemIdToIcon, itemIdToName, itemUrlToId} from '../../Config/MenuItem';
 
 class Root extends Component
 {

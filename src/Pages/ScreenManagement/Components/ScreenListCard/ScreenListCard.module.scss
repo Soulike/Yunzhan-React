@@ -9,7 +9,7 @@
 
     .screenListWrapper {
         overflow: auto;
-        height: $PAGE_HEIGHT - 10.7rem;
+        height: $CONTENT_CONTAINER_HEIGHT - 10.7rem;
         box-sizing: border-box;
         overflow-x: hidden;
     }

@@ -24,6 +24,7 @@ class Card extends Component
 Card.propTypes = {
     title: PropTypes.string,
     children: PropTypes.node.isRequired,
+    className: PropTypes.string,
 };
 
 export default Card;

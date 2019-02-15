@@ -2,11 +2,13 @@ $monospace: "Source Code Pro", "Noto Sans Mono", monospace;
 $serif: "Noto Serif CJK SC", "Source Han Serif", "思源宋体", "serif";
 $sans-serif: "Noto Sans CJK SC", "Source Han Sans", "思源黑体", "sans-serif";
 
-$rootSideBarBackgroundColor: #333;
-$rootSideBarColor: #DDD;
+$SIDEBAR_BACKGROUND_COLOR: #333;
+$SIDEBAR_COLOR: #DDD;
 
-$titleFontSize: 1.5rem;
-$titleTopAndBottomPadding: 1rem;
-$titleHeight: $titleFontSize + $titleTopAndBottomPadding*2;
+$TITLE_FONT_SIZE: 1.5rem;
+$TITLE_TOP_AND_BOTTOM_PADDING: 1rem;
+$TITLE_HEIGHT: $TITLE_FONT_SIZE + $TITLE_TOP_AND_BOTTOM_PADDING*2;
 
-$sidebarWidth: 7.5rem;
+$SIDEBAR_WIDTH: 7.5rem;
+
+$CONTENT_CONTAINER_HEIGHT: 40rem;

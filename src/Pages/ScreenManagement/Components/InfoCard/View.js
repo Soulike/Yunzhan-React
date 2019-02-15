@@ -19,7 +19,7 @@ class InfoCard extends Component
 
     componentDidMount()
     {
-        RequestProcessors.sendGetBasicInfoRequest.apply(this);
+        RequestProcessors.sendGetScreenBasicInfoRequest.apply(this);
     }
 
 

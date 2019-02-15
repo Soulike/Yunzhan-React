@@ -1,6 +1,6 @@
 import React from 'react';
 import {browserHistory, IndexRedirect, Route, Router} from 'react-router';
-import {itemIdToUrl, itemIdToView, MENU_ITEM_ID} from './Pages/Root/Components/Menu/MenuItems';
+import {itemIdToUrl, itemIdToView, MENU_ITEM_ID} from './Config/MenuItem';
 // 所有页面的 View 在此处导入
 import {Functions as LoginFunctions, View as Login} from './Pages/Login';
 import {View as SignUp} from './Pages/SignUp';
@@ -8,8 +8,6 @@ import {View as ForgetPassword} from './Pages/ForgetPassword';
 import {View as Root} from './Pages/Root';
 
 const {requireLogin} = LoginFunctions;
-//const requireLogin = null;
-
 
 const Routes = () => (
     <Router history={browserHistory}>

@@ -4,13 +4,14 @@ import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {View as InfoCard} from './Components/InfoCard';
 import {View as LogCard} from './Components/LogCard';
 import ScreenListCard from './Components/ScreenListCard/View';
+import {MENU_ITEM_ID} from '../../Config/MenuItem';
 
 class ScreenManagement extends Component
 {
     componentDidMount()
     {
         document.title = '屏幕管理 - 云展';
-        MenuFunctions.setActiveItemId(1);
+        MenuFunctions.setActiveItemId(MENU_ITEM_ID.SCREEN_MANAGEMENT);
     }
 
     render()

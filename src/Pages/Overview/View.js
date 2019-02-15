@@ -6,6 +6,7 @@ import {View as Card} from '../../Components/Card';
 import Functions from '../../Functions';
 import RequestProcessors from '../../RequestProcessors';
 import NAMESPACE from '../../Namespace';
+import {MENU_ITEM_ID} from '../../Config/MenuItem';
 
 const {generateTimeStr} = Functions;
 
@@ -34,7 +35,7 @@ class Overview extends Component
     componentDidMount()
     {
         document.title = '概览 - 云展';
-        MenuFunctions.setActiveItemId(0);
+        MenuFunctions.setActiveItemId(MENU_ITEM_ID.OVERVIEW);
         RequestProcessors.sendGetLoginInfoRequest.apply(this);
         RequestProcessors.sendGetScreenInfoRequest.apply(this);
         RequestProcessors.sendGetAdvertisementInfoRequest.apply(this);

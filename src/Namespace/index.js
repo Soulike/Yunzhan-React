@@ -1,13 +1,9 @@
-const ACCOUNT = require('./Account');
-const OVERVIEW = require('./Overview');
-const RESOURCE_PACK_MANAGEMENT = require('./ResourcePackManagement');
-const SCREEN_MANAGEMENT = require('./ScreenManagement');
-
 const exportObj = {
-    ACCOUNT,
-    OVERVIEW,
-    RESOURCE_PACK_MANAGEMENT,
-    SCREEN_MANAGEMENT
+    ACCOUNT: require('./Account'),
+    OVERVIEW: require('./Overview'),
+    RESOURCE_PACK_MANAGEMENT: require('./ResourcePackManagement'),
+    SCREEN_MANAGEMENT: require('./ScreenManagement'),
+    ADVERTISEMENT_MANAGEMENT: require('./AdvertisementManagement'),
 };
 
 // module.exports = exportObj;

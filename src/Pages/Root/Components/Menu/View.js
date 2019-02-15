@@ -4,7 +4,7 @@ import {View as Item} from './Components/Item';
 import style from './Menu.module.scss';
 import {LinkItem} from './Components/Item/ItemObject';
 import {setActiveItemId} from './Functions';
-import {itemList} from './MenuItems';
+import {itemList, MENU_ITEM_ID} from '../../../../Config/MenuItem';
 
 class Menu extends Component
 {
@@ -17,7 +17,7 @@ class Menu extends Component
         }
         else
         {
-            setActiveItemId(0);
+            setActiveItemId(MENU_ITEM_ID.OVERVIEW);
         }
     }
 

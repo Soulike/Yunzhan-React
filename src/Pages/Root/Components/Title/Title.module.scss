@@ -1,11 +1,11 @@
 @import "../../../../Static/Constants.module";
 
 .Title {
-    color: $rootSideBarColor;
-    font-size: $titleFontSize;
-    line-height: $titleFontSize;
-    padding: $titleTopAndBottomPadding 3rem;
-    background-color: $rootSideBarBackgroundColor;
+    color: $SIDEBAR_COLOR;
+    font-size: $TITLE_FONT_SIZE;
+    line-height: $TITLE_FONT_SIZE;
+    padding: $TITLE_TOP_AND_BOTTOM_PADDING 3rem;
+    background-color: $SIDEBAR_BACKGROUND_COLOR;
     user-select: none;
 
     .icon {

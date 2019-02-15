@@ -1,12 +1,12 @@
 import * as SolidIcon from '@fortawesome/free-solid-svg-icons';
-import {FuncItem, LinkItem} from './Components/Item/ItemObject';
-import {Functions as LoginFunctions} from '../../../Login';
+import {FuncItem, LinkItem} from '../Pages/Root/Components/Menu/Components/Item/ItemObject';
+import {Functions as LoginFunctions} from '../Pages/Login';
 
-import {View as Overview} from '../../../Overview';
-import {View as ScreenManagement} from '../../../ScreenManagement';
-import {View as AdvertiseManagement} from '../../../AdvertiseManagement';
-import {View as ResourceManagement} from '../../../ResourceManagement';
-import {View as TagManagement} from '../../../TagManagement';
+import {View as Overview} from '../Pages/Overview';
+import {View as ScreenManagement} from '../Pages/ScreenManagement';
+import {View as AdvertisementManagement} from '../Pages/AdvertisementManagement';
+import {View as ResourceManagement} from '../Pages/ResourceManagement';
+import {View as TagManagement} from '../Pages/TagManagement';
 
 // 以下利用了动态生成一个类数组对象并自定义迭代器，再利用 Array.from 转换为真数组的技术
 const iterator = function* ()
@@ -24,7 +24,7 @@ const iterator = function* ()
 export const MENU_ITEM_ID = {
     OVERVIEW: 0,
     SCREEN_MANAGEMENT: 1,
-    ADVERTISE_MANAGEMENT: 2,
+    ADVERTISEMENT_MANAGEMENT: 2,
     TAG_MANAGEMENT: 3,
     RESOURCE_MANAGEMENT: 4,
     EXIT: 5,
@@ -34,7 +34,7 @@ export const MENU_ITEM_ID = {
 export const itemIdToUrl = Array.from({
     [MENU_ITEM_ID.OVERVIEW]: '/admin/overview',
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: '/admin/screenManagement',
-    [MENU_ITEM_ID.ADVERTISE_MANAGEMENT]: '/admin/advertiseManagement',
+    [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: '/admin/advertisementManagement',
     [MENU_ITEM_ID.TAG_MANAGEMENT]: '/admin/tagManagement',
     [MENU_ITEM_ID.RESOURCE_MANAGEMENT]: '/admin/resourceManagement',
 
@@ -50,7 +50,7 @@ export const itemIdToFunction = {
 export const itemUrlToId = {
     [itemIdToUrl[MENU_ITEM_ID.OVERVIEW]]: MENU_ITEM_ID.OVERVIEW,
     [itemIdToUrl[MENU_ITEM_ID.SCREEN_MANAGEMENT]]: MENU_ITEM_ID.SCREEN_MANAGEMENT,
-    [itemIdToUrl[MENU_ITEM_ID.ADVERTISE_MANAGEMENT]]: MENU_ITEM_ID.ADVERTISE_MANAGEMENT,
+    [itemIdToUrl[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]]: MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT,
     [itemIdToUrl[MENU_ITEM_ID.TAG_MANAGEMENT]]: MENU_ITEM_ID.TAG_MANAGEMENT,
     [itemIdToUrl[MENU_ITEM_ID.RESOURCE_MANAGEMENT]]: MENU_ITEM_ID.RESOURCE_MANAGEMENT,
 };
@@ -59,7 +59,7 @@ export const itemUrlToId = {
 export const itemIdToName = {
     [MENU_ITEM_ID.OVERVIEW]: '概览',
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: '屏幕管理',
-    [MENU_ITEM_ID.ADVERTISE_MANAGEMENT]: '广告管理',
+    [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: '广告管理',
     [MENU_ITEM_ID.TAG_MANAGEMENT]: '标签管理',
     [MENU_ITEM_ID.RESOURCE_MANAGEMENT]: '资源包管理',
     [MENU_ITEM_ID.EXIT]: '退出',
@@ -69,7 +69,7 @@ export const itemIdToName = {
 export const itemIdToIcon = {
     [MENU_ITEM_ID.OVERVIEW]: SolidIcon.faList,
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: SolidIcon.faDesktop,
-    [MENU_ITEM_ID.ADVERTISE_MANAGEMENT]: SolidIcon.faAd,
+    [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: SolidIcon.faAd,
     [MENU_ITEM_ID.TAG_MANAGEMENT]: SolidIcon.faTags,
     [MENU_ITEM_ID.RESOURCE_MANAGEMENT]: SolidIcon.faFileArchive,
     [MENU_ITEM_ID.EXIT]: SolidIcon.faDoorOpen,
@@ -79,7 +79,7 @@ export const itemIdToIcon = {
 export const itemIdToView = Array.from({
     [MENU_ITEM_ID.OVERVIEW]: Overview,
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: ScreenManagement,
-    [MENU_ITEM_ID.ADVERTISE_MANAGEMENT]: AdvertiseManagement,
+    [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: AdvertisementManagement,
     [MENU_ITEM_ID.TAG_MANAGEMENT]: TagManagement,
     [MENU_ITEM_ID.RESOURCE_MANAGEMENT]: ResourceManagement,
 
@@ -90,7 +90,7 @@ export const itemIdToView = Array.from({
 export const itemList = Array.from({
     [MENU_ITEM_ID.OVERVIEW]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.OVERVIEW], itemIdToName[MENU_ITEM_ID.OVERVIEW], itemIdToUrl[MENU_ITEM_ID.OVERVIEW]),
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.SCREEN_MANAGEMENT], itemIdToName[MENU_ITEM_ID.SCREEN_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.SCREEN_MANAGEMENT]),
-    [MENU_ITEM_ID.ADVERTISE_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.ADVERTISE_MANAGEMENT], itemIdToName[MENU_ITEM_ID.ADVERTISE_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.ADVERTISE_MANAGEMENT]),
+    [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT], itemIdToName[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]),
     [MENU_ITEM_ID.TAG_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.TAG_MANAGEMENT], itemIdToName[MENU_ITEM_ID.TAG_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.TAG_MANAGEMENT]),
     [MENU_ITEM_ID.RESOURCE_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.RESOURCE_MANAGEMENT], itemIdToName[MENU_ITEM_ID.RESOURCE_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.RESOURCE_MANAGEMENT]),
     [MENU_ITEM_ID.EXIT]: new FuncItem(itemIdToIcon[MENU_ITEM_ID.EXIT], itemIdToName[MENU_ITEM_ID.EXIT], itemIdToFunction[MENU_ITEM_ID.EXIT]),
