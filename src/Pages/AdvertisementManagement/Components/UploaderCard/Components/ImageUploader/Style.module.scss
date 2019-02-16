@@ -1,0 +1,44 @@
+@import "~bootstrap/scss/bootstrap";
+
+.ImageUploader {
+    .fileInputWrapper {
+        margin-top: 1rem;
+    }
+
+    .progressBarWrapper {
+        margin-top: 1rem;
+    }
+
+    .buttonWrapper {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-evenly;
+
+        .uploadButton {
+            @extend .btn, .btn-primary;
+        }
+    }
+
+    .inputWrapper {
+
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .label {
+            display: inline-flex;
+            align-items: center;
+            width: 4rem;
+        }
+
+        input {
+            @extend .form-control;
+            display: inline-block;
+            width: 20rem;
+        }
+    }
+
+    .imageNameInput, .fileInput {
+        /*empty here*/
+    }
+}

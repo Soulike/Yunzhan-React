@@ -1,5 +1,18 @@
 .UploaderCard {
     .content {
         height: 23rem;
+
+        .buttonGroupWrapper {
+            display: flex;
+            justify-content: center;
+
+            button {
+                width: 10rem;
+            }
+        }
+
+        .uploaderWrapper {
+            margin-top: 1rem;
+        }
     }
 }

@@ -386,3 +386,23 @@
 }
 ```
 - 其他说明：无
+
+#### `/uploadVideo`
+
+- 功能说明：上传视频形式广告
+- 请求方法：POST
+- 请求体：FormData 对象，其中键有
+  - [NAMESPACE.ADVERTISEMENT_MANAGEMENT.VIDEO.NAME]: String // 文件名
+  - [NAMESPACE.ADVERTISEMENT_MANAGEMENT.VIDEO.FILE]: Binary // 文件内容
+- 响应体：无
+- 其他说明：无
+
+#### `/uploadImage`
+
+- 功能说明：上传图片形式广告
+- 请求方法：POST
+- 请求体：FormData 对象，其中键有
+  - [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.NAME]: String // 文件名
+  - [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.FILE]: Binary // 文件内容
+- 响应体：无
+- 其他说明：无

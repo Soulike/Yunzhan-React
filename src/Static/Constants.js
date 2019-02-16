@@ -18,4 +18,6 @@ export const MODAL_ID = {
     STOP_SCREEN_RUNNING_MODAL: 'stopScreenRunningModal',
     BATCH_BIND_RESOURCE_PACK_MODAL: 'batchBindResourcePackModal',
     BATCH_UNBIND_RESOURCE_PACK_MODAL: 'batchUnbindResourcePackModal',
+    UPLOAD_VIDEO_INFO_MODAL: 'uploadVideoModal',
+    UPLOAD_IMAGE_INFO_MODAL: 'uploadImageModal',
 };
