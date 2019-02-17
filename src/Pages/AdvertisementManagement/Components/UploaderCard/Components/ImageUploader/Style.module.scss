@@ -1,6 +1,27 @@
 @import "~bootstrap/scss/bootstrap";
 
 .ImageUploader {
+    .imagePreviewerWrapper {
+        display: flex;
+        justify-content: center;
+
+        .imagePreviewer {
+            width: 16*1.25rem;
+            height: 9*1.25rem;
+            border-radius: 0.25rem;
+            background-size: contain !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #666;
+            user-select: none;
+        }
+    }
+
+
     .fileInputWrapper {
         margin-top: 1rem;
     }
@@ -24,21 +45,29 @@
         width: 100%;
         display: flex;
         justify-content: center;
+        margin-top: 1rem;
+
+        &:first-child {
+            margin-top: 0;
+        }
 
         .label {
             display: inline-flex;
             align-items: center;
-            width: 4rem;
+            width: 6rem;
         }
 
         input {
             @extend .form-control;
+        }
+
+        input, select {
             display: inline-block;
             width: 20rem;
         }
     }
 
-    .imageNameInput, .fileInput {
+    .imageNameInput, .fileInput, .QRCodeUrlInput, .QRCodePositionSelect {
         /*empty here*/
     }
 }

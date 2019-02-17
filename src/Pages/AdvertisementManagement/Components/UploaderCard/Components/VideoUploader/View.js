@@ -69,7 +69,7 @@ class VideoUploader extends Component
 
     render()
     {
-        const {videoSrc} = this.state;
+        const {videoSrc, uploadProgress} = this.state;
         return (
             <div className={Style.VideoUploader}>
                 <div className={Style.videoWrapper}>
@@ -81,7 +81,7 @@ class VideoUploader extends Component
                                onFileInputChangeFunction={this.onFileInputChange} />
                 </div>
                 <div className={Style.progressBarWrapper}>
-                    <ProgressBar percentProgress={0} />
+                    <ProgressBar percentProgress={uploadProgress} />
                 </div>
                 <div className={Style.buttonWrapper}>
                     <button className={Style.uploadButton} onClick={this.onUploadButtonClick}>开始上传</button>

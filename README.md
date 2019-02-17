@@ -403,6 +403,24 @@
 - 请求方法：POST
 - 请求体：FormData 对象，其中键有
   - [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.NAME]: String // 文件名
+  - [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_URL]: String // 二维码 URL
+  - [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: String // 二维码位置
   - [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.FILE]: Binary // 文件内容
 - 响应体：无
-- 其他说明：无
+- 其他说明：
+  - 目前位置信息常量
+```js
+export const QRCodePositionId = {
+    TOP_LEFT: 1,
+    TOP_RIGHT: 2,
+    BOTTOM_LEFT: 3,
+    BOTTOM_RIGHT: 4,
+};
+
+export const QRCodePositionIdToName = {
+    [QRCodePositionId.TOP_LEFT]: '左上',
+    [QRCodePositionId.TOP_RIGHT]: '右上',
+    [QRCodePositionId.BOTTOM_LEFT]: '左下',
+    [QRCodePositionId.BOTTOM_RIGHT]: '右下',
+};
+```

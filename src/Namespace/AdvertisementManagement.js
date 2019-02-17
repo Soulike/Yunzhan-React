@@ -11,5 +11,7 @@ module.exports = {
     IMAGE: {
         NAME: 'imageName',
         FILE: 'imageFile',
+        QR_CODE_URL: 'QRCodeUrl',
+        QR_CODE_POSITION: 'QRCodePosition',
     },
 };

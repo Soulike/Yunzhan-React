@@ -14,7 +14,7 @@ class ProgressBar extends Component
                      aria-valuenow={percentProgress}
                      aria-valuemin="0"
                      aria-valuemax="100"
-                     style={{width: percentProgress / 100}}>{percentProgress}%
+                     style={{width: `${percentProgress}%`}}>{percentProgress}%
                 </div>
             </div>
         );
