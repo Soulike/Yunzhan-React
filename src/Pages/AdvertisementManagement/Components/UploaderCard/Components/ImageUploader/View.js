@@ -149,7 +149,7 @@ class ImageUploader extends Component
                                 onChange={this.onQRCodePositionSelectChange}>
                             {
                                 Object.values(QRCodePositionId).map(id =>
-                                    <option value={id}>{QRCodePositionIdToName[id]}</option>)
+                                    <option key={id} value={id}>{QRCodePositionIdToName[id]}</option>)
                             }
                         </select>
                     </label>

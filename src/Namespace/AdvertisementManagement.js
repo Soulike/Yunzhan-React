@@ -14,4 +14,13 @@ module.exports = {
         QR_CODE_URL: 'QRCodeUrl',
         QR_CODE_POSITION: 'QRCodePosition',
     },
+    ADVERTISEMENT: {
+        ID: 'advertisementId',
+        TYPE: 'advertisementType',
+        NAME: 'advertisementName',
+        URL: 'advertisementUrl',
+    },
+    LIST: {
+        ADVERTISEMENT: 'advertisementList',
+    },
 };

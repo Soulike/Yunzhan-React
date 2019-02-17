@@ -1,8 +1,56 @@
+@import "~bootstrap/scss/bootstrap";
 @import "../../../../Static/Constants.module";
 
 .AdvertisementListCard {
 
     .content {
         height: $CONTENT_CONTAINER_HEIGHT - 5.7rem;
+        overflow: auto;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        flex-wrap: wrap;
+
+        .advertisementWrapper {
+            padding: 1rem 0;
+            border-radius: 0.25rem;
+            transition: 0.25s background-color;
+
+            &:hover {
+                background-color: #DDD;
+            }
+        }
     }
+
+    .inputWrapper {
+
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        .label {
+            display: inline-flex;
+            align-items: center;
+            width: 6rem;
+        }
+
+        input {
+            @extend .form-control;
+        }
+
+        input, select {
+            display: inline-block;
+            width: 20rem;
+        }
+
+        .advertisementNameInput, .advertisementTypeInput, .QRCodeUrlInput, .QRCodePositionSelect {
+            /*empty here*/
+        }
+    }
+
 }

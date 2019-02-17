@@ -20,4 +20,5 @@ export const MODAL_ID = {
     BATCH_UNBIND_RESOURCE_PACK_MODAL: 'batchUnbindResourcePackModal',
     UPLOAD_VIDEO_INFO_MODAL: 'uploadVideoModal',
     UPLOAD_IMAGE_INFO_MODAL: 'uploadImageModal',
+    ADVERTISEMENT_INFO_MODAL: 'advertisementInfoModal',
 };

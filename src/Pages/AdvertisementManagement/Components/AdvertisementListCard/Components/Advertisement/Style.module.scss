@@ -1,0 +1,53 @@
+@import "~bootstrap/scss/bootstrap";
+
+.Advertisement {
+    .advertisementContentWrapper {
+        cursor: pointer;
+
+        .previewWrapper {
+            border: 1px dashed #DDD;
+            border-radius: 0.25rem;
+
+            .preview {
+                width: 16*0.75rem;
+                height: 9*0.75rem;
+                background-position: center !important;
+                background-size: contain !important;
+                background-repeat: no-repeat !important;
+            }
+        }
+
+        .advertisementInfoWrapper {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 1rem;
+            height: 2rem;
+
+            .typeIconWrapper {
+                width: 1rem;
+                height: inherit;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+
+                .typeIcon {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .advertisementName {
+                width: 6rem;
+                display: inline-flex;
+                justify-content: flex-start;
+                align-items: center;
+                height: inherit;
+                line-height: 1rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+
+}

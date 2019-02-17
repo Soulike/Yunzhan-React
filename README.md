@@ -424,3 +424,55 @@ export const QRCodePositionIdToName = {
     [QRCodePositionId.BOTTOM_RIGHT]: '右下',
 };
 ```
+
+#### `/getAdvertisementList`
+
+- 功能说明：获取广告列表
+- 请求方法：GET
+- 请求体：无
+- 响应体：
+```js
+{
+    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.LIST.ADVERTISEMENT]: {
+        // 该对象的键是广告的 ID
+        1: {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: Number, // 广告类型，枚举值
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: String, // 文件名
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: String, // 预览 URL
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_URL]: String, // 二维码 URL
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: String, // 二维码位置
+        },
+        2: {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: Number, // 广告类型，枚举值
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: String, // 文件名
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: String, // 预览 URL
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_URL]: String, // 二维码 URL
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: String, // 二维码位置
+        },
+    }
+}
+```
+- 其他说明：
+  - 广告类型枚举对象
+```js
+{
+    IMAGE: 0,
+    VIDEO: 1,
+}
+```
+
+#### `/updateAdvertisementInfo`
+
+- 功能说明：修改广告信息
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: Number, // 文件 ID
+    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: String, // 文件名
+    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_URL]: String, // 二维码 URL
+    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: Number, // 二维码位置
+}
+```
+- 响应体：无
+- 其他说明：无

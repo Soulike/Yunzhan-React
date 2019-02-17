@@ -7,7 +7,7 @@ import style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
 import {setActiveItemId} from './Components/Menu/Functions';
 import RequestProcessors from '../../RequestProcessors';
-import {Modal} from '../../Components/Modal';
+import {SmallModal} from '../../Components/Modal';
 import {MODAL_ID} from '../../Static/Constants';
 import Title from './Components/Title/View';
 import {itemIdToIcon, itemIdToName, itemUrlToId} from '../../Config/MenuItem';
@@ -46,11 +46,11 @@ class Root extends Component
                     {this.props.children}
                 </div>
 
-                <Modal id={MODAL_ID.LOGOUT_MODAL}
-                       title={'确认退出'}
-                       onConfirmButtonClickFunction={RequestProcessors.sendPostLogoutRequest}>
+                <SmallModal id={MODAL_ID.LOGOUT_MODAL}
+                            title={'确认退出'}
+                            onConfirmButtonClickFunction={RequestProcessors.sendPostLogoutRequest}>
                     您真的要退出云展吗？
-                </Modal>
+                </SmallModal>
             </div>
         );
     }

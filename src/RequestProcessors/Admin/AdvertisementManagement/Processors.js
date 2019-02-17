@@ -2,10 +2,11 @@ import {STATUS_CODE} from '../../../Static/Constants';
 import {redirectToLogin} from '../../../Pages/Login/Functions';
 import Functions from '../../../Functions';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
-import {GET_BASIC_INFO, UPLOAD_IMAGE, UPLOAD_VIDEO} from './Route';
+import {GET_ADVERTISEMENT_LIST, GET_BASIC_INFO, UPDATE_ADVERTISEMENT_INFO, UPLOAD_IMAGE, UPLOAD_VIDEO} from './Route';
 import NAMESPACE from '../../../Namespace';
 import REGEX from '../../../Static/Regex';
 import {QRCodePositionId} from '../../../Pages/AdvertisementManagement/Components/UploaderCard/Components/ImageUploader/QRCodePosition';
+import RequestProcessor from '../../index';
 
 const {getAsync} = Functions;
 
@@ -13,6 +14,8 @@ export default {
     sendGetAdvertisementBasicInfoRequest,
     sendPostUploadVideoRequestAsync,
     sendPostUploadImageRequestAsync,
+    sendGetAdvertisementListRequest,
+    sendPostUpdateAdvertisementInfoRequest,
 };
 
 function sendGetAdvertisementBasicInfoRequest()
@@ -156,5 +159,90 @@ async function sendPostUploadImageRequestAsync()
             console.log(e);
             return false;
         }
+    }
+}
+
+function sendGetAdvertisementListRequest()
+{
+    Functions.getAsync(GET_ADVERTISEMENT_LIST, false)
+        .then(res =>
+        {
+            const {code, data} = res;
+            if (code === STATUS_CODE.SUCCESS)
+            {
+                this.setState({...data});
+            }
+            else if (code === STATUS_CODE.INVALID_SESSION)
+            {
+                WarningAlert.pop('请先登录');
+                redirectToLogin();
+            }
+            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+            {
+                DangerAlert.pop('服务器错误');
+            }
+        })
+        .catch(e =>
+        {
+            WarningAlert.pop('获取广告列表失败');
+            console.log(e);
+        });
+}
+
+function sendPostUpdateAdvertisementInfoRequest()
+{
+    const {currentIdOfAdvertisementInModal, advertisementName, QRCodeUrl, QRCodePosition} = this.state;
+
+    if (!REGEX.ADVERTISEMENT_NAME.test(advertisementName))
+    {
+        WarningAlert.pop('请输入正确的文件名');
+    }
+    else if (!REGEX.URL.test(QRCodeUrl))
+    {
+        WarningAlert.pop('请输入有效的网址');
+    }
+    else if (!Object.values(QRCodePositionId).includes(QRCodePosition))
+    {
+        WarningAlert.pop('选择的位置无效');
+    }
+    else
+    {
+        Functions.postAsync(UPDATE_ADVERTISEMENT_INFO, {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: parseInt(currentIdOfAdvertisementInModal, 10), // 文件 ID
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: advertisementName, // 文件名
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_URL]: QRCodeUrl, // 二维码 URL
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: QRCodePosition, // 二维码位置
+        })
+            .then(res =>
+            {
+                const {code} = res;
+                if (code === STATUS_CODE.SUCCESS)
+                {
+                    SuccessAlert.pop('修改信息成功');
+                    RequestProcessor.sendGetAdvertisementListRequest.apply(this);
+                }
+                else if (code === STATUS_CODE.REJECTION)
+                {
+                    WarningAlert.pop('修改被拒绝');
+                }
+                else if (code === STATUS_CODE.INVALID_SESSION)
+                {
+                    WarningAlert.pop('请先登录');
+                    redirectToLogin();
+                }
+                else if (code === STATUS_CODE.WRONG_PARAMETER)
+                {
+                    WarningAlert.pop('参数错误');
+                }
+                else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+                {
+                    DangerAlert.pop('服务器错误');
+                }
+            })
+            .catch(e =>
+            {
+                WarningAlert.pop('修改信息失败');
+                console.log(e);
+            });
     }
 }
