@@ -6,7 +6,6 @@ import {GET_ADVERTISEMENT_LIST, GET_BASIC_INFO, UPDATE_ADVERTISEMENT_INFO, UPLOA
 import NAMESPACE from '../../../Namespace';
 import REGEX from '../../../Static/Regex';
 import {QRCodePositionId} from '../../../Pages/AdvertisementManagement/Components/UploaderCard/Components/ImageUploader/QRCodePosition';
-import RequestProcessor from '../../index';
 
 const {getAsync} = Functions;
 
@@ -219,7 +218,7 @@ function sendPostUpdateAdvertisementInfoRequest()
                 if (code === STATUS_CODE.SUCCESS)
                 {
                     SuccessAlert.pop('修改信息成功');
-                    RequestProcessor.sendGetAdvertisementListRequest.apply(this);
+                    sendGetAdvertisementListRequest.apply(this);
                 }
                 else if (code === STATUS_CODE.REJECTION)
                 {
