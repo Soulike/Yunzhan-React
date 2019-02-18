@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import style from './TagManagement.scss';
+import Style from './TagManagement.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
+import {View as InfoCard} from './Components/InfoCard';
+import {View as TagAdderCard} from './Components/TagAdderCard';
+import {View as TagListCard} from './Components/TagListCard';
 
 class TagManagement extends Component
 {
@@ -14,8 +17,16 @@ class TagManagement extends Component
     render()
     {
         return (
-            <div className={style.TagManagement}>
-
+            <div className={Style.TagManagement}>
+                <div className={Style.cardWrapper}>
+                    <div className={Style.leftWrapper}>
+                        <InfoCard />
+                        <TagAdderCard />
+                    </div>
+                    <div className={Style.rightWrapper}>
+                        <TagListCard />
+                    </div>
+                </div>
             </div>
         );
     }
