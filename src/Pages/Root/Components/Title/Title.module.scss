@@ -4,9 +4,10 @@
     color: $SIDEBAR_COLOR;
     font-size: $TITLE_FONT_SIZE;
     line-height: $TITLE_FONT_SIZE;
-    padding: $TITLE_TOP_AND_BOTTOM_PADDING 3rem;
+    padding: $TITLE_TOP_AND_BOTTOM_PADDING 0;
     background-color: $SIDEBAR_BACKGROUND_COLOR;
     user-select: none;
+    text-align: center;
 
     .icon {
         margin-right: 1rem;
