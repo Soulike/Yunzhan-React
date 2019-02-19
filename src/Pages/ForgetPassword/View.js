@@ -4,7 +4,7 @@ import style from './ForgetPassword.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import Regex from '../../Static/Regex';
-import RequestProcessors from '../../RequestProcessor';
+import RequestProcessor from '../../RequestProcessor';
 import {WarningAlert} from '../../Components/Alerts';
 import Card from '../../Components/Card/View';
 
@@ -54,14 +54,32 @@ class ForgetPassword extends Component
         });
     };
 
-    onGetCodeButtonClick = e =>
+    onGetCodeButtonClick = async e =>
     {
         e.preventDefault();
         const $getCodeButton = document.querySelector(`.${style.getCodeButton}`);
-        RequestProcessors.sendGetVerificationCodeRequest.apply(this, [$getCodeButton]);
+        const requestIsSuccessful = await RequestProcessor.sendGetVerificationCodeRequestAsync();
+        if (requestIsSuccessful)
+        {
+            $getCodeButton.setAttribute('disabled', 'disabled');
+            const secondsBeforeNextGetting = 30;
+            let secondsLeft = secondsBeforeNextGetting;
+            const interval = setInterval(() =>
+            {
+                $getCodeButton.innerHTML = secondsLeft.toString();
+                secondsLeft--;
+            }, 1000);
+
+            setTimeout(() =>
+            {
+                clearInterval(interval);
+                $getCodeButton.removeAttribute('disabled');
+                $getCodeButton.innerHTML = '获取验证码';
+            }, secondsBeforeNextGetting * 1000);
+        }
     };
 
-    onFormSubmit = e =>
+    onFormSubmit = async e =>
     {
         e.preventDefault();
         const {email, newPassword, repeatNewPassword, verificationCode} = this.state;
@@ -83,13 +101,13 @@ class ForgetPassword extends Component
         }
         else
         {
-            RequestProcessors.sendPostForgetPasswordRequest.apply(this);
+            await RequestProcessor.sendPostForgetPasswordRequestAsync(email, newPassword, verificationCode);
         }
     };
 
-    onSubmitButtonClick = e =>
+    onSubmitButtonClick = async e =>
     {
-        this.onFormSubmit(e);
+        await this.onFormSubmit(e);
     };
 
     render()

@@ -7,6 +7,7 @@ import {MODAL_ID} from '../../../../../../Static/Constants';
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import {QRCodePositionId, QRCodePositionIdToName} from './QRCodePosition';
+import REGEX from '../../../../../../Static/Regex';
 
 class ImageUploader extends Component
 {
@@ -90,19 +91,32 @@ class ImageUploader extends Component
         });
     };
 
-    onImageInfoModalConfirmButtonClick = e =>
+    onImageInfoModalConfirmButtonClick = async e =>
     {
         e.preventDefault();
-        RequestProcessor.sendPostUploadImageRequestAsync.apply(this)
-            .then(res =>
+        const {imageFileObject, imageName, QRCodeUrl, QRCodePosition} = this.state;
+        if (!REGEX.ADVERTISEMENT_NAME.test(imageName))
+        {
+            WarningAlert.pop('请输入正确的图片名');
+        }
+        else if (!REGEX.URL.test(QRCodeUrl))
+        {
+            WarningAlert.pop('请输入有效的网址');
+        }
+        else if (!Object.values(QRCodePositionId).includes(QRCodePosition))
+        {
+            WarningAlert.pop('选择的位置无效');
+        }
+        else
+        {
+            const uploadIsSuccessful = await RequestProcessor.sendPostUploadImageRequestAsync.apply(this, [imageFileObject, imageName, QRCodeUrl, QRCodePosition]);// 需要访问 uploadProgress 状态，因此需要传入 this
+            if (!uploadIsSuccessful)
             {
-                if (res === false)
-                {
-                    this.setState({
-                        uploadProgress: 0,
-                    });
-                }
-            });
+                this.setState({
+                    uploadProgress: 0,
+                });
+            }
+        }
     };
 
     render()

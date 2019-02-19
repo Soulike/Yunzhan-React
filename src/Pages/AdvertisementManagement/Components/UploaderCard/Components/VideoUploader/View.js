@@ -6,6 +6,7 @@ import {MODAL_ID} from '../../../../../../Static/Constants';
 import {Functions as ModalFunction, Modal} from '../../../../../../Components/Modal';
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
+import REGEX from '../../../../../../Static/Regex';
 
 class VideoUploader extends Component
 {
@@ -52,19 +53,24 @@ class VideoUploader extends Component
         });
     };
 
-    onVideoInfoModalConfirmButtonClick = e =>
+    onVideoInfoModalConfirmButtonClick = async e =>
     {
         e.preventDefault();
-        RequestProcessor.sendPostUploadVideoRequestAsync.apply(this)
-            .then(res =>
+        const {videoFileObject, videoName} = this.state;
+        if (!REGEX.ADVERTISEMENT_NAME.test(videoName))
+        {
+            WarningAlert.pop('请输入正确的视频名');
+        }
+        else
+        {
+            const uploadIsSuccessful = await RequestProcessor.sendPostUploadVideoRequestAsync.apply(this, [videoFileObject, videoName]);
+            if (!uploadIsSuccessful)
             {
-                if (res === false)
-                {
-                    this.setState({
-                        uploadProgress: 0,
-                    });
-                }
-            });
+                this.setState({
+                    uploadProgress: 0,
+                });
+            }
+        }
     };
 
     render()

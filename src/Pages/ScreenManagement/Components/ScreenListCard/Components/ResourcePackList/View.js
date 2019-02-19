@@ -14,14 +14,18 @@ class ResourcePackList extends Component
         super(...arguments);
         this.state = {
             // TODO: 把资源包列表转移到 Store 中
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]: []
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]: [],
         };
     }
 
 
     componentDidMount()
     {
-        RequestProcessors.sendGetResourcePackListRequest.apply(this);
+        RequestProcessors.sendGetResourcePackListRequestAsync()
+            .then(resourcePackList =>
+            {
+                this.setState({...resourcePackList});
+            });
     }
 
     render()
@@ -29,13 +33,13 @@ class ResourcePackList extends Component
         const {[NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]: resourcePackList} = this.state;
         return (
             <div className={style.ResourcePackList}>
-                <Header/>
+                <Header />
                 <Provider store={Store}>
                     <div className={style.listWrapper}>
                         {resourcePackList.map(resourcePack =>
                         {
                             return (
-                                <ResourcePack {...resourcePack} key={resourcePack[NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]}/>);
+                                <ResourcePack {...resourcePack} key={resourcePack[NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]} />);
                         })}
                     </div>
                 </Provider>

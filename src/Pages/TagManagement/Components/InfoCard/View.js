@@ -18,7 +18,11 @@ class InfoCard extends Component
 
     componentDidMount()
     {
-        RequestProcessor.sendGetTagBasicInfoRequest.apply(this);
+        RequestProcessor.sendGetTagBasicInfoRequestAsync()
+            .then(basicInfo =>
+            {
+                this.setState({...basicInfo});
+            });
     }
 
 

@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
 import {setActiveItemId} from './Components/Menu/Functions';
-import RequestProcessors from '../../RequestProcessor';
+import RequestProcessor from '../../RequestProcessor';
 import {SmallModal} from '../../Components/Modal';
 import {MODAL_ID} from '../../Static/Constants';
 import Title from './Components/Title/View';
@@ -48,7 +48,7 @@ class Root extends Component
 
                 <SmallModal id={MODAL_ID.LOGOUT_MODAL}
                             title={'确认退出'}
-                            onConfirmButtonClickFunction={RequestProcessors.sendPostLogoutRequest}>
+                            onConfirmButtonClickFunction={RequestProcessor.sendPostLogoutRequestAsync}>
                     您真的要退出云展吗？
                 </SmallModal>
             </div>

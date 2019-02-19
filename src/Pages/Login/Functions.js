@@ -10,7 +10,7 @@ import {MODAL_ID} from '../../Static/Constants';
 const {getHash} = Functions;
 const {showModal} = ModalFunctions;
 
-export function requireLogin(nextState, replace)
+export async function requireLogin(nextState, replace)
 {
     const {hasLoggedIn} = Store.getState()['Login'];
     if (!isLoginTokenValid()) // Token 无效，直接要求登录
@@ -21,13 +21,8 @@ export function requireLogin(nextState, replace)
     }
     else if (isLoginTokenValid() && !hasLoggedIn) // Token 有效，但 Store 中状态无效，那么可能是刷新导致
     {
-        checkLoginState();
+        await RequestProcessors.sendGetVerifySessionRequestAsync();
     }
-}
-
-function checkLoginState()
-{
-    RequestProcessors.sendGetVerifySessionRequest();
 }
 
 export function setOnline()

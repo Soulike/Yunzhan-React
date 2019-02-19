@@ -8,6 +8,8 @@ import {Functions as ModalFunction, Modal} from '../../../../Components/Modal';
 import {QRCodePositionId} from '../UploaderCard/Components/ImageUploader/QRCodePosition';
 import NAMESPACE from '../../../../Namespace';
 import RequestProcessor from '../../../../RequestProcessor';
+import REGEX from '../../../../Static/Regex';
+import {WarningAlert} from '../../../../Components/Alerts';
 
 class AdvertisementListCard extends Component
 {
@@ -25,7 +27,11 @@ class AdvertisementListCard extends Component
 
     componentDidMount()
     {
-        RequestProcessor.sendGetAdvertisementListRequest.apply(this);
+        RequestProcessor.sendGetAdvertisementListRequestAsync()
+            .then(advertisementList =>
+            {
+                this.setState({...advertisementList});
+            });
     }
 
     onAdvertisementClick = id =>
@@ -101,9 +107,30 @@ class AdvertisementListCard extends Component
         });
     };
 
-    onAdvertisementInfoModalConfirmClick = () =>
+    onAdvertisementInfoModalConfirmClick = async () =>
     {
-        RequestProcessor.sendPostUpdateAdvertisementInfoRequest.apply(this);
+        const {currentIdOfAdvertisementInModal, advertisementName, QRCodeUrl, QRCodePosition} = this.state;
+        if (!REGEX.ADVERTISEMENT_NAME.test(advertisementName))
+        {
+            WarningAlert.pop('请输入正确的文件名');
+        }
+        else if (!REGEX.URL.test(QRCodeUrl))
+        {
+            WarningAlert.pop('请输入有效的网址');
+        }
+        else if (!Object.values(QRCodePositionId).includes(QRCodePosition))
+        {
+            WarningAlert.pop('选择的位置无效');
+        }
+        else
+        {
+            const requestIsSuccessful = await RequestProcessor.sendPostUpdateAdvertisementInfoRequestAsync(currentIdOfAdvertisementInModal, advertisementName, QRCodeUrl, QRCodePosition);
+            if (requestIsSuccessful)
+            {
+                const advertisementList = await RequestProcessor.sendGetAdvertisementListRequestAsync();
+                this.setState({...advertisementList});
+            }
+        }
     };
 
 

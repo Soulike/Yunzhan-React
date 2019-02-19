@@ -13,14 +13,6 @@ import {MODAL_ID} from '../../../../../../Static/Constants';
 
 class Screen extends Component
 {
-    constructor()
-    {
-        super(...arguments);
-        const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId} = this.props;
-        this.state = {
-            [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: [screenId],
-        };
-    }
 
     componentDidUpdate(prevProps, prevState, snapshot)
     {
@@ -102,7 +94,7 @@ class Screen extends Component
 
                 <LargeModal id={MODAL_ID.BIND_RESOURCE_PACK_MODAL}
                             title={'绑定资源包'}
-                            onConfirmButtonClickFunction={() =>
+                            onConfirmButtonClickFunction={async () =>
                             {
                                 const {selectedResourcePackId} = this.props;
                                 if (selectedResourcePackId === null)
@@ -111,7 +103,9 @@ class Screen extends Component
                                 }
                                 else
                                 {
-                                    RequestProcessors.sendPostBindResourcePackRequest.apply(this);
+                                    const {selectedResourcePackId} = this.props;
+                                    const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId} = this.props;
+                                    await RequestProcessors.sendPostBindResourcePackRequestAsync([screenId], selectedResourcePackId);
                                 }
                             }}>
                     <ResourcePackList />
@@ -119,9 +113,10 @@ class Screen extends Component
 
                 <SmallModal id={MODAL_ID.UNBIND_RESOURCE_PACK_MODAL}
                             title={'解绑资源包'}
-                            onConfirmButtonClickFunction={() =>
+                            onConfirmButtonClickFunction={async () =>
                             {
-                                RequestProcessors.sendPostUnbindResourcePackRequest.apply(this);
+                                const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList} = this.state;
+                                await RequestProcessors.sendPostUnbindResourcePackRequestAsync(screenIdList);
                             }}>
                     <span>确认要为屏幕
                         <span style={{color: '#F00'}}>{name}</span>

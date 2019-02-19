@@ -13,13 +13,17 @@ class InfoCard extends Component
         this.state = {
             [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.SCREEN_AMOUNT]: 0,
             [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.RUNNING_SCREEN_AMOUNT]: 0,
-            [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.ABNORMAL_EVENT_AMOUNT]: 0
+            [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.ABNORMAL_EVENT_AMOUNT]: 0,
         };
     }
 
     componentDidMount()
     {
-        RequestProcessors.sendGetScreenBasicInfoRequest.apply(this);
+        RequestProcessors.sendGetScreenBasicInfoRequestAsync()
+            .then(basicInfo =>
+            {
+                this.setState({...basicInfo});
+            });
     }
 
 
@@ -28,7 +32,7 @@ class InfoCard extends Component
         const {
             [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.SCREEN_AMOUNT]: screenAmount,
             [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.RUNNING_SCREEN_AMOUNT]: runningScreenAmount,
-            [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.ABNORMAL_EVENT_AMOUNT]: abnormalEventAmount
+            [NAMESPACE.SCREEN_MANAGEMENT.BASIC_INFO.ABNORMAL_EVENT_AMOUNT]: abnormalEventAmount,
         } = this.state;
         return (
             <div className={style.InfoCard}>
@@ -38,18 +42,18 @@ class InfoCard extends Component
                             <div className={style.infoTitle}>总数量</div>
                             <div className={style.infoNumber} style={{color: '#09C'}}>{screenAmount}</div>
                         </div>
-                        <DividingLine/>
+                        <DividingLine />
                         <div className={style.info}>
                             <div className={style.infoTitle}>运行中</div>
                             <div className={style.infoNumber} style={{color: '#090'}}>{runningScreenAmount}</div>
                         </div>
-                        <DividingLine/>
+                        <DividingLine />
                         <div className={style.info}>
                             <div className={style.infoTitle}>已停止</div>
                             <div className={style.infoNumber}
                                  style={{color: '#F00'}}>{screenAmount - runningScreenAmount}</div>
                         </div>
-                        <DividingLine/>
+                        <DividingLine />
                         <div className={style.info}>
                             <div className={style.infoTitle}>异常事件</div>
                             <div className={style.infoNumber} style={{color: '#F00'}}>{abnormalEventAmount}</div>

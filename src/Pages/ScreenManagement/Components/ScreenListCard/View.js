@@ -9,18 +9,13 @@ import * as Actions from './Actions/Actions';
 import Store from '../../../../Store';
 import {connect} from 'react-redux';
 import {Functions as ModalFunctions, LargeModal, SmallModal} from '../../../../Components/Modal';
-import Functions from '../../../../Function';
 import REGEX from '../../../../Static/Regex';
-import {MODAL_ID, STATUS_CODE} from '../../../../Static/Constants';
-import {refreshScreenList} from './Functions';
-import {redirectToLogin} from '../../../Login/Functions';
+import {MODAL_ID} from '../../../../Static/Constants';
 import {View as ResourcePackList} from './Components/ResourcePackList';
 import NAMESPACE from '../../../../Namespace';
-import RequestProcessors from '../../../../RequestProcessor';
-import {SuccessAlert, WarningAlert} from '../../../../Components/Alerts';
+import RequestProcessor from '../../../../RequestProcessor';
+import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ModalTriggeringButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
-
-const {postAsync, requestPrefix} = Functions;
 
 class ScreenListCard extends Component
 {
@@ -68,6 +63,20 @@ class ScreenListCard extends Component
         else
         {
             ModalFunctions.showModal(MODAL_ID.STOP_SCREEN_RUNNING_MODAL);
+        }
+    };
+
+    onDeleteScreenButtonClick = e =>
+    {
+        e.preventDefault();
+        const {selectedScreenIdSet} = this.props;
+        if (selectedScreenIdSet.size === 0)
+        {
+            WarningAlert.pop('未选中任何屏幕');
+        }
+        else
+        {
+            ModalFunctions.showModal(MODAL_ID.DELETE_SCREEN_MODAL);
         }
     };
 
@@ -126,11 +135,11 @@ class ScreenListCard extends Component
                                                title={'添加屏幕'}>
                             <FontAwesomeIcon icon={solidIcon.faPlus} />
                         </ModalTriggeringButton>
-                        <ModalTriggeringButton modalId={MODAL_ID.DELETE_SCREEN_MODAL}
-                                               className={style.deleteScreenButton}
-                                               title={'删除屏幕'}>
+                        <button className={style.deleteScreenButton}
+                                title={'删除屏幕'}
+                                onClick={this.onDeleteScreenButtonClick}>
                             <FontAwesomeIcon icon={solidIcon.faTrash} />
-                        </ModalTriggeringButton>
+                        </button>
                         <button className={style.startRunningButton} title={'开始播放'}
                                 onClick={this.onStartRunningButtonClick}>
                             <FontAwesomeIcon icon={solidIcon.faPlay} />
@@ -156,7 +165,7 @@ class ScreenListCard extends Component
 
                 <SmallModal id={MODAL_ID.ADD_SCREEN_MODAL}
                             title={'添加屏幕'}
-                            onConfirmButtonClickFunction={() =>
+                            onConfirmButtonClickFunction={async () =>
                             {
                                 const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid} = this.state;
                                 if (!REGEX.UUID.test(uuid))
@@ -165,7 +174,8 @@ class ScreenListCard extends Component
                                 }
                                 else
                                 {
-                                    RequestProcessors.sendPostAddScreenRequest.apply(this);
+                                    const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid} = this.state;
+                                    await RequestProcessor.sendPostAddScreenRequestAsync(uuid);
                                 }
                             }}>
                     <div className={style.addScreenModalContent}>
@@ -178,31 +188,34 @@ class ScreenListCard extends Component
                 </SmallModal>
                 <SmallModal id={MODAL_ID.DELETE_SCREEN_MODAL}
                             title={'删除屏幕'}
-                            onConfirmButtonClickFunction={() =>
+                            onConfirmButtonClickFunction={async () =>
                             {
-                                RequestProcessors.sendPostDeleteScreenRequest.apply(this);
+                                const {selectedScreenIdSet} = this.props;
+                                await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
                             }}>
                     <span>确认删除选中的 {selectedScreenIdSet.size} 个屏幕吗？<span style={{color: '#F00'}}>此操作不可逆！</span></span>
                 </SmallModal>
                 <SmallModal id={MODAL_ID.START_SCREEN_RUNNING_MODAL}
                             title={'开始播放'}
-                            onConfirmButtonClickFunction={() =>
+                            onConfirmButtonClickFunction={async () =>
                             {
-                                RequestProcessors.sendPostStartScreenRequest.apply(this);
+                                const {selectedScreenIdSet} = this.props;
+                                await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
                             }}>
                     <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕开始播放吗？</span>
                 </SmallModal>
                 <SmallModal id={MODAL_ID.STOP_SCREEN_RUNNING_MODAL}
                             title={'停止播放'}
-                            onConfirmButtonClickFunction={() =>
+                            onConfirmButtonClickFunction={async () =>
                             {
-                                RequestProcessors.sendPostStopScreenRequest.apply(this);
+                                const {selectedScreenIdSet} = this.props;
+                                await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
                             }}>
                     <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕停止播放吗？</span>
                 </SmallModal>
                 <LargeModal id={MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL}
                             title={'批量绑定资源包'}
-                            onConfirmButtonClickFunction={() =>
+                            onConfirmButtonClickFunction={async () =>
                             {
                                 const {selectedResourcePackId} = this.props;
                                 if (selectedResourcePackId === null)
@@ -211,45 +224,17 @@ class ScreenListCard extends Component
                                 }
                                 else
                                 {
-                                    RequestProcessors.sendBindResourcePackRequest.apply(this);
+                                    const {selectedResourcePackId, selectedScreenIdSet} = this.props;
+                                    await RequestProcessor.sendPostBindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()), selectedResourcePackId);
                                 }
                             }}>
                     <ResourcePackList />
                 </LargeModal>
                 <SmallModal id={MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL}
-                            title={'解绑资源包'}
-                            onConfirmButtonClickFunction={() =>
+                            title={'批量解绑资源包'}
+                            onConfirmButtonClickFunction={async () =>
                             {
-                                postAsync(requestPrefix('/admin/screenManagement/unbindResourcePacks'), Array.from(selectedScreenIdSet.keys()))
-                                    .then(res =>
-                                    {
-                                        const {code} = res;
-                                        if (code === STATUS_CODE.SUCCESS)
-                                        {
-                                            SuccessAlert.pop('全部解绑成功');
-                                            refreshScreenList();
-                                        }
-                                        else if (code === STATUS_CODE.INVALID_SESSION)
-                                        {
-                                            WarningAlert.pop('请先登录');
-                                            redirectToLogin();
-                                        }
-                                        else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-                                        {
-                                            WarningAlert.pop('部分屏幕不存在');
-                                            refreshScreenList();
-                                        }
-                                        else if (code === STATUS_CODE.REJECTION)
-                                        {
-                                            WarningAlert.pop('你无权解绑部分屏幕的资源包');
-                                            refreshScreenList();
-                                        }
-                                    })
-                                    .catch(e =>
-                                    {
-                                        WarningAlert.pop('解绑失败');
-                                        console.log(e);
-                                    });
+                                await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()));
                             }}>
                     <span>确认要为选中的 {selectedScreenIdSet.size} 个屏幕解绑资源包吗？</span>
                 </SmallModal>

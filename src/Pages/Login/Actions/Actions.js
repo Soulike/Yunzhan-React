@@ -1,11 +1,23 @@
 import * as ActionTypes from './ActionTypes';
 import RequestProcessors from '../../../RequestProcessor';
+import {setOnline} from '../Functions';
+import {browserHistory} from 'react-router';
 
 export function login(email, password)
 {
-    return async (dispatch) =>
+    return async dispatch =>
     {
-        return RequestProcessors.sendPostLoginRequestAsync(dispatch, loginSucceed, loginFailed, email, password);
+        const requestIsSuccessful = await RequestProcessors.sendPostLoginRequestAsync(email, password);
+        if (requestIsSuccessful)
+        {
+            dispatch(loginSucceed());
+            setOnline();
+            browserHistory.push('/');
+        }
+        else
+        {
+            dispatch(loginFailed());
+        }
     };
 }
 

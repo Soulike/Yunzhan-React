@@ -1,5 +1,5 @@
-import Processors from './Processor';
+import Processor from './Processor';
 
 export default {
-    ...Processors
+    ...Processor,
 };

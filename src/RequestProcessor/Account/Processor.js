@@ -1,154 +1,138 @@
 import {STATUS_CODE} from '../../Static/Constants';
 import {browserHistory} from 'react-router';
-import Functions from '../../Function';
+import Function from '../../Function';
 import {FORGET_PASSWORD, GET_VERIFICATION_CODE, LOGIN, LOGOUT, SIGN_UP, VERIFY_SESSION} from './Route';
 import {setOffline, setOnline} from '../../Pages/Login/Functions';
 import NAMESPACE from '../../Namespace';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../Components/Alerts';
 
-const {getAsync, postAsync, getSHA256} = Functions;
-
 export default {
     sendPostLoginRequestAsync,
-    sendGetVerificationCodeRequest,
-    sendPostSignUpRequest,
-    sendPostForgetPasswordRequest,
-    sendGetVerifySessionRequest,
-    sendPostLogoutRequest,
+    sendGetVerificationCodeRequestAsync,
+    sendPostSignUpRequestAsync,
+    sendPostForgetPasswordRequestAsync,
+    sendGetVerifySessionRequestAsync,
+    sendPostLogoutRequestAsync,
 };
 
-function sendGetVerificationCodeRequest($getCodeButton)
-{
-    getAsync(GET_VERIFICATION_CODE, false)
-        .then(res =>
-        {
-            const {code} = res;
-            if (code === STATUS_CODE.SUCCESS)
-            {
-                $getCodeButton.setAttribute('disabled', 'disabled');
-                const secondsBeforeNextGetting = 30;
-                let secondsLeft = secondsBeforeNextGetting;
-                const interval = setInterval(() =>
-                {
-                    $getCodeButton.innerHTML = secondsLeft.toString();
-                    secondsLeft--;
-                }, 1000);
-
-                setTimeout(() =>
-                {
-                    clearInterval(interval);
-                    $getCodeButton.removeAttribute('disabled');
-                    $getCodeButton.innerHTML = '获取验证码';
-                }, secondsBeforeNextGetting * 1000);
-            }
-            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-            {
-                DangerAlert.pop('服务器错误');
-            }
-        })
-        .catch(e =>
-        {
-            WarningAlert.pop('获取验证码失败，请重试');
-            console.log(e);
-        });
-}
-
-function sendPostForgetPasswordRequest()
-{
-    const {email, newPassword, verificationCode} = this.state;
-    postAsync(FORGET_PASSWORD, {
-        [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
-        [NAMESPACE.ACCOUNT.VERIFICATION.NEW_PASSWORD]: getSHA256(newPassword),
-        [NAMESPACE.ACCOUNT.VERIFICATION.VERIFICATION_CODE]: verificationCode,
-    })
-        .then(res =>
-        {
-            const {code} = res;
-
-            if (code === STATUS_CODE.SUCCESS)
-            {
-                SuccessAlert.pop('找回密码成功');
-                setTimeout(() =>
-                {
-                    browserHistory.push('/');
-                }, 1000);
-            }
-            else if (code === STATUS_CODE.REJECTION)
-            {
-                WarningAlert.pop('验证码错误');
-            }
-            else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
-            {
-                WarningAlert.pop('用户不存在');
-            }
-            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-            {
-                DangerAlert.pop('服务器错误');
-            }
-        })
-        .catch(e =>
-        {
-            WarningAlert.pop('提交失败，请重试');
-            console.log(e);
-        });
-}
-
-function sendPostSignUpRequest()
-{
-    const {email, password, verificationCode} = this.state;
-    postAsync(SIGN_UP, {
-        [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
-        [NAMESPACE.ACCOUNT.VERIFICATION.PASSWORD]: getSHA256(password),
-        [NAMESPACE.ACCOUNT.VERIFICATION.VERIFICATION_CODE]: verificationCode,
-    })
-        .then(res =>
-        {
-            const {code} = res;
-
-            if (code === STATUS_CODE.SUCCESS)
-            {
-                SuccessAlert.pop('注册成功');
-                setTimeout(() =>
-                {
-                    browserHistory.push('/login');
-                }, 1000);
-            }
-            else if (code === STATUS_CODE.REJECTION)
-            {
-                WarningAlert.pop('验证码错误');
-            }
-            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-            {
-                DangerAlert.pop('服务器错误');
-            }
-        })
-        .catch(e =>
-        {
-            WarningAlert.pop('提交失败，请重试');
-            console.log(e);
-        });
-}
-
-async function sendPostLoginRequestAsync(dispatch, successAction, failAction, email, password)
+async function sendGetVerificationCodeRequestAsync()
 {
     try
     {
-        const res = await postAsync(LOGIN, {
+        const {code} = await Function.getAsync(GET_VERIFICATION_CODE, false);
+        if (code === STATUS_CODE.SUCCESS)
+        {
+            return true;
+        }
+        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+        {
+            DangerAlert.pop('服务器错误');
+            return null;
+        }
+    }
+    catch (e)
+    {
+        WarningAlert.pop('获取验证码失败，请重试');
+        console.log(e);
+        return null;
+    }
+}
+
+async function sendPostForgetPasswordRequestAsync(email, newPassword, verificationCode)
+{
+    try
+    {
+        const {code} = await Function.postAsync(FORGET_PASSWORD, {
+            [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
+            [NAMESPACE.ACCOUNT.VERIFICATION.NEW_PASSWORD]: Function.getSHA256(newPassword),
+            [NAMESPACE.ACCOUNT.VERIFICATION.VERIFICATION_CODE]: verificationCode,
+        });
+
+        if (code === STATUS_CODE.SUCCESS)
+        {
+            SuccessAlert.pop('找回密码成功');
+            setTimeout(() =>
+            {
+                browserHistory.push('/');
+            }, 1000);
+            return true;
+        }
+        else if (code === STATUS_CODE.REJECTION)
+        {
+            WarningAlert.pop('验证码错误');
+            return null;
+        }
+        else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
+        {
+            WarningAlert.pop('用户不存在');
+            return null;
+        }
+        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+        {
+            DangerAlert.pop('服务器错误');
+            return null;
+        }
+    }
+    catch (e)
+    {
+        WarningAlert.pop('提交失败，请重试');
+        console.log(e);
+        return null;
+    }
+}
+
+async function sendPostSignUpRequestAsync(email, password, verificationCode)
+{
+    try
+    {
+        const {code} = await Function.postAsync(SIGN_UP, {
+            [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
+            [NAMESPACE.ACCOUNT.VERIFICATION.PASSWORD]: Function.getSHA256(password),
+            [NAMESPACE.ACCOUNT.VERIFICATION.VERIFICATION_CODE]: verificationCode,
+        });
+        if (code === STATUS_CODE.SUCCESS)
+        {
+            SuccessAlert.pop('注册成功');
+            setTimeout(() =>
+            {
+                browserHistory.push('/login');
+            }, 1000);
+            return true;
+        }
+        else if (code === STATUS_CODE.REJECTION)
+        {
+            WarningAlert.pop('验证码错误');
+            return null;
+        }
+        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+        {
+            DangerAlert.pop('服务器错误');
+            return null;
+        }
+    }
+    catch (e)
+    {
+        WarningAlert.pop('提交失败，请重试');
+        console.log(e);
+        return null;
+    }
+}
+
+async function sendPostLoginRequestAsync(email, password)
+{
+    try
+    {
+        const {code} = await Function.postAsync(LOGIN, {
             [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
             [NAMESPACE.ACCOUNT.ACCOUNT.PASSWORD]: password,
         });
 
-        const {code} = res;
         if (code === STATUS_CODE.SUCCESS)
         {
-            dispatch(successAction());
-            setOnline();
-            browserHistory.push('/');
+            return true;
         }
         else
         {
-            dispatch(failAction());
-
             if (code === STATUS_CODE.REJECTION)
             {
                 WarningAlert.pop('密码错误');
@@ -165,57 +149,65 @@ async function sendPostLoginRequestAsync(dispatch, successAction, failAction, em
             {
                 DangerAlert.pop('服务器错误');
             }
+            return null;
         }
     }
     catch (e)
     {
-        dispatch(failAction());
         WarningAlert.pop('登录失败');
         console.log(e);
+        return null;
     }
 }
 
-function sendGetVerifySessionRequest()
+async function sendGetVerifySessionRequestAsync()
 {
-    getAsync(VERIFY_SESSION, false)
-        .then(res =>
+    try
+    {
+        const {code} = await Function.getAsync(VERIFY_SESSION, false);
+        if (code === STATUS_CODE.SUCCESS)
         {
-            const {code} = res;
-            if (code === STATUS_CODE.SUCCESS)
-            {
-                setOnline();
-            }
-            else if (code === STATUS_CODE.INVALID_SESSION)
-            {
-                setOffline();
-            }
-            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-            {
-                DangerAlert.pop('服务器错误');
-            }
-        });
+            setOnline();
+            return true;
+        }
+        else if (code === STATUS_CODE.INVALID_SESSION)
+        {
+            setOffline();
+            return false;
+        }
+        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+        {
+            DangerAlert.pop('服务器错误');
+            return null;
+        }
+    }
+    catch (e)
+    {
+        console.log(e);
+        return null;
+    }
 }
 
-function sendPostLogoutRequest()
+async function sendPostLogoutRequestAsync()
 {
-    postAsync(LOGOUT)
-        .then(res =>
+    try
+    {
+        const {code} = await Function.postAsync(LOGOUT);
+        if (code === STATUS_CODE.SUCCESS)
         {
-            const {code} = res;
-            if (code === STATUS_CODE.SUCCESS)
-            {
-                SuccessAlert.pop('退出成功');
-                setOffline();
-                browserHistory.push('/login');
-            }
-            else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-            {
-                DangerAlert.pop('服务器错误');
-            }
-        })
-        .catch(e =>
+            SuccessAlert.pop('退出成功');
+            setOffline();
+            browserHistory.push('/login');
+        }
+        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
         {
-            console.log(e);
-            WarningAlert.pop('退出失败，请重试');
-        });
+            DangerAlert.pop('服务器错误');
+        }
+    }
+    catch (e)
+    {
+        console.log(e);
+        WarningAlert.pop('退出失败，请重试');
+        return null;
+    }
 }

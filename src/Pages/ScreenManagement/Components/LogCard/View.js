@@ -12,13 +12,17 @@ class LogCard extends Component
     {
         super(...arguments);
         this.state = {
-            [NAMESPACE.SCREEN_MANAGEMENT.LIST.LOG]: []
+            [NAMESPACE.SCREEN_MANAGEMENT.LIST.LOG]: [],
         };
     }
 
     componentDidMount()
     {
-        RequestProcessors.sendGetScreenLogListRequest.apply(this);
+        RequestProcessors.sendGetScreenLogListRequestAsync()
+            .then(logList =>
+            {
+                this.setState({...logList});
+            });
     }
 
 
@@ -31,7 +35,7 @@ class LogCard extends Component
                     <div className={style.logList}>
                         {logList.map(log =>
                         {
-                            return <Log {...log} key={log[NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]}/>;
+                            return <Log {...log} key={log[NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]} />;
                         })}
                     </div>
                 </Card>

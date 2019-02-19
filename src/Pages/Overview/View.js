@@ -4,7 +4,7 @@ import style from './Overview.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {View as Card} from '../../Components/Card';
 import Functions from '../../Function';
-import RequestProcessors from '../../RequestProcessor';
+import RequestProcessor from '../../RequestProcessor';
 import NAMESPACE from '../../Namespace';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
 
@@ -36,11 +36,20 @@ class Overview extends Component
     {
         document.title = '概览 - 云展';
         MenuFunctions.setActiveItemId(MENU_ITEM_ID.OVERVIEW);
-        RequestProcessors.sendGetLoginInfoRequest.apply(this);
-        RequestProcessors.sendGetScreenInfoRequest.apply(this);
-        RequestProcessors.sendGetAdvertisementInfoRequest.apply(this);
-        RequestProcessors.sendGetResourcePackInfoRequest.apply(this);
-        RequestProcessors.sendGetTagInfoRequest.apply(this);
+        Promise.all([
+            RequestProcessor.sendGetLoginInfoRequestAsync(),
+            RequestProcessor.sendGetScreenInfoRequestAsync(),
+            RequestProcessor.sendGetAdvertisementInfoRequestAsync(),
+            RequestProcessor.sendGetResourcePackInfoRequestAsync(),
+            RequestProcessor.sendGetTagInfoRequestAsync(),
+        ])
+            .then(dataArray =>
+            {
+                dataArray.forEach(data =>
+                {
+                    this.setState({...data});
+                });
+            });
     }
 
     generateHelloString = () =>
@@ -107,7 +116,8 @@ class Overview extends Component
                             <span className={style.data}>{currentImageAmount}</span>个图片，
                             <span className={style.data}>{currentAdvertisementAmount - currentImageAmount}</span>个视频
                         </div>
-                        <div>共占用空间<span className={style.data}>{advertisementFileSize}</span>MB</div>
+                        <div>共占用空间<span className={style.data}>{(advertisementFileSize / 1024 / 1024).toFixed(2)}</span>MB
+                        </div>
                         <div><Link to={'/admin/screenManagement'}>前往广告管理页面查看详细信息 >></Link></div>
                     </Card>
                     <Card title={'资源包信息'} className={style.card}>
