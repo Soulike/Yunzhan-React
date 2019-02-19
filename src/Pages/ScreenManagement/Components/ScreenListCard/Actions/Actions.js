@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import RequestProcessors from '../../../../../RequestProcessors';
+import RequestProcessors from '../../../../../RequestProcessor';
 import NAMESPACE from '../../../../../Namespace';
 
 export function getScreenList()

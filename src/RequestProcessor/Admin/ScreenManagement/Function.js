@@ -1,4 +1,4 @@
-import Functions from '../../../Functions';
+import Functions from '../../../Function';
 import {adminPrefix} from '../Functions';
 
 const {removePrependSlashes} = Functions;

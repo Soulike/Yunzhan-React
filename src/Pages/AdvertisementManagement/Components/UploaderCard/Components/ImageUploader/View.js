@@ -5,7 +5,7 @@ import {View as ProgressBar} from '../../../../../../Components/ProgressBar';
 import {Functions as ModalFunction, Modal} from '../../../../../../Components/Modal';
 import {MODAL_ID} from '../../../../../../Static/Constants';
 import {WarningAlert} from '../../../../../../Components/Alerts';
-import RequestProcessor from '../../../../../../RequestProcessors';
+import RequestProcessor from '../../../../../../RequestProcessor';
 import {QRCodePositionId, QRCodePositionIdToName} from './QRCodePosition';
 
 class ImageUploader extends Component

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import style from './InfoCard.module.scss';
 import {View as Card} from '../../../../Components/Card';
 import {View as DividingLine} from './Components/DividingLine';
-import RequestProcessors from '../../../../RequestProcessors';
+import RequestProcessors from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
 
 class InfoCard extends Component

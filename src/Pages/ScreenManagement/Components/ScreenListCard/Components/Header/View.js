@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as Actions from '../../Actions/Actions';
 import style from './Header.module.scss';
 import Store from '../../../../../../Store';
-import Functions from '../../../../../../Functions';
+import Functions from '../../../../../../Function';
 import {connect} from 'react-redux';
 
 const {setsEqual} = Functions;

@@ -1,4 +1,4 @@
-import {advertisementPrefix} from './Functions';
+import {advertisementPrefix} from './Function';
 
 export const GET_BASIC_INFO = advertisementPrefix('/getBasicInfo');
 

@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {connect} from 'react-redux';
 import {login} from './Actions/Actions';
-import Functions from '../../Functions';
+import Functions from '../../Function';
 import Regex from '../../Static/Regex';
 import {WarningAlert} from '../../Components/Alerts';
 import {View as Card} from '../../Components/Card';

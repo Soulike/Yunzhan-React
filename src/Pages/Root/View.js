@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
 import {setActiveItemId} from './Components/Menu/Functions';
-import RequestProcessors from '../../RequestProcessors';
+import RequestProcessors from '../../RequestProcessor';
 import {SmallModal} from '../../Components/Modal';
 import {MODAL_ID} from '../../Static/Constants';
 import Title from './Components/Title/View';

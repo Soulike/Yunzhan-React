@@ -4,7 +4,7 @@ import style from './ForgetPassword.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import Regex from '../../Static/Regex';
-import RequestProcessors from '../../RequestProcessors';
+import RequestProcessors from '../../RequestProcessor';
 import {WarningAlert} from '../../Components/Alerts';
 import Card from '../../Components/Card/View';
 

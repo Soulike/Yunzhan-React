@@ -5,7 +5,7 @@ import {View as Header} from './Components/Header';
 import {Provider} from 'react-redux';
 import Store from '../../../../../../Store';
 import NAMESPACE from '../../../../../../Namespace';
-import RequestProcessors from '../../../../../../RequestProcessors';
+import RequestProcessors from '../../../../../../RequestProcessor';
 
 class ResourcePackList extends Component
 {
@@ -13,6 +13,7 @@ class ResourcePackList extends Component
     {
         super(...arguments);
         this.state = {
+            // TODO: 把资源包列表转移到 Store 中
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]: []
         };
     }

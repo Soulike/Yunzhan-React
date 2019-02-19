@@ -370,7 +370,7 @@
 - 响应体：无
 - 其他说明：如果原来绑定别的资源包，就解绑并绑定现在的资源包。如果资源包或屏幕不存在，返回 404，如果存在资源包或屏幕不属于当前用户，返回 403。
 
-### 广告管理（前缀为 `\advertisementManagement`
+### 广告管理（前缀为 `/advertisementManagement`
 
 #### `/getBasicInfo`
 
@@ -475,4 +475,20 @@ export const QRCodePositionIdToName = {
 }
 ```
 - 响应体：无
+- 其他说明：无
+
+### 标签管理 (前缀为 `/tagManagement`)
+
+#### `/getBasicInfo`
+
+- 功能说明：获取标签基本信息
+- 请求方法：GET
+- 请求体：无
+- 响应体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.BASIC_INFO.TAG_AMOUNT]: Number, // 总标签数
+    [NAMESPACE.TAG_MANAGEMENT.BASIC_INFO.USING_TAG_AMOUNT]: Number, // 正在使用的标签数
+}
+```
 - 其他说明：无

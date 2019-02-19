@@ -9,14 +9,14 @@ import * as Actions from './Actions/Actions';
 import Store from '../../../../Store';
 import {connect} from 'react-redux';
 import {Functions as ModalFunctions, LargeModal, SmallModal} from '../../../../Components/Modal';
-import Functions from '../../../../Functions';
+import Functions from '../../../../Function';
 import REGEX from '../../../../Static/Regex';
 import {MODAL_ID, STATUS_CODE} from '../../../../Static/Constants';
 import {refreshScreenList} from './Functions';
 import {redirectToLogin} from '../../../Login/Functions';
 import {View as ResourcePackList} from './Components/ResourcePackList';
 import NAMESPACE from '../../../../Namespace';
-import RequestProcessors from '../../../../RequestProcessors';
+import RequestProcessors from '../../../../RequestProcessor';
 import {SuccessAlert, WarningAlert} from '../../../../Components/Alerts';
 import {View as ModalTriggeringButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
 

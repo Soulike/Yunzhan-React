@@ -5,7 +5,7 @@ import Store from '../../../../../../../../Store';
 import * as Actions from './Actions/Actions';
 import {connect} from 'react-redux';
 import NAMESPACE from '../../../../../../../../Namespace';
-import Functions from '../../../../../../../../Functions';
+import Functions from '../../../../../../../../Function';
 
 class ResourcePack extends Component
 {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Function from '../../Functions';
+import Function from '../../Function';
 import $ from 'jquery';
 import Style from './Style.module.scss';
 

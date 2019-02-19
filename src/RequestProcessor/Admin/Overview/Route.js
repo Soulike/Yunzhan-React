@@ -1,4 +1,4 @@
-import {overviewPrefix} from './Functions';
+import {overviewPrefix} from './Function';
 
 export const GET_LOGIN_INFO = overviewPrefix('/getLoginInfo');
 

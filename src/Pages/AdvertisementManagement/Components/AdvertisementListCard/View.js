@@ -7,7 +7,7 @@ import {MODAL_ID} from '../../../../Static/Constants';
 import {Functions as ModalFunction, Modal} from '../../../../Components/Modal';
 import {QRCodePositionId} from '../UploaderCard/Components/ImageUploader/QRCodePosition';
 import NAMESPACE from '../../../../Namespace';
-import RequestProcessor from '../../../../RequestProcessors';
+import RequestProcessor from '../../../../RequestProcessor';
 
 class AdvertisementListCard extends Component
 {

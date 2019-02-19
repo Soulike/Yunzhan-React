@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import style from './LogCard.module.scss';
 import {View as Card} from '../../../../Components/Card';
 import {View as Log} from './Components/Log/';
-import RequestProcessors from '../../../../RequestProcessors';
+import RequestProcessors from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
 
 

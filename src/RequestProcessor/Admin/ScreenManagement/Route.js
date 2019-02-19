@@ -1,4 +1,4 @@
-import {screenManagementPrefix} from './Functions';
+import {screenManagementPrefix} from './Function';
 
 export const GET_BASIC_INFO = screenManagementPrefix('/getBasicInfo');
 

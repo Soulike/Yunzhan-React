@@ -1,6 +1,6 @@
 import {STATUS_CODE} from '../../../Static/Constants';
 import {redirectToLogin} from '../../../Pages/Login/Functions';
-import Functions from '../../../Functions';
+import Functions from '../../../Function';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
 import {GET_ADVERTISEMENT_LIST, GET_BASIC_INFO, UPDATE_ADVERTISEMENT_INFO, UPLOAD_IMAGE, UPLOAD_VIDEO} from './Route';
 import NAMESPACE from '../../../Namespace';

@@ -1,6 +1,6 @@
 import {STATUS_CODE} from '../../../Static/Constants';
 import {redirectToLogin} from '../../../Pages/Login/Functions';
-import Functions from '../../../Functions';
+import Functions from '../../../Function';
 import {
     ADD_SCREEN,
     BIND_RESOURCE_PACK,

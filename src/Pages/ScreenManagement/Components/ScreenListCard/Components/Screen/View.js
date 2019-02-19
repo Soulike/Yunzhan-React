@@ -6,7 +6,7 @@ import * as Actions from '../../Actions/Actions';
 import {connect} from 'react-redux';
 import {View as ResourcePackList} from '../ResourcePackList';
 import NAMESPACE from '../../../../../../Namespace';
-import RequestProcessors from '../../../../../../RequestProcessors';
+import RequestProcessors from '../../../../../../RequestProcessor';
 import {LargeModal, ModalTriggeringButton, SmallModal} from '../../../../../../Components/Modal';
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import {MODAL_ID} from '../../../../../../Static/Constants';

@@ -5,7 +5,7 @@ import {View as ProgressBar} from '../../../../../../Components/ProgressBar';
 import {MODAL_ID} from '../../../../../../Static/Constants';
 import {Functions as ModalFunction, Modal} from '../../../../../../Components/Modal';
 import {WarningAlert} from '../../../../../../Components/Alerts';
-import RequestProcessor from '../../../../../../RequestProcessors';
+import RequestProcessor from '../../../../../../RequestProcessor';
 
 class VideoUploader extends Component
 {

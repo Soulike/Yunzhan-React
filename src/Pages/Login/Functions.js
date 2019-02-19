@@ -1,9 +1,9 @@
-import Functions from '../../Functions';
+import Functions from '../../Function';
 import {loginStateInvalid, loginStateValid} from './Actions/Actions';
 import {browserHistory} from 'react-router';
 import Store from '../../Store';
 import {Functions as ModalFunctions} from '../../Components/Modal';
-import RequestProcessors from '../../RequestProcessors';
+import RequestProcessors from '../../RequestProcessor';
 import {SuccessAlert} from '../../Components/Alerts';
 import {MODAL_ID} from '../../Static/Constants';
 

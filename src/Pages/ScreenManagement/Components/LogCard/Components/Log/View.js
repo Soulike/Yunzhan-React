@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import style from './Log.module.scss';
-import Functions from '../../../../../../Functions';
+import Functions from '../../../../../../Function';
 import NAMESPACE from '../../../../../../Namespace';
 
 const {generateDateStr} = Functions;

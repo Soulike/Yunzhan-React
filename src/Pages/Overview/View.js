@@ -3,8 +3,8 @@ import {Link} from 'react-router';
 import style from './Overview.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {View as Card} from '../../Components/Card';
-import Functions from '../../Functions';
-import RequestProcessors from '../../RequestProcessors';
+import Functions from '../../Function';
+import RequestProcessors from '../../RequestProcessor';
 import NAMESPACE from '../../Namespace';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
 

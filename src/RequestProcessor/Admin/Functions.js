@@ -1,4 +1,4 @@
-import Functions from '../../Functions';
+import Functions from '../../Function';
 
 const {requestPrefix, removePrependSlashes} = Functions;
 

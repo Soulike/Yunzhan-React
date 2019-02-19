@@ -1,6 +1,6 @@
 import {STATUS_CODE} from '../../Static/Constants';
 import {browserHistory} from 'react-router';
-import Functions from '../../Functions';
+import Functions from '../../Function';
 import {FORGET_PASSWORD, GET_VERIFICATION_CODE, LOGIN, LOGOUT, SIGN_UP, VERIFY_SESSION} from './Route';
 import {setOffline, setOnline} from '../../Pages/Login/Functions';
 import NAMESPACE from '../../Namespace';

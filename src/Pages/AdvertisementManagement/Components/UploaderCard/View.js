@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import Function from '../../../../Functions';
+import Function from '../../../../Function';
 import {View as Card} from '../../../../Components/Card';
 import {View as ImageUploader} from './Components/ImageUploader';
 import {View as VideoUploader} from './Components/VideoUploader';

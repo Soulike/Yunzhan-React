@@ -1,4 +1,4 @@
-import {accountPrefix} from './Functions';
+import {accountPrefix} from './Function';
 
 export const GET_VERIFICATION_CODE = accountPrefix('/getVerificationCode');
 
