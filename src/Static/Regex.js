@@ -5,4 +5,5 @@ export default {
     UUID: /^[A-z0-9]{6}$/,
     ADVERTISEMENT_NAME: /^.+$/,
     URL: /^http(?:s)?:\/\/(?:\w+.)+\w+(?:\/\w+)*\/?$/,
+    TAG_NAME: /^[0-9A-z\u4e00-\u9fa5]{1,10}$/,
 };

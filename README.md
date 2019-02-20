@@ -492,3 +492,70 @@ export const QRCodePositionIdToName = {
 }
 ```
 - 其他说明：无
+
+#### `/submitNewTag`
+
+- 功能说明：提交新标签
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: String // 新标签的名称
+}
+```
+- 响应体：无
+- 其他说明：标签名限定为 1~10 位的数字、字母或汉字
+
+#### `/getTagList`
+
+- 功能说明：获取所有标签的 ID 和 NAME
+- 请求方法：GET
+- 请求体：无
+- 响应体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.LIST.TAG]: [
+        {
+            [NAMESPACE.TAG_MANAGEMENT.TAG.ID]: Number, // Tag 的 ID
+            [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: String, // Tag 的名字
+            [NAMESPACE.TAG_MANAGEMENT.TAG.BINDING_RESOURCE_PACK_AMOUNT]: Number, // Tag 当前绑定了多少个资源包
+            [NAMESPACE.TAG_MANAGEMENT.TAG.CREATION_TIME]: String // Tag 是什么时候创建的
+        },
+    ]
+}
+```
+- 其他说明：无
+
+#### `/getTagInfo`
+
+- 功能说明：获取指定标签的详细信息
+- 请求方法：GET
+- 请求体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.TAG.ID]: Number, // Tag 的 ID
+}
+```
+- 响应体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: String, // Tag 的名字
+    [NAMESPACE.TAG_MANAGEMENT.TAG.CREATION_TIME]: String, // Tag 是什么时候创建的
+    [NAMESPACE.TAG_MANAGEMENT.TAG.BINDING_RESOURCE_PACK_NAME_LIST]: Array, // 这个标签绑定的所有的资源包的名字字符串数组
+}
+```
+- 其他说明：无
+
+### `/changeTagInfo`
+
+- 功能说明：修改指定标签的信息
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.TAG.ID]: Number, // Tag 的 ID
+    [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: String, // Tag 的新名字
+}
+```
+- 响应体：无
+- 其他说明：未来可能会添加新的修改项

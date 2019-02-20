@@ -21,4 +21,5 @@ export const MODAL_ID = {
     UPLOAD_VIDEO_INFO_MODAL: 'uploadVideoModal',
     UPLOAD_IMAGE_INFO_MODAL: 'uploadImageModal',
     ADVERTISEMENT_INFO_MODAL: 'advertisementInfoModal',
+    TAG_INFO_MODAL: 'tagInfoModal',
 };

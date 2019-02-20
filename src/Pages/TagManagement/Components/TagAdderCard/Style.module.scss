@@ -1,7 +1,40 @@
+@import "~bootstrap/scss/bootstrap";
+
 .TagAdderCard {
 
     .content {
         height: 23rem;
         overflow: auto;
+
+        .inputWrapper {
+            width: 100%;
+
+            .label {
+                display: block;
+                text-align: center;
+                font-size: 1.25rem;
+            }
+
+            input {
+                @extend .form-control;
+                width: 100%;
+                text-align: center;
+                margin: 1rem 0;
+            }
+
+            .tagNameInput {
+                /*empty here*/
+            }
+        }
+
+        .submitButtonWrapper {
+            display: block;
+            width: 100%;
+
+            .submitButton {
+                @extend .btn, .btn-primary, .btn-lg;
+                width: 100%;
+            }
+        }
     }
 }
