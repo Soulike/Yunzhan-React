@@ -546,7 +546,7 @@ export const QRCodePositionIdToName = {
 ```
 - 其他说明：无
 
-### `/changeTagInfo`
+#### `/changeTagInfo`
 
 - 功能说明：修改指定标签的信息
 - 请求方法：POST
