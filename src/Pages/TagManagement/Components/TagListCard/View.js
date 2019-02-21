@@ -4,12 +4,13 @@ import {View as Card} from '../../../../Components/Card';
 import RequestProcessor from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
 import {View as Tag} from './Components/Tag';
-import {Functions as ModalFunction, Modal} from '../../../../Components/Modal';
+import {Function as ModalFunction, Modal} from '../../../../Components/Modal';
 import {MODAL_ID} from '../../../../Static/Constants';
 import Function from '../../../../Function';
-import REGEX from '../../../../Static/Regex';
+import {REGEX, TEXT} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ToolTip} from '../../../../Components/Tooltip';
+import {connect} from 'react-redux';
 
 class TagListCard extends Component
 {
@@ -17,23 +18,12 @@ class TagListCard extends Component
     {
         super(props);
         this.state = {
-            // TODO: 标签列表转移到 Store 中，添加刷新列表对外接口
-            [NAMESPACE.TAG_MANAGEMENT.LIST.TAG]: [],
             currentTagIdInModal: 0,
             tagNameIsChanged: false,
             [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: '',
             [NAMESPACE.TAG_MANAGEMENT.TAG.CREATION_TIME]: Date.now(),
             [NAMESPACE.TAG_MANAGEMENT.TAG.BINDING_RESOURCE_PACK_NAME_LIST]: [],
         };
-    }
-
-    componentDidMount()
-    {
-        RequestProcessor.sendGetTagListRequestAsync()
-            .then(tagList =>
-            {
-                this.setState({...tagList});
-            });
     }
 
     onTagClick = id =>
@@ -86,13 +76,13 @@ class TagListCard extends Component
     render()
     {
         const {
-            [NAMESPACE.TAG_MANAGEMENT.LIST.TAG]: tagList,
             [NAMESPACE.TAG_MANAGEMENT.TAG.CREATION_TIME]: tagCreationTime,
             [NAMESPACE.TAG_MANAGEMENT.TAG.BINDING_RESOURCE_PACK_NAME_LIST]: tagBindingResourcePackNameList,
         } = this.state;
+        const {tagList} = this.props;
         return (
             <div className={Style.TagListCard}>
-                <Card title={'标签列表'}>
+                <Card title={'标签列表'} subTitle={'可点击查看详细信息'}>
                     <div className={Style.cardContent}>
                         {
                             // TODO: 排序方式
@@ -100,8 +90,8 @@ class TagListCard extends Component
                             {
                                 const {[NAMESPACE.TAG_MANAGEMENT.TAG.ID]: id, [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName} = tag;
                                 return (
-                                    <div className={Style.tagWrapper} onClick={this.onTagClick(id)}>
-                                        <Tag name={tagName} key={id} />
+                                    <div className={Style.tagWrapper} key={id} onClick={this.onTagClick(id)}>
+                                        <Tag name={tagName} />
                                     </div>);
                             })
                         }
@@ -114,7 +104,7 @@ class TagListCard extends Component
                     <div className={Style.modalContent}>
                         <label className={Style.item}>
                             <span className={Style.label}>标签名</span>
-                            <ToolTip placement={'top'} title={'1~10 个汉字、字母或数字'}>
+                            <ToolTip placement={'top'} title={TEXT.TAG_NAME}>
                                 <input type="text"
                                        className={Style.tagNameInput}
                                        onChange={this.onTagNameInputChange} />
@@ -144,4 +134,12 @@ class TagListCard extends Component
     }
 }
 
-export default TagListCard;
+const mapStateToProps = state =>
+{
+    const {TagManagement: {tagList}} = state;
+    return {
+        tagList,
+    };
+};
+
+export default connect(mapStateToProps)(TagListCard);

@@ -1,3 +1,4 @@
 import View from './View';
+import Reducer from './Reducer';
 
-export {View};
+export {View, Reducer};

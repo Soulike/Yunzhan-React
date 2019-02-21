@@ -1,22 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import RequestProcessors from '../../../../../RequestProcessor';
-import NAMESPACE from '../../../../../Namespace';
-
-export function getScreenList()
-{
-    return async dispatch =>
-    {
-        const screenList = await RequestProcessors.sendGetScreenListRequestAsync();
-        if (screenList)
-        {
-            dispatch(getScreenListSucceed(screenList));
-        }
-        else
-        {
-            dispatch(getScreenListFailed());
-        }
-    };
-}
 
 
 export function selectScreen(id)
@@ -47,20 +29,5 @@ export function unselectAllScreens()
 {
     return {
         type: ActionTypes.UNSELECT_ALL_SCREENS,
-    };
-}
-
-export function getScreenListSucceed(screenList)
-{
-    return {
-        type: ActionTypes.GET_SCREEN_LIST_SUCCEED,
-        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList,
-    };
-}
-
-export function getScreenListFailed()
-{
-    return {
-        type: ActionTypes.GET_SCREEN_LIST_FAILED,
     };
 }

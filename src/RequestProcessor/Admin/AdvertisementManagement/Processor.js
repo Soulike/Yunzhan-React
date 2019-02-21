@@ -1,8 +1,15 @@
 import {STATUS_CODE} from '../../../Static/Constants';
-import {redirectToLogin} from '../../../Pages/Login/Functions';
+import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
-import {GET_ADVERTISEMENT_LIST, GET_BASIC_INFO, UPDATE_ADVERTISEMENT_INFO, UPLOAD_IMAGE, UPLOAD_VIDEO} from './Route';
+import {
+    GET_ADVERTISEMENT_INFO,
+    GET_ADVERTISEMENT_LIST,
+    GET_BASIC_INFO,
+    UPDATE_ADVERTISEMENT_INFO,
+    UPLOAD_IMAGE,
+    UPLOAD_VIDEO,
+} from './Route';
 import NAMESPACE from '../../../Namespace';
 
 export default {
@@ -11,6 +18,7 @@ export default {
     sendPostUploadImageRequestAsync,
     sendGetAdvertisementListRequestAsync,
     sendPostUpdateAdvertisementInfoRequestAsync,
+    sendGetAdvertisementInfoRequestAsync,
 };
 
 async function sendGetAdvertisementBasicInfoRequestAsync()
@@ -161,6 +169,52 @@ async function sendGetAdvertisementListRequestAsync()
     catch (e)
     {
         WarningAlert.pop('获取广告列表失败');
+        console.log(e);
+        return null;
+    }
+}
+
+async function sendGetAdvertisementInfoRequestAsync(advertisementId)
+{
+    try
+    {
+        const {code, data} = await Function.getAsync(GET_ADVERTISEMENT_INFO, false, {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: advertisementId,
+        });
+        if (code === STATUS_CODE.SUCCESS)
+        {
+            return data;
+        }
+        else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
+        {
+            WarningAlert.pop('广告不存在');
+            return null;
+        }
+        else if (code === STATUS_CODE.REJECTION)
+        {
+            WarningAlert.pop('权限不足');
+            return null;
+        }
+        else if (code === STATUS_CODE.INVALID_SESSION)
+        {
+            WarningAlert.pop('请先登录');
+            redirectToLogin();
+            return null;
+        }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('参数错误');
+            return null;
+        }
+        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
+        {
+            DangerAlert.pop('服务器错误');
+            return null;
+        }
+    }
+    catch (e)
+    {
+        WarningAlert.pop('获取广告信息失败');
         console.log(e);
         return null;
     }

@@ -3,10 +3,11 @@ import style from './Signup.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router';
-import Regex from '../../Static/Regex';
+import {REGEX, TEXT} from '../../Static/Regex';
 import RequestProcessor from '../../RequestProcessor';
 import {WarningAlert} from '../../Components/Alerts';
-import Card from '../../Components/Card/View';
+import {View as Card} from '../../Components/Card';
+import {View as ToolTip} from '../../Components/Tooltip';
 
 
 class SignUp extends Component
@@ -82,15 +83,15 @@ class SignUp extends Component
         {
             WarningAlert.pop('两次输入密码不一致');
         }
-        else if (!Regex.EMAIL.test(email))
+        else if (!REGEX.EMAIL.test(email))
         {
             WarningAlert.pop('请输入正确的邮箱');
         }
-        else if (!Regex.PASSWORD.test(password))
+        else if (!REGEX.PASSWORD.test(password))
         {
             WarningAlert.pop('请输入正确的新密码');
         }
-        else if (!Regex.VERIFICATION_CODE.test(verificationCode))
+        else if (!REGEX.VERIFICATION_CODE.test(verificationCode))
         {
             WarningAlert.pop('请输入正确的验证码');
         }
@@ -126,9 +127,11 @@ class SignUp extends Component
                             <input type="text" className={style.input} onChange={this.onEmailChange} autoFocus />
                         </div>
                         <div className={style.inputWrapper}>
-                            <div className={style.label}>密码（最少 6 位）
+                            <div className={style.label}>密码
                             </div>
-                            <input type="password" className={style.input} onChange={this.onPasswordChange} />
+                            <ToolTip placement={'top'} title={TEXT.PASSWORD}>
+                                <input type="password" className={style.input} onChange={this.onPasswordChange} />
+                            </ToolTip>
                         </div>
                         <div className={style.inputWrapper}>
                             <div className={style.label}>重复密码

@@ -1,6 +1,5 @@
 import View from './View';
-import * as Actions from './Actions/Actions';
 import Reducer from './Reducer';
-import * as Functions from './Functions';
+import * as Function from './Function';
 
-export {View, Actions, Reducer, Functions};
+export {View, Reducer, Function};

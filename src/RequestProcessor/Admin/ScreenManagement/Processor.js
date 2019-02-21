@@ -1,5 +1,5 @@
 import {STATUS_CODE} from '../../../Static/Constants';
-import {redirectToLogin} from '../../../Pages/Login/Functions';
+import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
 import {
     ADD_SCREEN,
@@ -14,7 +14,6 @@ import {
     UNBIND_RESOURCE_PACK,
 } from './Route';
 import NAMESPACE from '../../../Namespace';
-import {refreshScreenList} from '../../../Pages/ScreenManagement/Components/ScreenListCard/Functions';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
 
 export default {
@@ -93,10 +92,9 @@ async function sendGetScreenListRequestAsync()
     try
     {
         const {code, data} = await Function.getAsync(GET_SCREEN_LIST, false);
-        const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList} = data;
         if (code === STATUS_CODE.SUCCESS)
         {
-            return screenList;
+            return data;
         }
         else if (code === STATUS_CODE.INVALID_SESSION)
         {
@@ -126,7 +124,7 @@ async function sendPostUnbindResourcePackRequestAsync(screenIdListArray)
         if (code === STATUS_CODE.SUCCESS)
         {
             SuccessAlert.pop('解绑成功');
-            refreshScreenList();
+
             return true;
         }
         else if (code === STATUS_CODE.INVALID_SESSION)
@@ -138,13 +136,13 @@ async function sendPostUnbindResourcePackRequestAsync(screenIdListArray)
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
         {
             WarningAlert.pop('屏幕不存在');
-            refreshScreenList();
+
             return null;
         }
         else if (code === STATUS_CODE.REJECTION)
         {
             WarningAlert.pop('你无权解绑该屏幕的资源包');
-            refreshScreenList();
+
             return null;
         }
     }
@@ -207,7 +205,7 @@ async function sendPostAddScreenRequestAsync(uuid)
         if (code === STATUS_CODE.SUCCESS)
         {
             SuccessAlert.pop('添加成功');
-            refreshScreenList();
+
             return true;
         }
         else if (code === STATUS_CODE.WRONG_PARAMETER)
@@ -244,13 +242,13 @@ async function sendPostDeleteScreenRequestAsync(screenIdListArray)
         if (code === STATUS_CODE.SUCCESS)
         {
             SuccessAlert.pop('删除成功');
-            refreshScreenList();
+
             return true;
         }
         else if (code === STATUS_CODE.REJECTION)
         {
             WarningAlert.pop('不能删除他人屏幕');
-            refreshScreenList();
+
             return null;
         }
         else if (code === STATUS_CODE.INVALID_SESSION)
@@ -262,7 +260,7 @@ async function sendPostDeleteScreenRequestAsync(screenIdListArray)
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
         {
             WarningAlert.pop('被删除屏幕不存在');
-            refreshScreenList();
+
             return null;
         }
         else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
@@ -289,13 +287,13 @@ async function sendPostStartScreenRequestAsync(screenIdListArray)
         if (code === STATUS_CODE.SUCCESS)
         {
             SuccessAlert.pop('全部开始播放成功');
-            refreshScreenList();
+
             return true;
         }
         else if (code === STATUS_CODE.REJECTION)
         {
             WarningAlert.pop('部分开始播放失败，请确认所有屏幕上 APP 处于运行状态');
-            refreshScreenList();
+
             return null;
         }
         else if (code === STATUS_CODE.INVALID_SESSION)
@@ -307,7 +305,7 @@ async function sendPostStartScreenRequestAsync(screenIdListArray)
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
         {
             WarningAlert.pop('部分开始播放屏幕不存在');
-            refreshScreenList();
+
             return null;
         }
         else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
@@ -334,13 +332,13 @@ async function sendPostStopScreenRequestAsync(screenIdListArray)
         if (code === STATUS_CODE.SUCCESS)
         {
             SuccessAlert.pop('全部停止播放成功');
-            refreshScreenList();
+
             return true;
         }
         else if (code === STATUS_CODE.REJECTION)
         {
             WarningAlert.pop('部分停止播放失败，请确认所有屏幕的网络状态');
-            refreshScreenList();
+
             return null;
         }
         else if (code === STATUS_CODE.INVALID_SESSION)
@@ -352,7 +350,7 @@ async function sendPostStopScreenRequestAsync(screenIdListArray)
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
         {
             WarningAlert.pop('部分停止播放屏幕不存在');
-            refreshScreenList();
+
             return null;
         }
         else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)

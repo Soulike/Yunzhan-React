@@ -1,21 +1,20 @@
 import React, {Component} from 'react';
-import style from './ScreenListCard.module.scss';
+import Style from './ScreenListCard.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {View as Card} from '../../../../Components/Card';
 import {View as Screen} from './Components/Screen';
 import {View as Header} from './Components/Header';
-import * as Actions from './Actions/Actions';
-import Store from '../../../../Store';
 import {connect} from 'react-redux';
-import {Functions as ModalFunctions, LargeModal, SmallModal} from '../../../../Components/Modal';
-import REGEX from '../../../../Static/Regex';
+import {Function as ModalFunctions, LargeModal, SmallModal} from '../../../../Components/Modal';
+import {REGEX, TEXT} from '../../../../Static/Regex';
 import {MODAL_ID} from '../../../../Static/Constants';
 import {View as ResourcePackList} from './Components/ResourcePackList';
-import NAMESPACE from '../../../../Namespace';
 import RequestProcessor from '../../../../RequestProcessor';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ModalTriggeringButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
+import {getScreenList} from '../../Function';
+import {View as ToolTip} from '../../../../Components/Tooltip';
 
 class ScreenListCard extends Component
 {
@@ -23,19 +22,35 @@ class ScreenListCard extends Component
     {
         super(...arguments);
         this.state = {
-            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: '',
+            uuid: '',
         };
-    }
-
-
-    componentDidMount()
-    {
-        Store.dispatch(Actions.getScreenList());
     }
 
     onAddScreenModalInputChange = e =>
     {
-        this.setState({[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: e.target.value});
+        this.setState({uuid: e.target.value});
+    };
+
+    onAddScreenModalConfirmButtonClick = async () =>
+    {
+        const {uuid} = this.state;
+        if (!REGEX.UUID.test(uuid))
+        {
+            WarningAlert.pop('UUID 对应的屏幕不存在');
+        }
+        else
+        {
+            const requestIsSuccessful = await RequestProcessor.sendPostAddScreenRequestAsync(uuid);
+            if (requestIsSuccessful)
+            {
+                this.setState({uuid: ''}, () =>
+                {
+                    const $uuidInput = document.querySelector(`.${Style.uuidInput}`);
+                    $uuidInput.value = '';
+                    getScreenList(); // 刷新屏幕列表
+                });
+            }
+        }
     };
 
     onStartRunningButtonClick = e =>
@@ -119,71 +134,69 @@ class ScreenListCard extends Component
         });
 
         return (
-            <div className={style.ScreenListCard}>
+            <div className={Style.ScreenListCard}>
 
                 <Card title={'屏幕列表'}>
-                    <div className={style.headerWrapper}><Header screenIdSet={screenIdSet} /></div>
-                    <div className={style.screenListWrapper}>
+                    <div className={Style.headerWrapper}><Header screenIdSet={screenIdSet} /></div>
+                    <div className={Style.screenListWrapper}>
                         {screenList.map(screen =>
                         {
                             return <Screen {...screen} key={screen.id} />;
                         })}
                     </div>
-                    <div className={style.buttonWrapper}>
-                        <ModalTriggeringButton modalId={MODAL_ID.ADD_SCREEN_MODAL}
-                                               className={style.addScreenButton}
-                                               title={'添加屏幕'}>
-                            <FontAwesomeIcon icon={solidIcon.faPlus} />
-                        </ModalTriggeringButton>
-                        <button className={style.deleteScreenButton}
-                                title={'删除屏幕'}
-                                onClick={this.onDeleteScreenButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faTrash} />
-                        </button>
-                        <button className={style.startRunningButton} title={'开始播放'}
-                                onClick={this.onStartRunningButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faPlay} />
-                        </button>
-                        <button className={style.stopRunningButton} title={'停止播放'}
-                                onClick={this.onStopRunningButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faPowerOff} />
-                        </button>
-                        <button
-                            className={style.batchBindResourcePackButton}
-                            title={'批量绑定资源包'}
-                            onClick={this.onBatchBindResourcePackButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faFileArchive} />
-                        </button>
-                        <button
-                            className={style.batchUnbindResourcePackButton}
-                            title={'批量解绑资源包'}
-                            onClick={this.onBatchUnbindResourcePackButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faTrashAlt} />
-                        </button>
+                    <div className={Style.buttonWrapper}>
+                        <ToolTip placement={'top'} title={'添加屏幕'}>
+                            <ModalTriggeringButton modalId={MODAL_ID.ADD_SCREEN_MODAL}
+                                                   className={Style.addScreenButton}>
+                                <FontAwesomeIcon icon={solidIcon.faPlus} />
+                            </ModalTriggeringButton>
+                        </ToolTip>
+                        <ToolTip placement={'top'} title={'删除屏幕'}>
+                            <button className={Style.deleteScreenButton}
+                                    onClick={this.onDeleteScreenButtonClick}>
+                                <FontAwesomeIcon icon={solidIcon.faTrash} />
+                            </button>
+                        </ToolTip>
+                        <ToolTip placement={'top'} title={'开始播放'}>
+                            <button className={Style.startRunningButton}
+                                    onClick={this.onStartRunningButtonClick}>
+                                <FontAwesomeIcon icon={solidIcon.faPlay} />
+                            </button>
+                        </ToolTip>
+                        <ToolTip placement={'top'} title={'停止播放'}>
+                            <button className={Style.stopRunningButton}
+                                    onClick={this.onStopRunningButtonClick}>
+                                <FontAwesomeIcon icon={solidIcon.faPowerOff} />
+                            </button>
+                        </ToolTip>
+                        <ToolTip placement={'top'} title={'批量绑定资源包'}>
+                            <button
+                                className={Style.batchBindResourcePackButton}
+                                onClick={this.onBatchBindResourcePackButtonClick}>
+                                <FontAwesomeIcon icon={solidIcon.faFileArchive} />
+                            </button>
+                        </ToolTip>
+                        <ToolTip placement={'top'} title={'批量解绑资源包'}>
+                            <button
+                                className={Style.batchUnbindResourcePackButton}
+                                onClick={this.onBatchUnbindResourcePackButtonClick}>
+                                <FontAwesomeIcon icon={solidIcon.faTrashAlt} />
+                            </button>
+                        </ToolTip>
                     </div>
                 </Card>
 
                 <SmallModal id={MODAL_ID.ADD_SCREEN_MODAL}
                             title={'添加屏幕'}
-                            onConfirmButtonClickFunction={async () =>
-                            {
-                                const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid} = this.state;
-                                if (!REGEX.UUID.test(uuid))
-                                {
-                                    WarningAlert.pop('UUID 对应的屏幕不存在');
-                                }
-                                else
-                                {
-                                    const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid} = this.state;
-                                    await RequestProcessor.sendPostAddScreenRequestAsync(uuid);
-                                }
-                            }}>
-                    <div className={style.addScreenModalContent}>
-                        <input type="text"
-                               className={style.uuidInput}
-                               placeholder={'被添加屏幕的 UUID'}
-                               autoFocus={true}
-                               onChange={this.onAddScreenModalInputChange} />
+                            onConfirmButtonClickFunction={this.onAddScreenModalConfirmButtonClick}>
+                    <div className={Style.addScreenModalContent}>
+                        <ToolTip placement={'top'} title={TEXT.UUID}>
+                            <input type="text"
+                                   className={Style.uuidInput}
+                                   placeholder={'被添加屏幕的 UUID'}
+                                   autoFocus={true}
+                                   onChange={this.onAddScreenModalInputChange} />
+                        </ToolTip>
                     </div>
                 </SmallModal>
                 <SmallModal id={MODAL_ID.DELETE_SCREEN_MODAL}
@@ -192,6 +205,7 @@ class ScreenListCard extends Component
                             {
                                 const {selectedScreenIdSet} = this.props;
                                 await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                                getScreenList(); // 刷新屏幕列表
                             }}>
                     <span>确认删除选中的 {selectedScreenIdSet.size} 个屏幕吗？<span style={{color: '#F00'}}>此操作不可逆！</span></span>
                 </SmallModal>
@@ -201,6 +215,7 @@ class ScreenListCard extends Component
                             {
                                 const {selectedScreenIdSet} = this.props;
                                 await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                                getScreenList(); // 刷新屏幕列表
                             }}>
                     <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕开始播放吗？</span>
                 </SmallModal>
@@ -210,6 +225,7 @@ class ScreenListCard extends Component
                             {
                                 const {selectedScreenIdSet} = this.props;
                                 await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                                getScreenList(); // 刷新屏幕列表
                             }}>
                     <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕停止播放吗？</span>
                 </SmallModal>
@@ -226,6 +242,7 @@ class ScreenListCard extends Component
                                 {
                                     const {selectedResourcePackId, selectedScreenIdSet} = this.props;
                                     await RequestProcessor.sendPostBindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()), selectedResourcePackId);
+                                    getScreenList(); // 刷新屏幕列表
                                 }
                             }}>
                     <ResourcePackList />
@@ -235,6 +252,7 @@ class ScreenListCard extends Component
                             onConfirmButtonClickFunction={async () =>
                             {
                                 await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                                getScreenList(); // 刷新屏幕列表
                             }}>
                     <span>确认要为选中的 {selectedScreenIdSet.size} 个屏幕解绑资源包吗？</span>
                 </SmallModal>
@@ -245,10 +263,13 @@ class ScreenListCard extends Component
 
 const mapStateToProps = state =>
 {
-    const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList, selectedScreenIdSet} = state.ScreenListCard;
-    const {selectedResourcePackId} = state.ScreenManagementResourcePackList;
+    const {
+        ScreenManagement: {screenList},
+        ScreenListCard: {selectedScreenIdSet},
+        ScreenManagementResourcePackList: {selectedResourcePackId},
+    } = state;
     return {
-        [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenList,
+        screenList,
         selectedScreenIdSet,
         selectedResourcePackId,
     };

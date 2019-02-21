@@ -5,6 +5,7 @@ import {View as InfoCard} from './Components/InfoCard';
 import {View as LogCard} from './Components/LogCard';
 import ScreenListCard from './Components/ScreenListCard/View';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
+import {getResourcePackList, getScreenList, getScreenManagementBasicInfo, getScreenManagementLogList} from './Function';
 
 class ScreenManagement extends Component
 {
@@ -12,6 +13,10 @@ class ScreenManagement extends Component
     {
         document.title = '屏幕管理 - 云展';
         MenuFunctions.setActiveItemId(MENU_ITEM_ID.SCREEN_MANAGEMENT);
+        getScreenManagementBasicInfo();
+        getScreenManagementLogList();
+        getScreenList();
+        getResourcePackList();
     }
 
     render()
@@ -21,14 +26,14 @@ class ScreenManagement extends Component
                 <div className={style.cardWrapper}>
                     <div className={style.leftWrapper}>
                         <div className={style.infoCardWrapper}>
-                            <InfoCard/>
+                            <InfoCard />
                         </div>
                         <div className={style.logCardWrapper}>
-                            <LogCard/>
+                            <LogCard />
                         </div>
                     </div>
                     <div className={style.rightWrapper}>
-                        <ScreenListCard/>
+                        <ScreenListCard />
                     </div>
                 </div>
             </div>

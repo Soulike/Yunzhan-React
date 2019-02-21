@@ -1,5 +1,5 @@
 import {STATUS_CODE} from '../../../Static/Constants';
-import {redirectToLogin} from '../../../Pages/Login/Functions';
+import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
 import {GET_ADVERTISE_INFO, GET_LOGIN_INFO, GET_RESOURCE_PACK_INFO, GET_SCREEN_INFO, GET_TAG_INFO} from './Route';
 import {DangerAlert, WarningAlert} from '../../../Components/Alerts';

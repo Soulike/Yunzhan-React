@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {View as Card} from '../../../../Components/Card';
 import {View as ToolTip} from '../../../../Components/Tooltip';
-import REGEX from '../../../../Static/Regex';
+import {REGEX, TEXT} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
 import RequestProcessor from '../../../../RequestProcessor';
+import {getTagList, getTagManagementBasicInfo} from '../../Function';
 
 class TagAdderCard extends Component
 {
@@ -43,6 +44,8 @@ class TagAdderCard extends Component
                     const $tagNameInput = document.querySelector(`.${Style.tagNameInput}`);
                     $tagNameInput.value = '';
                 });
+                getTagManagementBasicInfo(); // 刷新 Tag 数量
+                getTagList();// 刷新Tag列表
             }
         }
     };
@@ -56,7 +59,7 @@ class TagAdderCard extends Component
                     <div className={Style.content}>
                         <label className={Style.inputWrapper}>
                             <span className={Style.label}>标签名</span>
-                            <ToolTip placement={'top'} title={'1~10 个汉字、字母或数字'}>
+                            <ToolTip placement={'top'} title={TEXT.TAG_NAME}>
                                 <input type="text"
                                        className={Style.tagNameInput}
                                        onChange={this.onTagNameInputChange}

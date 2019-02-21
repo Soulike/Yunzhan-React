@@ -6,9 +6,10 @@ import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {connect} from 'react-redux';
 import {login} from './Actions/Actions';
 import Functions from '../../Function';
-import Regex from '../../Static/Regex';
+import {REGEX, TEXT} from '../../Static/Regex';
 import {WarningAlert} from '../../Components/Alerts';
 import {View as Card} from '../../Components/Card';
+import {View as ToolTip} from '../../Components/Tooltip';
 
 const {getSHA256} = Functions;
 
@@ -46,11 +47,11 @@ class Login extends Component
     {
         e.preventDefault();
         const {email, password} = this.state;
-        if (!Regex.EMAIL.test(email))
+        if (!REGEX.EMAIL.test(email))
         {
             WarningAlert.pop('请输入正确的邮箱');
         }
-        else if (!Regex.PASSWORD.test(password))
+        else if (!REGEX.PASSWORD.test(password))
         {
             WarningAlert.pop('请输入正确的密码');
         }
@@ -87,7 +88,9 @@ class Login extends Component
                                     忘记密码了？</Link>
                                 </div>
                             </div>
-                            <input type="password" className={style.input} onChange={this.onPasswordChange} />
+                            <ToolTip placement={'top'} title={TEXT.PASSWORD}>
+                                <input type="password" className={style.input} onChange={this.onPasswordChange} />
+                            </ToolTip>
                         </div>
                         <button className={style.submitButton} onClick={this.onSubmitButtonClick}>登录</button>
                     </form>

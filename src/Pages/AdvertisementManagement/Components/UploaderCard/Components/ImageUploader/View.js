@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {View as FileInput} from '../../../../../../Components/FileInput';
 import {View as ProgressBar} from '../../../../../../Components/ProgressBar';
-import {Functions as ModalFunction, Modal} from '../../../../../../Components/Modal';
+import {Function as ModalFunction, Modal} from '../../../../../../Components/Modal';
 import {MODAL_ID} from '../../../../../../Static/Constants';
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import {QRCodePositionId, QRCodePositionIdToName} from './QRCodePosition';
-import REGEX from '../../../../../../Static/Regex';
+import {REGEX} from '../../../../../../Static/Regex';
+import {getAdvertisementList, getAdvertisementManagementBasicInfo} from '../../../../Function';
 
 class ImageUploader extends Component
 {
@@ -115,6 +116,11 @@ class ImageUploader extends Component
                 this.setState({
                     uploadProgress: 0,
                 });
+            }
+            else
+            {
+                getAdvertisementManagementBasicInfo();
+                getAdvertisementList();
             }
         }
     };

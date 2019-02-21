@@ -4,12 +4,13 @@ import {View as Card} from '../../../../Components/Card';
 import {ADVERTISEMENT_TYPE, Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
 import {QR_CODE_POSITION_ID, QR_CODE_POSITION_ID_TO_NAME} from '../UploaderCard/Components/ImageUploader';
 import {MODAL_ID} from '../../../../Static/Constants';
-import {Functions as ModalFunction, Modal} from '../../../../Components/Modal';
+import {Function as ModalFunction, Modal} from '../../../../Components/Modal';
 import {QRCodePositionId} from '../UploaderCard/Components/ImageUploader/QRCodePosition';
 import NAMESPACE from '../../../../Namespace';
 import RequestProcessor from '../../../../RequestProcessor';
-import REGEX from '../../../../Static/Regex';
+import {REGEX} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
+import {connect} from 'react-redux';
 
 class AdvertisementListCard extends Component
 {
@@ -17,7 +18,6 @@ class AdvertisementListCard extends Component
     {
         super(props);
         this.state = {
-            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.LIST.ADVERTISEMENT]: {},
             currentIdOfAdvertisementInModal: 0,
             advertisementName: '',
             QRCodeUrl: '',
@@ -25,32 +25,22 @@ class AdvertisementListCard extends Component
         };
     }
 
-    componentDidMount()
-    {
-        RequestProcessor.sendGetAdvertisementListRequestAsync()
-            .then(advertisementList =>
-            {
-                this.setState({...advertisementList});
-            });
-    }
-
     onAdvertisementClick = id =>
     {
-        return () =>
+        return async () =>
         {
             this.setState({
                 currentIdOfAdvertisementInModal: id,
-            }, () =>
+            }, async () =>
             {
                 // 根据被点击广告的信息，设置模态框中输入框的值
-                const {advertisementList} = this.state;
-                const advertisement = advertisementList[id];
+                const advertisementInfo = await RequestProcessor.sendGetAdvertisementInfoRequestAsync(id);
                 const {
                     [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: type,
                     [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: name,
                     [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_URL]: QRCodeUrl,
                     [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: QRCodePosition,
-                } = advertisement;
+                } = advertisementInfo;
 
                 const $advertisementNameInput = document.querySelector(`.${Style.advertisementNameInput}`);
                 const $advertisementTypeInput = document.querySelector(`.${Style.advertisementTypeInput}`);
@@ -136,15 +126,15 @@ class AdvertisementListCard extends Component
 
     render()
     {
-        const {[NAMESPACE.ADVERTISEMENT_MANAGEMENT.LIST.ADVERTISEMENT]: advertisementList} = this.state;
+        const {advertisementList} = this.props;
         return (
             <div className={Style.AdvertisementListCard}>
-                <Card title={'广告列表'}>
+                <Card title={'广告列表'} subTitle={'可点击查看详细信息'}>
                     <div className={Style.content}>
                         {
-                            Object.keys(advertisementList).map(id =>
+                            advertisementList.map(advertisement =>
                             {
-                                const advertisement = advertisementList[id];
+                                const {[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: id} = advertisement;
                                 return (
                                     <div className={Style.advertisementWrapper}
                                          key={id}
@@ -196,4 +186,10 @@ class AdvertisementListCard extends Component
     }
 }
 
-export default AdvertisementListCard;
+const mapStateToProps = state =>
+{
+    const {AdvertisementManagement: {advertisementList}} = state;
+    return {advertisementList};
+};
+
+export default connect(mapStateToProps)(AdvertisementListCard);

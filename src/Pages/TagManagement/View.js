@@ -5,6 +5,7 @@ import {MENU_ITEM_ID} from '../../Config/MenuItem';
 import {View as InfoCard} from './Components/InfoCard';
 import {View as TagAdderCard} from './Components/TagAdderCard';
 import {View as TagListCard} from './Components/TagListCard';
+import {getTagList, getTagManagementBasicInfo} from './Function';
 
 class TagManagement extends Component
 {
@@ -12,6 +13,8 @@ class TagManagement extends Component
     {
         document.title = '标签管理 - 云展';
         MenuFunctions.setActiveItemId(MENU_ITEM_ID.TAG_MANAGEMENT);
+        getTagManagementBasicInfo();
+        getTagList();
     }
 
     render()

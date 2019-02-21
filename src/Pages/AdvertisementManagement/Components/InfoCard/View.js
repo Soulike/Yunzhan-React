@@ -1,31 +1,12 @@
 import React, {Component} from 'react';
-import style from './InfoCard.module.scss';
+import Style from './InfoCard.module.scss';
 import {View as Card} from '../../../../Components/Card';
 import {View as DividingLine} from './Components/DividingLine';
-import RequestProcessors from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
+import {connect} from 'react-redux';
 
 class InfoCard extends Component
 {
-    constructor()
-    {
-        super(...arguments);
-        this.state = {
-            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.BASIC_INFO.ADVERTISEMENT_AMOUNT]: 0,// 总广告数
-            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.BASIC_INFO.IMAGE_AMOUNT]: 0,// 图片形式的广告数
-            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.BASIC_INFO.ADVERTISEMENT_FILE_SIZE]: 0,// 广告占用空间大小
-        };
-    }
-
-    componentDidMount()
-    {
-        RequestProcessors.sendGetAdvertisementBasicInfoRequestAsync()
-            .then(basicInfo =>
-            {
-                this.setState({...basicInfo});
-            });
-    }
-
 
     render()
     {
@@ -33,31 +14,31 @@ class InfoCard extends Component
             [NAMESPACE.ADVERTISEMENT_MANAGEMENT.BASIC_INFO.ADVERTISEMENT_AMOUNT]: advertisementAmount,
             [NAMESPACE.ADVERTISEMENT_MANAGEMENT.BASIC_INFO.IMAGE_AMOUNT]: imageAmount,
             [NAMESPACE.ADVERTISEMENT_MANAGEMENT.BASIC_INFO.ADVERTISEMENT_FILE_SIZE]: advertiseFileSize,
-        } = this.state;
+        } = this.props;
         return (
-            <div className={style.InfoCard}>
+            <div className={Style.InfoCard}>
                 <Card title={'广告信息'}>
-                    <div className={style.infoWrapper}>
-                        <div className={style.info}>
-                            <div className={style.infoTitle}>总数量</div>
-                            <div className={style.infoNumber} style={{color: '#09C'}}>{advertisementAmount}</div>
+                    <div className={Style.infoWrapper}>
+                        <div className={Style.info}>
+                            <div className={Style.infoTitle}>总数量</div>
+                            <div className={Style.infoNumber} style={{color: '#09C'}}>{advertisementAmount | 0}</div>
                         </div>
                         <DividingLine />
-                        <div className={style.info}>
-                            <div className={style.infoTitle}>图片</div>
-                            <div className={style.infoNumber} style={{color: '#090'}}>{imageAmount}</div>
+                        <div className={Style.info}>
+                            <div className={Style.infoTitle}>图片</div>
+                            <div className={Style.infoNumber} style={{color: '#090'}}>{imageAmount | 0}</div>
                         </div>
                         <DividingLine />
-                        <div className={style.info}>
-                            <div className={style.infoTitle}>视频</div>
-                            <div className={style.infoNumber}
-                                 style={{color: '#F00'}}>{advertisementAmount - imageAmount}</div>
+                        <div className={Style.info}>
+                            <div className={Style.infoTitle}>视频</div>
+                            <div className={Style.infoNumber}
+                                 style={{color: '#F00'}}>{(advertisementAmount - imageAmount) | 0}</div>
                         </div>
                         <DividingLine />
-                        <div className={style.info}>
-                            <div className={style.infoTitle}>占用空间</div>
-                            <div className={style.infoNumber}
-                                 style={{color: '#09C'}}>{(advertiseFileSize / 1024 / 1024).toFixed(2)} M
+                        <div className={Style.info}>
+                            <div className={Style.infoTitle}>占用空间</div>
+                            <div className={Style.infoNumber}
+                                 style={{color: '#09C'}}>{((advertiseFileSize | 0) / 1024 / 1024).toFixed(2)} M
                             </div>
                         </div>
                     </div>
@@ -67,4 +48,10 @@ class InfoCard extends Component
     }
 }
 
-export default InfoCard;
+const mapStateToProps = state =>
+{
+    const {AdvertisementManagement: {basicInfo}} = state;
+    return {...basicInfo};
+};
+
+export default connect(mapStateToProps)(InfoCard);

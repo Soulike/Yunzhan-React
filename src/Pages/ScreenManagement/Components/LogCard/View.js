@@ -1,34 +1,15 @@
 import React, {Component} from 'react';
 import style from './LogCard.module.scss';
 import {View as Card} from '../../../../Components/Card';
-import {View as Log} from './Components/Log/';
-import RequestProcessors from '../../../../RequestProcessor';
+import {View as Log} from './Components/Log';
 import NAMESPACE from '../../../../Namespace';
-
+import {connect} from 'react-redux';
 
 class LogCard extends Component
 {
-    constructor()
-    {
-        super(...arguments);
-        this.state = {
-            [NAMESPACE.SCREEN_MANAGEMENT.LIST.LOG]: [],
-        };
-    }
-
-    componentDidMount()
-    {
-        RequestProcessors.sendGetScreenLogListRequestAsync()
-            .then(logList =>
-            {
-                this.setState({...logList});
-            });
-    }
-
-
     render()
     {
-        const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.LOG]: logList} = this.state;
+        const {logList} = this.props;
         return (
             <div className={style.LogCard}>
                 <Card title={'最新消息'}>
@@ -44,4 +25,10 @@ class LogCard extends Component
     }
 }
 
-export default LogCard;
+const mapStateToProps = state =>
+{
+    const {ScreenManagement: {logList}} = state;
+    return {logList};
+};
+
+export default connect(mapStateToProps)(LogCard);

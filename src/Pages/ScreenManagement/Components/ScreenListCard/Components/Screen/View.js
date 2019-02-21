@@ -103,8 +103,10 @@ class Screen extends Component
                                 }
                                 else
                                 {
-                                    const {selectedResourcePackId} = this.props;
-                                    const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId} = this.props;
+                                    const {
+                                        [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId,
+                                        selectedResourcePackId,
+                                    } = this.props;
                                     await RequestProcessors.sendPostBindResourcePackRequestAsync([screenId], selectedResourcePackId);
                                 }
                             }}>

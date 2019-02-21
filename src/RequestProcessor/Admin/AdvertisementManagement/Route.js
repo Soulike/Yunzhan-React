@@ -8,4 +8,6 @@ export const UPLOAD_IMAGE = advertisementPrefix('/uploadImage');
 
 export const GET_ADVERTISEMENT_LIST = advertisementPrefix('/getAdvertisementList');
 
+export const GET_ADVERTISEMENT_INFO = advertisementPrefix('/getAdvertisementInfo');
+
 export const UPDATE_ADVERTISEMENT_INFO = advertisementPrefix('/updateAdvertisementInfo');

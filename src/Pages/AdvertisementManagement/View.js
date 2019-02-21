@@ -5,6 +5,7 @@ import {MENU_ITEM_ID} from '../../Config/MenuItem';
 import {View as InfoCard} from './Components/InfoCard';
 import {View as UploaderCard} from './Components/UploaderCard';
 import {View as AdvertisementListCard} from './Components/AdvertisementListCard';
+import {getAdvertisementList, getAdvertisementManagementBasicInfo} from './Function';
 
 class AdvertiseManagement extends Component
 {
@@ -12,6 +13,8 @@ class AdvertiseManagement extends Component
     {
         document.title = '广告管理 - 云展';
         MenuFunctions.setActiveItemId(MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT);
+        getAdvertisementManagementBasicInfo();
+        getAdvertisementList();
     }
 
     render()

@@ -1,12 +1,13 @@
 import * as SolidIcon from '@fortawesome/free-solid-svg-icons';
 import {FuncItem, LinkItem} from '../Pages/Root/Components/Menu/Components/Item/ItemObject';
-import {Functions as LoginFunctions} from '../Pages/Login';
+import {Function as ModalFunction} from '../Components/Modal';
+import {MODAL_ID} from '../Static/Constants';
 
 import {View as Overview} from '../Pages/Overview';
 import {View as ScreenManagement} from '../Pages/ScreenManagement';
 import {View as AdvertisementManagement} from '../Pages/AdvertisementManagement';
-import {View as ResourceManagement} from '../Pages/ResourceManagement';
 import {View as TagManagement} from '../Pages/TagManagement';
+import {View as ResourceManagement} from '../Pages/ResourceManagement';
 
 // 以下利用了动态生成一个类数组对象并自定义迭代器，再利用 Array.from 转换为真数组的技术
 const iterator = function* ()
@@ -43,7 +44,10 @@ export const itemIdToUrl = Array.from({
 
 // 功能性按钮的功能放在此处
 export const itemIdToFunction = {
-    [MENU_ITEM_ID.EXIT]: LoginFunctions.showLogoutModal,
+    [MENU_ITEM_ID.EXIT]: () =>
+    {
+        ModalFunction.showModal(MODAL_ID.LOGOUT_MODAL);
+    },
 };
 
 // 从项目 URL 得到 ID
@@ -86,7 +90,6 @@ export const itemIdToView = Array.from({
     [Symbol.iterator]: iterator,
 });
 
-//
 export const itemList = Array.from({
     [MENU_ITEM_ID.OVERVIEW]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.OVERVIEW], itemIdToName[MENU_ITEM_ID.OVERVIEW], itemIdToUrl[MENU_ITEM_ID.OVERVIEW]),
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.SCREEN_MANAGEMENT], itemIdToName[MENU_ITEM_ID.SCREEN_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.SCREEN_MANAGEMENT]),

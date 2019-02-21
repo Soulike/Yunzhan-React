@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import RequestProcessors from '../../../RequestProcessor';
-import {setOnline} from '../Functions';
+import {setOnline} from '../Function';
 import {browserHistory} from 'react-router';
 
 export function login(email, password)

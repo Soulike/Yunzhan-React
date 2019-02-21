@@ -34,7 +34,7 @@ class UploaderCard extends Component
         const {IMAGE_UPLOAD, VIDEO_UPLOAD} = UploaderCard.TAB_TYPE;
         return (
             <div className={Style.UploaderCard}>
-                <Card title={'广告上传'}>
+                <Card title={'广告上传'} subTitle={'请确保广告与播放屏幕的分辨率比例对应'}>
                     <div className={Style.content}>
                         <div className={Style.buttonGroupWrapper}>
                             <div className="btn-group" role="group">

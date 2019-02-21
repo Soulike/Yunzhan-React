@@ -3,7 +3,7 @@ import {View as ExtraLargeModal} from './Components/ExtraLargeModal';
 import {View as LargeModal} from './Components/LargeModal';
 import {View as SmallModal} from './Components/SmallModal';
 import {View as ModalTriggeringButton} from './Components/ModalTriggeringButton';
-import * as Functions from './Functions';
+import * as Function from './Function';
 
 export {
     Modal,
@@ -11,5 +11,5 @@ export {
     LargeModal,
     SmallModal,
     ModalTriggeringButton,
-    Functions,
+    Function,
 };

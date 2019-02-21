@@ -2,7 +2,7 @@ import * as ActionTypes from './Actions/ActionTypes';
 
 export default (state = {}, action) =>
 {
-    const {type, id, screenIdSet, screenList} = action;
+    const {type, id, screenIdSet} = action;
     const {selectedScreenIdSet} = state;
     if (type === ActionTypes.SELECT_SCREEN)
     {
@@ -33,18 +33,6 @@ export default (state = {}, action) =>
             ...state,
             selectedScreenIdSet: new Set()
         };
-    }
-    else if (type === ActionTypes.GET_SCREEN_LIST_SUCCEED)
-    {
-        return {
-            ...state,
-            screenList,
-            selectedScreenIdSet: new Set()
-        };
-    }
-    else if (type === ActionTypes.GET_SCREEN_LIST_FAILED)
-    {
-        return state;
     }
     else
     {

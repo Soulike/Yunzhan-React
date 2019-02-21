@@ -1,5 +1,5 @@
 import {STATUS_CODE} from '../../../Static/Constants';
-import {redirectToLogin} from '../../../Pages/Login/Functions';
+import {redirectToLogin} from '../../../Pages/Login/Function';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
 import Function from '../../../Function';
 import {CHANGE_TAG_INFO, GET_BASIC_INFO, GET_TAG_INFO, GET_TAG_LIST, SUBMIT_NEW_TAG} from './Route';
@@ -50,7 +50,6 @@ async function sendPostSubmitNewTagRequestAsync(tagName)
         if (code === STATUS_CODE.SUCCESS)
         {
             SuccessAlert.pop('添加成功');
-            // TODO: 刷新列表
             return true;
         }
         else if (code === STATUS_CODE.INVALID_SESSION)

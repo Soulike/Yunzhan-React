@@ -1,14 +1,9 @@
-import Functions from '../../Function';
+import Function from '../../Function';
 import {loginStateInvalid, loginStateValid} from './Actions/Actions';
 import {browserHistory} from 'react-router';
 import Store from '../../Store';
-import {Functions as ModalFunctions} from '../../Components/Modal';
 import RequestProcessors from '../../RequestProcessor';
 import {SuccessAlert} from '../../Components/Alerts';
-import {MODAL_ID} from '../../Static/Constants';
-
-const {getHash} = Functions;
-const {showModal} = ModalFunctions;
 
 export async function requireLogin(nextState, replace)
 {
@@ -43,16 +38,11 @@ export function redirectToLogin()
     browserHistory.push('/login');
 }
 
-export function showLogoutModal()
-{
-    showModal(MODAL_ID.LOGOUT_MODAL);
-}
-
 function setLoginToken()
 {
     const date = new Date();
     const str = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    const hash = getHash(str, 'md5');
+    const hash = Function.getHash(str, 'md5');
     sessionStorage.setItem('loginToken', hash);
 }
 
@@ -60,7 +50,7 @@ function isLoginTokenValid()
 {
     const date = new Date();
     const str = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    const hash = getHash(str, 'md5');
+    const hash = Function.getHash(str, 'md5');
     const token = sessionStorage.getItem('loginToken');
     return hash === token;
 }
