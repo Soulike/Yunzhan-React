@@ -4,17 +4,15 @@ import Function from '../../../Function';
 import {GET_ADVERTISE_INFO, GET_LOGIN_INFO, GET_RESOURCE_PACK_INFO, GET_SCREEN_INFO, GET_TAG_INFO} from './Route';
 import {DangerAlert, WarningAlert} from '../../../Components/Alerts';
 
-const {getAsync} = Function;
-
 export default {
-    sendGetLoginInfoRequestAsync,
-    sendGetScreenInfoRequestAsync,
-    sendGetAdvertisementInfoRequestAsync,
-    sendGetResourcePackInfoRequestAsync,
-    sendGetTagInfoRequestAsync,
+    sendOverviewGetLoginInfoRequestAsync,
+    sendOverviewGetScreenInfoRequestAsync,
+    sendOverviewGetAdvertisementInfoRequestAsync,
+    sendOverviewGetResourcePackInfoRequestAsync,
+    sendOverviewGetTagInfoRequestAsync,
 };
 
-async function sendGetLoginInfoRequestAsync()
+async function sendOverviewGetLoginInfoRequestAsync()
 {
     try
     {
@@ -43,7 +41,7 @@ async function sendGetLoginInfoRequestAsync()
     }
 }
 
-async function sendGetScreenInfoRequestAsync()
+async function sendOverviewGetScreenInfoRequestAsync()
 {
     try
     {
@@ -72,7 +70,7 @@ async function sendGetScreenInfoRequestAsync()
     }
 }
 
-async function sendGetAdvertisementInfoRequestAsync()
+async function sendOverviewGetAdvertisementInfoRequestAsync()
 {
     try
     {
@@ -101,7 +99,7 @@ async function sendGetAdvertisementInfoRequestAsync()
     }
 }
 
-async function sendGetResourcePackInfoRequestAsync()
+async function sendOverviewGetResourcePackInfoRequestAsync()
 {
     try
     {
@@ -130,11 +128,11 @@ async function sendGetResourcePackInfoRequestAsync()
     }
 }
 
-async function sendGetTagInfoRequestAsync()
+async function sendOverviewGetTagInfoRequestAsync()
 {
     try
     {
-        const {code, data} = await getAsync(GET_TAG_INFO, false);
+        const {code, data} = await Function.getAsync(GET_TAG_INFO, false);
         if (code === STATUS_CODE.SUCCESS)
         {
             return data;

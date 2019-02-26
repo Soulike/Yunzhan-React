@@ -576,3 +576,19 @@ export const QRCodePositionIdToName = {
 ```
 - 响应体：无
 - 其他说明：未来可能会添加新的修改项
+
+### 资源包管理（前缀为 `/resourcePackManagement`）
+
+#### `/getBasicInfo`
+
+- 功能说明：获取资源包管理基本信息
+- 请求方法：GET
+- 请求体：无
+- 响应体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.BASIC_INFO.RESOURCE_PACK_AMOUNT]: Number, // 总资源包个数
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.BASIC_INFO.USING_RESOURCE_PACK_AMOUNT]: Number, // 正在使用的资源包个数
+}
+```
+- 其他说明：无

@@ -45,7 +45,6 @@ class AdvertisementListCard extends Component
                 const $advertisementNameInput = document.querySelector(`.${Style.advertisementNameInput}`);
                 const $advertisementTypeInput = document.querySelector(`.${Style.advertisementTypeInput}`);
                 const $QRCodeUrlInput = document.querySelector(`.${Style.QRCodeUrlInput}`);
-
                 const $QRCodePositionSelect = document.querySelector(`.${Style.QRCodePositionSelect}`);
                 $advertisementNameInput.value = name;
                 this.setState({

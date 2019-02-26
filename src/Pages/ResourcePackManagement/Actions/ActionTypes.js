@@ -1,0 +1,3 @@
+export const GET_RESOURCE_PACK_MANAGEMENT_BASIC_INFO_SUCCESSFUL = Symbol('getResourcePackManagementBasicInfoSuccessful');
+
+export const GET_RESOURCE_PACK_MANAGEMENT_BASIC_INFO_FAILED = Symbol('getResourcePackManagementBasicInfoFailed');

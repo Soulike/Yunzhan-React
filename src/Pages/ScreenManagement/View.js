@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import style from './ScreenManagement.module.scss';
+import style from './Style.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
-import {View as InfoCard} from './Components/InfoCard';
+import {View as ScreenManagementInfoCard} from './Components/ScreenManagementInfoCard';
 import {View as LogCard} from './Components/LogCard';
 import ScreenListCard from './Components/ScreenListCard/View';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
@@ -23,18 +23,12 @@ class ScreenManagement extends Component
     {
         return (
             <div className={style.ScreenManagement}>
-                <div className={style.cardWrapper}>
-                    <div className={style.leftWrapper}>
-                        <div className={style.infoCardWrapper}>
-                            <InfoCard />
-                        </div>
-                        <div className={style.logCardWrapper}>
-                            <LogCard />
-                        </div>
-                    </div>
-                    <div className={style.rightWrapper}>
-                        <ScreenListCard />
-                    </div>
+                <div className={style.leftWrapper}>
+                    <ScreenManagementInfoCard />
+                    <LogCard />
+                </div>
+                <div className={style.rightWrapper}>
+                    <ScreenListCard />
                 </div>
             </div>
         );

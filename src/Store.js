@@ -8,6 +8,7 @@ import {Reducer as ScreenManagementResourcePackListReducer} from './Pages/Screen
 import {Reducer as ScreenManagementReducer} from './Pages/ScreenManagement';
 import {Reducer as AdvertisementManagementReducer} from './Pages/AdvertisementManagement';
 import {Reducer as TagManagementReducer} from './Pages/TagManagement';
+import {Reducer as ResourceManagementReducer} from './Pages/ResourcePackManagement';
 
 // Store 中的初始值，根据开发需要进行改变
 const initValues = {
@@ -37,6 +38,10 @@ const initValues = {
         basicInfo: {},
         tagList: [],
     },
+    ResourcePackManagement: {
+        basicInfo: {},
+        resourcePackList: [],
+    },
 };
 
 // 所有中间件放在此处
@@ -55,6 +60,7 @@ const Reducer = combineReducers({
     ScreenManagement: ScreenManagementReducer,
     AdvertisementManagement: AdvertisementManagementReducer,
     TagManagement: TagManagementReducer,
+    ResourcePackManagement: ResourceManagementReducer,
 });
 
 export default createStore(Reducer, initValues, storeEnhancers);

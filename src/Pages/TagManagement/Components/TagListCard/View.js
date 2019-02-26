@@ -137,9 +137,7 @@ class TagListCard extends Component
 const mapStateToProps = state =>
 {
     const {TagManagement: {tagList}} = state;
-    return {
-        tagList,
-    };
+    return {tagList};
 };
 
 export default connect(mapStateToProps)(TagListCard);
