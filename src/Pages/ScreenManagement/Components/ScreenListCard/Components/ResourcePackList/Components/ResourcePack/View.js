@@ -6,6 +6,7 @@ import * as Actions from './Actions/Actions';
 import {connect} from 'react-redux';
 import NAMESPACE from '../../../../../../../../Namespace';
 import Functions from '../../../../../../../../Function';
+import {View as Radio} from '../../../../../../../../Components/Radio';
 
 class ResourcePack extends Component
 {
@@ -57,8 +58,7 @@ class ResourcePack extends Component
         const {randomString} = this.state;
         return (
             <div className={style.ResourcePack} onClick={this.onResourcePackClick}>
-                <input type="radio" id={`a${randomString}${id}`} className={style.radioInput}
-                       onClick={this.onRadioInputClick} />
+                <Radio id={`a${randomString}${id}`} className={style.radioInput} onClick={this.onRadioInputClick} />
                 <div className={style.name}>{name}</div>
                 <div className={style.advertiseNumber}>{advertisementNumber}</div>
                 <div className={style.description}>{description}</div>

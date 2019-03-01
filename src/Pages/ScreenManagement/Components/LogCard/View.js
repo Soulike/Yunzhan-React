@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import style from './LogCard.module.scss';
-import {View as Card} from '../../../../Components/Card';
+import Style from './LogCard.module.scss';
 import {View as Log} from './Components/Log';
 import NAMESPACE from '../../../../Namespace';
 import {connect} from 'react-redux';
+import {View as ToolCard} from '../../../../Components/ToolCard';
 
 class LogCard extends Component
 {
@@ -11,16 +11,14 @@ class LogCard extends Component
     {
         const {logList} = this.props;
         return (
-            <div className={style.LogCard}>
-                <Card title={'最新消息'}>
-                    <div className={style.logList}>
-                        {logList.map(log =>
-                        {
-                            return <Log {...log} key={log[NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]} />;
-                        })}
-                    </div>
-                </Card>
-            </div>
+            <ToolCard title={'最新消息'} className={Style.LogCard}>
+                <div className={Style.logList}>
+                    {logList.map(log =>
+                    {
+                        return <Log {...log} key={log[NAMESPACE.SCREEN_MANAGEMENT.LOG.TIME]} />;
+                    })}
+                </div>
+            </ToolCard>
         );
     }
 }

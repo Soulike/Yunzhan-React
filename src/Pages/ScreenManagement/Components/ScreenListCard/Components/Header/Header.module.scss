@@ -6,22 +6,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $padding;
+    padding: 0 $padding;
     font-size: $fontSize;
     line-height: $fontSize;
     font-weight: bold;
     font-family: $serif;
     border-bottom: 1px solid #DDD;
-    height: $fontSize;
     user-select: none;
-
-    .checkbox {
-        @extend .checkbox;
-    }
-
-    .checkboxLabel {
-        @extend .checkboxLabel;
-    }
 
     .name {
         width: $nameWrapperWidth;

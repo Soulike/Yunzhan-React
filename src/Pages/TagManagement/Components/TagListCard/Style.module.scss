@@ -3,10 +3,7 @@
 
 .TagListCard {
 
-    .cardContent {
-        height: $CONTENT_CONTAINER_HEIGHT - 5.7rem;
-        overflow: auto;
-
+    .tagListWrapper {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -18,60 +15,59 @@
             cursor: pointer;
         }
     }
+}
 
-    .modalContent {
+.modalContent {
 
-        .item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 1.5rem;
+    .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1.5rem;
 
-            &:first-child {
-                margin-top: 0;
-            }
-
-            .label {
-                display: inline-block;
-                width: 6rem;
-            }
-
-            .tagNameInput {
-                @extend .form-control;
-                display: inline-block;
-                width: 20rem;
-            }
-
-            .itemInfoContent {
-                width: 20rem;
-                display: inline-block;
-            }
+        &:first-child {
+            margin-top: 0;
         }
 
-        .bindingResourcePackListWrapper {
-            @extend .item;
-            display: flex;
-            align-content: flex-start;
+        .label {
+            display: inline-block;
+            width: 6rem;
+        }
 
-            .bindingResourcePackListTitle {
-                @extend .label;
-            }
+        .tagNameInput {
+            @extend .form-control;
+            display: inline-block;
+            width: 20rem;
+        }
 
-            .bindingResourcePackList {
-                @extend .itemInfoContent;
-                height: 20rem;
-                overflow: auto;
-                border: 1px solid #DDD;
-                border-radius: 0.25rem;
-                @extend .list-group-flush;
-                padding-left: 0;
-
-                .resourcePackName {
-                    @extend .list-group-item;
-                }
-            }
+        .itemInfoContent {
+            width: 20rem;
+            display: inline-block;
         }
     }
 
+    .bindingResourcePackListWrapper {
+        @extend .item;
+        display: flex;
+        align-content: flex-start;
 
+        .bindingResourcePackListTitle {
+            @extend .label;
+        }
+
+        .bindingResourcePackList {
+            @extend .itemInfoContent;
+            height: 20rem;
+            overflow: auto;
+            border: 1px solid #DDD;
+            border-radius: 0.25rem;
+            @extend .list-group-flush;
+            padding-left: 0;
+
+            .resourcePackName {
+                @extend .list-group-item;
+            }
+        }
+    }
 }
+

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import {View as Card} from '../../../../Components/Card';
 import {ADVERTISEMENT_TYPE, Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
 import {QR_CODE_POSITION_ID, QR_CODE_POSITION_ID_TO_NAME} from '../UploaderCard/Components/ImageUploader';
 import {MODAL_ID} from '../../../../Static/Constants';
@@ -11,6 +10,7 @@ import RequestProcessor from '../../../../RequestProcessor';
 import {REGEX} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {connect} from 'react-redux';
+import {View as ListCard} from '../../../../Components/ListCard';
 
 class AdvertisementListCard extends Component
 {
@@ -126,62 +126,60 @@ class AdvertisementListCard extends Component
     render()
     {
         const {advertisementList} = this.props;
-        return (
-            <div className={Style.AdvertisementListCard}>
-                <Card title={'广告列表'} subTitle={'可点击查看详细信息'}>
-                    <div className={Style.content}>
+        return [
+            <ListCard className={Style.AdvertisementListCard} title={'广告列表'} subTitle={'可点击查看详细信息'}>
+                <div className={Style.advertisementListWrapper}>
+                    {
+                        advertisementList.map(advertisement =>
                         {
-                            advertisementList.map(advertisement =>
-                            {
-                                const {[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: id} = advertisement;
-                                return (
-                                    <div className={Style.advertisementWrapper}
-                                         key={id}
-                                         onClick={this.onAdvertisementClick(id)}>
-                                        <Advertisement advertisement={new AdvertisementObject.Advertisement(
-                                            advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE],
-                                            advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL],
-                                            advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME],
-                                        )} key={advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]} />
-                                    </div>);
-                            })
+                            const {[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: id} = advertisement;
+                            return (
+                                <div className={Style.advertisementWrapper}
+                                     key={id}
+                                     onClick={this.onAdvertisementClick(id)}>
+                                    <Advertisement advertisement={new AdvertisementObject.Advertisement(
+                                        advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE],
+                                        advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL],
+                                        advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME],
+                                    )} key={advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]} />
+                                </div>);
+                        })
+                    }
+                </div>
+            </ListCard>
+            ,
+            <Modal id={MODAL_ID.ADVERTISEMENT_INFO_MODAL}
+                   title={'广告信息'}
+                   onConfirmButtonClickFunction={this.onAdvertisementInfoModalConfirmClick}>
+                <label className={Style.inputWrapper}>
+                    <span className={Style.label}>广告类型</span>
+                    <input type="text" className={Style.advertisementTypeInput} disabled />
+                </label>
+                <label className={Style.inputWrapper}>
+                    <span className={Style.label}>广告名</span>
+                    <input type="text"
+                           className={Style.advertisementNameInput}
+                           onChange={this.onAdvertisementNameInputChange} />
+                </label>
+                <label className={Style.inputWrapper}>
+                    <span className={Style.label}>二维码链接</span>
+                    <input type="text"
+                           className={Style.QRCodeUrlInput}
+                           onChange={this.onQRCodeUrlInputChange}
+                           placeholder={'http://example.com/'} />
+                </label>
+                <label className={Style.inputWrapper}>
+                    <span className={Style.label}>二维码位置</span>
+                    <select className={`custom-select ${Style.QRCodePositionSelect}`}
+                            onChange={this.onQRCodePositionSelectChange}>
+                        {
+                            Object.values(QR_CODE_POSITION_ID).map(id =>
+                                <option key={id} value={id}>{QR_CODE_POSITION_ID_TO_NAME[id]}</option>)
                         }
-                    </div>
-                </Card>
-
-                <Modal id={MODAL_ID.ADVERTISEMENT_INFO_MODAL}
-                       title={'广告信息'}
-                       onConfirmButtonClickFunction={this.onAdvertisementInfoModalConfirmClick}>
-                    <label className={Style.inputWrapper}>
-                        <span className={Style.label}>广告类型</span>
-                        <input type="text" className={Style.advertisementTypeInput} disabled />
-                    </label>
-                    <label className={Style.inputWrapper}>
-                        <span className={Style.label}>广告名</span>
-                        <input type="text"
-                               className={Style.advertisementNameInput}
-                               onChange={this.onAdvertisementNameInputChange} />
-                    </label>
-                    <label className={Style.inputWrapper}>
-                        <span className={Style.label}>二维码链接</span>
-                        <input type="text"
-                               className={Style.QRCodeUrlInput}
-                               onChange={this.onQRCodeUrlInputChange}
-                               placeholder={'http://example.com/'} />
-                    </label>
-                    <label className={Style.inputWrapper}>
-                        <span className={Style.label}>二维码位置</span>
-                        <select className={`custom-select ${Style.QRCodePositionSelect}`}
-                                onChange={this.onQRCodePositionSelectChange}>
-                            {
-                                Object.values(QR_CODE_POSITION_ID).map(id =>
-                                    <option key={id} value={id}>{QR_CODE_POSITION_ID_TO_NAME[id]}</option>)
-                            }
-                        </select>
-                    </label>
-                </Modal>
-            </div>
-        );
+                    </select>
+                </label>
+            </Modal>,
+        ];
     }
 }
 

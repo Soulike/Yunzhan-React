@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import {View as Card} from '../../../../Components/Card';
 import RequestProcessor from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
 import {View as Tag} from './Components/Tag';
@@ -11,6 +10,7 @@ import {REGEX, TEXT} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ToolTip} from '../../../../Components/Tooltip';
 import {connect} from 'react-redux';
+import {View as ListCard} from '../../../../Components/ListCard';
 
 class TagListCard extends Component
 {
@@ -80,57 +80,54 @@ class TagListCard extends Component
             [NAMESPACE.TAG_MANAGEMENT.TAG.BINDING_RESOURCE_PACK_NAME_LIST]: tagBindingResourcePackNameList,
         } = this.state;
         const {tagList} = this.props;
-        return (
-            <div className={Style.TagListCard}>
-                <Card title={'标签列表'} subTitle={'可点击查看详细信息'}>
-                    <div className={Style.cardContent}>
+        return [
+            <ListCard title={'标签列表'} subTitle={'可点击查看详细信息'} className={Style.TagListCard}>
+                <div className={Style.tagListWrapper}>
+                    {
+                        // TODO: 排序方式
+                        tagList.map(tag =>
                         {
-                            // TODO: 排序方式
-                            tagList.map(tag =>
-                            {
-                                const {[NAMESPACE.TAG_MANAGEMENT.TAG.ID]: id, [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName} = tag;
-                                return (
-                                    <div className={Style.tagWrapper} key={id} onClick={this.onTagClick(id)}>
-                                        <Tag name={tagName} />
-                                    </div>);
-                            })
-                        }
+                            const {[NAMESPACE.TAG_MANAGEMENT.TAG.ID]: id, [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName} = tag;
+                            return (
+                                <div className={Style.tagWrapper} key={id} onClick={this.onTagClick(id)}>
+                                    <Tag name={tagName} />
+                                </div>);
+                        })
+                    }
+                </div>
+            </ListCard>,
+            <Modal id={MODAL_ID.TAG_INFO_MODAL}
+                   title={'标签信息'}
+                   onConfirmButtonClickFunction={this.onTagInfoModalConfirmButtonClick}>
+                <div className={Style.modalContent}>
+                    <label className={Style.item}>
+                        <span className={Style.label}>标签名</span>
+                        <ToolTip placement={'top'} title={TEXT.TAG_NAME}>
+                            <input type="text"
+                                   className={Style.tagNameInput}
+                                   onChange={this.onTagNameInputChange} />
+                        </ToolTip>
+                    </label>
+                    <div className={Style.item}>
+                        <span className={Style.label}>添加时间</span>
+                        <div className={Style.itemInfoContent}>{Function.generateDateStr(tagCreationTime)}</div>
                     </div>
-                </Card>
-
-                <Modal id={MODAL_ID.TAG_INFO_MODAL}
-                       title={'标签信息'}
-                       onConfirmButtonClickFunction={this.onTagInfoModalConfirmButtonClick}>
-                    <div className={Style.modalContent}>
-                        <label className={Style.item}>
-                            <span className={Style.label}>标签名</span>
-                            <ToolTip placement={'top'} title={TEXT.TAG_NAME}>
-                                <input type="text"
-                                       className={Style.tagNameInput}
-                                       onChange={this.onTagNameInputChange} />
-                            </ToolTip>
-                        </label>
-                        <div className={Style.item}>
-                            <span className={Style.label}>添加时间</span>
-                            <div className={Style.itemInfoContent}>{Function.generateDateStr(tagCreationTime)}</div>
-                        </div>
-                        <div className={Style.bindingResourcePackListWrapper}>
+                    <div className={Style.bindingResourcePackListWrapper}>
                             <span className={Style.bindingResourcePackListTitle}>
                                 <div>绑定资源包</div>
                                 <div>(共 {tagBindingResourcePackNameList.length} 个)</div>
                             </span>
-                            <ul className={Style.bindingResourcePackList}>
-                                {
-                                    tagBindingResourcePackNameList.map(resourcePackName =>
-                                        <li className={Style.resourcePackName}
-                                            key={resourcePackName}>{resourcePackName}</li>)
-                                }
-                            </ul>
-                        </div>
+                        <ul className={Style.bindingResourcePackList}>
+                            {
+                                tagBindingResourcePackNameList.map(resourcePackName =>
+                                    <li className={Style.resourcePackName}
+                                        key={resourcePackName}>{resourcePackName}</li>)
+                            }
+                        </ul>
                     </div>
-                </Modal>
-            </div>
-        );
+                </div>
+            </Modal>,
+        ];
     }
 }
 

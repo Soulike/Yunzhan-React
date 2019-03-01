@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import {View as Card} from '../../../../Components/Card';
 import {View as ToolTip} from '../../../../Components/Tooltip';
 import {REGEX, TEXT} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
 import RequestProcessor from '../../../../RequestProcessor';
 import {getTagList, getTagManagementBasicInfo} from '../../Function';
+import {View as ToolCard} from '../../../../Components/ToolCard';
 
 class TagAdderCard extends Component
 {
@@ -54,24 +54,20 @@ class TagAdderCard extends Component
     render()
     {
         return (
-            <div className={Style.TagAdderCard}>
-                <Card title={'添加标签'}>
-                    <div className={Style.content}>
-                        <label className={Style.inputWrapper}>
-                            <span className={Style.label}>标签名</span>
-                            <ToolTip placement={'top'} title={TEXT.TAG_NAME}>
-                                <input type="text"
-                                       className={Style.tagNameInput}
-                                       onChange={this.onTagNameInputChange}
-                                       placeholder={'在此输入新标签名'} />
-                            </ToolTip>
-                        </label>
-                        <div className={Style.submitButtonWrapper}>
-                            <button className={Style.submitButton} onClick={this.onSubmitButtonClick}>添加</button>
-                        </div>
-                    </div>
-                </Card>
-            </div>
+            <ToolCard className={Style.TagAdderCard} title={'添加标签'}>
+                <label className={Style.inputWrapper}>
+                    <span className={Style.label}>标签名</span>
+                    <ToolTip placement={'top'} title={TEXT.TAG_NAME}>
+                        <input type="text"
+                               className={Style.tagNameInput}
+                               onChange={this.onTagNameInputChange}
+                               placeholder={'在此输入新标签名'} />
+                    </ToolTip>
+                </label>
+                <div className={Style.submitButtonWrapper}>
+                    <button className={Style.submitButton} onClick={this.onSubmitButtonClick}>添加</button>
+                </div>
+            </ToolCard>
         );
     }
 }

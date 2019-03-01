@@ -9,7 +9,7 @@
 
     .screenListWrapper {
         overflow: auto;
-        height: $CONTENT_CONTAINER_HEIGHT - 10.7rem;
+        height: $CONTENT_CONTAINER_HEIGHT - 11rem;
         box-sizing: border-box;
         overflow-x: hidden;
         border-bottom: 1px solid #DDD;
@@ -51,14 +51,14 @@
             @extend .btn-danger;
         }
     }
+}
 
-    .addScreenModalContent {
+.addScreenModalContent {
+    text-align: center;
+
+    .uuidInput {
+        @extend .form-control;
         text-align: center;
-
-        .uuidInput {
-            @extend .form-control;
-            text-align: center;
-            font-size: 1.25rem;
-        }
+        font-size: 1.25rem;
     }
 }

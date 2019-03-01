@@ -1,0 +1,9 @@
+@import "../../Static/Constants.module";
+
+.ListCard {
+
+    .content {
+        height: $CONTENT_CONTAINER_HEIGHT - 5.7rem;
+        overflow: auto;
+    }
+}

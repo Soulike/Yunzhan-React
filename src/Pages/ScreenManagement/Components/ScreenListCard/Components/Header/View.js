@@ -5,6 +5,7 @@ import style from './Header.module.scss';
 import Store from '../../../../../../Store';
 import Functions from '../../../../../../Function';
 import {connect} from 'react-redux';
+import {View as Checkbox} from '../../../../../../Components/Checkbox';
 
 const {setsEqual} = Functions;
 
@@ -25,7 +26,7 @@ class Header extends Component
         }
     }
 
-    onInputLabelClick = e =>
+    onCheckboxClick = e =>
     {
         e.preventDefault();
         const $input = document.querySelector(`#_0`);
@@ -46,26 +47,25 @@ class Header extends Component
     {
         return (
             <div className={style.Header}>
-                <input type="checkbox" id={'_0'} className={style.checkbox}/>
-                <label htmlFor="_0" className={style.checkboxLabel} title={'全选'} onClick={this.onInputLabelClick}/>
+                <Checkbox id={'_0'} onClick={this.onCheckboxClick} />
                 <div className={style.name}>屏幕名</div>
                 <div className={style.runningInfo}>状态</div>
                 <div className={style.resourcePackName}>资源包</div>
-                <div className={style.button}/>
+                <div className={style.button} />
             </div>
         );
     }
 }
 
 Header.propTypes = {
-    screenIdSet: PropTypes.object.isRequired
+    screenIdSet: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state =>
 {
     const {selectedScreenIdSet} = state.ScreenListCard;
     return {
-        selectedScreenIdSet
+        selectedScreenIdSet,
     };
 };
 

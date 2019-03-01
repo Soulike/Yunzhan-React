@@ -10,6 +10,7 @@ import RequestProcessors from '../../../../../../RequestProcessor';
 import {LargeModal, ModalTriggeringButton, SmallModal} from '../../../../../../Components/Modal';
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import {MODAL_ID} from '../../../../../../Static/Constants';
+import {View as Checkbox} from '../../../../../../Components/Checkbox';
 
 class Screen extends Component
 {
@@ -35,7 +36,7 @@ class Screen extends Component
         $checkbox.checked = !$checkbox.checked;
     };
 
-    onCheckboxLabelClick = e =>
+    onCheckboxClick = e =>
     {
         this.onNameWrapperClick(e);
     };
@@ -69,8 +70,7 @@ class Screen extends Component
         } = this.props;
         return (
             <div className={style.Screen}>
-                <input type="checkbox" className={style.checkbox} id={`_${id}`} />
-                <label htmlFor={`_${id}`} className={style.checkboxLabel} onClick={this.onCheckboxLabelClick} />
+                <Checkbox id={`_${id}`} onClick={this.onCheckboxClick} />
                 <div className={style.nameWrapper} onClick={this.onNameWrapperClick}>
                     <div className={style.name}>{name}</div>
                     <div className={style.uuid}>{uuid}</div>

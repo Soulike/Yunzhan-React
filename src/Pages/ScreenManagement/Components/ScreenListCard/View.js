@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Style from './ScreenListCard.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
-import {View as Card} from '../../../../Components/Card';
 import {View as Screen} from './Components/Screen';
 import {View as Header} from './Components/Header';
 import {connect} from 'react-redux';
@@ -15,6 +14,7 @@ import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ModalTriggeringButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
 import {getScreenList} from '../../Function';
 import {View as ToolTip} from '../../../../Components/Tooltip';
+import {View as ListCard} from '../../../../Components/ListCard';
 
 class ScreenListCard extends Component
 {
@@ -133,131 +133,128 @@ class ScreenListCard extends Component
             screenIdSet.add(screen.id);
         });
 
-        return (
-            <div className={Style.ScreenListCard}>
+        return [
+            <ListCard className={Style.ScreenListCard} title={'屏幕列表'}>
+                <div className={Style.headerWrapper}><Header screenIdSet={screenIdSet} /></div>
+                <div className={Style.screenListWrapper}>
+                    {screenList.map(screen =>
+                    {
+                        return <Screen {...screen} key={screen.id} />;
+                    })}
+                </div>
+                <div className={Style.buttonWrapper}>
+                    <ToolTip placement={'top'} title={'添加屏幕'}>
+                        <ModalTriggeringButton modalId={MODAL_ID.ADD_SCREEN_MODAL}
+                                               className={Style.addScreenButton}>
+                            <FontAwesomeIcon icon={solidIcon.faPlus} />
+                        </ModalTriggeringButton>
+                    </ToolTip>
+                    <ToolTip placement={'top'} title={'删除屏幕'}>
+                        <button className={Style.deleteScreenButton}
+                                onClick={this.onDeleteScreenButtonClick}>
+                            <FontAwesomeIcon icon={solidIcon.faTrash} />
+                        </button>
+                    </ToolTip>
+                    <ToolTip placement={'top'} title={'开始播放'}>
+                        <button className={Style.startRunningButton}
+                                onClick={this.onStartRunningButtonClick}>
+                            <FontAwesomeIcon icon={solidIcon.faPlay} />
+                        </button>
+                    </ToolTip>
+                    <ToolTip placement={'top'} title={'停止播放'}>
+                        <button className={Style.stopRunningButton}
+                                onClick={this.onStopRunningButtonClick}>
+                            <FontAwesomeIcon icon={solidIcon.faPowerOff} />
+                        </button>
+                    </ToolTip>
+                    <ToolTip placement={'top'} title={'批量绑定资源包'}>
+                        <button
+                            className={Style.batchBindResourcePackButton}
+                            onClick={this.onBatchBindResourcePackButtonClick}>
+                            <FontAwesomeIcon icon={solidIcon.faFileArchive} />
+                        </button>
+                    </ToolTip>
+                    <ToolTip placement={'top'} title={'批量解绑资源包'}>
+                        <button
+                            className={Style.batchUnbindResourcePackButton}
+                            onClick={this.onBatchUnbindResourcePackButtonClick}>
+                            <FontAwesomeIcon icon={solidIcon.faTrashAlt} />
+                        </button>
+                    </ToolTip>
+                </div>
+            </ListCard>,
 
-                <Card title={'屏幕列表'}>
-                    <div className={Style.headerWrapper}><Header screenIdSet={screenIdSet} /></div>
-                    <div className={Style.screenListWrapper}>
-                        {screenList.map(screen =>
+            <SmallModal id={MODAL_ID.ADD_SCREEN_MODAL}
+                        title={'添加屏幕'}
+                        onConfirmButtonClickFunction={this.onAddScreenModalConfirmButtonClick}>
+                <div className={Style.addScreenModalContent}>
+                    <ToolTip placement={'top'} title={TEXT.UUID}>
+                        <input type="text"
+                               className={Style.uuidInput}
+                               placeholder={'被添加屏幕的 UUID'}
+                               autoFocus={true}
+                               onChange={this.onAddScreenModalInputChange} />
+                    </ToolTip>
+                </div>
+            </SmallModal>,
+            <SmallModal id={MODAL_ID.DELETE_SCREEN_MODAL}
+                        title={'删除屏幕'}
+                        onConfirmButtonClickFunction={async () =>
                         {
-                            return <Screen {...screen} key={screen.id} />;
-                        })}
-                    </div>
-                    <div className={Style.buttonWrapper}>
-                        <ToolTip placement={'top'} title={'添加屏幕'}>
-                            <ModalTriggeringButton modalId={MODAL_ID.ADD_SCREEN_MODAL}
-                                                   className={Style.addScreenButton}>
-                                <FontAwesomeIcon icon={solidIcon.faPlus} />
-                            </ModalTriggeringButton>
-                        </ToolTip>
-                        <ToolTip placement={'top'} title={'删除屏幕'}>
-                            <button className={Style.deleteScreenButton}
-                                    onClick={this.onDeleteScreenButtonClick}>
-                                <FontAwesomeIcon icon={solidIcon.faTrash} />
-                            </button>
-                        </ToolTip>
-                        <ToolTip placement={'top'} title={'开始播放'}>
-                            <button className={Style.startRunningButton}
-                                    onClick={this.onStartRunningButtonClick}>
-                                <FontAwesomeIcon icon={solidIcon.faPlay} />
-                            </button>
-                        </ToolTip>
-                        <ToolTip placement={'top'} title={'停止播放'}>
-                            <button className={Style.stopRunningButton}
-                                    onClick={this.onStopRunningButtonClick}>
-                                <FontAwesomeIcon icon={solidIcon.faPowerOff} />
-                            </button>
-                        </ToolTip>
-                        <ToolTip placement={'top'} title={'批量绑定资源包'}>
-                            <button
-                                className={Style.batchBindResourcePackButton}
-                                onClick={this.onBatchBindResourcePackButtonClick}>
-                                <FontAwesomeIcon icon={solidIcon.faFileArchive} />
-                            </button>
-                        </ToolTip>
-                        <ToolTip placement={'top'} title={'批量解绑资源包'}>
-                            <button
-                                className={Style.batchUnbindResourcePackButton}
-                                onClick={this.onBatchUnbindResourcePackButtonClick}>
-                                <FontAwesomeIcon icon={solidIcon.faTrashAlt} />
-                            </button>
-                        </ToolTip>
-                    </div>
-                </Card>
-
-                <SmallModal id={MODAL_ID.ADD_SCREEN_MODAL}
-                            title={'添加屏幕'}
-                            onConfirmButtonClickFunction={this.onAddScreenModalConfirmButtonClick}>
-                    <div className={Style.addScreenModalContent}>
-                        <ToolTip placement={'top'} title={TEXT.UUID}>
-                            <input type="text"
-                                   className={Style.uuidInput}
-                                   placeholder={'被添加屏幕的 UUID'}
-                                   autoFocus={true}
-                                   onChange={this.onAddScreenModalInputChange} />
-                        </ToolTip>
-                    </div>
-                </SmallModal>
-                <SmallModal id={MODAL_ID.DELETE_SCREEN_MODAL}
-                            title={'删除屏幕'}
-                            onConfirmButtonClickFunction={async () =>
+                            const {selectedScreenIdSet} = this.props;
+                            await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                            getScreenList(); // 刷新屏幕列表
+                        }}>
+                <span>确认删除选中的 {selectedScreenIdSet.size} 个屏幕吗？<span style={{color: '#F00'}}>此操作不可逆！</span></span>
+            </SmallModal>,
+            <SmallModal id={MODAL_ID.START_SCREEN_RUNNING_MODAL}
+                        title={'开始播放'}
+                        onConfirmButtonClickFunction={async () =>
+                        {
+                            const {selectedScreenIdSet} = this.props;
+                            await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                            getScreenList(); // 刷新屏幕列表
+                        }}>
+                <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕开始播放吗？</span>
+            </SmallModal>,
+            <SmallModal id={MODAL_ID.STOP_SCREEN_RUNNING_MODAL}
+                        title={'停止播放'}
+                        onConfirmButtonClickFunction={async () =>
+                        {
+                            const {selectedScreenIdSet} = this.props;
+                            await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                            getScreenList(); // 刷新屏幕列表
+                        }}>
+                <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕停止播放吗？</span>
+            </SmallModal>,
+            <LargeModal id={MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL}
+                        title={'批量绑定资源包'}
+                        onConfirmButtonClickFunction={async () =>
+                        {
+                            const {selectedResourcePackId} = this.props;
+                            if (selectedResourcePackId === null)
                             {
-                                const {selectedScreenIdSet} = this.props;
-                                await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                                WarningAlert.pop('请选择资源包');
+                            }
+                            else
+                            {
+                                const {selectedResourcePackId, selectedScreenIdSet} = this.props;
+                                await RequestProcessor.sendPostBindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()), selectedResourcePackId);
                                 getScreenList(); // 刷新屏幕列表
-                            }}>
-                    <span>确认删除选中的 {selectedScreenIdSet.size} 个屏幕吗？<span style={{color: '#F00'}}>此操作不可逆！</span></span>
-                </SmallModal>
-                <SmallModal id={MODAL_ID.START_SCREEN_RUNNING_MODAL}
-                            title={'开始播放'}
-                            onConfirmButtonClickFunction={async () =>
-                            {
-                                const {selectedScreenIdSet} = this.props;
-                                await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
-                                getScreenList(); // 刷新屏幕列表
-                            }}>
-                    <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕开始播放吗？</span>
-                </SmallModal>
-                <SmallModal id={MODAL_ID.STOP_SCREEN_RUNNING_MODAL}
-                            title={'停止播放'}
-                            onConfirmButtonClickFunction={async () =>
-                            {
-                                const {selectedScreenIdSet} = this.props;
-                                await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
-                                getScreenList(); // 刷新屏幕列表
-                            }}>
-                    <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕停止播放吗？</span>
-                </SmallModal>
-                <LargeModal id={MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL}
-                            title={'批量绑定资源包'}
-                            onConfirmButtonClickFunction={async () =>
-                            {
-                                const {selectedResourcePackId} = this.props;
-                                if (selectedResourcePackId === null)
-                                {
-                                    WarningAlert.pop('请选择资源包');
-                                }
-                                else
-                                {
-                                    const {selectedResourcePackId, selectedScreenIdSet} = this.props;
-                                    await RequestProcessor.sendPostBindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()), selectedResourcePackId);
-                                    getScreenList(); // 刷新屏幕列表
-                                }
-                            }}>
-                    <ResourcePackList />
-                </LargeModal>
-                <SmallModal id={MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL}
-                            title={'批量解绑资源包'}
-                            onConfirmButtonClickFunction={async () =>
-                            {
-                                await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()));
-                                getScreenList(); // 刷新屏幕列表
-                            }}>
-                    <span>确认要为选中的 {selectedScreenIdSet.size} 个屏幕解绑资源包吗？</span>
-                </SmallModal>
-            </div>
-        );
+                            }
+                        }}>
+                <ResourcePackList />
+            </LargeModal>,
+            <SmallModal id={MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL}
+                        title={'批量解绑资源包'}
+                        onConfirmButtonClickFunction={async () =>
+                        {
+                            await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()));
+                            getScreenList(); // 刷新屏幕列表
+                        }}>
+                <span>确认要为选中的 {selectedScreenIdSet.size} 个屏幕解绑资源包吗？</span>
+            </SmallModal>,
+        ];
     }
 }
 
