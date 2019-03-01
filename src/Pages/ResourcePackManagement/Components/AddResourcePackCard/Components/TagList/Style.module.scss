@@ -1,0 +1,13 @@
+.TagList {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+
+    .tagWrapper {
+        margin: 0.5rem;
+        cursor: pointer;
+    }
+}

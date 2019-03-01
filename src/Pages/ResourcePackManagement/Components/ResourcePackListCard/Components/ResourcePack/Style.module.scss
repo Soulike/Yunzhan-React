@@ -1,0 +1,39 @@
+@import "~bootstrap/scss/bootstrap";
+@import "../../Style.module";
+
+.ResourcePack {
+    .resourcePackName {
+        @extend .resourcePackNameHeader;
+    }
+
+    .tagName {
+        @extend .tagNameHeader;
+    }
+
+    .advertisementAmount {
+        @extend .advertisementAmountHeader;
+        cursor: pointer;
+        text-decoration: underline dotted #333;
+    }
+
+    .screenAmount {
+        @extend .screenAmountHeader;
+        cursor: pointer;
+        text-decoration: underline dotted #333;
+    }
+
+    .description {
+        @extend .descriptionHeader;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .button {
+        @extend .buttonHeader;
+    }
+
+    .changeResourcePackButton {
+        @extend .btn, .btn-primary;
+    }
+}

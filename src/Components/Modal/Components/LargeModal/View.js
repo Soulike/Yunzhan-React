@@ -6,7 +6,7 @@ class Modal extends Component
 {
     render()
     {
-        const {id, title, children, className, onConfirmButtonClickFunction, ...rest} = this.props;
+        const {id, title, subTitle, children, className, onConfirmButtonClickFunction, ...rest} = this.props;
         return (
             <div className={`${Style.Modal} ${className}  modal fade`}
                  {...rest}
@@ -17,7 +17,9 @@ class Modal extends Component
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">{title}</h5>
+                            <h5 className="modal-title">{title}
+                                <small className={Style.subTitle}>{subTitle}</small>
+                            </h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -43,6 +45,7 @@ class Modal extends Component
 Modal.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    subTitle: PropTypes.string,
     className: PropTypes.string,
     onConfirmButtonClickFunction: PropTypes.func,
 };

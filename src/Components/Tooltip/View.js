@@ -23,10 +23,10 @@ class ToolTip extends Component
 
     render()
     {
-        const {placement, title, children} = this.props;
+        const {placement, title, children, className} = this.props;
         const {id} = this.state;
         return (
-            <div className={Style.Tooltip}
+            <div className={`${Style.Tooltip} ${className}`}
                  id={id}
                  data-toggle="tooltip"
                  data-placement={placement}
@@ -40,6 +40,7 @@ class ToolTip extends Component
 ToolTip.propTypes = {
     placement: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    className: PropTypes.string,
 };
 
 export default ToolTip;

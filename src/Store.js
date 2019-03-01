@@ -41,6 +41,8 @@ const initValues = {
     ResourcePackManagement: {
         basicInfo: {},
         resourcePackList: [],
+        selectedTagIdSet: new Set(),
+        selectedAdvertisementIdSet: new Set(),
     },
 };
 

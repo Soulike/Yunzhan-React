@@ -1,0 +1,42 @@
+.ResourcePackListCard {
+    table {
+        text-align: center;
+
+        thead {
+            position: fixed;
+            z-index: 1;
+        }
+
+        tbody {
+            transform: translateY(3.125rem);
+        }
+
+        th, td {
+            box-sizing: content-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+    }
+}
+
+.resourcePackNameHeader {
+    width: 10rem;
+}
+
+.tagNameHeader {
+    width: 6rem;
+}
+
+.advertisementAmountHeader, .screenAmountHeader {
+    width: 3rem;
+}
+
+.descriptionHeader {
+    width: 6rem;
+}
+
+.buttonHeader {
+    width: 5.255rem;
+}

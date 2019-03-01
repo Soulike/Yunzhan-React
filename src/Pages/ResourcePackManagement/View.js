@@ -4,6 +4,8 @@ import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
 import {View as ResourcePackManagementInfoCard} from './Components/ResourcePackManagementInfoCard';
 import {getResourcePackManagementBasicInfo} from './Function';
+import {View as AddResourcePackCard} from './Components/AddResourcePackCard';
+import {View as ResourcePackListCard} from './Components/ResourcePackListCard';
 
 class ResourceManagement extends Component
 {
@@ -20,8 +22,10 @@ class ResourceManagement extends Component
             <div className={Style.ResourceManagement}>
                 <div className={Style.leftWrapper}>
                     <ResourcePackManagementInfoCard />
+                    <AddResourcePackCard />
                 </div>
                 <div className={Style.rightWrapper}>
+                    <ResourcePackListCard />
                 </div>
             </div>
         );

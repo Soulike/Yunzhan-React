@@ -7,12 +7,16 @@ module.exports = {
     RESOURCE_PACK: {
         ID: 'id',
         NAME: 'name',
+        TAG_NAME: 'tagName',
         ADVERTISEMENT_AMOUNT: 'advertisementAmount',
+        SCREEN_AMOUNT: 'screenAmount',
         DESCRIPTION: 'description',
     },
 
     LIST: {
         RESOURCE_PACK: 'resourcePackList',
         RESOURCE_PACK_ID: 'resourcePackIdList',
+        ADVERTISEMENT_ID: 'advertisementIdList',
+        TAG_ID: 'TagIdList',
     },
 };

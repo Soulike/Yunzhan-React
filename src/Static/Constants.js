@@ -22,4 +22,5 @@ export const MODAL_ID = {
     UPLOAD_IMAGE_INFO_MODAL: 'uploadImageModal',
     ADVERTISEMENT_INFO_MODAL: 'advertisementInfoModal',
     TAG_INFO_MODAL: 'tagInfoModal',
+    RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL: 'resourcePackManagementSelectAdvertisementModal',
 };

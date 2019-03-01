@@ -7,7 +7,6 @@ import {
     DELETE_SCREEN,
     GET_BASIC_INFO,
     GET_LOG_LIST,
-    GET_RESOURCE_PACK_LIST,
     GET_SCREEN_LIST,
     START_SCREEN,
     STOP_SCREEN,
@@ -26,7 +25,6 @@ export default {
     sendPostDeleteScreenRequestAsync,
     sendPostStartScreenRequestAsync,
     sendPostStopScreenRequestAsync,
-    sendGetResourcePackListRequestAsync,
 };
 
 async function sendGetScreenBasicInfoRequestAsync()
@@ -362,35 +360,6 @@ async function sendPostStopScreenRequestAsync(screenIdListArray)
     catch (e)
     {
         WarningAlert.pop('停止播放失败');
-        console.log(e);
-        return null;
-    }
-}
-
-async function sendGetResourcePackListRequestAsync()
-{
-    try
-    {
-        const {code, data} = await Function.getAsync(GET_RESOURCE_PACK_LIST, false);
-        if (code === STATUS_CODE.SUCCESS)
-        {
-            return data;
-        }
-        else if (code === STATUS_CODE.INVALID_SESSION)
-        {
-            WarningAlert.pop('请先登录');
-            redirectToLogin();
-            return null;
-        }
-        else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
-        {
-            DangerAlert.pop('服务器错误');
-            return null;
-        }
-    }
-    catch (e)
-    {
-        WarningAlert.pop('获取资源包列表失败');
         console.log(e);
         return null;
     }

@@ -1,0 +1,49 @@
+@import "~bootstrap/scss/bootstrap";
+
+.AddResourcePackCard {
+
+    .inputWrapper {
+        width: 100%;
+        margin: 0;
+
+        .label {
+            display: block;
+            text-align: center;
+            font-size: 1.25rem;
+        }
+
+        input {
+            @extend .form-control;
+            text-align: center;
+            margin: 1rem 0;
+        }
+    }
+
+    .tagListTitle {
+        display: block;
+        text-align: center;
+        font-size: 1.25rem;
+    }
+
+    .tagListWrapper {
+        margin-top: 0.75rem;
+        height: 11rem;
+        overflow: auto;
+        border: 1px solid #DDD;
+        border-radius: 0.25rem;
+    }
+
+    .submitButtonWrapper {
+        margin-top: 0.75rem;
+
+        .submitButton {
+            @extend .btn, .btn-primary;
+            display: block;
+            width: 100%;
+        }
+    }
+}
+
+.advertisementListWrapper {
+
+}

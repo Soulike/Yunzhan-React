@@ -330,32 +330,6 @@
 - 响应体：无
 - 其他说明：如果 id 对应屏幕不存在返回 404，如果 id 对应屏幕不属于该用户或停止失败返回 403。如果屏幕本来就是停止状态，不用做任何操作。
 
-#### `/getResourcePackList`
-
-- 功能说明：获取当前用户资源包列表。
-- 请求方法：GET
-- 请求体：无
-- 响应体：
-```js
-{
-    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]:[
-        {
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 资源包名
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: Number,// 内含广告数量
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String// 资源包备注
-        },
-        {
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 资源包名
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: Number,// 内含广告数量
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String// 资源包备注
-        },
-    ]
-}
-```
-- 其他说明：无
-
 #### `/bindResourcePack`
 
 - 功能说明：为屏幕绑定资源包。
@@ -589,6 +563,51 @@ export const QRCodePositionIdToName = {
 {
     [NAMESPACE.RESOURCE_PACK_MANAGEMENT.BASIC_INFO.RESOURCE_PACK_AMOUNT]: Number, // 总资源包个数
     [NAMESPACE.RESOURCE_PACK_MANAGEMENT.BASIC_INFO.USING_RESOURCE_PACK_AMOUNT]: Number, // 正在使用的资源包个数
+}
+```
+- 其他说明：无
+
+#### `/submitNewResourcePack`
+
+- 功能说明：创建新的资源包
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String, // 新资源包的名称
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.ADVERTISEMENT_ID]: Array, // 新资源包包含的广告 ID 列表，可以为空
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.TAG_ID]: Array, // 新资源包包含的标签列表，可以为空
+}
+```
+- 响应体：无
+- 其他说明：无
+
+#### `/getResourcePackList`
+
+- 功能说明：获取当前用户资源包列表。
+- 请求方法：GET
+- 请求体：无
+- 响应体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]:[
+        {
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 资源包名
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.TAG_NAME]: String,// 绑定标签名
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: Number,// 内含广告数量
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.SCREEN_AMOUNT]: Number,// 绑定屏幕数量
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String// 资源包备注
+        },
+        {
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 资源包名
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.TAG_NAME]: String,// 绑定标签名
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: Number,// 内含广告数量
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.SCREEN_AMOUNT]: Number,// 绑定屏幕数量
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String// 资源包备注
+        },
+    ]
 }
 ```
 - 其他说明：无

@@ -4,6 +4,15 @@
     .advertisementContentWrapper {
         cursor: pointer;
 
+        transition: 0.25s;
+
+        &.selected {
+            color: #FFF;
+            background-color: #333;
+            border-radius: 0.25rem;
+            box-shadow: 0 0 0.5rem #333;
+        }
+
         .previewWrapper {
             border: 1px dashed #DDD;
             border-radius: 0.25rem;

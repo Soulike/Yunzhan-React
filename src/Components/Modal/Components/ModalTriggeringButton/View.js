@@ -20,6 +20,7 @@ class ModalTriggerButton extends Component
 ModalTriggerButton.propTypes = {
     modalId: PropTypes.string.isRequired,
     className: PropTypes.string,
+    onClick: PropTypes.func,
 };
 
 export default ModalTriggerButton;
