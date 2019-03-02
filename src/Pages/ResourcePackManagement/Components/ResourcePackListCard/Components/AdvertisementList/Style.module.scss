@@ -1,0 +1,18 @@
+.AdvertisementList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem;
+
+    .advertisementWrapper {
+        margin: 0.5rem;
+        transition: 0.25s;
+        border-radius: 0.25rem;
+        cursor: pointer;
+
+        &.selected {
+            background-color: #666;
+            color: #FFF;
+        }
+    }
+}

@@ -17,6 +17,6 @@ module.exports = {
         RESOURCE_PACK: 'resourcePackList',
         RESOURCE_PACK_ID: 'resourcePackIdList',
         ADVERTISEMENT_ID: 'advertisementIdList',
-        TAG_ID: 'TagIdList',
+        TAG_ID: 'tagIdList',
     },
 };

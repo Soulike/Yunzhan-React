@@ -67,6 +67,60 @@ export default (state = {}, action) =>
                 selectedAdvertisementIdSet: new Set(),
             };
         }
+        case ActionTypes.RESOURCE_PACK_SELECT_TAG:
+        {
+            const {tagId} = action;
+            const {resourcePackSelectedTagIdSet} = state;
+            resourcePackSelectedTagIdSet.add(tagId);
+            return {
+                ...state,
+                resourcePackSelectedTagIdSet: new Set(resourcePackSelectedTagIdSet),
+            };
+        }
+        case ActionTypes.RESOURCE_PACK_UNSELECT_TAG:
+        {
+            const {tagId} = action;
+            const {resourcePackSelectedTagIdSet} = state;
+            resourcePackSelectedTagIdSet.delete(tagId);
+            return {
+                ...state,
+                resourcePackSelectedTagIdSet: new Set(resourcePackSelectedTagIdSet),
+            };
+        }
+        case ActionTypes.RESOURCE_PACK_SELECT_ADVERTISEMENT:
+        {
+            const {advertisementId} = action;
+            const {resourcePackSelectedAdvertisementIdSet} = state;
+            resourcePackSelectedAdvertisementIdSet.add(advertisementId);
+            return {
+                ...state,
+                resourcePackSelectedAdvertisementIdSet: new Set(resourcePackSelectedAdvertisementIdSet),
+            };
+        }
+        case ActionTypes.RESOURCE_PACK_UNSELECT_ADVERTISEMENT:
+        {
+            const {advertisementId} = action;
+            const {resourcePackSelectedAdvertisementIdSet} = state;
+            resourcePackSelectedAdvertisementIdSet.delete(advertisementId);
+            return {
+                ...state,
+                resourcePackSelectedAdvertisementIdSet: new Set(resourcePackSelectedAdvertisementIdSet),
+            };
+        }
+        case ActionTypes.RESOURCE_PACK_UNSELECT_ALL_TAGS:
+        {
+            return {
+                ...state,
+                resourcePackSelectedTagIdSet: new Set(),
+            };
+        }
+        case ActionTypes.RESOURCE_PACK_UNSELECT_ALL_ADVERTISEMENTS:
+        {
+            return {
+                ...state,
+                resourcePackSelectedAdvertisementIdSet: new Set(),
+            };
+        }
         case ActionTypes.GET_RESOURCE_PACK_MANAGEMENT_BASIC_INFO_FAILED:
         default:
         {

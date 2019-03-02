@@ -6,20 +6,21 @@
         @extend .resourcePackNameHeader;
     }
 
+    .tagName, .advertisementAmount, .screenAmount {
+        cursor: pointer;
+        text-decoration: underline dotted #333;
+    }
+
     .tagName {
         @extend .tagNameHeader;
     }
 
     .advertisementAmount {
         @extend .advertisementAmountHeader;
-        cursor: pointer;
-        text-decoration: underline dotted #333;
     }
 
     .screenAmount {
         @extend .screenAmountHeader;
-        cursor: pointer;
-        text-decoration: underline dotted #333;
     }
 
     .description {

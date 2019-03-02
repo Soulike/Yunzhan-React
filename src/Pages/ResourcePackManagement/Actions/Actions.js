@@ -77,3 +77,49 @@ export function unselectAllAdvertisementsAction()
         type: ActionTypes.UNSELECT_ALL_ADVERTISEMENTS,
     };
 }
+
+export function resourcePackSelectTagAction(tagId)
+{
+    return {
+        type: ActionTypes.RESOURCE_PACK_SELECT_TAG,
+        tagId,
+    };
+}
+
+export function resourcePackUnselectTagAction(tagId)
+{
+    return {
+        type: ActionTypes.RESOURCE_PACK_UNSELECT_TAG,
+        tagId,
+    };
+}
+
+export function resourcePackSelectAdvertisementAction(advertisementId)
+{
+    return {
+        type: ActionTypes.RESOURCE_PACK_SELECT_ADVERTISEMENT,
+        advertisementId,
+    };
+}
+
+export function resourcePackUnselectAdvertisementAction(advertisementId)
+{
+    return {
+        type: ActionTypes.RESOURCE_PACK_UNSELECT_ADVERTISEMENT,
+        advertisementId,
+    };
+}
+
+export function resourcePackUnselectAllTagsAction()
+{
+    return {
+        type: ActionTypes.RESOURCE_PACK_UNSELECT_ALL_TAGS,
+    };
+}
+
+export function resourcePackUnselectAllAdvertisementsAction()
+{
+    return {
+        type: ActionTypes.RESOURCE_PACK_UNSELECT_ALL_ADVERTISEMENTS,
+    };
+}

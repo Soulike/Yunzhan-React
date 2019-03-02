@@ -24,7 +24,7 @@ class Modal extends Component
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div className="modal-body">
+                        <div className={`modal-body ${Style.body}`}>
                             {children}
                         </div>
                         <div className="modal-footer">

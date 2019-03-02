@@ -43,6 +43,9 @@ const initValues = {
         resourcePackList: [],
         selectedTagIdSet: new Set(),
         selectedAdvertisementIdSet: new Set(),
+
+        resourcePackSelectedTagIdSet: new Set(),// 特定资源包当前在编辑Modal中选中的标签ID
+        resourcePackSelectedAdvertisementIdSet: new Set(),// 特定资源包当前在编辑Modal中选中的广告ID
     },
 };
 

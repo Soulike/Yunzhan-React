@@ -1,6 +1,12 @@
 import Store from '../../Store';
 import {
     getResourcePackManagementBasicInfoAction,
+    resourcePackSelectAdvertisementAction,
+    resourcePackSelectTagAction,
+    resourcePackUnselectAdvertisementAction,
+    resourcePackUnselectAllAdvertisementsAction,
+    resourcePackUnselectAllTagsAction,
+    resourcePackUnselectTagAction,
     selectAdvertisementAction,
     selectTagAction,
     unselectAdvertisementAction,
@@ -42,4 +48,34 @@ export function unselectAdvertisement(advertisementId)
 export function unselectAllAdvertisements()
 {
     Store.dispatch(unselectAllAdvertisementsAction());
+}
+
+export function resourcePackSelectTag(tagId)
+{
+    Store.dispatch(resourcePackSelectTagAction(tagId));
+}
+
+export function resourcePackUnselectTag(tagId)
+{
+    Store.dispatch(resourcePackUnselectTagAction(tagId));
+}
+
+export function resourcePackSelectAdvertisement(advertisementId)
+{
+    Store.dispatch(resourcePackSelectAdvertisementAction(advertisementId));
+}
+
+export function resourcePackUnselectAdvertisement(advertisementId)
+{
+    Store.dispatch(resourcePackUnselectAdvertisementAction(advertisementId));
+}
+
+export function resourcePackUnselectAllTags()
+{
+    Store.dispatch(resourcePackUnselectAllTagsAction());
+}
+
+export function resourcePackUnselectAllAdvertisements()
+{
+    Store.dispatch(resourcePackUnselectAllAdvertisementsAction());
 }

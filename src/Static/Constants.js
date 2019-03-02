@@ -23,4 +23,8 @@ export const MODAL_ID = {
     ADVERTISEMENT_INFO_MODAL: 'advertisementInfoModal',
     TAG_INFO_MODAL: 'tagInfoModal',
     RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL: 'resourcePackManagementSelectAdvertisementModal',
+    RESOURCE_PACK_TAG_NAME_LIST_MODAL: 'resourcePackTagNameListModal',
+    RESOURCE_PACK_ADVERTISEMENT_LIST_MODAL: 'resourcePackAdvertisementListModal',
+    RESOURCE_PACK_SCREEN_LIST_MODAL: 'resourcePackScreenNameListModal',
+    RESOURCE_PACK_CHANGE_MODAL: 'resourcePackChangeModal',
 };

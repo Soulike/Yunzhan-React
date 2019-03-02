@@ -594,7 +594,7 @@ export const QRCodePositionIdToName = {
         {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 资源包名
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.TAG_NAME]: String,// 绑定标签名
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.TAG_NAME]: String,// 绑定标签名（取一个就可以）
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: Number,// 内含广告数量
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.SCREEN_AMOUNT]: Number,// 绑定屏幕数量
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String// 资源包备注
@@ -602,7 +602,7 @@ export const QRCodePositionIdToName = {
         {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 资源包名
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.TAG_NAME]: String,// 绑定标签名
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.TAG_NAME]: String,// 绑定标签名（取一个就可以）
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: Number,// 内含广告数量
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.SCREEN_AMOUNT]: Number,// 绑定屏幕数量
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String// 资源包备注
@@ -610,4 +610,182 @@ export const QRCodePositionIdToName = {
     ]
 }
 ```
+- 其他说明：无
+
+#### `/getResourcePackTagList`
+
+- 功能说明：获取特定资源包绑定的所有标签名
+- 请求方法：GET
+- 请求体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+}
+```
+- 响应体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.LIST.TAG]: [
+        {
+            [NAMESPACE.TAG_MANAGEMENT.TAG.ID]: Number, // Tag 的 ID
+            [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: String, // Tag 的名字
+            [NAMESPACE.TAG_MANAGEMENT.TAG.BINDING_RESOURCE_PACK_AMOUNT]: Number, // Tag 当前绑定了多少个资源包
+            [NAMESPACE.TAG_MANAGEMENT.TAG.CREATION_TIME]: String // Tag 是什么时候创建的
+        },
+    ]
+}
+```
+- 其他说明：无
+
+#### `/getResourcePackAdvertisementList`
+
+- 功能说明：获取特定资源包的广告列表
+- 请求方法：GET
+- 请求体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+}
+```
+- 响应体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.ADVERTISEMENT]: [
+        {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: Number, // 广告的 ID
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: Number, // 广告类型，枚举值
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: String, // 文件名
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: String, // 预览 URL
+        },
+        {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: Number, // 广告的 ID
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: Number, // 广告类型，枚举值
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: String, // 文件名
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: String, // 预览 URL
+        },
+    ]
+}
+```
+- 其他说明：
+  - 广告类型枚举对象
+```js
+{
+    IMAGE: 0,
+    VIDEO: 1,
+}
+```
+
+#### `/getResourcePackScreenList`
+
+- 功能说明：获取特定资源包所有标签名
+- 请求方法：GET
+- 请求体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+}
+```
+- 响应体：
+```js
+{
+    [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: [
+        {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: Number,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: Boolean,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_ID]: Number,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: String
+        },
+        {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: Number,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: String,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: Boolean,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_ID]: Number,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: String
+        }
+    ]
+}
+```
+- 其他说明：无
+
+#### `/getResourcePackUnbindingTagList`
+
+- 功能说明：获取特定资源包没有绑定的所有标签名
+- 请求方法：GET
+- 请求体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+}
+```
+- 响应体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.LIST.TAG]: [
+        {
+            [NAMESPACE.TAG_MANAGEMENT.TAG.ID]: Number, // Tag 的 ID
+            [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: String, // Tag 的名字
+            [NAMESPACE.TAG_MANAGEMENT.TAG.BINDING_RESOURCE_PACK_AMOUNT]: Number, // Tag 当前绑定了多少个资源包
+            [NAMESPACE.TAG_MANAGEMENT.TAG.CREATION_TIME]: String // Tag 是什么时候创建的
+        },
+    ]
+}
+```
+- 其他说明：无
+
+#### `/getResourcePackUnbindingAdvertisementList`
+
+- 功能说明：获取特定资源包没有绑定的广告列表
+- 请求方法：GET
+- 请求体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 资源包 ID
+}
+```
+- 响应体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.ADVERTISEMENT]: [
+        {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: Number, // 广告的 ID
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: Number, // 广告类型，枚举值
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: String, // 文件名
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: String, // 预览 URL
+        },
+        {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: Number, // 广告的 ID
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: Number, // 广告类型，枚举值
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: String, // 文件名
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: String, // 预览 URL
+        },
+    ]
+}
+```
+- 其他说明：
+  - 广告类型枚举对象
+```js
+{
+    IMAGE: 0,
+    VIDEO: 1,
+}
+```
+
+#### `/changeResourcePackInfo`
+
+- 功能说明：修改资源包信息
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: Number,// 被修改的资源包 ID
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: String,// 新资源包名
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: String,// 新资源包备注
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.TAG_ID]: Array, // 绑定标签的列表，内含所有绑定的标签 ID
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.ADVERTISEMENT_ID]: Array, // 绑定广告的列表，内含所有绑定的广告 ID
+}
+```
+- 响应体：无
 - 其他说明：无

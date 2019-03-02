@@ -6,4 +6,9 @@
         color: #666;
         margin-left: 0.25rem;
     }
+
+    .body {
+        max-height: 30rem;
+        overflow: auto;
+    }
 }
