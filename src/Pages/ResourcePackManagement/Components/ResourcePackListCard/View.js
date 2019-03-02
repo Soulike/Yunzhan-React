@@ -22,6 +22,7 @@ import {
 import {View as TagList} from './Components/TagList';
 import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
+import {Function as SpinnerFunction} from '../../../../Components/GrowingSpinner';
 
 class ResourcePackListCard extends Component
 {
@@ -105,6 +106,7 @@ class ResourcePackListCard extends Component
 
     onChangeResourcePackButtonClick = async (resourcePackId, resourcePackName, resourcePackDescription) =>
     {
+        SpinnerFunction.showSpinner();
         const [resourcePackTagListWrapper, resourcePackAdvertisementListWrapper] = await Promise.all([
             RequestProcessor.sendGetResourcePackTagListRequestAsync(resourcePackId),
             RequestProcessor.sendGetResourcePackAdvertisementListRequestAsync(resourcePackId),
@@ -133,6 +135,7 @@ class ResourcePackListCard extends Component
                 this.resourcePackNameInputRef.current.value = resourcePackName;
                 this.resourcePackDescriptionRef.current.value = resourcePackDescription;
                 ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_CHANGE_MODAL);
+                SpinnerFunction.hideSpinner();
             });
 
         }

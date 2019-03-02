@@ -11,9 +11,15 @@ import {SmallModal} from '../../Components/Modal';
 import {MODAL_ID} from '../../Static/Constants';
 import Title from './Components/Title/View';
 import {itemIdToIcon, itemIdToName, itemUrlToId} from '../../Config/MenuItem';
+import {Function as SpinnerFunction} from '../../Components/GrowingSpinner';
 
 class Root extends Component
 {
+    componentDidMount()
+    {
+        SpinnerFunction.addSpinner();
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot)
     {
         if (prevProps.children !== this.props.children)
