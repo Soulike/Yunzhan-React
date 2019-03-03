@@ -61,6 +61,7 @@ class ResourcePackListCard extends Component
 
     showTagListModal = async (resourcePackId, resourcePackName) =>
     {
+        SpinnerFunction.showSpinner();
         const resourcePackTagListWrapper = await RequestProcessor.sendGetResourcePackTagListRequestAsync(resourcePackId);
         if (resourcePackTagListWrapper)
         {
@@ -70,12 +71,14 @@ class ResourcePackListCard extends Component
             }, () =>
             {
                 ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_TAG_NAME_LIST_MODAL);
+                SpinnerFunction.hideSpinner();
             });
         }
     };
 
     showAdvertisementListModal = async (resourcePackId, resourcePackName) =>
     {
+        SpinnerFunction.showSpinner();
         const resourcePackAdvertisementListWrapper = await RequestProcessor.sendGetResourcePackAdvertisementListRequestAsync(resourcePackId);
         if (resourcePackAdvertisementListWrapper)
         {
@@ -85,12 +88,14 @@ class ResourcePackListCard extends Component
             }, () =>
             {
                 ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_ADVERTISEMENT_LIST_MODAL);
+                SpinnerFunction.hideSpinner();
             });
         }
     };
 
     showScreenNameListModal = async (resourcePackId, resourcePackName) =>
     {
+        SpinnerFunction.showSpinner();
         const screenListWrapper = await RequestProcessor.sendGetResourcePackScreenListRequestAsync(resourcePackId);
         if (screenListWrapper)
         {
@@ -100,6 +105,7 @@ class ResourcePackListCard extends Component
             }, () =>
             {
                 ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_SCREEN_LIST_MODAL);
+                SpinnerFunction.hideSpinner();
             });
         }
     };

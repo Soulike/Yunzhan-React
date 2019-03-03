@@ -11,6 +11,7 @@ import {REGEX} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {connect} from 'react-redux';
 import {View as ListCard} from '../../../../Components/ListCard';
+import {Function as SpinnerFunction} from '../../../../Components/GrowingSpinner';
 
 class AdvertisementListCard extends Component
 {
@@ -29,6 +30,7 @@ class AdvertisementListCard extends Component
     {
         return async () =>
         {
+            SpinnerFunction.showSpinner();
             this.setState({
                 currentIdOfAdvertisementInModal: id,
             }, async () =>
@@ -71,6 +73,7 @@ class AdvertisementListCard extends Component
                     $QRCodePositionSelect.disabled = true;
                 }
                 ModalFunction.showModal(MODAL_ID.ADVERTISEMENT_INFO_MODAL);
+                SpinnerFunction.hideSpinner();
             });
         };
     };

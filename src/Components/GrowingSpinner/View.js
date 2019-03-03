@@ -6,7 +6,7 @@ class GrowingSpinner extends Component
     render()
     {
         return (
-            <div className={`spinner-grow text-danger ${Style.GrowingSpinner}`} role="status">
+            <div className={`spinner-grow text-primary ${Style.GrowingSpinner}`} role="status">
                 <span className="sr-only">Loading...</span>
             </div>
         );

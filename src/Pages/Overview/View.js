@@ -51,10 +51,8 @@ class Overview extends Component
                 dataArray.forEach(data =>
                 {
                     this.setState({...data});
-                }, () =>
-                {
-                    SpinnerFunction.hideSpinner();
                 });
+                SpinnerFunction.hideSpinner();
             });
     }
 
