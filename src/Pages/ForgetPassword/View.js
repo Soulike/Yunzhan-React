@@ -58,8 +58,9 @@ class ForgetPassword extends Component
     onGetCodeButtonClick = async e =>
     {
         e.preventDefault();
+        const {email} = this.state;
         const $getCodeButton = document.querySelector(`.${style.getCodeButton}`);
-        const requestIsSuccessful = await RequestProcessor.sendGetVerificationCodeRequestAsync();
+        const requestIsSuccessful = await RequestProcessor.sendPostGetVerificationCodeRequestAsync(email);
         if (requestIsSuccessful)
         {
             $getCodeButton.setAttribute('disabled', 'disabled');

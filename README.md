@@ -49,8 +49,13 @@
 #### `/getVerificationCode`
 
 - 功能说明：获取验证码
-- 请求方法：GET
-- 请求体：无
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: String,
+}
+```
 - 响应体：无
 - 其他说明：无
 

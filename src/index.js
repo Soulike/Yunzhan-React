@@ -1,7 +1,4 @@
-import 'normalize.css';
-import 'popper.js';
-import 'bootstrap';
-import 'bootstrap/scss/bootstrap.scss';
+import './Static/Bootstrap';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';

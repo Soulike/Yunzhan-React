@@ -8,18 +8,20 @@ import {DangerAlert, SuccessAlert, WarningAlert} from '../../Components/Alerts';
 
 export default {
     sendPostLoginRequestAsync,
-    sendGetVerificationCodeRequestAsync,
+    sendPostGetVerificationCodeRequestAsync,
     sendPostSignUpRequestAsync,
     sendPostForgetPasswordRequestAsync,
     sendGetVerifySessionRequestAsync,
     sendPostLogoutRequestAsync,
 };
 
-async function sendGetVerificationCodeRequestAsync()
+async function sendPostGetVerificationCodeRequestAsync(email)
 {
     try
     {
-        const {code} = await Function.getAsync(GET_VERIFICATION_CODE, false);
+        const {code} = await Function.postAsync(GET_VERIFICATION_CODE, {
+            [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
+        });
         if (code === STATUS_CODE.SUCCESS)
         {
             return true;
