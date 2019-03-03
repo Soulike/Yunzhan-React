@@ -4,10 +4,11 @@
     top: 50%;
     transform: translate(-50%, -50%);
     display: none;
+    z-index: 9999;
 }
 
 
 .GrowingSpinner {
-    width: 5rem;
-    height: 5rem;
+    width: 10rem;
+    height: 10rem;
 }

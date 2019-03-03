@@ -14,8 +14,8 @@ import {
 import ToolTip from '../../../../Components/Tooltip/View';
 import {TEXT} from '../../../../Static/Regex';
 import {
-    resourcePackSelectAdvertisement,
-    resourcePackSelectTag,
+    resourcePackSelectAdvertisements,
+    resourcePackSelectTags,
     resourcePackUnselectAllAdvertisements,
     resourcePackUnselectAllTags,
 } from '../../Function';
@@ -115,16 +115,20 @@ class ResourcePackListCard extends Component
         {
             // 把已选的资源包和广告ID添加到Store里
             const resourcePackTagList = resourcePackTagListWrapper[NAMESPACE.TAG_MANAGEMENT.LIST.TAG];
+            const resourcePackTagIdList = [];
             resourcePackTagList.forEach(tag =>
             {
-                resourcePackSelectTag(tag[NAMESPACE.TAG_MANAGEMENT.TAG.ID]);
+                resourcePackTagIdList.push(tag[NAMESPACE.TAG_MANAGEMENT.TAG.ID]);
             });
+            resourcePackSelectTags(resourcePackTagIdList);
 
             const resourcePackAdvertisementList = resourcePackAdvertisementListWrapper[NAMESPACE.ADVERTISEMENT_MANAGEMENT.LIST.ADVERTISEMENT];
+            const resourcePackAdvertisementIdList = [];
             resourcePackAdvertisementList.forEach(advertisement =>
             {
-                resourcePackSelectAdvertisement(advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]);
+                resourcePackAdvertisementIdList.push(advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]);
             });
+            resourcePackSelectAdvertisements(resourcePackAdvertisementIdList);
 
             this.setState({
                 currentOperatingResourcePackId: resourcePackId,// 当前查看/操作资源包ID
@@ -221,7 +225,8 @@ class ResourcePackListCard extends Component
                                                  showTagListModalFunction={this.showTagListModal}
                                                  showAdvertisementListModalFunction={this.showAdvertisementListModal}
                                                  showScreenNameListModalFunction={this.showScreenNameListModal}
-                                                 onChangeResourcePackButtonClickFunction={this.onChangeResourcePackButtonClick} />;
+                                                 onChangeResourcePackButtonClickFunction={this.onChangeResourcePackButtonClick}
+                                                 key={id} />;
                         })
                     }
                     </tbody>
@@ -261,7 +266,8 @@ class ResourcePackListCard extends Component
                                 advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME],
                             );
                             return (
-                                <div className={Style.advertisementWrapper}>
+                                <div className={Style.advertisementWrapper}
+                                     key={advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]}>
                                     <Advertisement advertisement={advertisementObj} />
                                 </div>);
                         })
@@ -283,8 +289,8 @@ class ResourcePackListCard extends Component
                         {
                             resourcePackScreenList.map((screen, i) =>
                             {
-                                const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: screenName} = screen;
-                                return <tr>
+                                const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId, [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: screenName} = screen;
+                                return <tr key={screenId}>
                                     <th scope="row">{i + 1}</th>
                                     <td>{screenName}</td>
                                 </tr>;

@@ -60,7 +60,7 @@ class TagList extends Component
                             [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName, // Tag 的名字
                         } = tag;
                         return (
-                            <div className={Style.TagWrapper} onClick={this.onTagWrapperClick(tagId)}>
+                            <div className={Style.TagWrapper} onClick={this.onTagWrapperClick(tagId)} key={tagId}>
                                 <Tag id={tagId} name={tagName} />
                             </div>);
                     })

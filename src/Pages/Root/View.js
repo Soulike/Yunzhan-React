@@ -15,9 +15,17 @@ import {Function as SpinnerFunction} from '../../Components/GrowingSpinner';
 
 class Root extends Component
 {
+    constructor(props)
+    {
+        super(props);
+        SpinnerFunction.addSpinner();
+        SpinnerFunction.showSpinner();
+    }
+
+
     componentDidMount()
     {
-        SpinnerFunction.addSpinner();
+        SpinnerFunction.hideSpinner();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot)

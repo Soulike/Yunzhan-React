@@ -18,12 +18,12 @@ class InfoCard extends Component
                             {
                                 const {name, color, value} = info;
                                 return [
-                                    <div className={Style.info}>
+                                    <div className={Style.info} key={name}>
                                         <div className={Style.infoTitle}>{name}</div>
                                         <div className={Style.infoNumber}
                                              style={{color}}>{value || 0}</div>
                                     </div>,
-                                    i === infoArray.length - 1 ? null : <DividingLine />,
+                                    i === infoArray.length - 1 ? null : <DividingLine key={i} />,
                                 ];
                             })
                         }

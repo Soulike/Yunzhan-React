@@ -77,6 +77,15 @@ export default (state = {}, action) =>
                 resourcePackSelectedTagIdSet: new Set(resourcePackSelectedTagIdSet),
             };
         }
+        case ActionTypes.RESOURCE_PACK_SELECT_TAGS:
+        {
+            const {tagIdArray} = action;
+            const {resourcePackSelectedTagIdSet} = state;
+            return {
+                ...state,
+                resourcePackSelectedTagIdSet: new Set([...resourcePackSelectedTagIdSet, ...tagIdArray]),
+            };
+        }
         case ActionTypes.RESOURCE_PACK_UNSELECT_TAG:
         {
             const {tagId} = action;
@@ -95,6 +104,15 @@ export default (state = {}, action) =>
             return {
                 ...state,
                 resourcePackSelectedAdvertisementIdSet: new Set(resourcePackSelectedAdvertisementIdSet),
+            };
+        }
+        case ActionTypes.RESOURCE_PACK_SELECT_ADVERTISEMENTS:
+        {
+            const {advertisementIdArray} = action;
+            const {resourcePackSelectedAdvertisementIdSet} = state;
+            return {
+                ...state,
+                resourcePackSelectedAdvertisementIdSet: new Set([...resourcePackSelectedAdvertisementIdSet, ...advertisementIdArray]),
             };
         }
         case ActionTypes.RESOURCE_PACK_UNSELECT_ADVERTISEMENT:

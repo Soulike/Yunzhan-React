@@ -11,6 +11,7 @@ import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ToolTip} from '../../../../Components/Tooltip';
 import {connect} from 'react-redux';
 import {View as ListCard} from '../../../../Components/ListCard';
+import {Function as SpinnerFunction} from '../../../../Components/GrowingSpinner';
 
 class TagListCard extends Component
 {
@@ -30,20 +31,21 @@ class TagListCard extends Component
     {
         return async () =>
         {
+            SpinnerFunction.showSpinner();
             const tagInfo = await RequestProcessor.sendGetTagInfoRequestAsync(id);
             if (tagInfo)
             {
                 this.setState({
-                        tagNameIsChanged: false,
-                        currentTagIdInModal: id,
-                        ...tagInfo,
-                    },
-                    async () =>
-                    {
-                        const $tagNameInput = document.querySelector(`.${Style.tagNameInput}`);
-                        $tagNameInput.value = tagInfo[NAMESPACE.TAG_MANAGEMENT.TAG.NAME];
-                        ModalFunction.showModal(MODAL_ID.TAG_INFO_MODAL);
-                    });
+                    tagNameIsChanged: false,
+                    currentTagIdInModal: id,
+                    ...tagInfo,
+                }, () =>
+                {
+                    const $tagNameInput = document.querySelector(`.${Style.tagNameInput}`);
+                    $tagNameInput.value = tagInfo[NAMESPACE.TAG_MANAGEMENT.TAG.NAME];
+                    ModalFunction.showModal(MODAL_ID.TAG_INFO_MODAL);
+                    SpinnerFunction.hideSpinner();
+                });
             }
         };
     };

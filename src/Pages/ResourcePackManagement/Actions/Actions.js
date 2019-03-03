@@ -86,6 +86,14 @@ export function resourcePackSelectTagAction(tagId)
     };
 }
 
+export function resourcePackSelectTagsAction(tagIdArray)
+{
+    return {
+        type: ActionTypes.RESOURCE_PACK_SELECT_TAGS,
+        tagIdArray,
+    };
+}
+
 export function resourcePackUnselectTagAction(tagId)
 {
     return {
@@ -99,6 +107,14 @@ export function resourcePackSelectAdvertisementAction(advertisementId)
     return {
         type: ActionTypes.RESOURCE_PACK_SELECT_ADVERTISEMENT,
         advertisementId,
+    };
+}
+
+export function resourcePackSelectAdvertisementsAction(advertisementIdArray)
+{
+    return {
+        type: ActionTypes.RESOURCE_PACK_SELECT_ADVERTISEMENTS,
+        advertisementIdArray,
     };
 }
 

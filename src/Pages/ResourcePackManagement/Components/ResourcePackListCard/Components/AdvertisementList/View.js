@@ -66,7 +66,7 @@ class AdvertisementList extends Component
                         } = advertisement;
                         return (
                             <div className={`${Style.advertisementWrapper} ${resourcePackSelectedAdvertisementIdSet.has(id) ? Style.selected : null}`}
-                                 onClick={this.onAdvertisementWrapperClick(id)}>
+                                 onClick={this.onAdvertisementWrapperClick(id)} key={id}>
                                 <Advertisement advertisement={new AdvertisementObject.Advertisement(type, url, name)} />
                             </div>
                         );
