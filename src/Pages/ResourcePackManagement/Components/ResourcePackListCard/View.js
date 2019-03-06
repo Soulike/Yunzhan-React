@@ -257,6 +257,19 @@ class ResourcePackListCard extends Component
                                     </div>);
                             })
                     }
+                    {
+                        (() =>
+                        {
+                            const nodeArray = [];
+                            for (let i = 0; i < 5; i++)
+                            {
+                                nodeArray.push(
+                                    <div className={`${Style.tagWrapper} ${Style.empty}`} key={0 - i} />,
+                                );
+                            }
+                            return nodeArray;
+                        })()
+                    }
                 </div>
             </Modal>,
             <LargeModal id={MODAL_ID.RESOURCE_PACK_ADVERTISEMENT_LIST_MODAL}
@@ -277,6 +290,20 @@ class ResourcePackListCard extends Component
                                     <Advertisement advertisement={advertisementObj} />
                                 </div>);
                         })
+                    }
+                    {
+                        (() =>
+                        {
+                            // Flex 最后一行左对齐填充
+                            const nodeArray = [];
+                            for (let i = 0; i < 3; i++)
+                            {
+                                nodeArray.push(
+                                    <div className={`${Style.advertisementWrapper} ${Style.empty}`} key={i} />,
+                                );
+                            }
+                            return nodeArray;
+                        })()
                     }
                 </div>
             </LargeModal>,

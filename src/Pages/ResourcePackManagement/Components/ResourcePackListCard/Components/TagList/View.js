@@ -60,10 +60,24 @@ class TagList extends Component
                             [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName, // Tag 的名字
                         } = tag;
                         return (
-                            <div className={Style.TagWrapper} onClick={this.onTagWrapperClick(tagId)} key={tagId}>
+                            <div className={Style.tagWrapper} onClick={this.onTagWrapperClick(tagId)} key={tagId}>
                                 <Tag id={tagId} name={tagName} />
                             </div>);
                     })
+                }
+                {
+                    (() =>
+                    {
+                        // Flex 最后一行左对齐填充
+                        const nodeArray = [];
+                        for (let i = 0; i < 4; i++)
+                        {
+                            nodeArray.push(
+                                <div className={`${Style.tagWrapper} ${Style.empty}`} key={i} />,
+                            );
+                        }
+                        return nodeArray;
+                    })()
                 }
             </div>
         );

@@ -60,6 +60,20 @@ class TagList extends Component
                             </div>);
                     })
                 }
+                {
+                    (() =>
+                    {
+                        // Flex 最后一行左对齐填充
+                        const nodeArray = [];
+                        for (let i = 0; i < 3; i++)
+                        {
+                            nodeArray.push(
+                                <div className={`${Style.tagWrapper} ${Style.empty}`} key={i} />,
+                            );
+                        }
+                        return nodeArray;
+                    })()
+                }
             </div>
 
         );

@@ -96,6 +96,20 @@ class TagListCard extends Component
                                 </div>);
                         })
                     }
+                    {
+                        (() =>
+                        {
+                            // Flex 最后一行左对齐填充
+                            const nodeArray = [];
+                            for (let i = 0; i < 5; i++)
+                            {
+                                nodeArray.push(
+                                    <div className={`${Style.tagWrapper} ${Style.empty}`} key={i} />,
+                                );
+                            }
+                            return nodeArray;
+                        })()
+                    }
                 </div>
             </ListCard>,
             <Modal id={MODAL_ID.TAG_INFO_MODAL}

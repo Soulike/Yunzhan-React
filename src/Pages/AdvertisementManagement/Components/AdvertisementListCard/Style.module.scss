@@ -5,7 +5,7 @@
     .advertisementListWrapper {
 
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: flex-start;
         flex-wrap: wrap;
 
@@ -17,6 +17,14 @@
 
             &:hover {
                 background-color: #DDD;
+            }
+
+            &.empty {
+                padding: 0;
+                cursor: auto;
+                background-color: transparent;
+                width: calc(12rem + 2px); // 广告的宽度
+                box-sizing: content-box;
             }
         }
     }

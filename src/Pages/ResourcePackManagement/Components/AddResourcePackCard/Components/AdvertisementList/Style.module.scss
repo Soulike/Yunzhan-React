@@ -9,5 +9,13 @@
     .advertisementWrapper {
         padding: 1rem 0;
         border-radius: 0.25rem;
+
+        &.empty {
+            padding: 0;
+            cursor: auto;
+            background-color: transparent;
+            width: calc(12rem + 2px); // 广告的宽度
+            box-sizing: content-box;
+        }
     }
 }

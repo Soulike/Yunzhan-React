@@ -9,5 +9,12 @@
     .tagWrapper {
         margin: 0.5rem;
         cursor: pointer;
+
+        &.empty {
+            margin: 0 0.5rem;
+            cursor: auto;
+            width: 7rem; //Tag 的宽度
+            box-sizing: content-box;
+        }
     }
 }
