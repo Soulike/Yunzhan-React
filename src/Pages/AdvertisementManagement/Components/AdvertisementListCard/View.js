@@ -12,6 +12,7 @@ import {WarningAlert} from '../../../../Components/Alerts';
 import {connect} from 'react-redux';
 import {View as ListCard} from '../../../../Components/ListCard';
 import {Function as SpinnerFunction} from '../../../../Components/GrowingSpinner';
+import Function from '../../../../Function';
 
 class AdvertisementListCard extends Component
 {
@@ -149,18 +150,8 @@ class AdvertisementListCard extends Component
                         })
                     }
                     {
-                        (() =>
-                        {
-                            // Flex 最后一行左对齐填充
-                            const nodeArray = [];
-                            for (let i = 0; i < 3; i++)
-                            {
-                                nodeArray.push(
-                                    <div className={`${Style.advertisementWrapper} ${Style.empty}`} key={i} />,
-                                );
-                            }
-                            return nodeArray;
-                        })()
+
+                        Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
                     }
                 </div>
             </ListCard>

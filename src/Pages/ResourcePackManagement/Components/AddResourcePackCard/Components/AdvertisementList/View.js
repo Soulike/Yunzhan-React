@@ -5,6 +5,7 @@ import Style from './Style.module.scss';
 import {Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
 import {connect} from 'react-redux';
 import {selectAdvertisement, unselectAdvertisement} from '../../../../Function';
+import Function from '../../../../../../Function';
 
 class AdvertisementList extends Component
 {
@@ -67,18 +68,7 @@ class AdvertisementList extends Component
                     })
                 }
                 {
-                    (() =>
-                    {
-                        // Flex 最后一行左对齐填充
-                        const nodeArray = [];
-                        for (let i = 0; i < 3; i++)
-                        {
-                            nodeArray.push(
-                                <div className={`${Style.advertisementWrapper} ${Style.empty}`} key={i} />,
-                            );
-                        }
-                        return nodeArray;
-                    })()
+                    Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
                 }
             </div>
         );

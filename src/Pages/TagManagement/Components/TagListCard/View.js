@@ -97,18 +97,7 @@ class TagListCard extends Component
                         })
                     }
                     {
-                        (() =>
-                        {
-                            // Flex 最后一行左对齐填充
-                            const nodeArray = [];
-                            for (let i = 0; i < 5; i++)
-                            {
-                                nodeArray.push(
-                                    <div className={`${Style.tagWrapper} ${Style.empty}`} key={i} />,
-                                );
-                            }
-                            return nodeArray;
-                        })()
+                        Function.padFlexLastRow(<div className={`${Style.tagWrapper} ${Style.empty}`} />, 5)
                     }
                 </div>
             </ListCard>,

@@ -1,9 +1,12 @@
+import {cloneElement} from 'react';
+
 export default {
     prefixZero,
     generateTimeStr,
     generateDateStr,
     setsEqual,
     randomString,
+    padFlexLastRow,
 };
 
 function prefixZero(num)
@@ -27,7 +30,7 @@ function generateTimeStr(time)
         DAY: 24 * 60 * 60 * 1000,
         HOUR: 60 * 60 * 1000,
         MINUTE: 60 * 1000,
-        SECOND: 1000
+        SECOND: 1000,
     };
     const date = new Date(time);
     const diff = Date.now() - date.getTime();
@@ -113,4 +116,17 @@ function randomString(length = 11)
         charArray.push(...Math.random().toString(36).slice(2, 2 + restLength));
     }
     return charArray.join('');
+}
+
+// 为 Flex 布局的最后一行添加节点
+function padFlexLastRow(node, count)
+{
+    const nodeArray = [];
+    let nodeCopy = null;
+    for (let i = 0; i < count; i++)
+    {
+        nodeCopy = cloneElement(node, {key: -1 - i});
+        nodeArray.push(nodeCopy);
+    }
+    return nodeArray;
 }

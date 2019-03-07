@@ -19,6 +19,7 @@ import {
     resourcePackUnselectAllAdvertisements,
     resourcePackUnselectAllTags,
 } from '../../Function';
+import Function from '../../../../Function';
 import {View as TagList} from './Components/TagList';
 import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
@@ -258,17 +259,7 @@ class ResourcePackListCard extends Component
                             })
                     }
                     {
-                        (() =>
-                        {
-                            const nodeArray = [];
-                            for (let i = 0; i < 5; i++)
-                            {
-                                nodeArray.push(
-                                    <div className={`${Style.tagWrapper} ${Style.empty}`} key={0 - i} />,
-                                );
-                            }
-                            return nodeArray;
-                        })()
+                        Function.padFlexLastRow(<div className={`${Style.tagWrapper} ${Style.empty}`} />, 5)
                     }
                 </div>
             </Modal>,
@@ -292,18 +283,7 @@ class ResourcePackListCard extends Component
                         })
                     }
                     {
-                        (() =>
-                        {
-                            // Flex 最后一行左对齐填充
-                            const nodeArray = [];
-                            for (let i = 0; i < 3; i++)
-                            {
-                                nodeArray.push(
-                                    <div className={`${Style.advertisementWrapper} ${Style.empty}`} key={i} />,
-                                );
-                            }
-                            return nodeArray;
-                        })()
+                        Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
                     }
                 </div>
             </LargeModal>,

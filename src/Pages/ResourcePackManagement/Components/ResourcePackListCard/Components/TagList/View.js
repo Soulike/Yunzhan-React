@@ -5,6 +5,7 @@ import RequestProcessor from '../../../../../../RequestProcessor';
 import NAMESPACE from '../../../../../../Namespace';
 import {resourcePackSelectTag, resourcePackUnselectTag} from '../../../../Function';
 import {View as Tag} from './Components/Tag';
+import Function from '../../../../../../Function';
 
 class TagList extends Component
 {
@@ -66,18 +67,7 @@ class TagList extends Component
                     })
                 }
                 {
-                    (() =>
-                    {
-                        // Flex 最后一行左对齐填充
-                        const nodeArray = [];
-                        for (let i = 0; i < 4; i++)
-                        {
-                            nodeArray.push(
-                                <div className={`${Style.tagWrapper} ${Style.empty}`} key={i} />,
-                            );
-                        }
-                        return nodeArray;
-                    })()
+                    Function.padFlexLastRow(<div className={`${Style.tagWrapper} ${Style.empty}`} />, 4)
                 }
             </div>
         );
