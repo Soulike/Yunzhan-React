@@ -5,6 +5,7 @@ import RequestProcessor from '../../../../../../RequestProcessor';
 import NAMESPACE from '../../../../../../Namespace';
 import {resourcePackSelectTag, resourcePackUnselectTag} from '../../../../Function';
 import {View as Tag} from './Components/Tag';
+import Function from '../../../../../../Function';
 
 class TagList extends Component
 {
@@ -60,10 +61,13 @@ class TagList extends Component
                             [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName, // Tag 的名字
                         } = tag;
                         return (
-                            <div className={Style.TagWrapper} onClick={this.onTagWrapperClick(tagId)} key={tagId}>
+                            <div className={Style.tagWrapper} onClick={this.onTagWrapperClick(tagId)} key={tagId}>
                                 <Tag id={tagId} name={tagName} />
                             </div>);
                     })
+                }
+                {
+                    Function.padFlexLastRow(<div className={`${Style.tagWrapper} ${Style.empty}`} />, 4)
                 }
             </div>
         );

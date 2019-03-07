@@ -8,6 +8,7 @@ import {
     View as Advertisement,
 } from '../../../../../AdvertisementManagement/Components/AdvertisementListCard/Components/Advertisement';
 import {resourcePackSelectAdvertisement, resourcePackUnselectAdvertisement} from '../../../../Function';
+import Function from '../../../../../../Function';
 
 class AdvertisementList extends Component
 {
@@ -71,6 +72,9 @@ class AdvertisementList extends Component
                             </div>
                         );
                     })
+                }
+                {
+                    Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
                 }
             </div>
         );

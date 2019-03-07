@@ -19,6 +19,7 @@ import {
     resourcePackUnselectAllAdvertisements,
     resourcePackUnselectAllTags,
 } from '../../Function';
+import Function from '../../../../Function';
 import {View as TagList} from './Components/TagList';
 import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
@@ -257,6 +258,9 @@ class ResourcePackListCard extends Component
                                     </div>);
                             })
                     }
+                    {
+                        Function.padFlexLastRow(<div className={`${Style.tagWrapper} ${Style.empty}`} />, 5)
+                    }
                 </div>
             </Modal>,
             <LargeModal id={MODAL_ID.RESOURCE_PACK_ADVERTISEMENT_LIST_MODAL}
@@ -277,6 +281,9 @@ class ResourcePackListCard extends Component
                                     <Advertisement advertisement={advertisementObj} />
                                 </div>);
                         })
+                    }
+                    {
+                        Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
                     }
                 </div>
             </LargeModal>,

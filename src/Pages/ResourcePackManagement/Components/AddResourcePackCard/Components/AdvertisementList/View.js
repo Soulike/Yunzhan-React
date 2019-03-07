@@ -5,6 +5,7 @@ import Style from './Style.module.scss';
 import {Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
 import {connect} from 'react-redux';
 import {selectAdvertisement, unselectAdvertisement} from '../../../../Function';
+import Function from '../../../../../../Function';
 
 class AdvertisementList extends Component
 {
@@ -65,6 +66,9 @@ class AdvertisementList extends Component
                                 )} />
                             </div>);
                     })
+                }
+                {
+                    Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
                 }
             </div>
         );

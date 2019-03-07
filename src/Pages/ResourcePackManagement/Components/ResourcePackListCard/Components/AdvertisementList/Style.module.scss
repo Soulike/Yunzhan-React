@@ -14,5 +14,14 @@
             background-color: #666;
             color: #FFF;
         }
+
+        &.empty {
+            margin: 0 0.5rem;
+            padding: 0;
+            cursor: auto;
+            background-color: transparent;
+            width: calc(12rem + 2px); // 广告的宽度
+            box-sizing: content-box;
+        }
     }
 }

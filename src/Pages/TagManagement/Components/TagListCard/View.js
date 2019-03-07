@@ -96,6 +96,9 @@ class TagListCard extends Component
                                 </div>);
                         })
                     }
+                    {
+                        Function.padFlexLastRow(<div className={`${Style.tagWrapper} ${Style.empty}`} />, 5)
+                    }
                 </div>
             </ListCard>,
             <Modal id={MODAL_ID.TAG_INFO_MODAL}

@@ -5,6 +5,7 @@ import NAMESPACE from '../../../../../../Namespace';
 import {View as Tag} from './Components/Tag';
 import {selectTag, unselectTag} from '../../../../Function';
 import {connect} from 'react-redux';
+import Function from '../../../../../../Function';
 
 class TagList extends Component
 {
@@ -59,6 +60,9 @@ class TagList extends Component
                                 <Tag name={tagName} id={id} />
                             </div>);
                     })
+                }
+                {
+                    Function.padFlexLastRow(<div className={`${Style.tagWrapper} ${Style.empty}`} />, 3)
                 }
             </div>
 

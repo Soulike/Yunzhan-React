@@ -12,6 +12,7 @@ import {WarningAlert} from '../../../../Components/Alerts';
 import {connect} from 'react-redux';
 import {View as ListCard} from '../../../../Components/ListCard';
 import {Function as SpinnerFunction} from '../../../../Components/GrowingSpinner';
+import Function from '../../../../Function';
 
 class AdvertisementListCard extends Component
 {
@@ -147,6 +148,10 @@ class AdvertisementListCard extends Component
                                     )} key={advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]} />
                                 </div>);
                         })
+                    }
+                    {
+
+                        Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
                     }
                 </div>
             </ListCard>
