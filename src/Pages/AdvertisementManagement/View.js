@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import style from './Style.module.scss';
+import Style from './Style.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
-import {MENU_ITEM_ID} from '../../Config/MenuItem';
+import {MENU_ITEM_ID} from '../../Config/MENU_ITEM';
 import {View as AdvertisementManagementInfoCard} from './Components/AdvertisementManagementInfoCard';
 import {View as UploaderCard} from './Components/UploaderCard';
 import {View as AdvertisementListCard} from './Components/AdvertisementListCard';
@@ -20,12 +20,12 @@ class AdvertiseManagement extends Component
     render()
     {
         return (
-            <div className={style.AdvertiseManagement}>
-                <div className={style.leftWrapper}>
+            <div className={Style.AdvertiseManagement}>
+                <div className={Style.leftWrapper}>
                     <AdvertisementManagementInfoCard />
                     <UploaderCard />
                 </div>
-                <div className={style.rightWrapper}>
+                <div className={Style.rightWrapper}>
                     <AdvertisementListCard />
                 </div>
             </div>

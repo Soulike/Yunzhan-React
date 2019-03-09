@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {View as ToolCard} from '../../../../Components/ToolCard';
 import {View as ToolTip} from '../../../../Components/Tooltip';
-import {REGEX, TEXT} from '../../../../Static/Regex';
+import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import {View as TagList} from './Components/TagList';
 import {View as ModalTriggerButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
-import {MODAL_ID} from '../../../../Static/Constants';
 import {LargeModal} from '../../../../Components/Modal';
 import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
@@ -66,7 +65,7 @@ class AddResourcePackCard extends Component
             <ToolCard className={Style.AddResourcePackCard} title={'添加资源包'}>
                 <label className={Style.inputWrapper}>
                     <span className={Style.label}>资源包名</span>
-                    <ToolTip placement={'top'} title={TEXT.RESOURCE_PACK_NAME}>
+                    <ToolTip placement={'top'} title={REGEX_TEXT.RESOURCE_PACK_NAME}>
                         <input type="text"
                                placeholder={'请在此输入新资源包名'}
                                ref={this.resourcePackNameInputRef}

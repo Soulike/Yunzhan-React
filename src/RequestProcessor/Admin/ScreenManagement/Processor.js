@@ -1,4 +1,4 @@
-import {STATUS_CODE} from '../../../Static/Constants';
+import {STATUS_CODE} from '../../../Config';
 import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
 import {

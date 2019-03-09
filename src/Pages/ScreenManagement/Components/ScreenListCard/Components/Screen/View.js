@@ -7,7 +7,7 @@ import NAMESPACE from '../../../../../../Namespace';
 import RequestProcessors from '../../../../../../RequestProcessor';
 import {LargeModal, ModalTriggeringButton, SmallModal} from '../../../../../../Components/Modal';
 import {WarningAlert} from '../../../../../../Components/Alerts';
-import {MODAL_ID} from '../../../../../../Static/Constants';
+import {MODAL_ID} from '../../../../../../Config';
 import {View as Checkbox} from '../../../../../../Components/Checkbox';
 import {
     getScreenList,

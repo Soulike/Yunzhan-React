@@ -1,4 +1,4 @@
-import {STATUS_CODE} from '../../Static/Constants';
+import {STATUS_CODE} from '../../Config';
 import {browserHistory} from 'react-router';
 import Function from '../../Function';
 import {FORGET_PASSWORD, GET_VERIFICATION_CODE, LOGIN, LOGOUT, SIGN_UP, VERIFY_SESSION} from './Route';

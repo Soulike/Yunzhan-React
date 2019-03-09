@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import style from './Item.module.scss';
+import Style from './Item.module.scss';
 
 class Item extends Component
 {
@@ -10,14 +10,14 @@ class Item extends Component
     {
         const {icon, text, href, isActive, func, isLink} = this.props;
         return (
-            <div className={`${style.Item} ${isActive ? style.active : null}`}>
+            <div className={`${Style.Item} ${isActive ? Style.active : null}`}>
                 {
                     isLink ? (<Link to={href}>
-                        <FontAwesomeIcon icon={icon} className={style.icon}/>
-                        <div className={style.text}>{text}</div>
+                        <FontAwesomeIcon icon={icon} className={Style.icon} />
+                        <div className={Style.text}>{text}</div>
                     </Link>) : (<div onClick={func}>
-                        <FontAwesomeIcon icon={icon} className={style.icon}/>
-                        <div className={style.text}>{text}</div>
+                        <FontAwesomeIcon icon={icon} className={Style.icon} />
+                        <div className={Style.text}>{text}</div>
                     </div>)
                 }
             </div>

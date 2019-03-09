@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import style from './Login.module.scss';
+import Style from './Login.module.scss';
 import {Link} from 'react-router';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {connect} from 'react-redux';
 import {login} from './Actions/Actions';
 import Functions from '../../Function';
-import {REGEX, TEXT} from '../../Static/Regex';
+import {REGEX, REGEX_TEXT} from '../../Config';
 import {WarningAlert} from '../../Components/Alerts';
 import {View as Card} from '../../Components/Card';
 import {View as ToolTip} from '../../Components/Tooltip';
@@ -70,33 +70,33 @@ class Login extends Component
     render()
     {
         return (
-            <div className={style.Login}>
-                <div className={style.titleWrapper}>
-                    <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon} />
-                    <div className={style.title}>登录到云展</div>
+            <div className={Style.Login}>
+                <div className={Style.titleWrapper}>
+                    <FontAwesomeIcon icon={solidIcon.faDove} className={Style.icon} />
+                    <div className={Style.title}>登录到云展</div>
                 </div>
-                <Card className={style.formWrapper}>
+                <Card className={Style.formWrapper}>
                     <form action="#" onSubmit={this.onFormSubmit}>
-                        <div className={style.inputWrapper}>
-                            <div className={style.label}>邮箱</div>
-                            <input type="text" className={style.input} onChange={this.onEmailChange} autoFocus />
+                        <div className={Style.inputWrapper}>
+                            <div className={Style.label}>邮箱</div>
+                            <input type="text" className={Style.input} onChange={this.onEmailChange} autoFocus />
                         </div>
-                        <div className={style.inputWrapper}>
-                            <div className={style.label}>密码
-                                <div className={style.forgetPassword}><Link onlyActiveOnIndex={false}
+                        <div className={Style.inputWrapper}>
+                            <div className={Style.label}>密码
+                                <div className={Style.forgetPassword}><Link onlyActiveOnIndex={false}
                                                                             to={'/forgetPassword'}>
                                     忘记密码了？</Link>
                                 </div>
                             </div>
-                            <ToolTip placement={'top'} title={TEXT.PASSWORD}>
-                                <input type="password" className={style.input} onChange={this.onPasswordChange} />
+                            <ToolTip placement={'top'} title={REGEX_TEXT.PASSWORD}>
+                                <input type="password" className={Style.input} onChange={this.onPasswordChange} />
                             </ToolTip>
                         </div>
-                        <button className={style.submitButton} onClick={this.onSubmitButtonClick}>登录</button>
+                        <button className={Style.submitButton} onClick={this.onSubmitButtonClick}>登录</button>
                     </form>
                 </Card>
 
-                <Card className={style.hint}>
+                <Card className={Style.hint}>
                     新用户？<Link onlyActiveOnIndex={false} to={'/signUp'}>注册个账号吧</Link>
                 </Card>
             </div>

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View as Item} from './Components/Item';
-import style from './Menu.module.scss';
+import Style from './Menu.module.scss';
 import {LinkItem} from './Components/Item/ItemObject';
 import {setActiveItemId} from './Functions';
-import {itemList, MENU_ITEM_ID} from '../../../../Config/MenuItem';
+import {ITEM_LIST, MENU_ITEM_ID} from '../../../../Config/MENU_ITEM';
 
 class Menu extends Component
 {
@@ -34,9 +34,9 @@ class Menu extends Component
     {
         const {currentActiveItemId} = this.props;
         return (
-            <div className={style.Menu}>
+            <div className={Style.Menu}>
                 {
-                    itemList.map((item, i) =>
+                    ITEM_LIST.map((item, i) =>
                     {
                         if (item instanceof LinkItem)
                         {

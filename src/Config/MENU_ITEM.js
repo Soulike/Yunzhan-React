@@ -1,7 +1,7 @@
 import * as SolidIcon from '@fortawesome/free-solid-svg-icons';
 import {FuncItem, LinkItem} from '../Pages/Root/Components/Menu/Components/Item/ItemObject';
 import {Function as ModalFunction} from '../Components/Modal';
-import {MODAL_ID} from '../Static/Constants';
+import MODAL_ID from './MODAL_ID';
 
 import {View as Overview} from '../Pages/Overview';
 import {View as ScreenManagement} from '../Pages/ScreenManagement';
@@ -32,7 +32,7 @@ export const MENU_ITEM_ID = {
 };
 
 // 从项目 ID 得到 URL，在路由文件处使用。注意，功能性按钮不放在这里
-export const itemIdToUrl = Array.from({
+export const ITEM_ID_TO_URL = Array.from({
     [MENU_ITEM_ID.OVERVIEW]: '/admin/overview',
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: '/admin/screenManagement',
     [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: '/admin/advertisementManagement',
@@ -43,7 +43,7 @@ export const itemIdToUrl = Array.from({
 });
 
 // 功能性按钮的功能放在此处
-export const itemIdToFunction = {
+export const ITEM_ID_TO_FUNCTION = {
     [MENU_ITEM_ID.EXIT]: () =>
     {
         ModalFunction.showModal(MODAL_ID.LOGOUT_MODAL);
@@ -51,16 +51,16 @@ export const itemIdToFunction = {
 };
 
 // 从项目 URL 得到 ID
-export const itemUrlToId = {
-    [itemIdToUrl[MENU_ITEM_ID.OVERVIEW]]: MENU_ITEM_ID.OVERVIEW,
-    [itemIdToUrl[MENU_ITEM_ID.SCREEN_MANAGEMENT]]: MENU_ITEM_ID.SCREEN_MANAGEMENT,
-    [itemIdToUrl[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]]: MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT,
-    [itemIdToUrl[MENU_ITEM_ID.TAG_MANAGEMENT]]: MENU_ITEM_ID.TAG_MANAGEMENT,
-    [itemIdToUrl[MENU_ITEM_ID.RESOURCE_MANAGEMENT]]: MENU_ITEM_ID.RESOURCE_MANAGEMENT,
+export const ITEM_URL_TO_ID = {
+    [ITEM_ID_TO_URL[MENU_ITEM_ID.OVERVIEW]]: MENU_ITEM_ID.OVERVIEW,
+    [ITEM_ID_TO_URL[MENU_ITEM_ID.SCREEN_MANAGEMENT]]: MENU_ITEM_ID.SCREEN_MANAGEMENT,
+    [ITEM_ID_TO_URL[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]]: MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT,
+    [ITEM_ID_TO_URL[MENU_ITEM_ID.TAG_MANAGEMENT]]: MENU_ITEM_ID.TAG_MANAGEMENT,
+    [ITEM_ID_TO_URL[MENU_ITEM_ID.RESOURCE_MANAGEMENT]]: MENU_ITEM_ID.RESOURCE_MANAGEMENT,
 };
 
 // 从项目ID得到Name
-export const itemIdToName = {
+export const ITEM_ID_TO_NAME = {
     [MENU_ITEM_ID.OVERVIEW]: '概览',
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: '屏幕管理',
     [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: '广告管理',
@@ -70,7 +70,7 @@ export const itemIdToName = {
 };
 
 // 从项目ID得到Icon
-export const itemIdToIcon = {
+export const ITEM_ID_TO_ICON = {
     [MENU_ITEM_ID.OVERVIEW]: SolidIcon.faList,
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: SolidIcon.faDesktop,
     [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: SolidIcon.faAd,
@@ -80,7 +80,7 @@ export const itemIdToIcon = {
 };
 
 // 从项目 ID 得到 View，在路由文件处使用
-export const itemIdToView = Array.from({
+export const ITEM_ID_TO_COMPONENT = Array.from({
     [MENU_ITEM_ID.OVERVIEW]: Overview,
     [MENU_ITEM_ID.SCREEN_MANAGEMENT]: ScreenManagement,
     [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: AdvertisementManagement,
@@ -90,13 +90,13 @@ export const itemIdToView = Array.from({
     [Symbol.iterator]: iterator,
 });
 
-export const itemList = Array.from({
-    [MENU_ITEM_ID.OVERVIEW]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.OVERVIEW], itemIdToName[MENU_ITEM_ID.OVERVIEW], itemIdToUrl[MENU_ITEM_ID.OVERVIEW]),
-    [MENU_ITEM_ID.SCREEN_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.SCREEN_MANAGEMENT], itemIdToName[MENU_ITEM_ID.SCREEN_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.SCREEN_MANAGEMENT]),
-    [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT], itemIdToName[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]),
-    [MENU_ITEM_ID.TAG_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.TAG_MANAGEMENT], itemIdToName[MENU_ITEM_ID.TAG_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.TAG_MANAGEMENT]),
-    [MENU_ITEM_ID.RESOURCE_MANAGEMENT]: new LinkItem(itemIdToIcon[MENU_ITEM_ID.RESOURCE_MANAGEMENT], itemIdToName[MENU_ITEM_ID.RESOURCE_MANAGEMENT], itemIdToUrl[MENU_ITEM_ID.RESOURCE_MANAGEMENT]),
-    [MENU_ITEM_ID.EXIT]: new FuncItem(itemIdToIcon[MENU_ITEM_ID.EXIT], itemIdToName[MENU_ITEM_ID.EXIT], itemIdToFunction[MENU_ITEM_ID.EXIT]),
+export const ITEM_LIST = Array.from({
+    [MENU_ITEM_ID.OVERVIEW]: new LinkItem(ITEM_ID_TO_ICON[MENU_ITEM_ID.OVERVIEW], ITEM_ID_TO_NAME[MENU_ITEM_ID.OVERVIEW], ITEM_ID_TO_URL[MENU_ITEM_ID.OVERVIEW]),
+    [MENU_ITEM_ID.SCREEN_MANAGEMENT]: new LinkItem(ITEM_ID_TO_ICON[MENU_ITEM_ID.SCREEN_MANAGEMENT], ITEM_ID_TO_NAME[MENU_ITEM_ID.SCREEN_MANAGEMENT], ITEM_ID_TO_URL[MENU_ITEM_ID.SCREEN_MANAGEMENT]),
+    [MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]: new LinkItem(ITEM_ID_TO_ICON[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT], ITEM_ID_TO_NAME[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT], ITEM_ID_TO_URL[MENU_ITEM_ID.ADVERTISEMENT_MANAGEMENT]),
+    [MENU_ITEM_ID.TAG_MANAGEMENT]: new LinkItem(ITEM_ID_TO_ICON[MENU_ITEM_ID.TAG_MANAGEMENT], ITEM_ID_TO_NAME[MENU_ITEM_ID.TAG_MANAGEMENT], ITEM_ID_TO_URL[MENU_ITEM_ID.TAG_MANAGEMENT]),
+    [MENU_ITEM_ID.RESOURCE_MANAGEMENT]: new LinkItem(ITEM_ID_TO_ICON[MENU_ITEM_ID.RESOURCE_MANAGEMENT], ITEM_ID_TO_NAME[MENU_ITEM_ID.RESOURCE_MANAGEMENT], ITEM_ID_TO_URL[MENU_ITEM_ID.RESOURCE_MANAGEMENT]),
+    [MENU_ITEM_ID.EXIT]: new FuncItem(ITEM_ID_TO_ICON[MENU_ITEM_ID.EXIT], ITEM_ID_TO_NAME[MENU_ITEM_ID.EXIT], ITEM_ID_TO_FUNCTION[MENU_ITEM_ID.EXIT]),
 
     [Symbol.iterator]: iterator,
 });

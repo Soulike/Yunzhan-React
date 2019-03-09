@@ -4,9 +4,8 @@ import RequestProcessor from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
 import {View as Tag} from './Components/Tag';
 import {Function as ModalFunction, Modal} from '../../../../Components/Modal';
-import {MODAL_ID} from '../../../../Static/Constants';
+import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import Function from '../../../../Function';
-import {REGEX, TEXT} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ToolTip} from '../../../../Components/Tooltip';
 import {connect} from 'react-redux';
@@ -109,7 +108,7 @@ class TagListCard extends Component
                 <div className={Style.modalContent}>
                     <label className={Style.item}>
                         <span className={Style.label}>标签名</span>
-                        <ToolTip placement={'top'} title={TEXT.TAG_NAME}>
+                        <ToolTip placement={'top'} title={REGEX_TEXT.TAG_NAME}>
                             <input type="text"
                                    className={Style.tagNameInput}
                                    onChange={this.onTagNameInputChange} />

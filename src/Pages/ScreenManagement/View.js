@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import style from './Style.module.scss';
+import Style from './Style.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {View as ScreenManagementInfoCard} from './Components/ScreenManagementInfoCard';
 import {View as LogCard} from './Components/LogCard';
 import ScreenListCard from './Components/ScreenListCard/View';
-import {MENU_ITEM_ID} from '../../Config/MenuItem';
+import {MENU_ITEM_ID} from '../../Config/MENU_ITEM';
 import {
     getResourcePackList,
     getScreenList,
@@ -29,12 +29,12 @@ class ScreenManagement extends Component
     render()
     {
         return (
-            <div className={style.ScreenManagement}>
-                <div className={style.leftWrapper}>
+            <div className={Style.ScreenManagement}>
+                <div className={Style.leftWrapper}>
                     <ScreenManagementInfoCard />
                     <LogCard />
                 </div>
-                <div className={style.rightWrapper}>
+                <div className={Style.rightWrapper}>
                     <ScreenListCard />
                 </div>
             </div>

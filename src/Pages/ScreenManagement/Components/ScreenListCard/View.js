@@ -6,8 +6,7 @@ import {View as Screen} from './Components/Screen';
 import {View as Header} from './Components/Header';
 import {connect} from 'react-redux';
 import {Function as ModalFunctions, LargeModal, SmallModal} from '../../../../Components/Modal';
-import {REGEX, TEXT} from '../../../../Static/Regex';
-import {MODAL_ID} from '../../../../Static/Constants';
+import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import {View as ResourcePackList} from './Components/ResourcePackList';
 import RequestProcessor from '../../../../RequestProcessor';
 import {WarningAlert} from '../../../../Components/Alerts';
@@ -190,7 +189,7 @@ class ScreenListCard extends Component
                         title={'添加屏幕'}
                         onConfirmButtonClickFunction={this.onAddScreenModalConfirmButtonClick}>
                 <div className={Style.addScreenModalContent}>
-                    <ToolTip placement={'top'} title={TEXT.UUID}>
+                    <ToolTip placement={'top'} title={REGEX_TEXT.UUID}>
                         <input type="text"
                                className={Style.uuidInput}
                                placeholder={'被添加屏幕的 UUID'}

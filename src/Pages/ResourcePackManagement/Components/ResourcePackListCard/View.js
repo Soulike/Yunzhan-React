@@ -4,7 +4,7 @@ import {View as ListCard} from '../../../../Components/ListCard';
 import RequestProcessor from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
 import ResourcePack from './Components/ResourcePack/View';
-import {MODAL_ID} from '../../../../Static/Constants';
+import {MODAL_ID, REGEX_TEXT} from '../../../../Config';
 import {View as Tag} from './Components/Tag';
 import {ExtraLargeModal, Function as ModalFunction, LargeModal, Modal} from '../../../../Components/Modal';
 import {
@@ -12,7 +12,6 @@ import {
     View as Advertisement,
 } from '../../../AdvertisementManagement/Components/AdvertisementListCard/Components/Advertisement';
 import ToolTip from '../../../../Components/Tooltip/View';
-import {TEXT} from '../../../../Static/Regex';
 import {
     getResourcePackList,
     resourcePackSelectAdvertisements,
@@ -314,7 +313,7 @@ class ResourcePackListCard extends Component
                     <div className={Style.bottomWrapper}>
                         <label className={Style.inputWrapper}>
                             <span className={Style.label}>资源包名</span>
-                            <ToolTip placement={'top'} title={TEXT.RESOURCE_PACK_NAME}>
+                            <ToolTip placement={'top'} title={REGEX_TEXT.RESOURCE_PACK_NAME}>
                                 <input type="text"
                                        placeholder={'请在此输入资源包名'}
                                        ref={this.resourcePackNameInputRef}

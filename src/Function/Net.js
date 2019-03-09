@@ -48,7 +48,7 @@ async function postAsync(url, params = {}, config = {})
 function downloadFile(url)
 {
     const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
+    iframe.Style.display = 'none';
     iframe.src = url;
     iframe.onload = function ()
     {
