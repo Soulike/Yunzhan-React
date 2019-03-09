@@ -89,7 +89,7 @@ async function sendPostSignUpRequestAsync(email, password, verificationCode)
     {
         const {code} = await Function.postAsync(SIGN_UP, {
             [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
-            [NAMESPACE.ACCOUNT.VERIFICATION.PASSWORD]: Function.getSHA256(password),
+            [NAMESPACE.ACCOUNT.ACCOUNT.PASSWORD]: Function.getSHA256(password),
             [NAMESPACE.ACCOUNT.VERIFICATION.VERIFICATION_CODE]: verificationCode,
         });
         if (code === STATUS_CODE.SUCCESS)
