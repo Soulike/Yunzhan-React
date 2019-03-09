@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import style from './ResourcePack.module.scss';
-import Store from '../../../../../../../../Store';
-import * as Actions from './Actions/Actions';
 import {connect} from 'react-redux';
 import NAMESPACE from '../../../../../../../../Namespace';
 import Functions from '../../../../../../../../Function';
 import {View as Radio} from '../../../../../../../../Components/Radio';
+import {selectResourcePack} from '../../../../../../Function';
 
 class ResourcePack extends Component
 {
@@ -31,14 +30,14 @@ class ResourcePack extends Component
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: id,
         } = this.props;
         const {randomString} = this.state;
-        const $radioInput = document.querySelector(`#a${randomString}${id}`);
+        const $radioInput = document.getElementById(`a${randomString}${id}`);
         $radioInput.checked = (selectedResourcePackId === id);
     }
 
     onResourcePackClick = () =>
     {
         const {[NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: id} = this.props;
-        Store.dispatch(Actions.resourcePackClick(id));
+        selectResourcePack(id);
     };
 
     onRadioInputClick = e =>
@@ -76,7 +75,7 @@ ResourcePack.propTypes = {
 
 const mapStateToProps = state =>
 {
-    const {selectedResourcePackId} = state.ScreenManagementResourcePackList;
+    const {ScreenManagement: {selectedResourcePackId}} = state;
     return {
         selectedResourcePackId,
     };

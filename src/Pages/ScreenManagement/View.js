@@ -5,7 +5,13 @@ import {View as ScreenManagementInfoCard} from './Components/ScreenManagementInf
 import {View as LogCard} from './Components/LogCard';
 import ScreenListCard from './Components/ScreenListCard/View';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
-import {getResourcePackList, getScreenList, getScreenManagementBasicInfo, getScreenManagementLogList} from './Function';
+import {
+    getResourcePackList,
+    getScreenList,
+    getScreenManagementBasicInfo,
+    getScreenManagementLogList,
+    unselectAllScreens,
+} from './Function';
 
 class ScreenManagement extends Component
 {
@@ -13,6 +19,7 @@ class ScreenManagement extends Component
     {
         document.title = '屏幕管理 - 云展';
         MenuFunctions.setActiveItemId(MENU_ITEM_ID.SCREEN_MANAGEMENT);
+        unselectAllScreens();
         getScreenManagementBasicInfo();
         getScreenManagementLogList();
         getScreenList();

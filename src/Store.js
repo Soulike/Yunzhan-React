@@ -3,8 +3,6 @@ import thunk from 'redux-thunk';
 // import 所有 Reducer
 import {Reducer as LoginReducer} from './Pages/Login';
 import {Reducer as RootMenuReducer} from './Pages/Root/Components/Menu';
-import {Reducer as ScreenListCardReducer} from './Pages/ScreenManagement/Components/ScreenListCard';
-import {Reducer as ScreenManagementResourcePackListReducer} from './Pages/ScreenManagement/Components/ScreenListCard/Components/ResourcePackList';
 import {Reducer as ScreenManagementReducer} from './Pages/ScreenManagement';
 import {Reducer as AdvertisementManagementReducer} from './Pages/AdvertisementManagement';
 import {Reducer as TagManagementReducer} from './Pages/TagManagement';
@@ -18,17 +16,13 @@ const initValues = {
     RootMenu: {
         currentActiveItemId: 0,
     },
-    ScreenListCard: {
-        selectedScreenIdSet: new Set(),
-    },
-    ScreenManagementResourcePackList: {
-        selectedResourcePackId: null,
-    },
     ScreenManagement: {
         basicInfo: {},
         logList: [],
         screenList: [],
         resourcePackList: [],
+        selectedScreenIdSet: new Set(),
+        selectedResourcePackId: null,
     },
     AdvertisementManagement: {
         basicInfo: {},
@@ -60,8 +54,6 @@ const storeEnhancers = compose(
 const Reducer = combineReducers({
     Login: LoginReducer,
     RootMenu: RootMenuReducer,
-    ScreenListCard: ScreenListCardReducer,
-    ScreenManagementResourcePackList: ScreenManagementResourcePackListReducer,
     ScreenManagement: ScreenManagementReducer,
     AdvertisementManagement: AdvertisementManagementReducer,
     TagManagement: TagManagementReducer,
