@@ -17,8 +17,8 @@ class SignUp extends Component
         super(...arguments);
         this.state = {
             email: '',
-            newPassword: '',
-            repeatNewPassword: '',
+            password: '',
+            repeatPassword: '',
             verificationCode: '',
         };
     }
@@ -38,14 +38,14 @@ class SignUp extends Component
     onPasswordChange = e =>
     {
         this.setState({
-            newPassword: e.target.value,
+            password: e.target.value,
         });
     };
 
     onRepeatPasswordChange = e =>
     {
         this.setState({
-            repeatNewPassword: e.target.value,
+            repeatPassword: e.target.value,
         });
     };
 
