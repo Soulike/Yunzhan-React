@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import style from './Screen.module.scss';
-import Store from '../../../../../../Store';
-import * as Actions from '../../Actions/Actions';
+import Style from './Screen.module.scss';
 import {connect} from 'react-redux';
 import {View as ResourcePackList} from '../ResourcePackList';
 import NAMESPACE from '../../../../../../Namespace';
@@ -11,6 +9,13 @@ import {LargeModal, ModalTriggeringButton, SmallModal} from '../../../../../../C
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import {MODAL_ID} from '../../../../../../Static/Constants';
 import {View as Checkbox} from '../../../../../../Components/Checkbox';
+import {
+    getScreenList,
+    getScreenManagementBasicInfo,
+    selectScreens,
+    unselectAllResourcePacks,
+    unselectScreen,
+} from '../../../../Function';
 
 class Screen extends Component
 {
@@ -21,41 +26,32 @@ class Screen extends Component
             [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: id,
             selectedScreenIdSet,
         } = this.props;
-        const $checkbox = document.querySelector(`#_${id}`);
+        const $checkbox = document.getElementById(`_${id}`);
         $checkbox.checked = selectedScreenIdSet.has(id);
     }
 
     onNameWrapperClick = e =>
     {
         e.preventDefault();
-        this.dispatchCheckboxSwitchAction();
         const {
             [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: id,
         } = this.props;
-        const $checkbox = document.querySelector(`#_${id}`);
+        const $checkbox = document.getElementById(`_${id}`);
+
+        if ($checkbox.checked)
+        {
+            unselectScreen(id);
+        }
+        else
+        {
+            selectScreens([id]);
+        }
         $checkbox.checked = !$checkbox.checked;
     };
 
     onCheckboxClick = e =>
     {
         this.onNameWrapperClick(e);
-    };
-
-    dispatchCheckboxSwitchAction = () =>
-    {
-        const {
-            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: id,
-        } = this.props;
-        const $checkbox = document.querySelector(`#_${id}`);
-
-        if ($checkbox.checked)
-        {
-            Store.dispatch(Actions.unselectScreen(id));
-        }
-        else
-        {
-            Store.dispatch(Actions.selectScreen(id));
-        }
     };
 
     render()
@@ -69,26 +65,26 @@ class Screen extends Component
             [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: resourcePackName,
         } = this.props;
         return (
-            <div className={style.Screen}>
+            <div className={Style.Screen}>
                 <Checkbox id={`_${id}`} onClick={this.onCheckboxClick} />
-                <div className={style.nameWrapper} onClick={this.onNameWrapperClick}>
-                    <div className={style.name}>{name}</div>
-                    <div className={style.uuid}>{uuid}</div>
+                <div className={Style.nameWrapper} onClick={this.onNameWrapperClick}>
+                    <div className={Style.name}>{name}</div>
+                    <div className={Style.uuid}>{uuid}</div>
                 </div>
-                <div className={`${style.isRunningInfo} ${isRunning ? style.isRunning : null}`}>
-                    <span className={`${style.isRunningInfoDot} ${isRunning ? style.isRunning : null}`} />
-                    <span className={`${style.isRunningInfoText} ${isRunning ? style.isRunning : null}`}>
+                <div className={`${Style.isRunningInfo} ${isRunning ? Style.isRunning : null}`}>
+                    <span className={`${Style.isRunningInfoDot} ${isRunning ? Style.isRunning : null}`} />
+                    <span className={`${Style.isRunningInfoText} ${isRunning ? Style.isRunning : null}`}>
                         {isRunning ? '运行中' : '未运行'}
                     </span>
                 </div>
-                <div className={style.resourcePackName}>{resourcePackName}</div>
-                <div className={style.buttonWrapper}>
+                <div className={Style.resourcePackName}>{resourcePackName}</div>
+                <div className={Style.buttonWrapper}>
                     {
                         resourcePackId === undefined ?
                             <ModalTriggeringButton modalId={MODAL_ID.BIND_RESOURCE_PACK_MODAL}
-                                                   className={style.batchBindResourcePackButton}>绑定资源包</ModalTriggeringButton> :
+                                                   className={Style.batchBindResourcePackButton}>绑定资源包</ModalTriggeringButton> :
                             <ModalTriggeringButton modalId={MODAL_ID.UNBIND_RESOURCE_PACK_MODAL}
-                                                   className={style.batchUnbindResourcePackButton}>解绑资源包</ModalTriggeringButton>
+                                                   className={Style.batchUnbindResourcePackButton}>解绑资源包</ModalTriggeringButton>
                     }
                 </div>
 
@@ -107,7 +103,12 @@ class Screen extends Component
                                         [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId,
                                         selectedResourcePackId,
                                     } = this.props;
-                                    await RequestProcessors.sendPostBindResourcePackRequestAsync([screenId], selectedResourcePackId);
+                                    if (await RequestProcessors.sendPostBindResourcePackRequestAsync([screenId], selectedResourcePackId))
+                                    {
+                                        unselectAllResourcePacks();
+                                        getScreenManagementBasicInfo();
+                                        getScreenList(); // 刷新屏幕列表
+                                    }
                                 }
                             }}>
                     <ResourcePackList />
@@ -118,7 +119,12 @@ class Screen extends Component
                             onConfirmButtonClickFunction={async () =>
                             {
                                 const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList} = this.state;
-                                await RequestProcessors.sendPostUnbindResourcePackRequestAsync(screenIdList);
+                                if (await RequestProcessors.sendPostUnbindResourcePackRequestAsync(screenIdList))
+                                {
+                                    unselectAllResourcePacks();
+                                    getScreenManagementBasicInfo();
+                                    getScreenList(); // 刷新屏幕列表
+                                }
                             }}>
                     <span>确认要为屏幕
                         <span style={{color: '#F00'}}>{name}</span>
@@ -142,8 +148,7 @@ Screen.propTypes = {
 
 const mapStateToProps = state =>
 {
-    const {selectedScreenIdSet} = state.ScreenListCard;
-    const {selectedResourcePackId} = state.ScreenManagementResourcePackList;
+    const {ScreenManagement: {selectedScreenIdSet, selectedResourcePackId}} = state;
     return {
         selectedScreenIdSet,
         selectedResourcePackId,

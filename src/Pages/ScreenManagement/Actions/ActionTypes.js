@@ -13,3 +13,13 @@ export const GET_SCREEN_LIST_FAILED = Symbol('getScreenListFailed');
 export const GET_RESOURCE_PACK_LIST_SUCCESSFUL = Symbol('getResourcePackListSuccessful');
 
 export const GET_RESOURCE_PACK_LIST_FAILED = Symbol('getResourcePackListFailed');
+
+export const UNSELECT_SCREEN = Symbol('unselectScreen');
+
+export const SELECT_SCREENS = Symbol('selectScreensAction');
+
+export const UNSELECT_ALL_SCREENS = Symbol('unselectAllScreensAction');
+
+export const SELECT_RESOURCE_PACK = Symbol('selectResourcePack');
+
+export const UNSELECT_ALL_RESOURCE_PACKS = Symbol('unselectAllResourcePacks');

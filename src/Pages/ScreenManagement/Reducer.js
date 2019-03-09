@@ -37,6 +37,48 @@ export default (state = {}, action) =>
                 resourcePackList,
             };
         }
+        case ActionTypes.SELECT_SCREENS:
+        {
+            const {screenIdArray} = action;
+            const {selectedScreenIdSet} = state;
+            return {
+                ...state,
+                selectedScreenIdSet: new Set([...selectedScreenIdSet, ...screenIdArray]),
+            };
+        }
+        case ActionTypes.UNSELECT_SCREEN:
+        {
+            const {screenId} = action;
+            const {selectedScreenIdSet} = state;
+            selectedScreenIdSet.delete(screenId);
+            return {
+                ...state,
+                selectedScreenIdSet: new Set(selectedScreenIdSet),
+            };
+        }
+        case ActionTypes.UNSELECT_ALL_SCREENS:
+        {
+
+            return {
+                ...state,
+                selectedScreenIdSet: new Set(),
+            };
+        }
+        case ActionTypes.SELECT_RESOURCE_PACK:
+        {
+            const {resourcePackId} = action;
+            return {
+                ...state,
+                selectedResourcePackId: resourcePackId,
+            };
+        }
+        case ActionTypes.UNSELECT_ALL_RESOURCE_PACKS:
+        {
+            return {
+                ...state,
+                selectedResourcePackId: null,
+            };
+        }
         case ActionTypes.GET_RESOURCE_PACK_LIST_FAILED:
         case ActionTypes.GET_SCREEN_LIST_FAILED:
         case ActionTypes.GET_SCREEN_MANAGEMENT_LOG_LIST_INFO_FAILED:

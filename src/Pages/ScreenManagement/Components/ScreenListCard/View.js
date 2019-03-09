@@ -12,7 +12,7 @@ import {View as ResourcePackList} from './Components/ResourcePackList';
 import RequestProcessor from '../../../../RequestProcessor';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ModalTriggeringButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
-import {getScreenList, getScreenManagementBasicInfo} from '../../Function';
+import {getScreenList, getScreenManagementBasicInfo, unselectAllResourcePacks} from '../../Function';
 import {View as ToolTip} from '../../../../Components/Tooltip';
 import {View as ListCard} from '../../../../Components/ListCard';
 
@@ -45,7 +45,7 @@ class ScreenListCard extends Component
             {
                 this.setState({uuid: ''}, () =>
                 {
-                    const $uuidInput = document.querySelector(`.${Style.uuidInput}`);
+                    const $uuidInput = document.getElementsByClassName(Style.uuidInput);
                     $uuidInput.value = '';
                     getScreenManagementBasicInfo();
                     getScreenList(); // 刷新屏幕列表
@@ -106,6 +106,7 @@ class ScreenListCard extends Component
         }
         else
         {
+            unselectAllResourcePacks();
             ModalFunctions.showModal(MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL);
         }
     };
@@ -128,15 +129,15 @@ class ScreenListCard extends Component
     {
         const {screenList, selectedScreenIdSet} = this.props;
 
-        const screenIdSet = new Set();
+        const allScreenIdSet = new Set();
         screenList.forEach(screen =>
         {
-            screenIdSet.add(screen.id);
+            allScreenIdSet.add(screen.id);
         });
 
         return [
             <ListCard className={Style.ScreenListCard} title={'屏幕列表'}>
-                <div className={Style.headerWrapper}><Header screenIdSet={screenIdSet} /></div>
+                <div className={Style.headerWrapper}><Header allScreenIdSet={allScreenIdSet} /></div>
                 <div className={Style.screenListWrapper}>
                     {screenList.map(screen =>
                     {
@@ -277,9 +278,7 @@ class ScreenListCard extends Component
 const mapStateToProps = state =>
 {
     const {
-        ScreenManagement: {screenList},
-        ScreenListCard: {selectedScreenIdSet},
-        ScreenManagementResourcePackList: {selectedResourcePackId},
+        ScreenManagement: {screenList, selectedScreenIdSet, selectedResourcePackId},
     } = state;
     return {
         screenList,

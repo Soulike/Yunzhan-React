@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import * as Actions from '../../Actions/Actions';
 import style from './Header.module.scss';
-import Store from '../../../../../../Store';
-import Functions from '../../../../../../Function';
+import Function from '../../../../../../Function';
 import {connect} from 'react-redux';
 import {View as Checkbox} from '../../../../../../Components/Checkbox';
-
-const {setsEqual} = Functions;
+import {selectScreens, unselectAllScreens} from '../../../../Function';
 
 class Header extends Component
 {
     componentDidUpdate(prevProps, prevState, snapshot)
     {
-        const {selectedScreenIdSet, screenIdSet} = this.props;
-        const $input = document.querySelector(`#_0`);
-        const isEqual = setsEqual(selectedScreenIdSet, screenIdSet);
-        if (($input.checked && !isEqual) || screenIdSet.size === 0)
+        const {selectedScreenIdSet, allScreenIdSet} = this.props;
+        const $input = document.getElementById('_0');
+        const isEqual = Function.setsEqual(selectedScreenIdSet, allScreenIdSet);
+        if (($input.checked && !isEqual) || allScreenIdSet.size === 0)
         {
             $input.checked = false;
         }
@@ -29,15 +26,15 @@ class Header extends Component
     onCheckboxClick = e =>
     {
         e.preventDefault();
-        const $input = document.querySelector(`#_0`);
+        const $input = document.getElementById('_0');
         if ($input.checked)
         {
-            Store.dispatch(Actions.unselectAllScreens());
+            unselectAllScreens();
         }
         else
         {
-            const {screenIdSet} = this.props;
-            Store.dispatch(Actions.selectAllScreens(screenIdSet));
+            const {allScreenIdSet} = this.props;
+            selectScreens([...allScreenIdSet]);
         }
 
         $input.checked = !$input.checked;
@@ -58,12 +55,12 @@ class Header extends Component
 }
 
 Header.propTypes = {
-    screenIdSet: PropTypes.object.isRequired,
+    allScreenIdSet: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state =>
 {
-    const {selectedScreenIdSet} = state.ScreenListCard;
+    const {ScreenManagement: {selectedScreenIdSet}} = state;
     return {
         selectedScreenIdSet,
     };

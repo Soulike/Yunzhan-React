@@ -129,3 +129,41 @@ function getResourcePackListFailedAction()
         type: ActionTypes.GET_RESOURCE_PACK_LIST_FAILED,
     };
 }
+
+export function selectScreensAction(screenIdArray)
+{
+    return {
+        type: ActionTypes.SELECT_SCREENS,
+        screenIdArray,
+    };
+}
+
+export function unselectScreenAction(screenId)
+{
+    return {
+        type: ActionTypes.UNSELECT_SCREEN,
+        screenId,
+    };
+}
+
+export function unselectAllScreensAction()
+{
+    return {
+        type: ActionTypes.UNSELECT_ALL_SCREENS,
+    };
+}
+
+export function selectResourcePackAction(resourcePackId)
+{
+    return {
+        type: ActionTypes.SELECT_RESOURCE_PACK,
+        resourcePackId,
+    };
+}
+
+export function unselectAllResourcePacksAction()
+{
+    return {
+        type: ActionTypes.UNSELECT_ALL_RESOURCE_PACKS,
+    };
+}
