@@ -3,7 +3,7 @@ import Style from './Style.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
 import {View as ResourcePackManagementInfoCard} from './Components/ResourcePackManagementInfoCard';
-import {getResourcePackList, getResourcePackManagementBasicInfo} from './Function';
+import {getResourcePackList, getResourcePackManagementBasicInfo, unselectAllTags} from './Function';
 import {View as AddResourcePackCard} from './Components/AddResourcePackCard';
 import {View as ResourcePackListCard} from './Components/ResourcePackListCard';
 
@@ -13,6 +13,7 @@ class ResourceManagement extends Component
     {
         document.title = '资源包管理 - 云展';
         MenuFunctions.setActiveItemId(MENU_ITEM_ID.RESOURCE_MANAGEMENT);
+        unselectAllTags();
         getResourcePackManagementBasicInfo();
         getResourcePackList();
     }
