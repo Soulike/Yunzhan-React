@@ -3,14 +3,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
-import style from './Root.module.scss';
+import Style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
 import {setActiveItemId} from './Components/Menu/Functions';
 import RequestProcessor from '../../RequestProcessor';
 import {SmallModal} from '../../Components/Modal';
-import {MODAL_ID} from '../../Static/Constants';
+import {MODAL_ID} from '../../Config';
 import Title from './Components/Title/View';
-import {itemIdToIcon, itemIdToName, itemUrlToId} from '../../Config/MenuItem';
+import {ITEM_ID_TO_ICON, ITEM_ID_TO_NAME, ITEM_URL_TO_ID} from '../../Config/MENU_ITEM';
 import {Function as SpinnerFunction} from '../../Components/GrowingSpinner';
 
 class Root extends Component
@@ -25,7 +25,7 @@ class Root extends Component
     {
         if (prevProps.children !== this.props.children)
         {
-            const activeItemId = itemUrlToId[this.props.location.pathname];
+            const activeItemId = ITEM_URL_TO_ID[this.props.location.pathname];
             setActiveItemId(activeItemId);
         }
     }
@@ -35,21 +35,21 @@ class Root extends Component
     {
         const {currentActiveItemId} = this.props;
         return (
-            <div className={style.Root}>
-                <div className={style.titleWrapper}>
-                    <Title icon={itemIdToIcon[currentActiveItemId]} text={itemIdToName[currentActiveItemId]} />
+            <div className={Style.Root}>
+                <div className={Style.titleWrapper}>
+                    <Title icon={ITEM_ID_TO_ICON[currentActiveItemId]} text={ITEM_ID_TO_NAME[currentActiveItemId]} />
                 </div>
-                <div className={style.sidebar}>
-                    <div className={style.iconWrapper}>
+                <div className={Style.sidebar}>
+                    <div className={Style.iconWrapper}>
                         <Link to={'/'}>
-                            <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon} />
+                            <FontAwesomeIcon icon={solidIcon.faDove} className={Style.icon} />
                         </Link>
                     </div>
-                    <div className={style.menuWrapper}>
+                    <div className={Style.menuWrapper}>
                         <Menu />
                     </div>
                 </div>
-                <div className={style.pageWrapper}>
+                <div className={Style.pageWrapper}>
                     {this.props.children}
                 </div>
 

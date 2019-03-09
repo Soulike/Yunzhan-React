@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import style from './Header.module.scss';
+import Style from './Header.module.scss';
 
 class Header extends Component
 {
     render()
     {
         return (
-            <div className={style.Header}>
-                <div className={style.radioInput}/>
-                <div className={style.name}>资源包名</div>
-                <div className={style.advertiseNumber}>广告数</div>
-                <div className={style.description}>备注</div>
+            <div className={Style.Header}>
+                <div className={Style.radioInput} />
+                <div className={Style.name}>资源包名</div>
+                <div className={Style.advertiseNumber}>广告数</div>
+                <div className={Style.description}>备注</div>
             </div>
         );
     }

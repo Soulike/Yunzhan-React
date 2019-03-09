@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
-import {MENU_ITEM_ID} from '../../Config/MenuItem';
+import {MENU_ITEM_ID} from '../../Config/MENU_ITEM';
 import {View as TagManagementInfoCard} from './Components/TagManagementInfoCard';
 import {View as TagAdderCard} from './Components/TagAdderCard';
 import {View as TagListCard} from './Components/TagListCard';

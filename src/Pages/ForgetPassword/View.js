@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import style from './ForgetPassword.module.scss';
+import Style from './ForgetPassword.module.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
-import {REGEX, TEXT} from '../../Static/Regex';
+import {REGEX, REGEX_TEXT} from '../../Config';
 import RequestProcessor from '../../RequestProcessor';
 import {WarningAlert} from '../../Components/Alerts';
 import Card from '../../Components/Card/View';
@@ -59,7 +59,7 @@ class ForgetPassword extends Component
     {
         e.preventDefault();
         const {email} = this.state;
-        const $getCodeButton = document.querySelector(`.${style.getCodeButton}`);
+        const $getCodeButton = document.querySelector(`.${Style.getCodeButton}`);
         const requestIsSuccessful = await RequestProcessor.sendPostGetVerificationCodeRequestAsync(email);
         if (requestIsSuccessful)
         {
@@ -115,39 +115,39 @@ class ForgetPassword extends Component
     render()
     {
         return (
-            <div className={style.ForgetPassword}>
-                <div className={style.titleWrapper}>
-                    <FontAwesomeIcon icon={solidIcon.faDove} className={style.icon} />
-                    <div className={style.title}>找回密码</div>
+            <div className={Style.ForgetPassword}>
+                <div className={Style.titleWrapper}>
+                    <FontAwesomeIcon icon={solidIcon.faDove} className={Style.icon} />
+                    <div className={Style.title}>找回密码</div>
                 </div>
-                <Card className={style.formWrapper}>
+                <Card className={Style.formWrapper}>
                     <form action="#" onSubmit={this.onFormSubmit}>
-                        <div className={style.inputWrapper}>
-                            <div className={style.label}>邮箱</div>
-                            <input type="text" className={style.input} onChange={this.onEmailChange} autoFocus />
+                        <div className={Style.inputWrapper}>
+                            <div className={Style.label}>邮箱</div>
+                            <input type="text" className={Style.input} onChange={this.onEmailChange} autoFocus />
                         </div>
-                        <div className={style.inputWrapper}>
-                            <div className={style.label}>新密码</div>
-                            <ToolTip placement={'top'} title={TEXT.PASSWORD}>
-                                <input type="password" className={style.input} onChange={this.onNewPasswordChange} />
+                        <div className={Style.inputWrapper}>
+                            <div className={Style.label}>新密码</div>
+                            <ToolTip placement={'top'} title={REGEX_TEXT.PASSWORD}>
+                                <input type="password" className={Style.input} onChange={this.onNewPasswordChange} />
                             </ToolTip>
                         </div>
-                        <div className={style.inputWrapper}>
-                            <div className={style.label}>重复新密码
+                        <div className={Style.inputWrapper}>
+                            <div className={Style.label}>重复新密码
                             </div>
-                            <input type="password" className={style.input} onChange={this.onRepeatNewPasswordChange} />
+                            <input type="password" className={Style.input} onChange={this.onRepeatNewPasswordChange} />
                         </div>
-                        <div className={style.inputWrapper}>
-                            <div className={style.label}>验证码</div>
+                        <div className={Style.inputWrapper}>
+                            <div className={Style.label}>验证码</div>
                             <input type="password"
-                                   className={style.codeInput}
+                                   className={Style.codeInput}
                                    onChange={this.onVerificationCodeChange} />
-                            <button className={style.getCodeButton} onClick={this.onGetCodeButtonClick}>获取验证码</button>
+                            <button className={Style.getCodeButton} onClick={this.onGetCodeButtonClick}>获取验证码</button>
                         </div>
-                        <button className={style.submitButton} onClick={this.onSubmitButtonClick}>提交</button>
+                        <button className={Style.submitButton} onClick={this.onSubmitButtonClick}>提交</button>
                     </form>
                 </Card>
-                <Card className={style.hint}>
+                <Card className={Style.hint}>
                     已有账号？<Link onlyActiveOnIndex={false} to={'/login'}>登录</Link><br />
                     新用户？<Link onlyActiveOnIndex={false} to={'/signUp'}>注册个账号吧</Link>
                 </Card>

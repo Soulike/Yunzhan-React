@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import style from './ResourcePack.module.scss';
+import Style from './ResourcePack.module.scss';
 import {connect} from 'react-redux';
 import NAMESPACE from '../../../../../../../../Namespace';
 import Functions from '../../../../../../../../Function';
@@ -56,11 +56,11 @@ class ResourcePack extends Component
         } = this.props;
         const {randomString} = this.state;
         return (
-            <div className={style.ResourcePack} onClick={this.onResourcePackClick}>
-                <Radio id={`a${randomString}${id}`} className={style.radioInput} onClick={this.onRadioInputClick} />
-                <div className={style.name}>{name}</div>
-                <div className={style.advertiseNumber}>{advertisementNumber}</div>
-                <div className={style.description}>{description}</div>
+            <div className={Style.ResourcePack} onClick={this.onResourcePackClick}>
+                <Radio id={`a${randomString}${id}`} className={Style.radioInput} onClick={this.onRadioInputClick} />
+                <div className={Style.name}>{name}</div>
+                <div className={Style.advertiseNumber}>{advertisementNumber}</div>
+                <div className={Style.description}>{description}</div>
             </div>
         );
     }

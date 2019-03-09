@@ -9,7 +9,7 @@ export const REGEX = {
     RESOURCE_PACK_NAME: /^[0-9A-z\u4e00-\u9fa5]{1,10}$/,
 };
 
-export const TEXT = {
+export const REGEX_TEXT = {
     PASSWORD: '6 位以上的数字、字母及下划线',
     UUID: '8 位数字或字母',
     TAG_NAME: '1 ~ 6 位数字、字母及汉字',

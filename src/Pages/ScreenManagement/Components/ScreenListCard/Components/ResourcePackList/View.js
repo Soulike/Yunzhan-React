@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import style from './ResourcePackList.module.scss';
+import Style from './ResourcePackList.module.scss';
 import {View as ResourcePack} from './Components/ResourcePack';
 import {View as Header} from './Components/Header';
 import NAMESPACE from '../../../../../../Namespace';
@@ -11,9 +11,9 @@ class ResourcePackList extends Component
     {
         const {resourcePackList} = this.props;
         return (
-            <div className={style.ResourcePackList}>
+            <div className={Style.ResourcePackList}>
                 <Header />
-                <div className={style.listWrapper}>
+                <div className={Style.listWrapper}>
                     {resourcePackList.map(resourcePack =>
                     {
                         return (

@@ -3,11 +3,10 @@ import Style from './Style.module.scss';
 import {View as FileInput} from '../../../../../../Components/FileInput';
 import {View as ProgressBar} from '../../../../../../Components/ProgressBar';
 import {Function as ModalFunction, Modal} from '../../../../../../Components/Modal';
-import {MODAL_ID} from '../../../../../../Static/Constants';
+import {MODAL_ID, REGEX} from '../../../../../../Config';
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import {QRCodePositionId, QRCodePositionIdToName} from './QRCodePosition';
-import {REGEX} from '../../../../../../Static/Regex';
 import {getAdvertisementList, getAdvertisementManagementBasicInfo} from '../../../../Function';
 
 class ImageUploader extends Component

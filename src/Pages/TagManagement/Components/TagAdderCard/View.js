@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {View as ToolTip} from '../../../../Components/Tooltip';
-import {REGEX, TEXT} from '../../../../Static/Regex';
+import {REGEX, REGEX_TEXT} from '../../../../Config';
 import {WarningAlert} from '../../../../Components/Alerts';
 import RequestProcessor from '../../../../RequestProcessor';
 import {getTagList, getTagManagementBasicInfo} from '../../Function';
@@ -57,7 +57,7 @@ class TagAdderCard extends Component
             <ToolCard className={Style.TagAdderCard} title={'添加标签'}>
                 <label className={Style.inputWrapper}>
                     <span className={Style.label}>标签名</span>
-                    <ToolTip placement={'top'} title={TEXT.TAG_NAME}>
+                    <ToolTip placement={'top'} title={REGEX_TEXT.TAG_NAME}>
                         <input type="text"
                                className={Style.tagNameInput}
                                onChange={this.onTagNameInputChange}

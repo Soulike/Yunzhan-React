@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import style from './Overview.module.scss';
+import Style from './Overview.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
 import {View as Card} from '../../Components/Card';
 import Functions from '../../Function';
 import RequestProcessor from '../../RequestProcessor';
 import NAMESPACE from '../../Namespace';
-import {MENU_ITEM_ID} from '../../Config/MenuItem';
+import {MENU_ITEM_ID} from '../../Config/MENU_ITEM';
 
 
 const {generateTimeStr} = Functions;
@@ -95,39 +95,39 @@ class Overview extends Component
             [NAMESPACE.OVERVIEW.TAG_INFO.CURRENT_TAG_AMOUNT]: currentTagAmount,
         } = this.state;
         return (
-            <div className={style.Overview}>
-                <Card title={'登录信息'} className={style.card}>
-                    <div>{this.generateHelloString()}好，<span className={style.data}>{email}</span></div>
-                    <div>上次登录 IP：<span className={style.data}>{lastLoginIp}</span></div>
-                    <div>本次登录 IP：<span className={style.data}>{currentLoginIp}</span></div>
-                    <div>上次登录时间：<span className={style.data}>{generateTimeStr(lastLoginTime)}</span></div>
+            <div className={Style.Overview}>
+                <Card title={'登录信息'} className={Style.card}>
+                    <div>{this.generateHelloString()}好，<span className={Style.data}>{email}</span></div>
+                    <div>上次登录 IP：<span className={Style.data}>{lastLoginIp}</span></div>
+                    <div>本次登录 IP：<span className={Style.data}>{currentLoginIp}</span></div>
+                    <div>上次登录时间：<span className={Style.data}>{generateTimeStr(lastLoginTime)}</span></div>
                 </Card>
-                <Card title={'屏幕信息'} className={style.card}>
-                    <div>您现在共有<span className={style.data}>{currentScreenAmount}</span>个屏幕</div>
+                <Card title={'屏幕信息'} className={Style.card}>
+                    <div>您现在共有<span className={Style.data}>{currentScreenAmount}</span>个屏幕</div>
                     <div>其中有
-                        <span className={style.data}>{runningScreenAmount}</span>个正在运行，
-                        <span className={style.data}>{currentScreenAmount - runningScreenAmount}</span>个未在运行
+                        <span className={Style.data}>{runningScreenAmount}</span>个正在运行，
+                        <span className={Style.data}>{currentScreenAmount - runningScreenAmount}</span>个未在运行
                     </div>
                     <div><Link to={'/admin/screenManagement'}>前往屏幕管理页面查看详细信息 >></Link></div>
                 </Card>
-                <Card title={'广告信息'} className={style.card}>
-                    <div>您现在共有<span className={style.data}>{currentAdvertisementAmount}</span>个广告</div>
+                <Card title={'广告信息'} className={Style.card}>
+                    <div>您现在共有<span className={Style.data}>{currentAdvertisementAmount}</span>个广告</div>
                     <div>其中
-                        <span className={style.data}>{currentImageAmount}</span>个图片，
-                        <span className={style.data}>{currentAdvertisementAmount - currentImageAmount}</span>个视频
+                        <span className={Style.data}>{currentImageAmount}</span>个图片，
+                        <span className={Style.data}>{currentAdvertisementAmount - currentImageAmount}</span>个视频
                     </div>
-                    <div>共占用空间<span className={style.data}>{(advertisementFileSize / 1024 / 1024).toFixed(2)}</span>MB
+                    <div>共占用空间<span className={Style.data}>{(advertisementFileSize / 1024 / 1024).toFixed(2)}</span>MB
                     </div>
                     <div><Link to={'/admin/screenManagement'}>前往广告管理页面查看详细信息 >></Link></div>
                 </Card>
-                <Card title={'资源包信息'} className={style.card}>
-                    <div>您现在共有<span className={style.data}>{currentResourcePackAmount}</span>个资源包</div>
+                <Card title={'资源包信息'} className={Style.card}>
+                    <div>您现在共有<span className={Style.data}>{currentResourcePackAmount}</span>个资源包</div>
                     <div>其中
-                        <span className={style.data}>{currentResourcePackInUsingAmount}</span>个已启用，
+                        <span className={Style.data}>{currentResourcePackInUsingAmount}</span>个已启用，
                         <span
-                            className={style.data}>{currentResourcePackAmount - currentResourcePackInUsingAmount}</span>个未启用
+                            className={Style.data}>{currentResourcePackAmount - currentResourcePackInUsingAmount}</span>个未启用
                     </div>
-                    <div>您现在共有<span className={style.data}>{currentTagAmount}</span>个标签</div>
+                    <div>您现在共有<span className={Style.data}>{currentTagAmount}</span>个标签</div>
                     <div><Link to={'/admin/resourceManagement'}>前往资源包管理页面查看详细信息 >></Link></div>
                     <div><Link to={'/admin/tagManagement'}>前往标签管理页面查看详细信息 >></Link></div>
                 </Card>

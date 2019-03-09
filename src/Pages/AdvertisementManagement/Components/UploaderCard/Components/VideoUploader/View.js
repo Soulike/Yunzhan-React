@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {View as FileInput} from '../../../../../../Components/FileInput';
 import {View as ProgressBar} from '../../../../../../Components/ProgressBar';
-import {MODAL_ID} from '../../../../../../Static/Constants';
+import {MODAL_ID, REGEX} from '../../../../../../Config';
 import {Function as ModalFunction, Modal} from '../../../../../../Components/Modal';
 import {WarningAlert} from '../../../../../../Components/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
-import {REGEX} from '../../../../../../Static/Regex';
 import {getAdvertisementList, getAdvertisementManagementBasicInfo} from '../../../../Function';
 
 class VideoUploader extends Component

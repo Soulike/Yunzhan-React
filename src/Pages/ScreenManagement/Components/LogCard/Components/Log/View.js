@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import style from './Log.module.scss';
+import Style from './Log.module.scss';
 import Functions from '../../../../../../Function';
 import NAMESPACE from '../../../../../../Namespace';
 
@@ -15,9 +15,9 @@ class Log extends Component
             [NAMESPACE.SCREEN_MANAGEMENT.LOG.CONTENT]: content
         } = this.props;
         return (
-            <div className={style.Log}>
-                <div className={style.time}>{generateDateStr(time)}</div>
-                <div className={style.content}>{content}</div>
+            <div className={Style.Log}>
+                <div className={Style.time}>{generateDateStr(time)}</div>
+                <div className={Style.content}>{content}</div>
             </div>
         );
     }

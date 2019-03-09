@@ -1,5 +1,5 @@
-@import "../Constants.module";
-@import "../Bootstrap/Bootstrap";
+@import "Constants";
+@import "../ModuleConfig/Bootstrap/Bootstrap";
 
 .AccountShare {
     $formPadding: 1.25rem;

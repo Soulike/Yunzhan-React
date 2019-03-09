@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import style from './Header.module.scss';
+import Style from './Header.module.scss';
 import Function from '../../../../../../Function';
 import {connect} from 'react-redux';
 import {View as Checkbox} from '../../../../../../Components/Checkbox';
@@ -43,12 +43,12 @@ class Header extends Component
     render()
     {
         return (
-            <div className={style.Header}>
+            <div className={Style.Header}>
                 <Checkbox id={'_0'} onClick={this.onCheckboxClick} />
-                <div className={style.name}>屏幕名</div>
-                <div className={style.runningInfo}>状态</div>
-                <div className={style.resourcePackName}>资源包</div>
-                <div className={style.button} />
+                <div className={Style.name}>屏幕名</div>
+                <div className={Style.runningInfo}>状态</div>
+                <div className={Style.resourcePackName}>资源包</div>
+                <div className={Style.button} />
             </div>
         );
     }
