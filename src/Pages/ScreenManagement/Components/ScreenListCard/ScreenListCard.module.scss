@@ -54,7 +54,10 @@
 }
 
 .addScreenModalContent {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7rem;
 
     .uuidInput {
         @extend .form-control;

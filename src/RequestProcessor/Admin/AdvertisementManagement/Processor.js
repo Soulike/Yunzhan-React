@@ -11,6 +11,7 @@ import {
     UPLOAD_VIDEO,
 } from './Route';
 import NAMESPACE from '../../../Namespace';
+import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
 
 export default {
     sendGetAdvertisementBasicInfoRequestAsync,
@@ -25,6 +26,7 @@ async function sendGetAdvertisementBasicInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_BASIC_INFO, false);
 
         if (code === STATUS_CODE.SUCCESS)
@@ -49,12 +51,17 @@ async function sendGetAdvertisementBasicInfoRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostUploadVideoRequestAsync(videoFileObject, videoName)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const formData = new FormData();
         formData.append(NAMESPACE.ADVERTISEMENT_MANAGEMENT.VIDEO.NAME, videoName);
         formData.append(NAMESPACE.ADVERTISEMENT_MANAGEMENT.VIDEO.FILE, videoFileObject);
@@ -77,6 +84,11 @@ async function sendPostUploadVideoRequestAsync(videoFileObject, videoName)
             redirectToLogin();
             return null;
         }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('参数错误');
+            return null;
+        }
         else if (code === STATUS_CODE.REJECTION)
         {
             WarningAlert.pop('上传被拒绝');
@@ -94,6 +106,10 @@ async function sendPostUploadVideoRequestAsync(videoFileObject, videoName)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 
 }
 
@@ -101,6 +117,7 @@ async function sendPostUploadImageRequestAsync(imageFileObject, imageName, QRCod
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const formData = new FormData();
         formData.append(NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.NAME, imageName);
         formData.append(NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.FILE, imageFileObject);
@@ -126,6 +143,11 @@ async function sendPostUploadImageRequestAsync(imageFileObject, imageName, QRCod
             redirectToLogin();
             return null;
         }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('参数错误');
+            return null;
+        }
         else if (code === STATUS_CODE.REJECTION)
         {
             WarningAlert.pop('上传被拒绝');
@@ -143,12 +165,17 @@ async function sendPostUploadImageRequestAsync(imageFileObject, imageName, QRCod
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetAdvertisementListRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_ADVERTISEMENT_LIST, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -172,12 +199,17 @@ async function sendGetAdvertisementListRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetAdvertisementInfoRequestAsync(advertisementId)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_ADVERTISEMENT_INFO, false, {
             [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: advertisementId,
         });
@@ -218,12 +250,17 @@ async function sendGetAdvertisementInfoRequestAsync(advertisementId)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostUpdateAdvertisementInfoRequestAsync(currentIdOfAdvertisementInModal, advertisementName, QRCodeUrl, QRCodePosition)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(UPDATE_ADVERTISEMENT_INFO, {
             [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: parseInt(currentIdOfAdvertisementInModal, 10), // 文件 ID
             [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: advertisementName, // 文件名
@@ -263,5 +300,9 @@ async function sendPostUpdateAdvertisementInfoRequestAsync(currentIdOfAdvertisem
         WarningAlert.pop('修改信息失败');
         console.log(e);
         return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
     }
 }

@@ -3,6 +3,7 @@ import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
 import {GET_ADVERTISE_INFO, GET_LOGIN_INFO, GET_RESOURCE_PACK_INFO, GET_SCREEN_INFO, GET_TAG_INFO} from './Route';
 import {DangerAlert, WarningAlert} from '../../../Components/Alerts';
+import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
 
 export default {
     sendOverviewGetLoginInfoRequestAsync,
@@ -16,6 +17,7 @@ async function sendOverviewGetLoginInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_LOGIN_INFO, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -39,12 +41,17 @@ async function sendOverviewGetLoginInfoRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendOverviewGetScreenInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_SCREEN_INFO, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -68,12 +75,17 @@ async function sendOverviewGetScreenInfoRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendOverviewGetAdvertisementInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_ADVERTISE_INFO, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -97,12 +109,17 @@ async function sendOverviewGetAdvertisementInfoRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendOverviewGetResourcePackInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_RESOURCE_PACK_INFO, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -126,12 +143,17 @@ async function sendOverviewGetResourcePackInfoRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendOverviewGetTagInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_TAG_INFO, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -154,5 +176,9 @@ async function sendOverviewGetTagInfoRequestAsync()
         WarningAlert.pop('获取标签信息失败');
         console.log(e);
         return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
     }
 }

@@ -1,5 +1,6 @@
 import Store from '../../Store';
 import {
+    getResourcePackListAction,
     getResourcePackManagementBasicInfoAction,
     resourcePackSelectAdvertisementAction,
     resourcePackSelectAdvertisementsAction,
@@ -20,6 +21,11 @@ import {
 export function getResourcePackManagementBasicInfo()
 {
     Store.dispatch(getResourcePackManagementBasicInfoAction());
+}
+
+export function getResourcePackList()
+{
+    Store.dispatch(getResourcePackListAction());
 }
 
 export function selectTag(tagId)

@@ -19,13 +19,6 @@ class Root extends Component
     {
         super(props);
         SpinnerFunction.addSpinner();
-        SpinnerFunction.showSpinner();
-    }
-
-
-    componentDidMount()
-    {
-        SpinnerFunction.hideSpinner();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot)

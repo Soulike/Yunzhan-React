@@ -4,6 +4,7 @@ import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alert
 import Function from '../../../Function';
 import {CHANGE_TAG_INFO, GET_BASIC_INFO, GET_TAG_INFO, GET_TAG_LIST, SUBMIT_NEW_TAG} from './Route';
 import NAMESPACE from '../../../Namespace';
+import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
 
 export default {
     sendGetTagBasicInfoRequestAsync,
@@ -17,6 +18,7 @@ async function sendGetTagBasicInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_BASIC_INFO, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -40,12 +42,17 @@ async function sendGetTagBasicInfoRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostSubmitNewTagRequestAsync(tagName)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(SUBMIT_NEW_TAG, {[NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName});
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -60,7 +67,7 @@ async function sendPostSubmitNewTagRequestAsync(tagName)
         }
         else if (code === STATUS_CODE.WRONG_PARAMETER)
         {
-            WarningAlert.pop('参数无效');
+            WarningAlert.pop('参数错误');
             return null;
         }
         else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
@@ -74,12 +81,17 @@ async function sendPostSubmitNewTagRequestAsync(tagName)
         WarningAlert.pop('添加失败');
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetTagListRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_TAG_LIST, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -102,12 +114,17 @@ async function sendGetTagListRequestAsync()
         WarningAlert.pop('获取标签列表失败');
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetTagInfoRequestAsync(tagId)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_TAG_INFO, false, {[NAMESPACE.TAG_MANAGEMENT.TAG.ID]: tagId});
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -145,12 +162,17 @@ async function sendGetTagInfoRequestAsync(tagId)
         WarningAlert.pop('获取标签信息失败');
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostChangeTagInfoRequestAsync(tagId, tagName)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(CHANGE_TAG_INFO, {
             [NAMESPACE.TAG_MANAGEMENT.TAG.ID]: tagId,
             [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName,
@@ -193,5 +215,9 @@ async function sendPostChangeTagInfoRequestAsync(tagId, tagName)
         WarningAlert.pop('修改标签信息失败');
         console.log(e);
         return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
     }
 }

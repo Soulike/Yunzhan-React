@@ -5,6 +5,7 @@ import {FORGET_PASSWORD, GET_VERIFICATION_CODE, LOGIN, LOGOUT, SIGN_UP, VERIFY_S
 import {setOffline, setOnline} from '../../Pages/Login/Function';
 import NAMESPACE from '../../Namespace';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../Components/Alerts';
+import {Function as SpinnerFunction} from '../../Components/GrowingSpinner';
 
 export default {
     sendPostLoginRequestAsync,
@@ -19,6 +20,7 @@ async function sendPostGetVerificationCodeRequestAsync(email)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(GET_VERIFICATION_CODE, {
             [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
         });
@@ -38,12 +40,17 @@ async function sendPostGetVerificationCodeRequestAsync(email)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostForgetPasswordRequestAsync(email, newPassword, verificationCode)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(FORGET_PASSWORD, {
             [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
             [NAMESPACE.ACCOUNT.VERIFICATION.NEW_PASSWORD]: Function.getSHA256(newPassword),
@@ -81,12 +88,17 @@ async function sendPostForgetPasswordRequestAsync(email, newPassword, verificati
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostSignUpRequestAsync(email, password, verificationCode)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(SIGN_UP, {
             [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
             [NAMESPACE.ACCOUNT.ACCOUNT.PASSWORD]: Function.getSHA256(password),
@@ -100,6 +112,11 @@ async function sendPostSignUpRequestAsync(email, password, verificationCode)
                 browserHistory.push('/login');
             }, 1000);
             return true;
+        }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('请填写邮箱');
+            return null;
         }
         else if (code === STATUS_CODE.REJECTION)
         {
@@ -118,12 +135,17 @@ async function sendPostSignUpRequestAsync(email, password, verificationCode)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostLoginRequestAsync(email, password)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(LOGIN, {
             [NAMESPACE.ACCOUNT.ACCOUNT.EMAIL]: email,
             [NAMESPACE.ACCOUNT.ACCOUNT.PASSWORD]: password,
@@ -160,12 +182,17 @@ async function sendPostLoginRequestAsync(email, password)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetVerifySessionRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.getAsync(VERIFY_SESSION, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -188,12 +215,17 @@ async function sendGetVerifySessionRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostLogoutRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(LOGOUT);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -211,5 +243,9 @@ async function sendPostLogoutRequestAsync()
         console.log(e);
         WarningAlert.pop('退出失败，请重试');
         return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
     }
 }

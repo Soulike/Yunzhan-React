@@ -11,7 +11,7 @@ import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
 import {WarningAlert} from '../../../../Components/Alerts';
 import RequestProcessor from '../../../../RequestProcessor';
-import {unselectAllAdvertisements, unselectAllTags} from '../../Function';
+import {getResourcePackList, unselectAllAdvertisements, unselectAllTags} from '../../Function';
 
 class AddResourcePackCard extends Component
 {
@@ -54,6 +54,7 @@ class AddResourcePackCard extends Component
                 });
                 unselectAllTags();
                 unselectAllAdvertisements();
+                getResourcePackList();
             }
         }
     };

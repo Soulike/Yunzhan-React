@@ -54,11 +54,11 @@ class Advertisement extends Component
                                 })()
                             }
                         </div>
-                        <div className={Style.advertisementName}>
-                            <ToolTip placement={'top'} title={name}>
+                        <ToolTip placement={'top'} title={name}>
+                            <div className={Style.advertisementName}>
                                 {name}
-                            </ToolTip>
-                        </div>
+                            </div>
+                        </ToolTip>
                     </div>
                 </div>
             </div>

@@ -14,6 +14,7 @@ import {
     SUBMIT_NEW_RESOURCE_PACK,
 } from './Route';
 import NAMESPACE from '../../../Namespace';
+import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
 
 export default {
     sendGetResourcePackManagementBasicInfoRequestAsync,
@@ -31,6 +32,7 @@ async function sendGetResourcePackManagementBasicInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_BASIC_INFO, false);
         switch (code)
         {
@@ -62,12 +64,17 @@ async function sendGetResourcePackManagementBasicInfoRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostSubmitNewResourcePackRequestAsync(resourcePackName, advertisementIdListArray, tagIdListArray)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(SUBMIT_NEW_RESOURCE_PACK, {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: resourcePackName, // 新资源包的名称
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.ADVERTISEMENT_ID]: advertisementIdListArray, // 新资源包包含的广告 ID 列表，可以为空
@@ -108,12 +115,17 @@ async function sendPostSubmitNewResourcePackRequestAsync(resourcePackName, adver
         WarningAlert.pop('创建新资源包失败');
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetResourcePackListRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_RESOURCE_PACK_LIST, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -137,12 +149,17 @@ async function sendGetResourcePackListRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetResourcePackTagListRequestAsync(resourcePackId)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_RESOURCE_PACK_TAG_LIST, false, {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: resourcePackId,
         });
@@ -187,12 +204,17 @@ async function sendGetResourcePackTagListRequestAsync(resourcePackId)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetResourcePackAdvertisementListRequestAsync(resourcePackId)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_RESOURCE_PACK_ADVERTISEMENT_LIST, false, {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: resourcePackId,
         });
@@ -236,12 +258,17 @@ async function sendGetResourcePackAdvertisementListRequestAsync(resourcePackId)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetResourcePackScreenListRequestAsync(resourcePackId)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_RESOURCE_PACK_SCREEN_LIST, false, {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: resourcePackId,
         });
@@ -286,12 +313,17 @@ async function sendGetResourcePackScreenListRequestAsync(resourcePackId)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetResourcePackUnbindingTagListRequestAsync(resourcePackId)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_RESOURCE_PACK_UNBINDING_TAG_LIST, false, {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: resourcePackId,
         });
@@ -336,12 +368,17 @@ async function sendGetResourcePackUnbindingTagListRequestAsync(resourcePackId)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetResourcePackUnbindingAdvertisementListRequestAsync(resourcePackId)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_RESOURCE_PACK_UNBINDING_ADVERTISEMENT_LIST, false, {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: resourcePackId,
         });
@@ -385,12 +422,17 @@ async function sendGetResourcePackUnbindingAdvertisementListRequestAsync(resourc
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostChangeResourcePackInfoRequestAsync(resourcePackId, resourcePackName, resourcePackDescription, resourcePackTagIdListArray, resourcePackAdvertisementIdListArray)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(CHANGE_RESOURCE_PACK_INFO, {
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: resourcePackId,// 被修改的资源包 ID
             [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: resourcePackName,// 新资源包名
@@ -444,5 +486,9 @@ async function sendPostChangeResourcePackInfoRequestAsync(resourcePackId, resour
         WarningAlert.pop('修改资源包失败');
         console.log(e);
         return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
     }
 }

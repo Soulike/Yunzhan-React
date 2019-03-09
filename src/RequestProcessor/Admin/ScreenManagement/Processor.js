@@ -14,6 +14,7 @@ import {
 } from './Route';
 import NAMESPACE from '../../../Namespace';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
+import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
 
 export default {
     sendGetScreenBasicInfoRequestAsync,
@@ -31,6 +32,7 @@ async function sendGetScreenBasicInfoRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_BASIC_INFO, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -54,12 +56,17 @@ async function sendGetScreenBasicInfoRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendGetScreenLogListRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_LOG_LIST, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -83,12 +90,18 @@ async function sendGetScreenLogListRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
+
 }
 
 async function sendGetScreenListRequestAsync()
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code, data} = await Function.getAsync(GET_SCREEN_LIST, false);
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -112,12 +125,17 @@ async function sendGetScreenListRequestAsync()
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostUnbindResourcePackRequestAsync(screenIdListArray)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(UNBIND_RESOURCE_PACK, {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: screenIdListArray});
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -129,6 +147,11 @@ async function sendPostUnbindResourcePackRequestAsync(screenIdListArray)
         {
             WarningAlert.pop('请先登录');
             redirectToLogin();
+            return null;
+        }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('参数错误');
             return null;
         }
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
@@ -150,15 +173,20 @@ async function sendPostUnbindResourcePackRequestAsync(screenIdListArray)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
-async function sendPostBindResourcePackRequestAsync(screenIdListArray, resourcePackIdListArray)
+async function sendPostBindResourcePackRequestAsync(screenIdListArray, resourcePackId)
 {
     try
     {
-        const {code} = Function.postAsync(BIND_RESOURCE_PACK, {
+        SpinnerFunction.showSpinner();
+        const {code} = await Function.postAsync(BIND_RESOURCE_PACK, {
             [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: screenIdListArray,
-            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: resourcePackIdListArray,
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: resourcePackId,
         });
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -169,6 +197,11 @@ async function sendPostBindResourcePackRequestAsync(screenIdListArray, resourceP
         {
             WarningAlert.pop('请先登录');
             redirectToLogin();
+            return null;
+        }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('参数错误');
             return null;
         }
         else if (code === STATUS_CODE.REJECTION)
@@ -193,12 +226,17 @@ async function sendPostBindResourcePackRequestAsync(screenIdListArray, resourceP
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostAddScreenRequestAsync(uuid)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(ADD_SCREEN, {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid});
         if (code === STATUS_CODE.SUCCESS)
         {
@@ -208,7 +246,7 @@ async function sendPostAddScreenRequestAsync(uuid)
         }
         else if (code === STATUS_CODE.WRONG_PARAMETER)
         {
-            WarningAlert.pop('参数无效');
+            WarningAlert.pop('参数错误');
             return null;
         }
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
@@ -228,12 +266,17 @@ async function sendPostAddScreenRequestAsync(uuid)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostDeleteScreenRequestAsync(screenIdListArray)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(DELETE_SCREEN, {
             [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: screenIdListArray,
         });
@@ -247,6 +290,11 @@ async function sendPostDeleteScreenRequestAsync(screenIdListArray)
         {
             WarningAlert.pop('不能删除他人屏幕');
 
+            return null;
+        }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('参数错误');
             return null;
         }
         else if (code === STATUS_CODE.INVALID_SESSION)
@@ -273,12 +321,17 @@ async function sendPostDeleteScreenRequestAsync(screenIdListArray)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostStartScreenRequestAsync(screenIdListArray)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(START_SCREEN, {
             [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: screenIdListArray,
         });
@@ -300,6 +353,11 @@ async function sendPostStartScreenRequestAsync(screenIdListArray)
             redirectToLogin();
             return null;
         }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('参数错误');
+            return null;
+        }
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
         {
             WarningAlert.pop('部分开始播放屏幕不存在');
@@ -318,12 +376,17 @@ async function sendPostStartScreenRequestAsync(screenIdListArray)
         console.log(e);
         return null;
     }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
 }
 
 async function sendPostStopScreenRequestAsync(screenIdListArray)
 {
     try
     {
+        SpinnerFunction.showSpinner();
         const {code} = await Function.postAsync(STOP_SCREEN, {
             [NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN_ID]: screenIdListArray,
         });
@@ -345,6 +408,11 @@ async function sendPostStopScreenRequestAsync(screenIdListArray)
             redirectToLogin();
             return null;
         }
+        else if (code === STATUS_CODE.WRONG_PARAMETER)
+        {
+            WarningAlert.pop('参数错误');
+            return null;
+        }
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
         {
             WarningAlert.pop('部分停止播放屏幕不存在');
@@ -362,5 +430,9 @@ async function sendPostStopScreenRequestAsync(screenIdListArray)
         WarningAlert.pop('停止播放失败');
         console.log(e);
         return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
     }
 }

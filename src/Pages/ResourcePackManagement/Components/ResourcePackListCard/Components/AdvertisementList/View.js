@@ -74,7 +74,7 @@ class AdvertisementList extends Component
                     })
                 }
                 {
-                    Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
+                    Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 5)
                 }
             </div>
         );

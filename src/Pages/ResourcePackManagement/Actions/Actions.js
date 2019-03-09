@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import RequestProcessor from '../../../RequestProcessor';
+import NAMESPACE from '../../../Namespace';
 
 export function getResourcePackManagementBasicInfoAction()
 {
@@ -29,6 +30,37 @@ function getResourcePackManagementBasicInfoFailedAction()
 {
     return {
         type: ActionTypes.GET_RESOURCE_PACK_MANAGEMENT_BASIC_INFO_FAILED,
+    };
+}
+
+export function getResourcePackListAction()
+{
+    return async dispatch =>
+    {
+        const resourcePackListWrapper = await RequestProcessor.sendGetResourcePackListRequestAsync();
+        if (resourcePackListWrapper)
+        {
+            dispatch(getResourcePackListSuccessfulAction(resourcePackListWrapper[NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]));
+        }
+        else
+        {
+            dispatch(getResourcePackListFailedAction());
+        }
+    };
+}
+
+function getResourcePackListSuccessfulAction(resourcePackList)
+{
+    return {
+        type: ActionTypes.GET_RESOURCE_PACK_LIST_SUCCESSFUL,
+        resourcePackList,
+    };
+}
+
+function getResourcePackListFailedAction()
+{
+    return {
+        type: ActionTypes.GET_RESOURCE_PACK_LIST_FAILED,
     };
 }
 
@@ -89,7 +121,7 @@ export function resourcePackSelectTagAction(tagId)
 export function resourcePackSelectTagsAction(tagIdArray)
 {
     return {
-        type: ActionTypes.RESOURCE_PACK_SELECT_TAGS,
+        type: ActionTypes.RESOURCE_PACK_CLEAR_AND_SELECT_TAGS,
         tagIdArray,
     };
 }
@@ -113,7 +145,7 @@ export function resourcePackSelectAdvertisementAction(advertisementId)
 export function resourcePackSelectAdvertisementsAction(advertisementIdArray)
 {
     return {
-        type: ActionTypes.RESOURCE_PACK_SELECT_ADVERTISEMENTS,
+        type: ActionTypes.RESOURCE_PACK_CLEAR_AND_SELECT_ADVERTISEMENTS,
         advertisementIdArray,
     };
 }

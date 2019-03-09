@@ -7,7 +7,6 @@ import Functions from '../../Function';
 import RequestProcessor from '../../RequestProcessor';
 import NAMESPACE from '../../Namespace';
 import {MENU_ITEM_ID} from '../../Config/MenuItem';
-import {Function as SpinnerFunction} from '../../Components/GrowingSpinner';
 
 
 const {generateTimeStr} = Functions;
@@ -38,7 +37,6 @@ class Overview extends Component
     {
         document.title = '概览 - 云展';
         MenuFunctions.setActiveItemId(MENU_ITEM_ID.OVERVIEW);
-        SpinnerFunction.showSpinner();
         Promise.all([
             RequestProcessor.sendOverviewGetLoginInfoRequestAsync(),
             RequestProcessor.sendOverviewGetScreenInfoRequestAsync(),
@@ -52,7 +50,6 @@ class Overview extends Component
                 {
                     this.setState({...data});
                 });
-                SpinnerFunction.hideSpinner();
             });
     }
 

@@ -13,6 +13,14 @@ export default (state = {}, action) =>
                 basicInfo,
             };
         }
+        case ActionTypes.GET_RESOURCE_PACK_LIST_SUCCESSFUL:
+        {
+            const {resourcePackList} = action;
+            return {
+                ...state,
+                resourcePackList,
+            };
+        }
         case ActionTypes.SELECT_TAG:
         {
             const {tagId} = action;
@@ -77,13 +85,12 @@ export default (state = {}, action) =>
                 resourcePackSelectedTagIdSet: new Set(resourcePackSelectedTagIdSet),
             };
         }
-        case ActionTypes.RESOURCE_PACK_SELECT_TAGS:
+        case ActionTypes.RESOURCE_PACK_CLEAR_AND_SELECT_TAGS:
         {
             const {tagIdArray} = action;
-            const {resourcePackSelectedTagIdSet} = state;
             return {
                 ...state,
-                resourcePackSelectedTagIdSet: new Set([...resourcePackSelectedTagIdSet, ...tagIdArray]),
+                resourcePackSelectedTagIdSet: new Set(tagIdArray),
             };
         }
         case ActionTypes.RESOURCE_PACK_UNSELECT_TAG:
@@ -106,13 +113,12 @@ export default (state = {}, action) =>
                 resourcePackSelectedAdvertisementIdSet: new Set(resourcePackSelectedAdvertisementIdSet),
             };
         }
-        case ActionTypes.RESOURCE_PACK_SELECT_ADVERTISEMENTS:
+        case ActionTypes.RESOURCE_PACK_CLEAR_AND_SELECT_ADVERTISEMENTS:
         {
             const {advertisementIdArray} = action;
-            const {resourcePackSelectedAdvertisementIdSet} = state;
             return {
                 ...state,
-                resourcePackSelectedAdvertisementIdSet: new Set([...resourcePackSelectedAdvertisementIdSet, ...advertisementIdArray]),
+                resourcePackSelectedAdvertisementIdSet: new Set(advertisementIdArray),
             };
         }
         case ActionTypes.RESOURCE_PACK_UNSELECT_ADVERTISEMENT:
@@ -140,6 +146,7 @@ export default (state = {}, action) =>
             };
         }
         case ActionTypes.GET_RESOURCE_PACK_MANAGEMENT_BASIC_INFO_FAILED:
+        case ActionTypes.GET_RESOURCE_PACK_LIST_FAILED:
         default:
         {
             return state;

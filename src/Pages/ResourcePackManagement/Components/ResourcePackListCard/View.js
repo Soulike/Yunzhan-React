@@ -14,6 +14,7 @@ import {
 import ToolTip from '../../../../Components/Tooltip/View';
 import {TEXT} from '../../../../Static/Regex';
 import {
+    getResourcePackList,
     resourcePackSelectAdvertisements,
     resourcePackSelectTags,
     resourcePackUnselectAllAdvertisements,
@@ -23,7 +24,6 @@ import Function from '../../../../Function';
 import {View as TagList} from './Components/TagList';
 import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
-import {Function as SpinnerFunction} from '../../../../Components/GrowingSpinner';
 
 class ResourcePackListCard extends Component
 {
@@ -31,8 +31,6 @@ class ResourcePackListCard extends Component
     {
         super(props);
         this.state = {
-            resourcePackList: [],// 所有资源包列表
-
             resourcePackTagList: [],// 特定资源包标签列表
             resourcePackAdvertisementList: [],// 特定资源包广告列表
             resourcePackScreenList: [],// 特定资源包屏幕列表
@@ -48,21 +46,8 @@ class ResourcePackListCard extends Component
         this.resourcePackDescriptionRef = React.createRef();
     }
 
-    componentDidMount()
-    {
-        RequestProcessor.sendGetResourcePackListRequestAsync()
-            .then(resourcePackListWrapper =>
-            {
-                if (resourcePackListWrapper)
-                {
-                    this.setState({resourcePackList: resourcePackListWrapper[NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK]});
-                }
-            });
-    }
-
     showTagListModal = async (resourcePackId, resourcePackName) =>
     {
-        SpinnerFunction.showSpinner();
         const resourcePackTagListWrapper = await RequestProcessor.sendGetResourcePackTagListRequestAsync(resourcePackId);
         if (resourcePackTagListWrapper)
         {
@@ -72,14 +57,12 @@ class ResourcePackListCard extends Component
             }, () =>
             {
                 ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_TAG_NAME_LIST_MODAL);
-                SpinnerFunction.hideSpinner();
             });
         }
     };
 
     showAdvertisementListModal = async (resourcePackId, resourcePackName) =>
     {
-        SpinnerFunction.showSpinner();
         const resourcePackAdvertisementListWrapper = await RequestProcessor.sendGetResourcePackAdvertisementListRequestAsync(resourcePackId);
         if (resourcePackAdvertisementListWrapper)
         {
@@ -89,14 +72,12 @@ class ResourcePackListCard extends Component
             }, () =>
             {
                 ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_ADVERTISEMENT_LIST_MODAL);
-                SpinnerFunction.hideSpinner();
             });
         }
     };
 
     showScreenNameListModal = async (resourcePackId, resourcePackName) =>
     {
-        SpinnerFunction.showSpinner();
         const screenListWrapper = await RequestProcessor.sendGetResourcePackScreenListRequestAsync(resourcePackId);
         if (screenListWrapper)
         {
@@ -106,14 +87,12 @@ class ResourcePackListCard extends Component
             }, () =>
             {
                 ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_SCREEN_LIST_MODAL);
-                SpinnerFunction.hideSpinner();
             });
         }
     };
 
     onChangeResourcePackButtonClick = async (resourcePackId, resourcePackName, resourcePackDescription) =>
     {
-        SpinnerFunction.showSpinner();
         const [resourcePackTagListWrapper, resourcePackAdvertisementListWrapper] = await Promise.all([
             RequestProcessor.sendGetResourcePackTagListRequestAsync(resourcePackId),
             RequestProcessor.sendGetResourcePackAdvertisementListRequestAsync(resourcePackId),
@@ -146,7 +125,6 @@ class ResourcePackListCard extends Component
                 this.resourcePackNameInputRef.current.value = resourcePackName;
                 this.resourcePackDescriptionRef.current.value = resourcePackDescription;
                 ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_CHANGE_MODAL);
-                SpinnerFunction.hideSpinner();
             });
 
         }
@@ -186,18 +164,19 @@ class ResourcePackListCard extends Component
         {
             resourcePackUnselectAllTags();
             resourcePackUnselectAllAdvertisements();
+            getResourcePackList();
         }
     };
 
     render()
     {
         const {
-            resourcePackList,
             currentOperatingResourcePackName,
             resourcePackTagList,
             resourcePackAdvertisementList,
             resourcePackScreenList,
         } = this.state;
+        const {resourcePackList} = this.props;
         return [
             <ListCard className={Style.ResourcePackListCard} title={'资源包列表'}>
                 <table className="table table-hover">
@@ -357,10 +336,11 @@ class ResourcePackListCard extends Component
 
 const mapStateToProps = state =>
 {
-    const {ResourcePackManagement: {resourcePackSelectedTagIdSet, resourcePackSelectedAdvertisementIdSet}} = state;
+    const {ResourcePackManagement: {resourcePackSelectedTagIdSet, resourcePackSelectedAdvertisementIdSet, resourcePackList}} = state;
     return {
         resourcePackSelectedTagIdSet,
         resourcePackSelectedAdvertisementIdSet,
+        resourcePackList,
     };
 };
 

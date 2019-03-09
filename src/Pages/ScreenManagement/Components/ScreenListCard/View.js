@@ -12,7 +12,7 @@ import {View as ResourcePackList} from './Components/ResourcePackList';
 import RequestProcessor from '../../../../RequestProcessor';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {View as ModalTriggeringButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
-import {getScreenList} from '../../Function';
+import {getScreenList, getScreenManagementBasicInfo} from '../../Function';
 import {View as ToolTip} from '../../../../Components/Tooltip';
 import {View as ListCard} from '../../../../Components/ListCard';
 
@@ -47,6 +47,7 @@ class ScreenListCard extends Component
                 {
                     const $uuidInput = document.querySelector(`.${Style.uuidInput}`);
                     $uuidInput.value = '';
+                    getScreenManagementBasicInfo();
                     getScreenList(); // 刷新屏幕列表
                 });
             }
@@ -202,8 +203,11 @@ class ScreenListCard extends Component
                         onConfirmButtonClickFunction={async () =>
                         {
                             const {selectedScreenIdSet} = this.props;
-                            await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
-                            getScreenList(); // 刷新屏幕列表
+                            if (await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
+                            {
+                                getScreenManagementBasicInfo();
+                                getScreenList(); // 刷新屏幕列表
+                            }
                         }}>
                 <span>确认删除选中的 {selectedScreenIdSet.size} 个屏幕吗？<span style={{color: '#F00'}}>此操作不可逆！</span></span>
             </SmallModal>,
@@ -212,8 +216,11 @@ class ScreenListCard extends Component
                         onConfirmButtonClickFunction={async () =>
                         {
                             const {selectedScreenIdSet} = this.props;
-                            await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
-                            getScreenList(); // 刷新屏幕列表
+                            if (await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
+                            {
+                                getScreenManagementBasicInfo();
+                                getScreenList(); // 刷新屏幕列表
+                            }
                         }}>
                 <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕开始播放吗？</span>
             </SmallModal>,
@@ -222,8 +229,11 @@ class ScreenListCard extends Component
                         onConfirmButtonClickFunction={async () =>
                         {
                             const {selectedScreenIdSet} = this.props;
-                            await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys()));
-                            getScreenList(); // 刷新屏幕列表
+                            if (await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
+                            {
+                                getScreenManagementBasicInfo();
+                                getScreenList(); // 刷新屏幕列表
+                            }
                         }}>
                 <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕停止播放吗？</span>
             </SmallModal>,
@@ -239,8 +249,11 @@ class ScreenListCard extends Component
                             else
                             {
                                 const {selectedResourcePackId, selectedScreenIdSet} = this.props;
-                                await RequestProcessor.sendPostBindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()), selectedResourcePackId);
-                                getScreenList(); // 刷新屏幕列表
+                                if (await RequestProcessor.sendPostBindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()), selectedResourcePackId))
+                                {
+                                    getScreenManagementBasicInfo();
+                                    getScreenList(); // 刷新屏幕列表
+                                }
                             }
                         }}>
                 <ResourcePackList />
@@ -249,8 +262,11 @@ class ScreenListCard extends Component
                         title={'批量解绑资源包'}
                         onConfirmButtonClickFunction={async () =>
                         {
-                            await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()));
-                            getScreenList(); // 刷新屏幕列表
+                            if (await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys())))
+                            {
+                                getScreenManagementBasicInfo();
+                                getScreenList(); // 刷新屏幕列表
+                            }
                         }}>
                 <span>确认要为选中的 {selectedScreenIdSet.size} 个屏幕解绑资源包吗？</span>
             </SmallModal>,

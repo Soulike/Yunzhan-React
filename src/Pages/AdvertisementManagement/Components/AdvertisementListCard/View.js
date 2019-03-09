@@ -11,8 +11,8 @@ import {REGEX} from '../../../../Static/Regex';
 import {WarningAlert} from '../../../../Components/Alerts';
 import {connect} from 'react-redux';
 import {View as ListCard} from '../../../../Components/ListCard';
-import {Function as SpinnerFunction} from '../../../../Components/GrowingSpinner';
 import Function from '../../../../Function';
+import {getAdvertisementList} from '../../Function';
 
 class AdvertisementListCard extends Component
 {
@@ -21,60 +21,59 @@ class AdvertisementListCard extends Component
         super(props);
         this.state = {
             currentIdOfAdvertisementInModal: 0,
+            currentTypeOfAdvertisementInModal: null,
             advertisementName: '',
             QRCodeUrl: '',
             QRCodePosition: QRCodePositionId.TOP_LEFT,
         };
     }
 
-    onAdvertisementClick = id =>
+    onAdvertisementClick = (id, type) =>
     {
         return async () =>
         {
-            SpinnerFunction.showSpinner();
             this.setState({
                 currentIdOfAdvertisementInModal: id,
+                currentTypeOfAdvertisementInModal: type,
             }, async () =>
             {
                 // 根据被点击广告的信息，设置模态框中输入框的值
                 const advertisementInfo = await RequestProcessor.sendGetAdvertisementInfoRequestAsync(id);
-                const {
-                    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: type,
-                    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: name,
-                    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_URL]: QRCodeUrl,
-                    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: QRCodePosition,
-                } = advertisementInfo;
-
-                const $advertisementNameInput = document.querySelector(`.${Style.advertisementNameInput}`);
-                const $advertisementTypeInput = document.querySelector(`.${Style.advertisementTypeInput}`);
-                const $QRCodeUrlInput = document.querySelector(`.${Style.QRCodeUrlInput}`);
-                const $QRCodePositionSelect = document.querySelector(`.${Style.QRCodePositionSelect}`);
-                $advertisementNameInput.value = name;
-                this.setState({
-                    advertisementName: name,
-                });
-
-                if (type === ADVERTISEMENT_TYPE.IMAGE)// 如果是图片，开启二维码相关设置
+                if (advertisementInfo)
                 {
-                    $advertisementTypeInput.value = '图片';
-                    $QRCodeUrlInput.removeAttribute('disabled');
-                    $QRCodePositionSelect.removeAttribute('disabled');
+                    const {
+                        [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: type,
+                        [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: name,
+                        [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_URL]: QRCodeUrl,
+                        [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: QRCodePosition,
+                    } = advertisementInfo;
 
-                    $QRCodeUrlInput.value = QRCodeUrl;
-                    $QRCodePositionSelect.value = QRCodePosition;
+                    const $advertisementNameInput = document.querySelector(`.${Style.advertisementNameInput}`);
+                    const $advertisementTypeInput = document.querySelector(`.${Style.advertisementTypeInput}`);
+                    const $QRCodeUrlInput = document.querySelector(`.${Style.QRCodeUrlInput}`);
+                    const $QRCodePositionSelect = document.querySelector(`.${Style.QRCodePositionSelect}`);
+                    $advertisementNameInput.value = name;
                     this.setState({
-                        QRCodeUrl,
-                        QRCodePosition,
+                        advertisementName: name,
                     });
+
+                    if (type === ADVERTISEMENT_TYPE.IMAGE)// 如果是图片，开启二维码相关设置
+                    {
+                        $advertisementTypeInput.value = '图片';
+
+                        $QRCodeUrlInput.value = QRCodeUrl;
+                        $QRCodePositionSelect.value = QRCodePosition;
+                        this.setState({
+                            QRCodeUrl,
+                            QRCodePosition,
+                        });
+                    }
+                    else if (type === ADVERTISEMENT_TYPE.VIDEO)// 如果是视频，关闭二维码相关设置
+                    {
+                        $advertisementTypeInput.value = '视频';
+                    }
+                    ModalFunction.showModal(MODAL_ID.ADVERTISEMENT_INFO_MODAL);
                 }
-                else if (type === ADVERTISEMENT_TYPE.VIDEO)// 如果是视频，关闭二维码相关设置
-                {
-                    $advertisementTypeInput.value = '视频';
-                    $QRCodeUrlInput.disabled = true;
-                    $QRCodePositionSelect.disabled = true;
-                }
-                ModalFunction.showModal(MODAL_ID.ADVERTISEMENT_INFO_MODAL);
-                SpinnerFunction.hideSpinner();
             });
         };
     };
@@ -102,16 +101,16 @@ class AdvertisementListCard extends Component
 
     onAdvertisementInfoModalConfirmClick = async () =>
     {
-        const {currentIdOfAdvertisementInModal, advertisementName, QRCodeUrl, QRCodePosition} = this.state;
+        const {currentTypeOfAdvertisementInModal, currentIdOfAdvertisementInModal, advertisementName, QRCodeUrl, QRCodePosition} = this.state;
         if (!REGEX.ADVERTISEMENT_NAME.test(advertisementName))
         {
             WarningAlert.pop('请输入正确的文件名');
         }
-        else if (!REGEX.URL.test(QRCodeUrl))
+        else if (currentTypeOfAdvertisementInModal === ADVERTISEMENT_TYPE.IMAGE && !REGEX.URL.test(QRCodeUrl))
         {
             WarningAlert.pop('请输入有效的网址');
         }
-        else if (!Object.values(QRCodePositionId).includes(QRCodePosition))
+        else if (currentTypeOfAdvertisementInModal === ADVERTISEMENT_TYPE.IMAGE && !Object.values(QRCodePositionId).includes(parseInt(QRCodePosition)))
         {
             WarningAlert.pop('选择的位置无效');
         }
@@ -120,8 +119,7 @@ class AdvertisementListCard extends Component
             const requestIsSuccessful = await RequestProcessor.sendPostUpdateAdvertisementInfoRequestAsync(currentIdOfAdvertisementInModal, advertisementName, QRCodeUrl, QRCodePosition);
             if (requestIsSuccessful)
             {
-                const advertisementList = await RequestProcessor.sendGetAdvertisementListRequestAsync();
-                this.setState({...advertisementList});
+                getAdvertisementList();
             }
         }
     };
@@ -130,17 +128,21 @@ class AdvertisementListCard extends Component
     render()
     {
         const {advertisementList} = this.props;
+        const {currentTypeOfAdvertisementInModal} = this.state;
         return [
             <ListCard className={Style.AdvertisementListCard} title={'广告列表'} subTitle={'可点击查看详细信息'}>
                 <div className={Style.advertisementListWrapper}>
                     {
                         advertisementList.map(advertisement =>
                         {
-                            const {[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: id} = advertisement;
+                            const {
+                                [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: id,
+                                [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: type,
+                            } = advertisement;
                             return (
                                 <div className={Style.advertisementWrapper}
                                      key={id}
-                                     onClick={this.onAdvertisementClick(id)}>
+                                     onClick={this.onAdvertisementClick(id, type)}>
                                     <Advertisement advertisement={new AdvertisementObject.Advertisement(
                                         advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE],
                                         advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL],
@@ -169,23 +171,27 @@ class AdvertisementListCard extends Component
                            className={Style.advertisementNameInput}
                            onChange={this.onAdvertisementNameInputChange} />
                 </label>
-                <label className={Style.inputWrapper}>
-                    <span className={Style.label}>二维码链接</span>
-                    <input type="text"
-                           className={Style.QRCodeUrlInput}
-                           onChange={this.onQRCodeUrlInputChange}
-                           placeholder={'http://example.com/'} />
-                </label>
-                <label className={Style.inputWrapper}>
-                    <span className={Style.label}>二维码位置</span>
-                    <select className={`custom-select ${Style.QRCodePositionSelect}`}
-                            onChange={this.onQRCodePositionSelectChange}>
-                        {
-                            Object.values(QR_CODE_POSITION_ID).map(id =>
-                                <option key={id} value={id}>{QR_CODE_POSITION_ID_TO_NAME[id]}</option>)
-                        }
-                    </select>
-                </label>
+                {
+                    currentTypeOfAdvertisementInModal === ADVERTISEMENT_TYPE.IMAGE ? [
+                        <label className={Style.inputWrapper}>
+                            <span className={Style.label}>二维码链接</span>
+                            <input type="text"
+                                   className={Style.QRCodeUrlInput}
+                                   onChange={this.onQRCodeUrlInputChange}
+                                   placeholder={'http://example.com/'} />
+                        </label>,
+                        <label className={Style.inputWrapper}>
+                            <span className={Style.label}>二维码位置</span>
+                            <select className={`custom-select ${Style.QRCodePositionSelect}`}
+                                    onChange={this.onQRCodePositionSelectChange}>
+                                {
+                                    Object.values(QR_CODE_POSITION_ID).map(id =>
+                                        <option key={id} value={id}>{QR_CODE_POSITION_ID_TO_NAME[id]}</option>)
+                                }
+                            </select>
+                        </label>,
+                    ] : null
+                }
             </Modal>,
         ];
     }

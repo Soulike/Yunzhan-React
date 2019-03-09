@@ -18,21 +18,29 @@
 
         .advertisementInfoWrapper {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             margin-top: 1rem;
             height: 2rem;
 
             .typeIconWrapper {
-                width: 1rem;
                 height: inherit;
                 display: inline-flex;
-                justify-content: center;
                 align-items: center;
 
                 .typeIcon {
                     font-size: 1.5rem;
+                    line-height: 1em;
                 }
+            }
+
+            .advertisementName {
+                text-align: center;
+                line-height: 1em;
+                white-space: nowrap;
+                width: 10rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .advertisementAmount {

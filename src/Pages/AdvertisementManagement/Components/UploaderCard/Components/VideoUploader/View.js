@@ -25,7 +25,7 @@ class VideoUploader extends Component
     onFileInputChange = e =>
     {
         this.setState({
-            imageFileObject: e.target.files[0],
+            videoFileObject: e.target.files[0],
             videoSrc: URL.createObjectURL(e.target.files[0]),
             videoName: e.target.files[0].name,
         });

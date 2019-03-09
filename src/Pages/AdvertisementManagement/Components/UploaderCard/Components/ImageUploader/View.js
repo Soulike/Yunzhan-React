@@ -104,7 +104,7 @@ class ImageUploader extends Component
         {
             WarningAlert.pop('请输入有效的网址');
         }
-        else if (!Object.values(QRCodePositionId).includes(QRCodePosition))
+        else if (!Object.values(QRCodePositionId).includes(parseInt(QRCodePosition)))
         {
             WarningAlert.pop('选择的位置无效');
         }

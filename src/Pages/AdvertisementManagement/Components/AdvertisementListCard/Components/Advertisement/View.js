@@ -20,11 +20,12 @@ class Advertisement extends Component
                             {
                                 if (type === ADVERTISEMENT_TYPE.IMAGE)
                                 {
-                                    return <div className={Style.preview} style={{background: `url(${src})`}} />;
+                                    return <div className={Style.preview}
+                                                style={{background: `url(${encodeURI(src)})`}} />;
                                 }
                                 else if (type === ADVERTISEMENT_TYPE.VIDEO)
                                 {
-                                    return <video className={Style.preview} src={src} controls />;
+                                    return <video className={Style.preview} src={encodeURI(src)} controls />;
                                 }
                             })()
                         }
@@ -53,11 +54,11 @@ class Advertisement extends Component
                                 })()
                             }
                         </div>
-                        <div className={Style.advertisementName}>
-                            <ToolTip placement={'top'} title={name}>
+                        <ToolTip placement={'top'} title={name}>
+                            <div className={Style.advertisementName}>
                                 {name}
-                            </ToolTip>
-                        </div>
+                            </div>
+                        </ToolTip>
                     </div>
                 </div>
             </div>
