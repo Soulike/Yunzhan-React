@@ -3,11 +3,11 @@ import Style from './Style.module.scss';
 import {ADVERTISEMENT_TYPE, Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
 import {QR_CODE_POSITION_ID, QR_CODE_POSITION_ID_TO_NAME} from '../UploaderCard/Components/ImageUploader';
 import {MODAL_ID, REGEX} from '../../../../Config';
-import {Function as ModalFunction, Modal} from '../../../../Components/Modal';
+import {Function as ModalFunction, Modal} from '../../../../Components/Bootstrap/Modal';
 import {QRCodePositionId} from '../UploaderCard/Components/ImageUploader/QRCodePosition';
 import NAMESPACE from '../../../../Namespace';
 import RequestProcessor from '../../../../RequestProcessor';
-import {WarningAlert} from '../../../../Components/Alerts';
+import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
 import {connect} from 'react-redux';
 import {View as ListCard} from '../../../../Components/ListCard';
 import Function from '../../../../Function';
@@ -159,7 +159,7 @@ class AdvertisementListCard extends Component
             ,
             <Modal id={MODAL_ID.ADVERTISEMENT_INFO_MODAL}
                    title={'广告信息'}
-                   onConfirmButtonClickFunction={this.onAdvertisementInfoModalConfirmClick}>
+                   onConfirmButtonClick={this.onAdvertisementInfoModalConfirmClick}>
                 <label className={Style.inputWrapper}>
                     <span className={Style.label}>广告类型</span>
                     <input type="text" className={Style.advertisementTypeInput} disabled />

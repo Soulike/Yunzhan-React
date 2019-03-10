@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as SolidIcon from '@fortawesome/free-solid-svg-icons';
 import ADVERTISEMENT_TYPE from './AdvertisementType';
 import Style from './Style.module.scss';
-import {View as ToolTip} from '../../../../../../../../Components/Tooltip';
+import {View as ToolTip} from '../../../../../../../../Components/Bootstrap/Tooltip';
 import {connect} from 'react-redux';
 
 class Advertisement extends Component

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Style from './Header.module.scss';
 import Function from '../../../../../../Function';
 import {connect} from 'react-redux';
-import {View as Checkbox} from '../../../../../../Components/Checkbox';
+import {View as Checkbox} from '../../../../../../Components/Bootstrap/Checkbox';
 import {selectScreens, unselectAllScreens} from '../../../../Function';
 
 class Header extends Component

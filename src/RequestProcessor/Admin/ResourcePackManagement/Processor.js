@@ -1,7 +1,7 @@
 import {STATUS_CODE} from '../../../Config';
 import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
-import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
+import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Bootstrap/Alerts';
 import {
     CHANGE_RESOURCE_PACK_INFO,
     GET_BASIC_INFO,
@@ -14,7 +14,7 @@ import {
     SUBMIT_NEW_RESOURCE_PACK,
 } from './Route';
 import NAMESPACE from '../../../Namespace';
-import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
+import {Function as SpinnerFunction} from '../../../Components/Bootstrap/GrowingSpinner';
 
 export default {
     sendGetResourcePackManagementBasicInfoRequestAsync,

@@ -4,8 +4,8 @@ import Function from '../../Function';
 import {FORGET_PASSWORD, GET_VERIFICATION_CODE, LOGIN, LOGOUT, SIGN_UP, VERIFY_SESSION} from './Route';
 import {setOffline, setOnline} from '../../Pages/Login/Function';
 import NAMESPACE from '../../Namespace';
-import {DangerAlert, SuccessAlert, WarningAlert} from '../../Components/Alerts';
-import {Function as SpinnerFunction} from '../../Components/GrowingSpinner';
+import {DangerAlert, SuccessAlert, WarningAlert} from '../../Components/Bootstrap/Alerts';
+import {Function as SpinnerFunction} from '../../Components/Bootstrap/GrowingSpinner';
 
 export default {
     sendPostLoginRequestAsync,

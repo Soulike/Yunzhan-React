@@ -5,14 +5,14 @@ import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {View as Screen} from './Components/Screen';
 import {View as Header} from './Components/Header';
 import {connect} from 'react-redux';
-import {Function as ModalFunctions, LargeModal, SmallModal} from '../../../../Components/Modal';
+import {Function as ModalFunctions, LargeModal, SmallModal} from '../../../../Components/Bootstrap/Modal';
 import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import {View as ResourcePackList} from './Components/ResourcePackList';
 import RequestProcessor from '../../../../RequestProcessor';
-import {WarningAlert} from '../../../../Components/Alerts';
-import {View as ModalTriggeringButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
+import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
+import {View as ModalTriggeringButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
 import {getScreenList, getScreenManagementBasicInfo, unselectAllResourcePacks} from '../../Function';
-import {View as ToolTip} from '../../../../Components/Tooltip';
+import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
 import {View as ListCard} from '../../../../Components/ListCard';
 
 class ScreenListCard extends Component
@@ -187,7 +187,7 @@ class ScreenListCard extends Component
 
             <SmallModal id={MODAL_ID.ADD_SCREEN_MODAL}
                         title={'添加屏幕'}
-                        onConfirmButtonClickFunction={this.onAddScreenModalConfirmButtonClick}>
+                        onConfirmButtonClick={this.onAddScreenModalConfirmButtonClick}>
                 <div className={Style.addScreenModalContent}>
                     <ToolTip placement={'top'} title={REGEX_TEXT.UUID}>
                         <input type="text"
@@ -200,7 +200,7 @@ class ScreenListCard extends Component
             </SmallModal>,
             <SmallModal id={MODAL_ID.DELETE_SCREEN_MODAL}
                         title={'删除屏幕'}
-                        onConfirmButtonClickFunction={async () =>
+                        onConfirmButtonClick={async () =>
                         {
                             const {selectedScreenIdSet} = this.props;
                             if (await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
@@ -213,7 +213,7 @@ class ScreenListCard extends Component
             </SmallModal>,
             <SmallModal id={MODAL_ID.START_SCREEN_RUNNING_MODAL}
                         title={'开始播放'}
-                        onConfirmButtonClickFunction={async () =>
+                        onConfirmButtonClick={async () =>
                         {
                             const {selectedScreenIdSet} = this.props;
                             if (await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
@@ -226,7 +226,7 @@ class ScreenListCard extends Component
             </SmallModal>,
             <SmallModal id={MODAL_ID.STOP_SCREEN_RUNNING_MODAL}
                         title={'停止播放'}
-                        onConfirmButtonClickFunction={async () =>
+                        onConfirmButtonClick={async () =>
                         {
                             const {selectedScreenIdSet} = this.props;
                             if (await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
@@ -239,7 +239,7 @@ class ScreenListCard extends Component
             </SmallModal>,
             <LargeModal id={MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL}
                         title={'批量绑定资源包'}
-                        onConfirmButtonClickFunction={async () =>
+                        onConfirmButtonClick={async () =>
                         {
                             const {selectedResourcePackId} = this.props;
                             if (selectedResourcePackId === null)
@@ -260,7 +260,7 @@ class ScreenListCard extends Component
             </LargeModal>,
             <SmallModal id={MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL}
                         title={'批量解绑资源包'}
-                        onConfirmButtonClickFunction={async () =>
+                        onConfirmButtonClick={async () =>
                         {
                             if (await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys())))
                             {

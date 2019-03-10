@@ -13,8 +13,8 @@ import {
     UNBIND_RESOURCE_PACK,
 } from './Route';
 import NAMESPACE from '../../../Namespace';
-import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
-import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
+import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Bootstrap/Alerts';
+import {Function as SpinnerFunction} from '../../../Components/Bootstrap/GrowingSpinner';
 
 export default {
     sendGetScreenBasicInfoRequestAsync,

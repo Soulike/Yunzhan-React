@@ -3,11 +3,11 @@ import Style from './Style.module.scss';
 import RequestProcessor from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
 import {View as Tag} from './Components/Tag';
-import {Function as ModalFunction, Modal} from '../../../../Components/Modal';
+import {Function as ModalFunction, Modal} from '../../../../Components/Bootstrap/Modal';
 import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import Function from '../../../../Function';
-import {WarningAlert} from '../../../../Components/Alerts';
-import {View as ToolTip} from '../../../../Components/Tooltip';
+import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
+import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
 import {connect} from 'react-redux';
 import {View as ListCard} from '../../../../Components/ListCard';
 import {getTagList} from '../../Function';
@@ -104,7 +104,7 @@ class TagListCard extends Component
             </ListCard>,
             <Modal id={MODAL_ID.TAG_INFO_MODAL}
                    title={'标签信息'}
-                   onConfirmButtonClickFunction={this.onTagInfoModalConfirmButtonClick}>
+                   onConfirmButtonClick={this.onTagInfoModalConfirmButtonClick}>
                 <div className={Style.modalContent}>
                     <label className={Style.item}>
                         <span className={Style.label}>标签名</span>

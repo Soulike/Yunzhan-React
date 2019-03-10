@@ -7,11 +7,11 @@ import Style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
 import {setActiveItemId} from './Components/Menu/Functions';
 import RequestProcessor from '../../RequestProcessor';
-import {SmallModal} from '../../Components/Modal';
+import {SmallModal} from '../../Components/Bootstrap/Modal';
 import {MODAL_ID} from '../../Config';
 import Title from './Components/Title/View';
 import {ITEM_ID_TO_ICON, ITEM_ID_TO_NAME, ITEM_URL_TO_ID} from '../../Config/MENU_ITEM';
-import {Function as SpinnerFunction} from '../../Components/GrowingSpinner';
+import {Function as SpinnerFunction} from '../../Components/Bootstrap/GrowingSpinner';
 
 class Root extends Component
 {
@@ -55,7 +55,7 @@ class Root extends Component
 
                 <SmallModal id={MODAL_ID.LOGOUT_MODAL}
                             title={'确认退出'}
-                            onConfirmButtonClickFunction={RequestProcessor.sendPostLogoutRequestAsync}>
+                            onConfirmButtonClick={RequestProcessor.sendPostLogoutRequestAsync}>
                     您真的要退出云展吗？
                 </SmallModal>
             </div>

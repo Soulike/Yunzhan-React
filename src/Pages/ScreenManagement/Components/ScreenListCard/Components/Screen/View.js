@@ -5,10 +5,10 @@ import {connect} from 'react-redux';
 import {View as ResourcePackList} from '../ResourcePackList';
 import NAMESPACE from '../../../../../../Namespace';
 import RequestProcessors from '../../../../../../RequestProcessor';
-import {LargeModal, ModalTriggeringButton, SmallModal} from '../../../../../../Components/Modal';
-import {WarningAlert} from '../../../../../../Components/Alerts';
+import {LargeModal, ModalTriggeringButton, SmallModal} from '../../../../../../Components/Bootstrap/Modal';
+import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';
 import {MODAL_ID} from '../../../../../../Config';
-import {View as Checkbox} from '../../../../../../Components/Checkbox';
+import {View as Checkbox} from '../../../../../../Components/Bootstrap/Checkbox';
 import {
     getScreenList,
     getScreenManagementBasicInfo,
@@ -90,7 +90,7 @@ class Screen extends Component
 
                 <LargeModal id={MODAL_ID.BIND_RESOURCE_PACK_MODAL}
                             title={'绑定资源包'}
-                            onConfirmButtonClickFunction={async () =>
+                            onConfirmButtonClick={async () =>
                             {
                                 const {selectedResourcePackId} = this.props;
                                 if (selectedResourcePackId === null)
@@ -116,7 +116,7 @@ class Screen extends Component
 
                 <SmallModal id={MODAL_ID.UNBIND_RESOURCE_PACK_MODAL}
                             title={'解绑资源包'}
-                            onConfirmButtonClickFunction={async () =>
+                            onConfirmButtonClick={async () =>
                             {
                                 const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList} = this.state;
                                 if (await RequestProcessors.sendPostUnbindResourcePackRequestAsync(screenIdList))

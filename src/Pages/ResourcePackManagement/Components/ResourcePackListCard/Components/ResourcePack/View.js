@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Style from './Style.module.scss';
-import {View as ToolTip} from '../../../../../../Components/Tooltip';
+import {View as ToolTip} from '../../../../../../Components/Bootstrap/Tooltip';
 
 class ResourcePack extends Component
 {

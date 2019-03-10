@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import {View as FileInput} from '../../../../../../Components/FileInput';
-import {View as ProgressBar} from '../../../../../../Components/ProgressBar';
-import {Function as ModalFunction, Modal} from '../../../../../../Components/Modal';
+import {View as FileInput} from '../../../../../../Components/Bootstrap/FileInput';
+import {View as ProgressBar} from '../../../../../../Components/Bootstrap/ProgressBar';
+import {Function as ModalFunction, Modal} from '../../../../../../Components/Bootstrap/Modal';
 import {MODAL_ID, REGEX} from '../../../../../../Config';
-import {WarningAlert} from '../../../../../../Components/Alerts';
+import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import {QRCodePositionId, QRCodePositionIdToName} from './QRCodePosition';
 import {getAdvertisementList, getAdvertisementManagementBasicInfo} from '../../../../Function';
@@ -137,7 +137,7 @@ class ImageUploader extends Component
                 <div className={Style.fileInputWrapper}>
                     <FileInput labelText={'选择图片'}
                                accept={'image/*'}
-                               onFileInputChangeFunction={this.onFileInputChange} />
+                               onChange={this.onFileInputChange} />
                 </div>
                 <div className={Style.progressBarWrapper}>
                     <ProgressBar percentProgress={uploadProgress} />
@@ -147,7 +147,7 @@ class ImageUploader extends Component
                 </div>
                 <Modal id={MODAL_ID.UPLOAD_IMAGE_INFO_MODAL}
                        title={'图片详细信息填写'}
-                       onConfirmButtonClickFunction={this.onImageInfoModalConfirmButtonClick}>
+                       onConfirmButtonClick={this.onImageInfoModalConfirmButtonClick}>
                     <label className={Style.inputWrapper}>
                         <span className={Style.label}>图片名</span>
                         <input type="text"
