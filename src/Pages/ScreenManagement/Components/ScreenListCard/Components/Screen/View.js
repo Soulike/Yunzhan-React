@@ -5,12 +5,8 @@ import {connect} from 'react-redux';
 import {View as ResourcePackList} from '../ResourcePackList';
 import NAMESPACE from '../../../../../../Namespace';
 import RequestProcessors from '../../../../../../RequestProcessor';
-import {
-    Function as ModalFunction,
-    LargeModal,
-    ModalTriggeringButton,
-    SmallModal,
-} from '../../../../../../Components/Bootstrap/Modal';
+import {Function as ModalFunction, LargeModal, SmallModal} from '../../../../../../Components/Bootstrap/Modal';
+import {View as ModalTriggeringButton} from '../../../../../../Components/Bootstrap/ModalTriggeringButton';
 import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';
 import {MODAL_ID} from '../../../../../../Config';
 import {View as Checkbox} from '../../../../../../Components/Bootstrap/Checkbox';
