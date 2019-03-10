@@ -5,55 +5,22 @@ import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {View as Screen} from './Components/Screen';
 import {View as Header} from './Components/Header';
 import {connect} from 'react-redux';
-import {Function as ModalFunction, LargeModal, SmallModal} from '../../../../Components/Bootstrap/Modal';
-import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
-import {View as ResourcePackList} from './Components/ResourcePackList';
-import RequestProcessor from '../../../../RequestProcessor';
+import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
+import {MODAL_ID} from '../../../../Config';
 import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
 import {View as ModalTriggeringButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
-import {getScreenList, getScreenManagementBasicInfo, unselectAllResourcePacks} from '../../Function';
+import {unselectAllResourcePacks} from '../../Function';
 import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
 import {View as ListCard} from '../../../../Components/ListCard';
+import {View as AddScreenModal} from './Components/AddScreenModal';
+import {View as DeleteScreenModal} from './Components/DeleteScreenModal';
+import {View as StartScreenRunningModal} from './Components/StartScreenRunningModal';
+import {View as StopScreenRunningModal} from './Components/StopScreenRunningModal';
+import BatchBindResourcePackModal from './Components/BatchBindResourcePackModal/View';
+import BatchUnbindResourcePackModal from './Components/BatchUnbindResourcePackModal/View';
 
 class ScreenListCard extends Component
 {
-    constructor()
-    {
-        super(...arguments);
-        this.state = {
-            uuid: '',
-        };
-    }
-
-    onAddScreenModalInputChange = e =>
-    {
-        this.setState({uuid: e.target.value});
-    };
-
-    onAddScreenModalConfirmButtonClick = async () =>
-    {
-        const {uuid} = this.state;
-        if (!REGEX.UUID.test(uuid))
-        {
-            WarningAlert.pop('UUID 对应的屏幕不存在');
-        }
-        else
-        {
-            const requestIsSuccessful = await RequestProcessor.sendPostAddScreenRequestAsync(uuid);
-            if (requestIsSuccessful)
-            {
-                this.setState({uuid: ''}, () =>
-                {
-                    const $uuidInput = document.getElementsByClassName(Style.uuidInput);
-                    $uuidInput.value = '';
-                    ModalFunction.hideModal(MODAL_ID.ADD_SCREEN_MODAL);
-                    getScreenManagementBasicInfo();
-                    getScreenList(); // 刷新屏幕列表
-                });
-            }
-        }
-    };
-
     onStartRunningButtonClick = e =>
     {
         e.preventDefault();
@@ -127,7 +94,7 @@ class ScreenListCard extends Component
 
     render()
     {
-        const {screenList, selectedScreenIdSet} = this.props;
+        const {screenList, selectedScreenIdSet, selectedResourcePackId} = this.props;
 
         const allScreenIdSet = new Set();
         screenList.forEach(screen =>
@@ -185,97 +152,13 @@ class ScreenListCard extends Component
                     </ToolTip>
                 </div>
             </ListCard>,
-
-            <SmallModal id={MODAL_ID.ADD_SCREEN_MODAL}
-                        title={'添加屏幕'}
-                        onConfirmButtonClick={this.onAddScreenModalConfirmButtonClick}>
-                <div className={Style.addScreenModalContent}>
-                    <ToolTip placement={'top'} title={REGEX_TEXT.UUID}>
-                        <input type="text"
-                               className={Style.uuidInput}
-                               placeholder={'被添加屏幕的 UUID'}
-                               autoFocus={true}
-                               onChange={this.onAddScreenModalInputChange} />
-                    </ToolTip>
-                </div>
-            </SmallModal>,
-            <SmallModal id={MODAL_ID.DELETE_SCREEN_MODAL}
-                        title={'删除屏幕'}
-                        onConfirmButtonClick={async () =>
-                        {
-                            const {selectedScreenIdSet} = this.props;
-                            if (await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
-                            {
-                                ModalFunction.hideModal(MODAL_ID.DELETE_SCREEN_MODAL);
-                                getScreenManagementBasicInfo();
-                                getScreenList(); // 刷新屏幕列表
-                            }
-                        }}>
-                <span>确认删除选中的 {selectedScreenIdSet.size} 个屏幕吗？<span style={{color: '#F00'}}>此操作不可逆！</span></span>
-            </SmallModal>,
-            <SmallModal id={MODAL_ID.START_SCREEN_RUNNING_MODAL}
-                        title={'开始播放'}
-                        onConfirmButtonClick={async () =>
-                        {
-                            const {selectedScreenIdSet} = this.props;
-                            if (await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
-                            {
-                                ModalFunction.hideModal(MODAL_ID.START_SCREEN_RUNNING_MODAL);
-                                getScreenManagementBasicInfo();
-                                getScreenList(); // 刷新屏幕列表
-                            }
-                        }}>
-                <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕开始播放吗？</span>
-            </SmallModal>,
-            <SmallModal id={MODAL_ID.STOP_SCREEN_RUNNING_MODAL}
-                        title={'停止播放'}
-                        onConfirmButtonClick={async () =>
-                        {
-                            const {selectedScreenIdSet} = this.props;
-                            if (await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
-                            {
-                                ModalFunction.hideModal(MODAL_ID.STOP_SCREEN_RUNNING_MODAL);
-                                getScreenManagementBasicInfo();
-                                getScreenList(); // 刷新屏幕列表
-                            }
-                        }}>
-                <span>确认使选中的 {selectedScreenIdSet.size} 个屏幕停止播放吗？</span>
-            </SmallModal>,
-            <LargeModal id={MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL}
-                        title={'批量绑定资源包'}
-                        onConfirmButtonClick={async () =>
-                        {
-                            const {selectedResourcePackId} = this.props;
-                            if (selectedResourcePackId === null)
-                            {
-                                WarningAlert.pop('请选择资源包');
-                            }
-                            else
-                            {
-                                const {selectedResourcePackId, selectedScreenIdSet} = this.props;
-                                if (await RequestProcessor.sendPostBindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()), selectedResourcePackId))
-                                {
-                                    ModalFunction.hideModal(MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL);
-                                    getScreenManagementBasicInfo();
-                                    getScreenList(); // 刷新屏幕列表
-                                }
-                            }
-                        }}>
-                <ResourcePackList />
-            </LargeModal>,
-            <SmallModal id={MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL}
-                        title={'批量解绑资源包'}
-                        onConfirmButtonClick={async () =>
-                        {
-                            if (await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys())))
-                            {
-                                ModalFunction.hideModal(MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL);
-                                getScreenManagementBasicInfo();
-                                getScreenList(); // 刷新屏幕列表
-                            }
-                        }}>
-                <span>确认要为选中的 {selectedScreenIdSet.size} 个屏幕解绑资源包吗？</span>
-            </SmallModal>,
+            <AddScreenModal />,
+            <DeleteScreenModal selectedScreenIdSet={selectedScreenIdSet} />,
+            <StartScreenRunningModal selectedScreenIdSet={selectedScreenIdSet} />,
+            <StopScreenRunningModal selectedScreenIdSet={selectedScreenIdSet} />,
+            <BatchBindResourcePackModal selectedResourcePackId={selectedResourcePackId}
+                                        selectedScreenIdSet={selectedScreenIdSet} />,
+            <BatchUnbindResourcePackModal selectedScreenIdSet={selectedScreenIdSet} />,
         ];
     }
 }
