@@ -118,6 +118,7 @@ class AdvertisementListCard extends Component
             const requestIsSuccessful = await RequestProcessor.sendPostUpdateAdvertisementInfoRequestAsync(currentIdOfAdvertisementInModal, advertisementName, QRCodeUrl, QRCodePosition);
             if (requestIsSuccessful)
             {
+                ModalFunction.hideModal(MODAL_ID.ADVERTISEMENT_INFO_MODAL);
                 getAdvertisementList();
             }
         }

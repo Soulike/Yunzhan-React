@@ -5,7 +5,7 @@ import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
 import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import {View as TagList} from './Components/TagList';
 import {View as ModalTriggerButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
-import {LargeModal} from '../../../../Components/Bootstrap/Modal';
+import {Function as ModalFunction, LargeModal} from '../../../../Components/Bootstrap/Modal';
 import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
 import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
@@ -51,6 +51,7 @@ class AddResourcePackCard extends Component
                 {
                     this.resourcePackNameInputRef.current.value = '';
                 });
+                ModalFunction.hideModal(MODAL_ID.RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL);
                 unselectAllTags();
                 unselectAllAdvertisements();
                 getResourcePackList();

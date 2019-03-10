@@ -5,7 +5,12 @@ import {connect} from 'react-redux';
 import {View as ResourcePackList} from '../ResourcePackList';
 import NAMESPACE from '../../../../../../Namespace';
 import RequestProcessors from '../../../../../../RequestProcessor';
-import {LargeModal, ModalTriggeringButton, SmallModal} from '../../../../../../Components/Bootstrap/Modal';
+import {
+    Function as ModalFunction,
+    LargeModal,
+    ModalTriggeringButton,
+    SmallModal,
+} from '../../../../../../Components/Bootstrap/Modal';
 import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';
 import {MODAL_ID} from '../../../../../../Config';
 import {View as Checkbox} from '../../../../../../Components/Bootstrap/Checkbox';
@@ -105,6 +110,7 @@ class Screen extends Component
                                     } = this.props;
                                     if (await RequestProcessors.sendPostBindResourcePackRequestAsync([screenId], selectedResourcePackId))
                                     {
+                                        ModalFunction.hideModal(MODAL_ID.BIND_RESOURCE_PACK_MODAL);
                                         unselectAllResourcePacks();
                                         getScreenManagementBasicInfo();
                                         getScreenList(); // 刷新屏幕列表
@@ -121,6 +127,7 @@ class Screen extends Component
                                 const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId} = this.props;
                                 if (await RequestProcessors.sendPostUnbindResourcePackRequestAsync([screenId]))
                                 {
+                                    ModalFunction.hideModal(MODAL_ID.UNBIND_RESOURCE_PACK_MODAL);
                                     unselectAllResourcePacks();
                                     getScreenManagementBasicInfo();
                                     getScreenList(); // 刷新屏幕列表

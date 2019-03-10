@@ -118,6 +118,7 @@ class ImageUploader extends Component
             }
             else
             {
+                ModalFunction.hideModal(MODAL_ID.UPLOAD_IMAGE_INFO_MODAL);
                 getAdvertisementManagementBasicInfo();
                 getAdvertisementList();
             }

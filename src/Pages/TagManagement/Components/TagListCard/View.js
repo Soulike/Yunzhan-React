@@ -70,9 +70,14 @@ class TagListCard extends Component
                 const requestIsSuccessful = await RequestProcessor.sendPostChangeTagInfoRequestAsync(currentTagIdInModal, tagName);
                 if (requestIsSuccessful)
                 {
+                    ModalFunction.hideModal(MODAL_ID.TAG_INFO_MODAL);
                     getTagList();
                 }
             }
+        }
+        else
+        {
+            ModalFunction.hideModal(MODAL_ID.TAG_INFO_MODAL);
         }
     };
 
