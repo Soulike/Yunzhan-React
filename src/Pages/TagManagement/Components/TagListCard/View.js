@@ -75,6 +75,10 @@ class TagListCard extends Component
                 }
             }
         }
+        else
+        {
+            ModalFunction.hideModal(MODAL_ID.TAG_INFO_MODAL);
+        }
     };
 
     render()
