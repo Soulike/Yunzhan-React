@@ -10,7 +10,6 @@ import {
     getScreenList,
     getScreenManagementBasicInfo,
     getScreenManagementLogList,
-    unselectAllScreens,
 } from './Function';
 
 class ScreenManagement extends Component
@@ -19,7 +18,6 @@ class ScreenManagement extends Component
     {
         document.title = '屏幕管理 - 云展';
         MenuFunctions.setActiveItemId(MENU_ITEM_ID.SCREEN_MANAGEMENT);
-        unselectAllScreens();
         getScreenManagementBasicInfo();
         getScreenManagementLogList();
         getScreenList();
