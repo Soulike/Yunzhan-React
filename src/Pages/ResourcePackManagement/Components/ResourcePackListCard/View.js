@@ -161,6 +161,7 @@ class ResourcePackListCard extends Component
         );
         if (requestIsSuccessful)
         {
+            ModalFunction.hideModal(MODAL_ID.RESOURCE_PACK_CHANGE_MODAL);
             resourcePackUnselectAllTags();
             resourcePackUnselectAllAdvertisements();
             getResourcePackList();

@@ -5,7 +5,7 @@ import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {View as Screen} from './Components/Screen';
 import {View as Header} from './Components/Header';
 import {connect} from 'react-redux';
-import {Function as ModalFunctions, LargeModal, SmallModal} from '../../../../Components/Bootstrap/Modal';
+import {Function as ModalFunction, LargeModal, SmallModal} from '../../../../Components/Bootstrap/Modal';
 import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import {View as ResourcePackList} from './Components/ResourcePackList';
 import RequestProcessor from '../../../../RequestProcessor';
@@ -46,6 +46,7 @@ class ScreenListCard extends Component
                 {
                     const $uuidInput = document.getElementsByClassName(Style.uuidInput);
                     $uuidInput.value = '';
+                    ModalFunction.hideModal(MODAL_ID.ADD_SCREEN_MODAL);
                     getScreenManagementBasicInfo();
                     getScreenList(); // 刷新屏幕列表
                 });
@@ -63,7 +64,7 @@ class ScreenListCard extends Component
         }
         else
         {
-            ModalFunctions.showModal(MODAL_ID.START_SCREEN_RUNNING_MODAL);
+            ModalFunction.showModal(MODAL_ID.START_SCREEN_RUNNING_MODAL);
         }
     };
 
@@ -77,7 +78,7 @@ class ScreenListCard extends Component
         }
         else
         {
-            ModalFunctions.showModal(MODAL_ID.STOP_SCREEN_RUNNING_MODAL);
+            ModalFunction.showModal(MODAL_ID.STOP_SCREEN_RUNNING_MODAL);
         }
     };
 
@@ -91,7 +92,7 @@ class ScreenListCard extends Component
         }
         else
         {
-            ModalFunctions.showModal(MODAL_ID.DELETE_SCREEN_MODAL);
+            ModalFunction.showModal(MODAL_ID.DELETE_SCREEN_MODAL);
         }
     };
 
@@ -106,7 +107,7 @@ class ScreenListCard extends Component
         else
         {
             unselectAllResourcePacks();
-            ModalFunctions.showModal(MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL);
+            ModalFunction.showModal(MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL);
         }
     };
 
@@ -120,7 +121,7 @@ class ScreenListCard extends Component
         }
         else
         {
-            ModalFunctions.showModal(MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL);
+            ModalFunction.showModal(MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL);
         }
     };
 
@@ -205,6 +206,7 @@ class ScreenListCard extends Component
                             const {selectedScreenIdSet} = this.props;
                             if (await RequestProcessor.sendPostDeleteScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
                             {
+                                ModalFunction.hideModal(MODAL_ID.DELETE_SCREEN_MODAL);
                                 getScreenManagementBasicInfo();
                                 getScreenList(); // 刷新屏幕列表
                             }
@@ -218,6 +220,7 @@ class ScreenListCard extends Component
                             const {selectedScreenIdSet} = this.props;
                             if (await RequestProcessor.sendPostStartScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
                             {
+                                ModalFunction.hideModal(MODAL_ID.START_SCREEN_RUNNING_MODAL);
                                 getScreenManagementBasicInfo();
                                 getScreenList(); // 刷新屏幕列表
                             }
@@ -231,6 +234,7 @@ class ScreenListCard extends Component
                             const {selectedScreenIdSet} = this.props;
                             if (await RequestProcessor.sendPostStopScreenRequestAsync(Array.from(selectedScreenIdSet.keys())))
                             {
+                                ModalFunction.hideModal(MODAL_ID.STOP_SCREEN_RUNNING_MODAL);
                                 getScreenManagementBasicInfo();
                                 getScreenList(); // 刷新屏幕列表
                             }
@@ -251,6 +255,7 @@ class ScreenListCard extends Component
                                 const {selectedResourcePackId, selectedScreenIdSet} = this.props;
                                 if (await RequestProcessor.sendPostBindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys()), selectedResourcePackId))
                                 {
+                                    ModalFunction.hideModal(MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL);
                                     getScreenManagementBasicInfo();
                                     getScreenList(); // 刷新屏幕列表
                                 }
@@ -264,6 +269,7 @@ class ScreenListCard extends Component
                         {
                             if (await RequestProcessor.sendPostUnbindResourcePackRequestAsync(Array.from(selectedScreenIdSet.keys())))
                             {
+                                ModalFunction.hideModal(MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL);
                                 getScreenManagementBasicInfo();
                                 getScreenList(); // 刷新屏幕列表
                             }
