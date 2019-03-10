@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Style from './Screen.module.scss';
 import {connect} from 'react-redux';
 import NAMESPACE from '../../../../../../Namespace';
-import {ModalTriggeringButton} from '../../../../../../Components/Bootstrap/Modal';
+import {View as ModalTriggeringButton} from '../../../../../../Components/Bootstrap/ModalTriggeringButton';
 import {MODAL_ID} from '../../../../../../Config';
 import {View as Checkbox} from '../../../../../../Components/Bootstrap/Checkbox';
 import {selectScreens, unselectScreen} from '../../../../Function';
