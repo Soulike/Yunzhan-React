@@ -6,14 +6,14 @@ class ModalBase extends Component
 {
     render()
     {
-        const {id, title, children, onConfirmButtonClick, className, subTitle} = this.props;
+        const {modalType, id, title, children, onConfirmButtonClick, className, subTitle} = this.props;
         return (
             <div className={`${Style.Modal} ${className}  modal fade`}
                  id={id}
                  tabIndex="-1"
                  role="dialog"
                  aria-hidden="true">
-                <div className="modal-dialog" role="document">
+                <div className={`modal-dialog ${modalType}`} role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">{title}

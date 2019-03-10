@@ -229,13 +229,12 @@ async function sendPostLogoutRequestAsync()
         const {code} = await Function.postAsync(LOGOUT);
         if (code === STATUS_CODE.SUCCESS)
         {
-            SuccessAlert.pop('退出成功');
-            setOffline();
-            browserHistory.push('/login');
+            return true;
         }
         else if (code === STATUS_CODE.INTERNAL_SERVER_ERROR)
         {
             DangerAlert.pop('服务器错误');
+            return null;
         }
     }
     catch (e)
