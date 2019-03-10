@@ -1,20 +1,35 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Style from './Style.module.scss';
+import {hideModal} from './Function';
 
 class ModalBase extends Component
 {
+    onConfirmButtonClick = e =>
+    {
+        const {id, onConfirmButtonClick} = this.props;
+        console.log(typeof onConfirmButtonClick);
+        if (typeof onConfirmButtonClick !== 'function')
+        {
+            hideModal(id);
+        }
+        else
+        {
+            onConfirmButtonClick(e);
+        }
+    };
+
     render()
     {
-        const {id, title, children, onConfirmButtonClick, className, subTitle} = this.props;
+        const {id, title, children, className, subTitle, modalType} = this.props;
         return (
             <div className={`${Style.Modal} ${className}  modal fade`}
                  id={id}
                  tabIndex="-1"
                  role="dialog"
                  aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
+                <div className={`modal-dialog ${modalType}`} role="document">
+                    <div className='modal-content'>
                         <div className="modal-header">
                             <h5 className="modal-title">{title}
                                 <small className={Style.subTitle}>{subTitle}</small>
@@ -29,7 +44,7 @@ class ModalBase extends Component
                         <div className="modal-footer">
                             <button type="button"
                                     className="btn btn-primary"
-                                    onClick={onConfirmButtonClick}>确定
+                                    onClick={this.onConfirmButtonClick}>确定
                             </button>
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">取消</button>
                         </div>
