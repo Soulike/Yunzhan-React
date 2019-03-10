@@ -118,8 +118,8 @@ class Screen extends Component
                             title={'解绑资源包'}
                             onConfirmButtonClick={async () =>
                             {
-                                const {[NAMESPACE.SCREEN_MANAGEMENT.LIST.SCREEN]: screenIdList} = this.state;
-                                if (await RequestProcessors.sendPostUnbindResourcePackRequestAsync(screenIdList))
+                                const {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId} = this.props;
+                                if (await RequestProcessors.sendPostUnbindResourcePackRequestAsync([screenId]))
                                 {
                                     unselectAllResourcePacks();
                                     getScreenManagementBasicInfo();
