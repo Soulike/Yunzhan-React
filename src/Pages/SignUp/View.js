@@ -5,9 +5,9 @@ import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router';
 import {REGEX, REGEX_TEXT} from '../../Config';
 import RequestProcessor from '../../RequestProcessor';
-import {WarningAlert} from '../../Components/Alerts';
-import {View as Card} from '../../Components/Card';
-import {View as ToolTip} from '../../Components/Tooltip';
+import {WarningAlert} from '../../Components/Bootstrap/Alerts';
+import {View as Card} from '../../Components/Bootstrap/Card';
+import {View as ToolTip} from '../../Components/Bootstrap/Tooltip';
 
 
 class SignUp extends Component

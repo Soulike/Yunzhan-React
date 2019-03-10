@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 import Style from './Overview.module.scss';
 import {Functions as MenuFunctions} from '../Root/Components/Menu';
-import {View as Card} from '../../Components/Card';
+import {View as Card} from '../../Components/Bootstrap/Card';
 import Functions from '../../Function';
 import RequestProcessor from '../../RequestProcessor';
 import NAMESPACE from '../../Namespace';

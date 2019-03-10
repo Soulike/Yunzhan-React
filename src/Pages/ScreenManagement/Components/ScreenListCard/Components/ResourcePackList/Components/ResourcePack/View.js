@@ -4,7 +4,7 @@ import Style from './ResourcePack.module.scss';
 import {connect} from 'react-redux';
 import NAMESPACE from '../../../../../../../../Namespace';
 import Functions from '../../../../../../../../Function';
-import {View as Radio} from '../../../../../../../../Components/Radio';
+import {View as Radio} from '../../../../../../../../Components/Bootstrap/Radio';
 import {selectResourcePack} from '../../../../../../Function';
 
 class ResourcePack extends Component

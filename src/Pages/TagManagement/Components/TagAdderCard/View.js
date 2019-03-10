@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import {View as ToolTip} from '../../../../Components/Tooltip';
+import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
 import {REGEX, REGEX_TEXT} from '../../../../Config';
-import {WarningAlert} from '../../../../Components/Alerts';
+import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
 import RequestProcessor from '../../../../RequestProcessor';
 import {getTagList, getTagManagementBasicInfo} from '../../Function';
 import {View as ToolCard} from '../../../../Components/ToolCard';

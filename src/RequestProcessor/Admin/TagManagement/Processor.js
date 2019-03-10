@@ -1,10 +1,10 @@
 import {STATUS_CODE} from '../../../Config';
 import {redirectToLogin} from '../../../Pages/Login/Function';
-import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
+import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Bootstrap/Alerts';
 import Function from '../../../Function';
 import {CHANGE_TAG_INFO, GET_BASIC_INFO, GET_TAG_INFO, GET_TAG_LIST, SUBMIT_NEW_TAG} from './Route';
 import NAMESPACE from '../../../Namespace';
-import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
+import {Function as SpinnerFunction} from '../../../Components/Bootstrap/GrowingSpinner';
 
 export default {
     sendGetTagBasicInfoRequestAsync,

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Style from './Style.module.scss';
 import {View as DividingLine} from './Components/DividingLine';
-import {View as Card} from '../Card';
+import {View as Card} from '../Bootstrap/Card';
 
 class InfoCard extends Component
 {

@@ -5,9 +5,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
 import {REGEX, REGEX_TEXT} from '../../Config';
 import RequestProcessor from '../../RequestProcessor';
-import {WarningAlert} from '../../Components/Alerts';
-import Card from '../../Components/Card/View';
-import {View as ToolTip} from '../../Components/Tooltip';
+import {WarningAlert} from '../../Components/Bootstrap/Alerts';
+import Card from '../../Components/Bootstrap/Card/View';
+import {View as ToolTip} from '../../Components/Bootstrap/Tooltip';
 
 class ForgetPassword extends Component
 {

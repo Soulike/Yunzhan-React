@@ -3,7 +3,7 @@ import {loginStateInvalid, loginStateValid} from './Actions/Actions';
 import {browserHistory} from 'react-router';
 import Store from '../../Store';
 import RequestProcessors from '../../RequestProcessor';
-import {SuccessAlert} from '../../Components/Alerts';
+import {SuccessAlert} from '../../Components/Bootstrap/Alerts';
 
 export async function requireLogin(nextState, replace)
 {

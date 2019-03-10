@@ -7,9 +7,9 @@ import {connect} from 'react-redux';
 import {login} from './Actions/Actions';
 import Functions from '../../Function';
 import {REGEX, REGEX_TEXT} from '../../Config';
-import {WarningAlert} from '../../Components/Alerts';
-import {View as Card} from '../../Components/Card';
-import {View as ToolTip} from '../../Components/Tooltip';
+import {WarningAlert} from '../../Components/Bootstrap/Alerts';
+import {View as Card} from '../../Components/Bootstrap/Card';
+import {View as ToolTip} from '../../Components/Bootstrap/Tooltip';
 
 const {getSHA256} = Functions;
 

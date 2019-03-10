@@ -1,7 +1,7 @@
 import {STATUS_CODE} from '../../../Config';
 import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
-import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Alerts';
+import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Bootstrap/Alerts';
 import {
     GET_ADVERTISEMENT_INFO,
     GET_ADVERTISEMENT_LIST,
@@ -11,7 +11,7 @@ import {
     UPLOAD_VIDEO,
 } from './Route';
 import NAMESPACE from '../../../Namespace';
-import {Function as SpinnerFunction} from '../../../Components/GrowingSpinner';
+import {Function as SpinnerFunction} from '../../../Components/Bootstrap/GrowingSpinner';
 
 export default {
     sendGetAdvertisementBasicInfoRequestAsync,

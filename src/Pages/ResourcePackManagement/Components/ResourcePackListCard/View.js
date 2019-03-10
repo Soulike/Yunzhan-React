@@ -6,12 +6,12 @@ import NAMESPACE from '../../../../Namespace';
 import ResourcePack from './Components/ResourcePack/View';
 import {MODAL_ID, REGEX_TEXT} from '../../../../Config';
 import {View as Tag} from './Components/Tag';
-import {ExtraLargeModal, Function as ModalFunction, LargeModal, Modal} from '../../../../Components/Modal';
+import {ExtraLargeModal, Function as ModalFunction, LargeModal, Modal} from '../../../../Components/Bootstrap/Modal';
 import {
     Object as AdvertisementObject,
     View as Advertisement,
 } from '../../../AdvertisementManagement/Components/AdvertisementListCard/Components/Advertisement';
-import ToolTip from '../../../../Components/Tooltip/View';
+import ToolTip from '../../../../Components/Bootstrap/Tooltip/View';
 import {
     getResourcePackList,
     resourcePackSelectAdvertisements,
@@ -294,7 +294,7 @@ class ResourcePackListCard extends Component
             <ExtraLargeModal id={MODAL_ID.RESOURCE_PACK_CHANGE_MODAL}
                              title={`编辑资源包 ${currentOperatingResourcePackName}`}
                              className={Style.resourcePackChangeModal}
-                             onConfirmButtonClickFunction={this.onResourcePackChangeModalConfirmButtonClick}>
+                             onConfirmButtonClick={this.onResourcePackChangeModalConfirmButtonClick}>
                 <div className={Style.resourcePackChangeModalContentWrapper}>
                     <div className={Style.topWrapper}>
                         <div className={Style.leftPart}>

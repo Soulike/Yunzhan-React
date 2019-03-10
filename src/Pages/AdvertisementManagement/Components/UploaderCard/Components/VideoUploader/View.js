@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import {View as FileInput} from '../../../../../../Components/FileInput';
-import {View as ProgressBar} from '../../../../../../Components/ProgressBar';
+import {View as FileInput} from '../../../../../../Components/Bootstrap/FileInput';
+import {View as ProgressBar} from '../../../../../../Components/Bootstrap/ProgressBar';
 import {MODAL_ID, REGEX} from '../../../../../../Config';
-import {Function as ModalFunction, Modal} from '../../../../../../Components/Modal';
-import {WarningAlert} from '../../../../../../Components/Alerts';
+import {Function as ModalFunction, Modal} from '../../../../../../Components/Bootstrap/Modal';
+import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import {getAdvertisementList, getAdvertisementManagementBasicInfo} from '../../../../Function';
 
@@ -89,7 +89,7 @@ class VideoUploader extends Component
                 <div className={Style.fileInputWrapper}>
                     <FileInput labelText={'选择视频'}
                                accept={'video/*'}
-                               onFileInputChangeFunction={this.onFileInputChange} />
+                               onChange={this.onFileInputChange} />
                 </div>
                 <div className={Style.progressBarWrapper}>
                     <ProgressBar percentProgress={uploadProgress} />
@@ -99,7 +99,7 @@ class VideoUploader extends Component
                 </div>
                 <Modal id={MODAL_ID.UPLOAD_VIDEO_INFO_MODAL}
                        title={'视频详细信息填写'}
-                       onConfirmButtonClickFunction={this.onVideoInfoModalConfirmButtonClick}>
+                       onConfirmButtonClick={this.onVideoInfoModalConfirmButtonClick}>
                     <label className={Style.inputWrapper}>
                         <span className={Style.label}>视频名</span>
                         <input type="text" className={Style.videoNameInput} onChange={this.onVideoNameInputChange} />

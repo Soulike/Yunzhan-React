@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {View as ToolCard} from '../../../../Components/ToolCard';
-import {View as ToolTip} from '../../../../Components/Tooltip';
+import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
 import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import {View as TagList} from './Components/TagList';
-import {View as ModalTriggerButton} from '../../../../Components/Modal/Components/ModalTriggeringButton';
-import {LargeModal} from '../../../../Components/Modal';
+import {View as ModalTriggerButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
+import {LargeModal} from '../../../../Components/Bootstrap/Modal';
 import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
-import {WarningAlert} from '../../../../Components/Alerts';
+import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
 import RequestProcessor from '../../../../RequestProcessor';
 import {getResourcePackList, unselectAllAdvertisements, unselectAllTags} from '../../Function';
 
@@ -86,7 +86,7 @@ class AddResourcePackCard extends Component
             <LargeModal id={MODAL_ID.RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL}
                         title={'选择广告'}
                         subTitle={'点击选择资源包中要包含的广告'}
-                        onConfirmButtonClickFunction={this.onSelectAdvertisementModalConfirmButtonClick}>
+                        onConfirmButtonClick={this.onSelectAdvertisementModalConfirmButtonClick}>
                 <div className={Style.advertisementListWrapper}>
                     <AdvertisementList />
                 </div>

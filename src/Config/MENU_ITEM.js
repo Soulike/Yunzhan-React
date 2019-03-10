@@ -1,6 +1,6 @@
 import * as SolidIcon from '@fortawesome/free-solid-svg-icons';
 import {FuncItem, LinkItem} from '../Pages/Root/Components/Menu/Components/Item/ItemObject';
-import {Function as ModalFunction} from '../Components/Modal';
+import {Function as ModalFunction} from '../Components/Bootstrap/Modal';
 import MODAL_ID from './MODAL_ID';
 
 import {View as Overview} from '../Pages/Overview';

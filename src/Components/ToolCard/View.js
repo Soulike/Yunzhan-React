@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import PropTypes from 'prop-types';
-import {View as Card} from '../Card';
+import {View as Card} from '../Bootstrap/Card';
 
 class ToolCard extends Component
 {
