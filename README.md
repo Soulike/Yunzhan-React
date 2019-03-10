@@ -2,6 +2,10 @@
 
 云展前端部分。
 
+# 维护方式
+
+项目维护两个分支，master 与 development。新功能开发分支经初步测试后一律合并到 development 分支，模块开发经过系统测试后再从 development 合并到 master 分支，严格确保 master 分支的稳定性。
+
 # TODO List
 
 - Modal 确定按钮功能改为由传入函数自定义是否消失
