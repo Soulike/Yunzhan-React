@@ -33,6 +33,11 @@ async function sendPostGetVerificationCodeRequestAsync(email)
             DangerAlert.pop('服务器错误');
             return null;
         }
+        else
+        {
+            WarningAlert.pop('获取验证码失败，请重试');
+            return null;
+        }
     }
     catch (e)
     {
