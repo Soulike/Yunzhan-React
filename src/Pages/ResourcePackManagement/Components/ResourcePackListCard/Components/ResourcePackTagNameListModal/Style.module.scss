@@ -1,23 +1,18 @@
-@import "../../../../ModuleConfig/Bootstrap/Bootstrap";
-@import "../../../../Style/Constants";
-
-.TagListCard {
-
-    .tagListWrapper {
+.ResourcePackTagListModal {
+    .tagList {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: flex-start;
         align-content: flex-start;
-        flex-wrap: wrap;
 
         .tagWrapper {
             margin: 0.5rem;
-            cursor: pointer;
 
             &.empty {
                 margin: 0 0.5rem;
-                cursor: auto;
-                width: 7rem; //Tag 的宽度
+                padding: 0 0.5rem;
+                width: 4.5rem;
                 box-sizing: content-box;
             }
         }

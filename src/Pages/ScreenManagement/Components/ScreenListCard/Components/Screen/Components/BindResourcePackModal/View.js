@@ -45,8 +45,8 @@ class BindResourcePackModal extends Component
 }
 
 BindResourcePackModal.propTypes = {
-    screenId: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
-    selectedResourcePackId: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
+    screenId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    selectedResourcePackId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 export default BindResourcePackModal;

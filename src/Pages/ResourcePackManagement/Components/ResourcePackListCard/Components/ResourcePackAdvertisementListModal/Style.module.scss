@@ -1,0 +1,21 @@
+.ResourcePackAdvertisementListModal {
+    .advertisementList {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0 2rem;
+
+        .advertisementWrapper {
+            margin: 0.5rem;
+
+            &.empty {
+                margin: 0 0.5rem;
+                padding: 0;
+                cursor: auto;
+                background-color: transparent;
+                width: calc(12rem + 2px); // 广告的宽度
+                box-sizing: content-box;
+            }
+        }
+    }
+}

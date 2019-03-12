@@ -8,7 +8,6 @@ class ModalBase extends Component
     onConfirmButtonClick = e =>
     {
         const {id, onConfirmButtonClick} = this.props;
-        console.log(typeof onConfirmButtonClick);
         if (typeof onConfirmButtonClick !== 'function')
         {
             hideModal(id);

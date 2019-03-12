@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {connect} from 'react-redux';
-import RequestProcessor from '../../../../../../RequestProcessor';
-import NAMESPACE from '../../../../../../Namespace';
-import {resourcePackSelectTag, resourcePackUnselectTag} from '../../../../Function';
+import RequestProcessor from '../../../../../../../../RequestProcessor';
+import NAMESPACE from '../../../../../../../../Namespace';
+import {resourcePackSelectTag, resourcePackUnselectTag} from '../../../../../../Function';
 import {View as Tag} from './Components/Tag';
-import Function from '../../../../../../Function';
+import Function from '../../../../../../../../Function';
 
 class TagList extends Component
 {
