@@ -43,7 +43,7 @@ class BatchBindResourcePackModal extends Component
 }
 
 BatchBindResourcePackModal.propTypes = {
-    selectedResourcePackId: PropTypes.oneOf([PropTypes.string, PropTypes.number]).isRequired,
+    selectedResourcePackId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     selectedScreenIdSet: PropTypes.instanceOf(Set).isRequired,
 };
 

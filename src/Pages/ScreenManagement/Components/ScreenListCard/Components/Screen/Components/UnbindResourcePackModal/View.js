@@ -39,7 +39,7 @@ class UnbindResourcePackModal extends Component
 }
 
 UnbindResourcePackModal.propTypes = {
-    screenId: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
+    screenId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     screenName: PropTypes.string.isRequired,
     resourcePackName: PropTypes.string.isRequired,
 };

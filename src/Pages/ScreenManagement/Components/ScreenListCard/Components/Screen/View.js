@@ -92,7 +92,7 @@ class Screen extends Component
 }
 
 Screen.propTypes = {
-    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: PropTypes.string.isRequired,
     [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: PropTypes.string.isRequired,
     [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: PropTypes.bool.isRequired,
