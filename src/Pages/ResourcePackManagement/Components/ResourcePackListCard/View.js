@@ -137,7 +137,7 @@ class ResourcePackListCard extends Component
         } = this.state;
         const {resourcePackList} = this.props;
         return [
-            <ListCard className={Style.ResourcePackListCard} title={'资源包列表'}>
+            <ListCard className={Style.ResourcePackListCard} title={'资源包列表'} key={Style.ResourcePackListCard}>
                 <table className="table table-hover">
                     <thead className={'thead-dark'}>
                     <tr>
@@ -178,14 +178,18 @@ class ResourcePackListCard extends Component
                 </table>
             </ListCard>,
             <ResourcePackTagNameListModal resourcePackName={currentOperatingResourcePackName}
-                                          resourcePackTagList={resourcePackTagList} />,
+                                          resourcePackTagList={resourcePackTagList}
+                                          key={MODAL_ID.RESOURCE_PACK_TAG_NAME_LIST_MODAL} />,
             <ResourcePackAdvertisementListModal resourcePackName={currentOperatingResourcePackName}
-                                                resourcePackAdvertisementList={resourcePackAdvertisementList} />,
+                                                resourcePackAdvertisementList={resourcePackAdvertisementList}
+                                                key={MODAL_ID.RESOURCE_PACK_ADVERTISEMENT_LIST_MODAL} />,
             <ResourcePackScreenListModal resourcePackName={currentOperatingResourcePackName}
-                                         resourcePackScreenList={resourcePackScreenList} />,
+                                         resourcePackScreenList={resourcePackScreenList}
+                                         key={MODAL_ID.RESOURCE_PACK_SCREEN_LIST_MODAL} />,
             <ResourcePackChangeModal resourcePackName={currentOperatingResourcePackName}
                                      resourcePackId={currentOperatingResourcePackId}
-                                     resourcePackDescription={currentOperatingResourcePackDescription} />,
+                                     resourcePackDescription={currentOperatingResourcePackDescription}
+                                     key={MODAL_ID.RESOURCE_PACK_CHANGE_MODAL} />,
         ];
     }
 }

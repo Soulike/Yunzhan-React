@@ -44,7 +44,7 @@ class AddResourcePackCard extends Component
     {
         const {resourcePackName} = this.state;
         return [
-            <ToolCard className={Style.AddResourcePackCard} title={'添加资源包'}>
+            <ToolCard className={Style.AddResourcePackCard} title={'添加资源包'} key={Style.AddResourcePackCard}>
                 <label className={Style.inputWrapper}>
                     <span className={Style.label}>资源包名</span>
                     <ToolTip placement={'top'} title={REGEX_TEXT.RESOURCE_PACK_NAME}>
@@ -63,7 +63,8 @@ class AddResourcePackCard extends Component
                     <button className={Style.submitButton} onClick={this.onCreateResourcePackButtonClick}>创建资源包</button>
                 </div>
             </ToolCard>,
-            <ResourcePackManagementSelectAdvertisementModal resourcePackName={resourcePackName} />,
+            <ResourcePackManagementSelectAdvertisementModal resourcePackName={resourcePackName}
+                                                            key={MODAL_ID.RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL} />,
         ];
     }
 }

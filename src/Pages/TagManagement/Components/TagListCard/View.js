@@ -59,7 +59,7 @@ class TagListCard extends Component
         } = this.state;
         const {tagList} = this.props;
         return [
-            <ListCard title={'标签列表'} subTitle={'可点击查看详细信息'} className={Style.TagListCard}>
+            <ListCard title={'标签列表'} subTitle={'可点击查看详细信息'} className={Style.TagListCard} key={Style.TagListCard}>
                 <div className={Style.tagListWrapper}>
                     {
                         // TODO: 排序方式
@@ -80,7 +80,8 @@ class TagListCard extends Component
             <TagInfoModal tagId={currentTagIdInModal}
                           tagName={currentTagNameInModal}
                           tagCreationTime={currentTagCreationTimeInModal}
-                          tagBindingResourcePackNameList={currentTagBindingResourcePackNameList} />,
+                          tagBindingResourcePackNameList={currentTagBindingResourcePackNameList}
+                          key={MODAL_ID.TAG_INFO_MODAL} />,
         ];
     }
 }

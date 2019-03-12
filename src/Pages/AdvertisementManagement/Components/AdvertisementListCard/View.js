@@ -130,7 +130,10 @@ class AdvertisementListCard extends Component
         const {advertisementList} = this.props;
         const {currentTypeOfAdvertisementInModal} = this.state;
         return [
-            <ListCard className={Style.AdvertisementListCard} title={'广告列表'} subTitle={'可点击查看详细信息'}>
+            <ListCard className={Style.AdvertisementListCard}
+                      title={'广告列表'}
+                      subTitle={'可点击查看详细信息'}
+                      key={Style.AdvertisementListCard}>
                 <div className={Style.advertisementListWrapper}>
                     {
                         advertisementList.map(advertisement =>
@@ -156,10 +159,11 @@ class AdvertisementListCard extends Component
                         Function.padFlexLastRow(<div className={`${Style.advertisementWrapper} ${Style.empty}`} />, 3)
                     }
                 </div>
-            </ListCard>
-            ,
+            </ListCard>,
+            // TODO: 组件化
             <Modal id={MODAL_ID.ADVERTISEMENT_INFO_MODAL}
                    title={'广告信息'}
+                   key={MODAL_ID.ADVERTISEMENT_INFO_MODAL}
                    onConfirmButtonClick={this.onAdvertisementInfoModalConfirmClick}>
                 <label className={Style.inputWrapper}>
                     <span className={Style.label}>广告类型</span>

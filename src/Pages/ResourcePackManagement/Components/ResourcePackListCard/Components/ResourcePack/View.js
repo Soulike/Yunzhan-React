@@ -45,7 +45,9 @@ class ResourcePack extends Component
                     </ToolTip>
                 </td>
                 <td>
-                    <ToolTip placement={'top'} title={description} className={Style.description}>{description}</ToolTip>
+                    <ToolTip placement={'top'}
+                             title={description || ''}
+                             className={Style.description}>{description}</ToolTip>
                 </td>
                 <td className={Style.button}>
                     <button onClick={onChangeResourcePackButtonClickFunction}
@@ -60,10 +62,10 @@ class ResourcePack extends Component
 ResourcePack.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    tagName: PropTypes.string.isRequired,
+    tagName: PropTypes.string,
     bindingAdvertisementAmount: PropTypes.number.isRequired,
     bindingScreenAmount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
     showTagListModalFunction: PropTypes.func.isRequired,
     showAdvertisementListModalFunction: PropTypes.func.isRequired,
     showScreenNameListModalFunction: PropTypes.func.isRequired,
