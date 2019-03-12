@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {View as ToolCard} from '../../../../Components/ToolCard';
 import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
-import {MODAL_ID, REGEX_TEXT} from '../../../../Config';
+import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
 import {View as TagList} from './Components/TagList';
-import {View as ModalTriggerButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
 import {connect} from 'react-redux';
+import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
 import ResourcePackManagementSelectAdvertisementModal
     from './Components/ResourePackManagementSelectAdvertisementModal/View';
+import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
 
 class AddResourcePackCard extends Component
 {
@@ -21,11 +22,22 @@ class AddResourcePackCard extends Component
         this.resourcePackNameInputRef = React.createRef();
     }
 
-    onResourcePackNameInputChange = e =>
+    onCreateResourcePackButtonClick = () =>
     {
-        this.setState({
-            resourcePackName: e.target.value,
-        });
+        const resourcePackName = this.resourcePackNameInputRef.current.value;
+        if (!REGEX.RESOURCE_PACK_NAME.test(resourcePackName))
+        {
+            WarningAlert.pop('请输入有效的资源包名');
+        }
+        else
+        {
+            this.setState({
+                resourcePackName,
+            }, () =>
+            {
+                ModalFunction.showModal(MODAL_ID.RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL);
+            });
+        }
     };
 
     render()
@@ -38,8 +50,7 @@ class AddResourcePackCard extends Component
                     <ToolTip placement={'top'} title={REGEX_TEXT.RESOURCE_PACK_NAME}>
                         <input type="text"
                                placeholder={'请在此输入新资源包名'}
-                               ref={this.resourcePackNameInputRef}
-                               onChange={this.onResourcePackNameInputChange} />
+                               ref={this.resourcePackNameInputRef} />
                     </ToolTip>
                 </label>
                 <span className={Style.tagListTitle}>选择标签</span>
@@ -49,8 +60,7 @@ class AddResourcePackCard extends Component
                     </div>
                 </ToolTip>
                 <div className={Style.submitButtonWrapper}>
-                    <ModalTriggerButton className={Style.submitButton}
-                                        modalId={MODAL_ID.RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL}>创建资源包</ModalTriggerButton>
+                    <button className={Style.submitButton} onClick={this.onCreateResourcePackButtonClick}>创建资源包</button>
                 </div>
             </ToolCard>,
             <ResourcePackManagementSelectAdvertisementModal resourcePackName={resourcePackName} />,
