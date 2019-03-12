@@ -1,6 +1,7 @@
 {
   "name": "yunzhan-react",
   "version": "0.1.0",
+  "proxy": "http://47.94.234.136/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.15",

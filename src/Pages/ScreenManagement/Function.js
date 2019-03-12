@@ -1,4 +1,5 @@
 import {
+    getResourcePackListAction,
     getScreenListAction,
     getScreenManagementBasicInfoAction,
     getScreenManagementLogListAction,
@@ -9,7 +10,6 @@ import {
     unselectScreenAction,
 } from './Actions/Actions';
 import Store from '../../Store';
-import {getResourcePackListAction} from '../ResourcePackManagement/Actions/Actions';
 
 export function getScreenManagementBasicInfo()
 {

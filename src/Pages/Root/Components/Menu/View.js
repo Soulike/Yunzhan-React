@@ -43,7 +43,7 @@ class Menu extends Component
                             if (i === currentActiveItemId)
                             {
                                 return (
-                                    <span onClick={this.onItemClick(i)} key={item.href}>
+                                    <span onClick={this.onItemClick(i)} key={i}>
                                     <Item {...item} isActive={true} />
                                 </span>
                                 );
@@ -51,7 +51,7 @@ class Menu extends Component
                             else
                             {
                                 return (
-                                    <span onClick={this.onItemClick(i)} key={item.href}>
+                                    <span onClick={this.onItemClick(i)} key={i}>
                                     <Item {...item} isActive={false} />
                                 </span>
                                 );
@@ -60,7 +60,9 @@ class Menu extends Component
                         else
                         {
                             return (
-                                <Item {...item} key={i} isActive={false} />
+                                <span key={i}>
+                                    <Item {...item} isActive={false} />
+                                </span>
                             );
                         }
                     })

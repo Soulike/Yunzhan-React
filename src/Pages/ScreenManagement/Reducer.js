@@ -76,7 +76,7 @@ export default (state = {}, action) =>
         {
             return {
                 ...state,
-                selectedResourcePackId: null,
+                selectedResourcePackId: 0,
             };
         }
         case ActionTypes.GET_RESOURCE_PACK_LIST_FAILED:

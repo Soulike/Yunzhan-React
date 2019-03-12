@@ -43,7 +43,7 @@ class ResourcePackTagNameListModal extends Component
 
 ResourcePackTagNameListModal.propTypes = {
     resourcePackName: PropTypes.string.isRequired,
-    resourcePackTagList: PropTypes.object.isRequired,
+    resourcePackTagList: PropTypes.array.isRequired,
 };
 
 export default ResourcePackTagNameListModal;

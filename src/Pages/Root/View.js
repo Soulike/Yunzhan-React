@@ -10,6 +10,7 @@ import Title from './Components/Title/View';
 import {ITEM_ID_TO_ICON, ITEM_ID_TO_NAME, ITEM_URL_TO_ID} from '../../Config/MENU_ITEM';
 import {Function as SpinnerFunction} from '../../Components/Bootstrap/GrowingSpinner';
 import {View as LogoutModal} from './Components/LogoutModal';
+import {MODAL_ID} from '../../Config';
 
 class Root extends Component
 {
@@ -33,7 +34,7 @@ class Root extends Component
     {
         const {currentActiveItemId} = this.props;
         return [
-            <div className={Style.Root}>
+            <div className={Style.Root} key={Style.Root}>
                 <div className={Style.titleWrapper}>
                     <Title icon={ITEM_ID_TO_ICON[currentActiveItemId]} text={ITEM_ID_TO_NAME[currentActiveItemId]} />
                 </div>
@@ -52,7 +53,7 @@ class Root extends Component
                 </div>
             </div>,
 
-            <LogoutModal />,
+            <LogoutModal key={MODAL_ID.LOGOUT_MODAL} />,
         ];
     }
 }

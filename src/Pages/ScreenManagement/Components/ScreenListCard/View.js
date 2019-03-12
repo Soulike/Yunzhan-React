@@ -95,7 +95,6 @@ class ScreenListCard extends Component
     render()
     {
         const {screenList, selectedScreenIdSet, selectedResourcePackId} = this.props;
-
         const allScreenIdSet = new Set();
         screenList.forEach(screen =>
         {
@@ -103,7 +102,7 @@ class ScreenListCard extends Component
         });
 
         return [
-            <ListCard className={Style.ScreenListCard} title={'屏幕列表'}>
+            <ListCard className={Style.ScreenListCard} title={'屏幕列表'} key={Style.ScreenListCard}>
                 <div className={Style.headerWrapper}><Header allScreenIdSet={allScreenIdSet} /></div>
                 <div className={Style.screenListWrapper}>
                     {screenList.map(screen =>
@@ -152,13 +151,17 @@ class ScreenListCard extends Component
                     </ToolTip>
                 </div>
             </ListCard>,
-            <AddScreenModal />,
-            <DeleteScreenModal selectedScreenIdSet={selectedScreenIdSet} />,
-            <StartScreenRunningModal selectedScreenIdSet={selectedScreenIdSet} />,
-            <StopScreenRunningModal selectedScreenIdSet={selectedScreenIdSet} />,
+            <AddScreenModal key={MODAL_ID.ADD_SCREEN_MODAL} />,
+            <DeleteScreenModal selectedScreenIdSet={selectedScreenIdSet} key={MODAL_ID.DELETE_SCREEN_MODAL} />,
+            <StartScreenRunningModal selectedScreenIdSet={selectedScreenIdSet}
+                                     key={MODAL_ID.START_SCREEN_RUNNING_MODAL} />,
+            <StopScreenRunningModal selectedScreenIdSet={selectedScreenIdSet}
+                                    key={MODAL_ID.STOP_SCREEN_RUNNING_MODAL} />,
             <BatchBindResourcePackModal selectedResourcePackId={selectedResourcePackId}
-                                        selectedScreenIdSet={selectedScreenIdSet} />,
-            <BatchUnbindResourcePackModal selectedScreenIdSet={selectedScreenIdSet} />,
+                                        selectedScreenIdSet={selectedScreenIdSet}
+                                        key={MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL} />,
+            <BatchUnbindResourcePackModal selectedScreenIdSet={selectedScreenIdSet}
+                                          key={MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL} />,
         ];
     }
 }
