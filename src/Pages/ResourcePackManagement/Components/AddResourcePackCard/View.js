@@ -2,15 +2,12 @@ import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {View as ToolCard} from '../../../../Components/ToolCard';
 import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
-import {MODAL_ID, REGEX, REGEX_TEXT} from '../../../../Config';
+import {MODAL_ID, REGEX_TEXT} from '../../../../Config';
 import {View as TagList} from './Components/TagList';
 import {View as ModalTriggerButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
-import {Function as ModalFunction, LargeModal} from '../../../../Components/Bootstrap/Modal';
-import {View as AdvertisementList} from './Components/AdvertisementList';
 import {connect} from 'react-redux';
-import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
-import RequestProcessor from '../../../../RequestProcessor';
-import {getResourcePackList, unselectAllAdvertisements, unselectAllTags} from '../../Function';
+import ResourcePackManagementSelectAdvertisementModal
+    from './Components/ResourePackManagementSelectAdvertisementModal/View';
 
 class AddResourcePackCard extends Component
 {
@@ -31,37 +28,9 @@ class AddResourcePackCard extends Component
         });
     };
 
-    onSelectAdvertisementModalConfirmButtonClick = async () =>
-    {
-        const {resourcePackName} = this.state;
-        const {selectedTagIdSet, selectedAdvertisementIdSet} = this.props;
-        if (!REGEX.RESOURCE_PACK_NAME.test(resourcePackName))
-        {
-            WarningAlert.pop('请输入有效的资源包名');
-        }
-        else
-        {
-            const RequestIsSuccessful = await RequestProcessor.sendPostSubmitNewResourcePackRequestAsync(
-                resourcePackName, Array.from(selectedAdvertisementIdSet), Array.from(selectedTagIdSet));
-            if (RequestIsSuccessful)
-            {
-                this.setState({
-                    resourcePackName: '',
-                }, () =>
-                {
-                    this.resourcePackNameInputRef.current.value = '';
-                });
-                ModalFunction.hideModal(MODAL_ID.RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL);
-                unselectAllTags();
-                unselectAllAdvertisements();
-                getResourcePackList();
-            }
-        }
-    };
-
-
     render()
     {
+        const {resourcePackName} = this.state;
         return [
             <ToolCard className={Style.AddResourcePackCard} title={'添加资源包'}>
                 <label className={Style.inputWrapper}>
@@ -84,14 +53,7 @@ class AddResourcePackCard extends Component
                                         modalId={MODAL_ID.RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL}>创建资源包</ModalTriggerButton>
                 </div>
             </ToolCard>,
-            <LargeModal id={MODAL_ID.RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL}
-                        title={'选择广告'}
-                        subTitle={'点击选择资源包中要包含的广告'}
-                        onConfirmButtonClick={this.onSelectAdvertisementModalConfirmButtonClick}>
-                <div className={Style.advertisementListWrapper}>
-                    <AdvertisementList />
-                </div>
-            </LargeModal>,
+            <ResourcePackManagementSelectAdvertisementModal resourcePackName={resourcePackName} />,
         ];
     }
 }

@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import {connect} from 'react-redux';
-import RequestProcessor from '../../../../../../RequestProcessor';
-import NAMESPACE from '../../../../../../Namespace';
+import RequestProcessor from '../../../../../../../../RequestProcessor';
+import NAMESPACE from '../../../../../../../../Namespace';
 import {
     Object as AdvertisementObject,
     View as Advertisement,
-} from '../../../../../AdvertisementManagement/Components/AdvertisementListCard/Components/Advertisement';
-import {resourcePackSelectAdvertisement, resourcePackUnselectAdvertisement} from '../../../../Function';
-import Function from '../../../../../../Function';
+} from '../../../../../../../AdvertisementManagement/Components/AdvertisementListCard/Components/Advertisement';
+import {resourcePackSelectAdvertisement, resourcePackUnselectAdvertisement} from '../../../../../../Function';
+import Function from '../../../../../../../../Function';
 
 class AdvertisementList extends Component
 {
