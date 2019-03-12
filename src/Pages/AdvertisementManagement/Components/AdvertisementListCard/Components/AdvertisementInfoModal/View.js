@@ -97,14 +97,14 @@ class AdvertisementInfoModal extends Component
                 </label>
                 {
                     advertisementType === ADVERTISEMENT_TYPE.IMAGE ? [
-                        <label className={Style.inputWrapper}>
+                        <label className={Style.inputWrapper} key={`${Style.inputWrapper}_1`}>
                             <span className={Style.label}>二维码链接</span>
                             <input type="text"
                                    className={Style.QRCodeUrlInput}
                                    ref={this.QRCodeUrlInputRef}
                                    placeholder={'http://example.com/'} />
                         </label>,
-                        <label className={Style.inputWrapper}>
+                        <label className={Style.inputWrapper} key={`${Style.inputWrapper}_2`}>
                             <span className={Style.label}>二维码位置</span>
                             <select className={`custom-select ${Style.QRCodePositionSelect}`}
                                     ref={this.QRCodePositionSelectRef}>

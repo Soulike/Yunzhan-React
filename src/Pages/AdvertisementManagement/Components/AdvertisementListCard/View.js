@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import {Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
+import {ADVERTISEMENT_TYPE, Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
 import {MODAL_ID} from '../../../../Config';
 import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
 import {QRCodePositionId} from '../UploaderCard/Components/ImageUploader/QRCodePosition';
@@ -18,7 +18,7 @@ class AdvertisementListCard extends Component
         super(props);
         this.state = {
             currentAdvertisementIdInModal: 0,
-            currentAdvertisementTypeInModal: null,
+            currentAdvertisementTypeInModal: ADVERTISEMENT_TYPE.IMAGE,
             currentAdvertisementNameInModal: '',
             currentAdvertisementQRCodeUrlInModal: '',
             currentAdvertisementQRCodePositionInModal: QRCodePositionId.TOP_LEFT,
