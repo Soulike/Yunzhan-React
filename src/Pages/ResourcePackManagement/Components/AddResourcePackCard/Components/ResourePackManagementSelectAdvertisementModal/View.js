@@ -5,7 +5,12 @@ import {View as AdvertisementList} from '../AdvertisementList';
 import {Function as ModalFunction, LargeModal} from '../../../../../../Components/Bootstrap/Modal';
 import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
-import {getResourcePackList, unselectAllAdvertisements, unselectAllTags} from '../../../../Function';
+import {
+    getResourcePackList,
+    getResourcePackManagementBasicInfo,
+    unselectAllAdvertisements,
+    unselectAllTags,
+} from '../../../../Function';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -28,6 +33,7 @@ class ResourcePackManagementSelectAdvertisementModal extends Component
                 unselectAllTags();
                 unselectAllAdvertisements();
                 getResourcePackList();
+                getResourcePackManagementBasicInfo();
             }
         }
     };

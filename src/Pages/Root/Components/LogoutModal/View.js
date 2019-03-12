@@ -14,10 +14,12 @@ class LogoutModal extends Component
         const requestIsSuccessful = await RequestProcessor.sendPostLogoutRequestAsync();
         if (requestIsSuccessful)
         {
-            ModalFunction.hideModal(MODAL_ID.LOGOUT_MODAL);
-            SuccessAlert.pop('退出成功');
-            LoginFunction.setOffline();
-            browserHistory.push('/login');
+            ModalFunction.hideModal(MODAL_ID.LOGOUT_MODAL, () =>
+            {
+                SuccessAlert.pop('退出成功');
+                LoginFunction.setOffline();
+                browserHistory.push('/login');
+            });
         }
     };
 
