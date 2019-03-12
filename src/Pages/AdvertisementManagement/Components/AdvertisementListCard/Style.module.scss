@@ -29,34 +29,3 @@
         }
     }
 }
-
-.inputWrapper {
-
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-
-    &:first-child {
-        margin-top: 0;
-    }
-
-    .label {
-        display: inline-flex;
-        align-items: center;
-        width: 6rem;
-    }
-
-    input {
-        @extend .form-control;
-    }
-
-    input, select {
-        display: inline-block;
-        width: 20rem;
-    }
-
-    .advertisementNameInput, .advertisementTypeInput, .QRCodeUrlInput, .QRCodePositionSelect {
-        /*empty here*/
-    }
-}
