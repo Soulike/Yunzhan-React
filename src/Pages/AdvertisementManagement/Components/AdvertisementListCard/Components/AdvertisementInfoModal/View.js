@@ -9,6 +9,7 @@ import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';
 import {QRCodePositionId} from '../../../UploaderCard/Components/ImageUploader/QRCodePosition';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import {getAdvertisementList} from '../../../../Function';
+import {View as DeleteAdvertisementModal} from './Components/DeleteAdvertisementModal';
 
 class AdvertisementInfoModal extends Component
 {
@@ -74,10 +75,16 @@ class AdvertisementInfoModal extends Component
         }
     };
 
+    onDeleteAdvertisementModalTriggerButtonClick = async () =>
+    {
+        await ModalFunction.hideModalAsync(MODAL_ID.ADVERTISEMENT_INFO_MODAL);
+        ModalFunction.showModal(MODAL_ID.DELETE_ADVERTISEMENT_MODAL);
+    };
+
     render()
     {
-        const {advertisementType} = this.props;
-        return (
+        const {advertisementType, advertisementId, advertisementName} = this.props;
+        return [
             <Modal id={MODAL_ID.ADVERTISEMENT_INFO_MODAL}
                    title={'广告信息'}
                    className={Style.AdvertisementInfoModal}
@@ -116,8 +123,15 @@ class AdvertisementInfoModal extends Component
                         </label>,
                     ] : null
                 }
-            </Modal>
-        );
+                <div className={Style.deleteAdvertisementModalTriggerButtonWrapper}>
+                    <button className={Style.deleteAdvertisementModalTriggerButton}
+                            onClick={this.onDeleteAdvertisementModalTriggerButtonClick}>
+                        删除该广告
+                    </button>
+                </div>
+            </Modal>,
+            <DeleteAdvertisementModal advertisementId={advertisementId} advertisementName={advertisementName} />,
+        ];
     }
 }
 

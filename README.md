@@ -468,6 +468,20 @@ export const QRCodePositionIdToName = {
     [NAMESPACE.ADVERTISEMENT_MANAGEMENT.IMAGE.QR_CODE_POSITION]: String, // 二维码位置
 }
 ```
+- 其他说明：无
+
+### `/deleteAdvertisement`
+
+- 功能说明：根据广告 ID 删除广告
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: Number, // 广告的 ID
+}
+```
+- 响应体：无
+- 其他说明：如果广告绑定了资源包，则不允许删除
 
 #### `/updateAdvertisementInfo`
 

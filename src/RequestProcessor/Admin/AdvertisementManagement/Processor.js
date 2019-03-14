@@ -3,6 +3,7 @@ import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Bootstrap/Alerts';
 import {
+    DELETE_ADVERTISEMENT,
     GET_ADVERTISEMENT_INFO,
     GET_ADVERTISEMENT_LIST,
     GET_BASIC_INFO,
@@ -20,6 +21,7 @@ export default {
     sendGetAdvertisementListRequestAsync,
     sendPostUpdateAdvertisementInfoRequestAsync,
     sendGetAdvertisementInfoRequestAsync,
+    sendPostDeleteAdvertisementRequestAsync,
 };
 
 async function sendGetAdvertisementBasicInfoRequestAsync()
@@ -298,6 +300,67 @@ async function sendPostUpdateAdvertisementInfoRequestAsync(currentIdOfAdvertisem
     catch (e)
     {
         WarningAlert.pop('修改信息失败');
+        console.log(e);
+        return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
+}
+
+async function sendPostDeleteAdvertisementRequestAsync(advertisementId)
+{
+    try
+    {
+        SpinnerFunction.showSpinner();
+        const {code} = await Function.postAsync(DELETE_ADVERTISEMENT, {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: advertisementId,
+        });
+
+        switch (code)
+        {
+            case STATUS_CODE.SUCCESS:
+            {
+                SuccessAlert.pop('删除成功');
+                return true;
+            }
+            case STATUS_CODE.CONTENT_NOT_FOUND:
+            {
+                WarningAlert.pop('被删除广告不存在');
+                return null;
+            }
+            case STATUS_CODE.INVALID_SESSION:
+            {
+                WarningAlert.pop('请先登录');
+                redirectToLogin();
+                return null;
+            }
+            case STATUS_CODE.REJECTION:
+            {
+                WarningAlert.pop('无权删除该广告');
+                return null;
+            }
+            case STATUS_CODE.WRONG_PARAMETER:
+            {
+                WarningAlert.pop('参数错误');
+                return null;
+            }
+            case STATUS_CODE.INTERNAL_SERVER_ERROR:
+            {
+                DangerAlert.pop('服务器错误');
+                return null;
+            }
+            default:
+            {
+                WarningAlert.pop('删除广告失败');
+                return null;
+            }
+        }
+    }
+    catch (e)
+    {
+        WarningAlert.pop('删除广告失败');
         console.log(e);
         return null;
     }
