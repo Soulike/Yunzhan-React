@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as solidIcon from '@fortawesome/free-solid-svg-icons';
-import {browserHistory, Link} from 'react-router';
+import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import Style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
@@ -33,6 +33,7 @@ class Root extends Component
     render()
     {
         const {currentActiveItemId} = this.props;
+        return [
             <div className={Style.Root} key={Style.Root}>
                 <div className={Style.titleWrapper}>
                     <Title icon={ITEM_ID_TO_ICON[currentActiveItemId]} text={ITEM_ID_TO_NAME[currentActiveItemId]} />
