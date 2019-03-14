@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import RequestProcessor from '../../../../RequestProcessor';
 import NAMESPACE from '../../../../Namespace';
-import {View as Tag} from './Components/Tag';
+import {TAG_TYPE_CLASSNAME, View as Tag} from '../../../../Components/Tag';
 import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
 import {MODAL_ID} from '../../../../Config';
 import Function from '../../../../Function';
@@ -68,7 +68,7 @@ class TagListCard extends Component
                             const {[NAMESPACE.TAG_MANAGEMENT.TAG.ID]: id, [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName} = tag;
                             return (
                                 <div className={Style.tagWrapper} key={id} onClick={this.onTagClick(id)}>
-                                    <Tag name={tagName} />
+                                    <Tag className={TAG_TYPE_CLASSNAME.PRIMARY}>{tagName}</Tag>
                                 </div>);
                         })
                     }

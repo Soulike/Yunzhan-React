@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Style from './Style.module.scss';
 import {MODAL_ID} from '../../../../../../Config';
 import NAMESPACE from '../../../../../../Namespace';
-import {View as Tag} from './Components/Tag';
+import {TAG_TYPE_CLASSNAME, View as Tag} from '../../../../../../Components/Tag';
 import Function from '../../../../../../Function';
 import {Modal} from '../../../../../../Components/Bootstrap/Modal';
 
@@ -28,7 +28,7 @@ class ResourcePackTagNameListModal extends Component
                                 const {[NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName, [NAMESPACE.TAG_MANAGEMENT.TAG.ID]: tagId} = tag;
                                 return (
                                     <div className={Style.tagWrapper} key={tagId}>
-                                        <Tag name={tagName} />
+                                        <Tag className={`${Style.tag} ${TAG_TYPE_CLASSNAME.PRIMARY}`}>{tagName}</Tag>
                                     </div>);
                             })
                     }

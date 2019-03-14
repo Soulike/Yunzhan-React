@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import Style from './Style.module.scss';
 import NAMESPACE from '../../../../../../Namespace';
-import {View as Tag} from './Components/Tag';
+import {View as TagContainer} from './Components/TagContainer';
 import {selectTag, unselectTag} from '../../../../Function';
 import {connect} from 'react-redux';
 import Function from '../../../../../../Function';
@@ -54,10 +54,10 @@ class TagList extends Component
                     // TODO: 排序方式
                     tagList.map(tag =>
                     {
-                        const {[NAMESPACE.TAG_MANAGEMENT.TAG.ID]: id, [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName} = tag;
+                        const {[NAMESPACE.TAG_MANAGEMENT.TAG.ID]: tagId, [NAMESPACE.TAG_MANAGEMENT.TAG.NAME]: tagName} = tag;
                         return (
-                            <div className={Style.tagWrapper} key={id} onClick={this.onTagWrapperClick(id)}>
-                                <Tag name={tagName} id={id} />
+                            <div className={Style.tagWrapper} key={tagId} onClick={this.onTagWrapperClick(tagId)}>
+                                <TagContainer tagId={tagId}>{tagName}</TagContainer>
                             </div>);
                     })
                 }

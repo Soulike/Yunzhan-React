@@ -6,6 +6,13 @@
         align-items: flex-start;
         align-content: flex-start;
 
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.5rem;
+            width: 6*0.75rem;
+            box-sizing: content-box;
+        }
+
         .tagWrapper {
             margin: 0.5rem;
 
