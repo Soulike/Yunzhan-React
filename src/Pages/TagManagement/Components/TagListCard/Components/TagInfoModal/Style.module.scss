@@ -41,7 +41,7 @@
 
             .bindingResourcePackList {
                 @extend .itemInfoContent;
-                height: 20rem;
+                height: 16.5rem;
                 overflow: auto;
                 border: 1px solid #DDD;
                 border-radius: 0.25rem;
@@ -51,6 +51,17 @@
                 .resourcePackName {
                     @extend .list-group-item;
                 }
+            }
+        }
+
+        .deleteTagButtonWrapper {
+            width: 26rem;
+            margin: 1rem auto 0;
+            display: flex;
+            justify-content: flex-end;
+
+            .deleteTagButton {
+                @extend .btn, .btn-danger;
             }
         }
     }

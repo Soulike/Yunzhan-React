@@ -9,3 +9,5 @@ export const GET_TAG_LIST = tagManagementPrefix('/getTagList');
 export const GET_TAG_INFO = tagManagementPrefix('/getTagInfo');
 
 export const CHANGE_TAG_INFO = tagManagementPrefix('/changeTagInfo');
+
+export const DELETE_TAGS = tagManagementPrefix('/deleteTags');
