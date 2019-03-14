@@ -13,6 +13,7 @@ export default {
     ADVERTISEMENT_INFO_MODAL: 'advertisementInfoModal',
     DELETE_ADVERTISEMENT_MODAL: 'deleteAdvertisementModal',
     TAG_INFO_MODAL: 'tagInfoModal',
+    DELETE_TAG_MODAL: 'deleteTagModal',
     RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL: 'resourcePackManagementSelectAdvertisementModal',
     RESOURCE_PACK_TAG_NAME_LIST_MODAL: 'resourcePackTagNameListModal',
     RESOURCE_PACK_ADVERTISEMENT_LIST_MODAL: 'resourcePackAdvertisementListModal',

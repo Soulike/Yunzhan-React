@@ -12,5 +12,6 @@ module.exports = {
     },
     LIST: {
         TAG: 'tagList',
+        TAG_ID: 'tagIdList',
     },
 };

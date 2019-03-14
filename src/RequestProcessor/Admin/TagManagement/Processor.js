@@ -2,7 +2,7 @@ import {STATUS_CODE} from '../../../Config';
 import {redirectToLogin} from '../../../Pages/Login/Function';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Bootstrap/Alerts';
 import Function from '../../../Function';
-import {CHANGE_TAG_INFO, GET_BASIC_INFO, GET_TAG_INFO, GET_TAG_LIST, SUBMIT_NEW_TAG} from './Route';
+import {CHANGE_TAG_INFO, DELETE_TAGS, GET_BASIC_INFO, GET_TAG_INFO, GET_TAG_LIST, SUBMIT_NEW_TAG} from './Route';
 import NAMESPACE from '../../../Namespace';
 import {Function as SpinnerFunction} from '../../../Components/Bootstrap/GrowingSpinner';
 
@@ -12,6 +12,7 @@ export default {
     sendGetTagListRequestAsync,
     sendGetTagInfoRequestAsync,
     sendPostChangeTagInfoRequestAsync,
+    sendPostDeleteTagsRequestAsync,
 };
 
 async function sendGetTagBasicInfoRequestAsync()
@@ -213,6 +214,67 @@ async function sendPostChangeTagInfoRequestAsync(tagId, tagName)
     catch (e)
     {
         WarningAlert.pop('修改标签信息失败');
+        console.log(e);
+        return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
+}
+
+async function sendPostDeleteTagsRequestAsync(tagIdList)
+{
+    try
+    {
+        SpinnerFunction.showSpinner();
+        const {code} = await Function.postAsync(DELETE_TAGS, {
+            [NAMESPACE.TAG_MANAGEMENT.LIST.TAG_ID]: [...tagIdList],
+        });
+
+        switch (code)
+        {
+            case STATUS_CODE.SUCCESS:
+            {
+                SuccessAlert.pop('删除成功');
+                return true;
+            }
+            case STATUS_CODE.CONTENT_NOT_FOUND:
+            {
+                WarningAlert.pop('被删除标签不存在');
+                return null;
+            }
+            case STATUS_CODE.INVALID_SESSION:
+            {
+                WarningAlert.pop('请先登录');
+                redirectToLogin();
+                return null;
+            }
+            case STATUS_CODE.REJECTION:
+            {
+                WarningAlert.pop('无权删除某些标签');
+                return null;
+            }
+            case STATUS_CODE.WRONG_PARAMETER:
+            {
+                WarningAlert.pop('参数错误');
+                return null;
+            }
+            case STATUS_CODE.INTERNAL_SERVER_ERROR:
+            {
+                DangerAlert.pop('服务器错误');
+                return null;
+            }
+            default:
+            {
+                WarningAlert.pop('删除标签失败');
+                return null;
+            }
+        }
+    }
+    catch (e)
+    {
+        WarningAlert.pop('删除标签失败');
         console.log(e);
         return null;
     }

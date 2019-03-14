@@ -8,6 +8,7 @@ import {Function as ModalFunction, Modal} from '../../../../../../Components/Boo
 import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import {getTagList} from '../../../../Function';
+import {View as DeleteTagModal} from './Components/DeleteTagModal';
 
 class TagInfoModal extends Component
 {
@@ -76,10 +77,24 @@ class TagInfoModal extends Component
         }
     };
 
+    onDeleteTagButtonClick = async () =>
+    {
+        const {tagBindingResourcePackNameList} = this.props;
+        if (tagBindingResourcePackNameList.length === 0)
+        {
+            await ModalFunction.hideModalAsync(MODAL_ID.TAG_INFO_MODAL);
+            ModalFunction.showModal(MODAL_ID.DELETE_TAG_MODAL);
+        }
+        else
+        {
+            WarningAlert.pop('不能删除绑定资源包的标签');
+        }
+    };
+
     render()
     {
-        const {tagCreationTime, tagBindingResourcePackNameList} = this.props;
-        return (
+        const {tagId, tagName, tagCreationTime, tagBindingResourcePackNameList} = this.props;
+        return [
             <Modal id={MODAL_ID.TAG_INFO_MODAL}
                    title={'标签信息'}
                    className={Style.TagInfoModal}
@@ -111,9 +126,13 @@ class TagInfoModal extends Component
                             }
                         </ul>
                     </div>
+                    <div className={Style.deleteTagButtonWrapper}>
+                        <button className={Style.deleteTagButton} onClick={this.onDeleteTagButtonClick}>删除该标签</button>
+                    </div>
                 </div>
-            </Modal>
-        );
+            </Modal>,
+            <DeleteTagModal tagId={tagId} tagName={tagName} />,
+        ];
     }
 }
 

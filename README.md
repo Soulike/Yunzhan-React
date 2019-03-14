@@ -449,7 +449,7 @@ export const QRCodePositionIdToName = {
 }
 ```
 
-### `/getAdvertisementInfo`
+#### `/getAdvertisementInfo`
 
 - 功能说明：获取广告信息
 - 请求方法：GET
@@ -470,7 +470,7 @@ export const QRCodePositionIdToName = {
 ```
 - 其他说明：无
 
-### `/deleteAdvertisement`
+#### `/deleteAdvertisement`
 
 - 功能说明：根据广告 ID 删除广告
 - 请求方法：POST
@@ -581,6 +581,19 @@ export const QRCodePositionIdToName = {
 ```
 - 响应体：无
 - 其他说明：未来可能会添加新的修改项
+
+#### `/deleteTags`
+
+- 功能说明：根据标签 ID 删除标签
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.TAG_MANAGEMENT.LIST.TAG_ID]: Array, // 标签 ID 数组
+}
+```
+- 响应体：无
+- 其他说明：如果有标签绑定了资源包，则不允许删除
 
 ### 资源包管理（前缀为 `/resourcePackManagement`）
 
