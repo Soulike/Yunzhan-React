@@ -28,7 +28,7 @@ class ModalBase extends Component
                  role="dialog"
                  aria-hidden="true">
                 <div className={`modal-dialog ${modalType}`} role="document">
-                    <div className='modal-content'>
+                    <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">{title}
                                 <small className={Style.subTitle}>{subTitle}</small>
