@@ -72,6 +72,7 @@ class VideoUploader extends Component
             }
             else
             {
+                ModalFunction.hideModal(MODAL_ID.UPLOAD_VIDEO_INFO_MODAL);
                 getAdvertisementManagementBasicInfo();
                 getAdvertisementList();
             }

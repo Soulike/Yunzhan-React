@@ -6,14 +6,11 @@ import {connect} from 'react-redux';
 import Style from './Root.module.scss';
 import {View as Menu} from './Components/Menu';
 import {setActiveItemId} from './Components/Menu/Functions';
-import RequestProcessor from '../../RequestProcessor';
-import {Function as ModalFunction, SmallModal} from '../../Components/Bootstrap/Modal';
-import {MODAL_ID} from '../../Config';
 import Title from './Components/Title/View';
 import {ITEM_ID_TO_ICON, ITEM_ID_TO_NAME, ITEM_URL_TO_ID} from '../../Config/MENU_ITEM';
 import {Function as SpinnerFunction} from '../../Components/Bootstrap/GrowingSpinner';
-import {SuccessAlert} from '../../Components/Bootstrap/Alerts';
-import {setOffline} from '../Login/Function';
+import {View as LogoutModal} from './Components/LogoutModal';
+import {MODAL_ID} from '../../Config';
 
 class Root extends Component
 {
@@ -36,8 +33,7 @@ class Root extends Component
     render()
     {
         const {currentActiveItemId} = this.props;
-        return (
-            <div className={Style.Root}>
+            <div className={Style.Root} key={Style.Root}>
                 <div className={Style.titleWrapper}>
                     <Title icon={ITEM_ID_TO_ICON[currentActiveItemId]} text={ITEM_ID_TO_NAME[currentActiveItemId]} />
                 </div>
@@ -54,25 +50,9 @@ class Root extends Component
                 <div className={Style.pageWrapper}>
                     {this.props.children}
                 </div>
-
-                <SmallModal id={MODAL_ID.LOGOUT_MODAL}
-                            title={'确认退出'}
-                            onConfirmButtonClick={async () =>
-                            {
-                                if (await RequestProcessor.sendPostLogoutRequestAsync())
-                                {
-                                    ModalFunction.hideModal(MODAL_ID.LOGOUT_MODAL, () =>
-                                    {
-                                        SuccessAlert.pop('退出成功');
-                                        setOffline();
-                                        browserHistory.push('/login');
-                                    });
-                                }
-                            }}>
-                    您真的要退出云展吗？
-                </SmallModal>
-            </div>
-        );
+            </div>,
+            <LogoutModal key={MODAL_ID.LOGOUT_MODAL} />,
+        ];
     }
 }
 

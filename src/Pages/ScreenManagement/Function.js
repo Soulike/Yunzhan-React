@@ -1,5 +1,8 @@
-import * as Actions from './Actions/Actions';
 import {
+    getResourcePackListAction,
+    getScreenListAction,
+    getScreenManagementBasicInfoAction,
+    getScreenManagementLogListAction,
     selectResourcePackAction,
     selectScreensAction,
     unselectAllResourcePacksAction,
@@ -10,22 +13,24 @@ import Store from '../../Store';
 
 export function getScreenManagementBasicInfo()
 {
-    Store.dispatch(Actions.getScreenManagementBasicInfoAction());
+    Store.dispatch(getScreenManagementBasicInfoAction());
 }
 
 export function getScreenManagementLogList()
 {
-    Store.dispatch(Actions.getScreenManagementLogListAction());
+    Store.dispatch(getScreenManagementLogListAction());
 }
 
 export function getScreenList()
 {
-    Store.dispatch(Actions.getScreenListAction());
+    Store.dispatch(getScreenListAction());
+    Store.dispatch(unselectAllScreensAction());
 }
 
 export function getResourcePackList()
 {
-    Store.dispatch(Actions.getResourcePackListAction());
+    Store.dispatch(getResourcePackListAction());
+    Store.dispatch(unselectAllResourcePacksAction());
 }
 
 export function selectScreens(screenIdArray)

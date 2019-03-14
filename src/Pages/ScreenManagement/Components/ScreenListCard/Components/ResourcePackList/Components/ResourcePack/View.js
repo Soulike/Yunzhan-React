@@ -60,7 +60,7 @@ class ResourcePack extends Component
                 <Radio id={`a${randomString}${id}`} className={Style.radioInput} onClick={this.onRadioInputClick} />
                 <div className={Style.name}>{name}</div>
                 <div className={Style.advertiseNumber}>{advertisementNumber}</div>
-                <div className={Style.description}>{description}</div>
+                <div className={Style.description}>{description | ''}</div>
             </div>
         );
     }
@@ -70,7 +70,7 @@ ResourcePack.propTypes = {
     [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ID]: PropTypes.number.isRequired,
     [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.NAME]: PropTypes.string.isRequired,
     [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.ADVERTISEMENT_AMOUNT]: PropTypes.number.isRequired,
-    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: PropTypes.string.isRequired,
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.RESOURCE_PACK.DESCRIPTION]: PropTypes.string,
 };
 
 const mapStateToProps = state =>

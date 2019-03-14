@@ -22,7 +22,7 @@ const initValues = {
         screenList: [],
         resourcePackList: [],
         selectedScreenIdSet: new Set(),
-        selectedResourcePackId: null,
+        selectedResourcePackId: 0,
     },
     AdvertisementManagement: {
         basicInfo: {},

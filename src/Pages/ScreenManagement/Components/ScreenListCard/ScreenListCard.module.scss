@@ -52,16 +52,3 @@
         }
     }
 }
-
-.addScreenModalContent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 7rem;
-
-    .uuidInput {
-        @extend .form-control;
-        text-align: center;
-        font-size: 1.25rem;
-    }
-}
