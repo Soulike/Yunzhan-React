@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Style from './Style.module.scss';
 import {MODAL_ID, REGEX} from '../../../../../../Config';
-import {ADVERTISEMENT_TYPE} from '../Advertisement';
+import {ADVERTISEMENT_TYPE} from '../../../../../../Components/Advertisement';
 import {QR_CODE_POSITION_ID, QR_CODE_POSITION_ID_TO_NAME} from '../../../UploaderCard/Components/ImageUploader';
 import {Function as ModalFunction, Modal} from '../../../../../../Components/Bootstrap/Modal';
 import {WarningAlert} from '../../../../../../Components/Bootstrap/Alerts';

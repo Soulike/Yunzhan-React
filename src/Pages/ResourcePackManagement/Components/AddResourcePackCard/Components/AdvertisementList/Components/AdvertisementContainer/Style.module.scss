@@ -1,0 +1,10 @@
+@import "../../../../../../../../ModuleConfig/Bootstrap/Bootstrap";
+
+.Advertisement {
+    &.selected {
+        color: #FFF;
+        background-color: #333;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 0.5rem #333;
+    }
+}

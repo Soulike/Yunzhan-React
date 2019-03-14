@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import NAMESPACE from '../../../../../../Namespace';
 import Style from './Style.module.scss';
-import {Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
 import {connect} from 'react-redux';
 import {selectAdvertisement, unselectAdvertisement} from '../../../../Function';
 import Function from '../../../../../../Function';
+import {View as AdvertisementContainer} from './Components/AdvertisementContainer';
 
 class AdvertisementList extends Component
 {
@@ -53,17 +53,20 @@ class AdvertisementList extends Component
                 {
                     advertisementList.map(advertisement =>
                     {
-                        const {[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: id} = advertisement;
+                        const {
+                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: advertisementId,
+                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: advertisementType,
+                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: advertisementPreviewUrl,
+                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: advertisementName,
+                        } = advertisement;
                         return (
                             <div className={Style.advertisementWrapper}
-                                 key={id}
-                                 onClick={this.onAdvertisementWrapperClick(id)}>
-                                <Advertisement advertisement={new AdvertisementObject.Advertisement(
-                                    advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID],
-                                    advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE],
-                                    advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL],
-                                    advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME],
-                                )} />
+                                 key={advertisementId}
+                                 onClick={this.onAdvertisementWrapperClick(advertisementId)}>
+                                <AdvertisementContainer advertisementId={advertisementId}
+                                                        advertisementType={advertisementType}
+                                                        advertisementPreviewUrl={advertisementPreviewUrl}
+                                                        advertisementName={advertisementName} />
                             </div>);
                     })
                 }

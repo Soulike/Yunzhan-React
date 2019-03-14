@@ -1,4 +1,4 @@
-@import "../../../../../../ModuleConfig/Bootstrap/Bootstrap";
+@import "../../ModuleConfig/Bootstrap/Bootstrap";
 
 .Advertisement {
     .advertisementContentWrapper {
@@ -37,7 +37,6 @@
 
             .advertisementName {
                 text-align: center;
-                line-height: 1em;
                 white-space: nowrap;
                 width: 10rem;
                 overflow: hidden;
@@ -57,5 +56,4 @@
             }
         }
     }
-
 }
