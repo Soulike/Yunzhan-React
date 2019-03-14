@@ -11,6 +11,7 @@ export default {
     UPLOAD_VIDEO_INFO_MODAL: 'uploadVideoModal',
     UPLOAD_IMAGE_INFO_MODAL: 'uploadImageModal',
     ADVERTISEMENT_INFO_MODAL: 'advertisementInfoModal',
+    DELETE_ADVERTISEMENT_MODAL: 'deleteAdvertisementModal',
     TAG_INFO_MODAL: 'tagInfoModal',
     RESOURCE_PACK_MANAGEMENT_SELECT_ADVERTISEMENT_MODAL: 'resourcePackManagementSelectAdvertisementModal',
     RESOURCE_PACK_TAG_NAME_LIST_MODAL: 'resourcePackTagNameListModal',

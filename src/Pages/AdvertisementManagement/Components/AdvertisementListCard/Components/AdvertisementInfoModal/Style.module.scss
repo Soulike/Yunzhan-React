@@ -31,4 +31,15 @@
             /*empty here*/
         }
     }
+
+    .deleteAdvertisementModalTriggerButtonWrapper {
+        display: flex;
+        justify-content: flex-end;
+        width: 26rem;
+        margin: 1rem auto 0;
+
+        .deleteAdvertisementModalTriggerButton {
+            @extend .btn, .btn-danger;
+        }
+    }
 }
