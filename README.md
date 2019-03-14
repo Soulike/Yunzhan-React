@@ -470,14 +470,14 @@ export const QRCodePositionIdToName = {
 ```
 - 其他说明：无
 
-#### `/deleteAdvertisement`
+#### `/deleteAdvertisements`
 
 - 功能说明：根据广告 ID 删除广告
 - 请求方法：POST
 - 请求体：
 ```js
 {
-    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: Number, // 广告的 ID
+    [NAMESPACE.ADVERTISEMENT_MANAGEMENT.LIST.ADVERTISEMENT_ID]: Array, // 广告 ID 数组
 }
 ```
 - 响应体：无

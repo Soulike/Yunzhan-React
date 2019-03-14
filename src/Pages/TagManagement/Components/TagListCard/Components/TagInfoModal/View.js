@@ -98,6 +98,7 @@ class TagInfoModal extends Component
             <Modal id={MODAL_ID.TAG_INFO_MODAL}
                    title={'标签信息'}
                    className={Style.TagInfoModal}
+                   key={MODAL_ID.TAG_INFO_MODAL}
                    onConfirmButtonClick={this.onTagInfoModalConfirmButtonClick}>
                 <div className={Style.modalContent}>
                     <label className={Style.item}>
@@ -131,7 +132,7 @@ class TagInfoModal extends Component
                     </div>
                 </div>
             </Modal>,
-            <DeleteTagModal tagId={tagId} tagName={tagName} />,
+            <DeleteTagModal tagId={tagId} tagName={tagName} key={MODAL_ID.DELETE_TAG_MODAL} />,
         ];
     }
 }

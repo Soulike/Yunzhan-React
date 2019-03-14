@@ -88,6 +88,7 @@ class AdvertisementInfoModal extends Component
             <Modal id={MODAL_ID.ADVERTISEMENT_INFO_MODAL}
                    title={'广告信息'}
                    className={Style.AdvertisementInfoModal}
+                   key={MODAL_ID.ADVERTISEMENT_INFO_MODAL}
                    onConfirmButtonClick={this.onAdvertisementInfoModalConfirmClick}>
                 <label className={Style.inputWrapper}>
                     <span className={Style.label}>广告类型</span>
@@ -130,7 +131,9 @@ class AdvertisementInfoModal extends Component
                     </button>
                 </div>
             </Modal>,
-            <DeleteAdvertisementModal advertisementId={advertisementId} advertisementName={advertisementName} />,
+            <DeleteAdvertisementModal advertisementId={advertisementId}
+                                      advertisementName={advertisementName}
+                                      key={MODAL_ID.DELETE_ADVERTISEMENT_MODAL} />,
         ];
     }
 }

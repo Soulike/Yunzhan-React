@@ -11,7 +11,7 @@ class DeleteAdvertisementModal extends Component
     onModalConfirmButtonClick = async () =>
     {
         const {advertisementId} = this.props;
-        const requestIsSuccessful = await RequestProcessor.sendPostDeleteAdvertisementRequestAsync(advertisementId);
+        const requestIsSuccessful = await RequestProcessor.sendPostDeleteAdvertisementsRequestAsync([advertisementId]);
         if (requestIsSuccessful)
         {
             ModalFunction.hideModal(MODAL_ID.DELETE_ADVERTISEMENT_MODAL);

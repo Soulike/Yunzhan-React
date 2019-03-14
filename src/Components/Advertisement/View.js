@@ -69,7 +69,7 @@ class Advertisement extends Component
 }
 
 Advertisement.propTypes = {
-    advertisementType: PropTypes.oneOf(Object.keys(ADVERTISEMENT_TYPE)).isRequired,
+    advertisementType: PropTypes.oneOf(Object.values(ADVERTISEMENT_TYPE)).isRequired,
     advertisementPreviewUrl: PropTypes.string.isRequired,
     advertisementName: PropTypes.string.isRequired,
     className: PropTypes.string,

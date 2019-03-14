@@ -12,4 +12,4 @@ export const GET_ADVERTISEMENT_INFO = advertisementPrefix('/getAdvertisementInfo
 
 export const UPDATE_ADVERTISEMENT_INFO = advertisementPrefix('/updateAdvertisementInfo');
 
-export const DELETE_ADVERTISEMENT = advertisementPrefix('/deleteAdvertisement');
+export const DELETE_ADVERTISEMENTS = advertisementPrefix('/deleteAdvertisements');

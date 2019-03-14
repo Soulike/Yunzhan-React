@@ -3,7 +3,7 @@ import {redirectToLogin} from '../../../Pages/Login/Function';
 import Function from '../../../Function';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Bootstrap/Alerts';
 import {
-    DELETE_ADVERTISEMENT,
+    DELETE_ADVERTISEMENTS,
     GET_ADVERTISEMENT_INFO,
     GET_ADVERTISEMENT_LIST,
     GET_BASIC_INFO,
@@ -21,7 +21,7 @@ export default {
     sendGetAdvertisementListRequestAsync,
     sendPostUpdateAdvertisementInfoRequestAsync,
     sendGetAdvertisementInfoRequestAsync,
-    sendPostDeleteAdvertisementRequestAsync,
+    sendPostDeleteAdvertisementsRequestAsync,
 };
 
 async function sendGetAdvertisementBasicInfoRequestAsync()
@@ -309,13 +309,13 @@ async function sendPostUpdateAdvertisementInfoRequestAsync(currentIdOfAdvertisem
     }
 }
 
-async function sendPostDeleteAdvertisementRequestAsync(advertisementId)
+async function sendPostDeleteAdvertisementsRequestAsync(advertisementIdList)
 {
     try
     {
         SpinnerFunction.showSpinner();
-        const {code} = await Function.postAsync(DELETE_ADVERTISEMENT, {
-            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: advertisementId,
+        const {code} = await Function.postAsync(DELETE_ADVERTISEMENTS, {
+            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.LIST.ADVERTISEMENT_ID]: [...advertisementIdList],
         });
 
         switch (code)
@@ -338,7 +338,7 @@ async function sendPostDeleteAdvertisementRequestAsync(advertisementId)
             }
             case STATUS_CODE.REJECTION:
             {
-                WarningAlert.pop('无权删除该广告');
+                WarningAlert.pop('无权删除某些广告');
                 return null;
             }
             case STATUS_CODE.WRONG_PARAMETER:

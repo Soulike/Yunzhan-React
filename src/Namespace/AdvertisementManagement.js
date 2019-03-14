@@ -22,5 +22,6 @@ module.exports = {
     },
     LIST: {
         ADVERTISEMENT: 'advertisementList',
+        ADVERTISEMENT_ID: 'advertisementIdList',
     },
 };
