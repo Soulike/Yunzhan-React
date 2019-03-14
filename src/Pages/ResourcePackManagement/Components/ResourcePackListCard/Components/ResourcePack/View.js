@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Style from './Style.module.scss';
 import {View as ToolTip} from '../../../../../../Components/Bootstrap/Tooltip';
+import Badge from '../../../../../../Components/Bootstrap/Badge/View';
+import {BADGE_TYPE_CLASSNAME} from '../../../../../../Components/Bootstrap/Badge';
 
 class ResourcePack extends Component
 {
@@ -31,7 +33,7 @@ class ResourcePack extends Component
                 <td className={Style.resourcePackName}>{name}</td>
                 <td onClick={showTagListModalFunction}>
                     <ToolTip placement={'top'} title={'点击查看标签列表'} className={Style.tagName}>
-                        <span className="badge badge-primary">{tagName}</span>
+                        <Badge className={BADGE_TYPE_CLASSNAME.PRIMARY}>{tagName}</Badge>
                     </ToolTip>
                 </td>
                 <td onClick={showAdvertisementListModalFunction}>

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import RequestProcessor from '../../../../../../../../RequestProcessor';
 import NAMESPACE from '../../../../../../../../Namespace';
 import {resourcePackSelectTag, resourcePackUnselectTag} from '../../../../../../Function';
-import {View as Tag} from './Components/Tag';
+import {View as TagContainer} from './Components/TagContainer';
 import Function from '../../../../../../../../Function';
 
 class TagList extends Component
@@ -62,7 +62,7 @@ class TagList extends Component
                         } = tag;
                         return (
                             <div className={Style.tagWrapper} onClick={this.onTagWrapperClick(tagId)} key={tagId}>
-                                <Tag id={tagId} name={tagName} />
+                                <TagContainer tagId={tagId}>{tagName}</TagContainer>
                             </div>);
                     })
                 }
