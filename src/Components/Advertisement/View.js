@@ -2,30 +2,32 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as SolidIcon from '@fortawesome/free-solid-svg-icons';
-import ADVERTISEMENT_TYPE from './AdvertisementType';
+import ADVERTISEMENT_TYPE from './ADVERTISEMENT_TYPE';
 import Style from './Style.module.scss';
-import {View as ToolTip} from '../../../../../../Components/Bootstrap/Tooltip';
+import {View as ToolTip} from '../Bootstrap/Tooltip';
 
 class Advertisement extends Component
 {
     render()
     {
-        const {advertisement: {type, src, name}} = this.props;
+        const {advertisementType, advertisementPreviewUrl, advertisementName, className} = this.props;
         return (
-            <div className={Style.Advertisement}>
+            <div className={`${className || null} ${Style.Advertisement}`}>
                 <div className={Style.advertisementContentWrapper}>
                     <div className={Style.previewWrapper}>
                         {
                             (() =>
                             {
-                                if (type === ADVERTISEMENT_TYPE.IMAGE)
+                                if (advertisementType === ADVERTISEMENT_TYPE.IMAGE)
                                 {
                                     return <div className={Style.preview}
-                                                style={{background: `url(${encodeURI(src)})`}} />;
+                                                style={{background: `url(${encodeURI(advertisementPreviewUrl)})`}} />;
                                 }
-                                else if (type === ADVERTISEMENT_TYPE.VIDEO)
+                                else if (advertisementType === ADVERTISEMENT_TYPE.VIDEO)
                                 {
-                                    return <video className={Style.preview} src={encodeURI(src)} controls />;
+                                    return <video className={Style.preview}
+                                                  src={encodeURI(advertisementPreviewUrl)}
+                                                  controls />;
                                 }
                             })()
                         }
@@ -35,7 +37,7 @@ class Advertisement extends Component
                             {
                                 (() =>
                                 {
-                                    if (type === ADVERTISEMENT_TYPE.IMAGE)
+                                    if (advertisementType === ADVERTISEMENT_TYPE.IMAGE)
                                     {
                                         return (
                                             <ToolTip placement={'top'} title={'图片'}>
@@ -43,7 +45,7 @@ class Advertisement extends Component
                                                                  className={Style.typeIcon} />
                                             </ToolTip>);
                                     }
-                                    else if (type === ADVERTISEMENT_TYPE.VIDEO)
+                                    else if (advertisementType === ADVERTISEMENT_TYPE.VIDEO)
                                     {
                                         return (
                                             <ToolTip placement={'top'} title={'视频'}>
@@ -54,9 +56,9 @@ class Advertisement extends Component
                                 })()
                             }
                         </div>
-                        <ToolTip placement={'top'} title={name}>
+                        <ToolTip placement={'top'} title={advertisementName}>
                             <div className={Style.advertisementName}>
-                                {name}
+                                {advertisementName}
                             </div>
                         </ToolTip>
                     </div>
@@ -67,7 +69,10 @@ class Advertisement extends Component
 }
 
 Advertisement.propTypes = {
-    advertisement: PropTypes.object.isRequired,
+    advertisementType: PropTypes.oneOf(Object.keys(ADVERTISEMENT_TYPE)).isRequired,
+    advertisementPreviewUrl: PropTypes.string.isRequired,
+    advertisementName: PropTypes.string.isRequired,
+    className: PropTypes.string,
 };
 
 export default Advertisement;

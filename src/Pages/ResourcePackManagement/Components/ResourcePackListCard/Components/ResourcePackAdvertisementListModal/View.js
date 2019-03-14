@@ -2,13 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Style from './Style.module.scss';
 import {MODAL_ID} from '../../../../../../Config';
-import {
-    Object as AdvertisementObject,
-    View as Advertisement,
-} from '../../../../../AdvertisementManagement/Components/AdvertisementListCard/Components/Advertisement';
 import NAMESPACE from '../../../../../../Namespace';
 import Function from '../../../../../../Function';
 import {LargeModal} from '../../../../../../Components/Bootstrap/Modal';
+import {View as Advertisement} from '../../../../../../Components/Advertisement';
 
 class ResourcePackAdvertisementListModal extends Component
 {
@@ -23,15 +20,18 @@ class ResourcePackAdvertisementListModal extends Component
                     {
                         resourcePackAdvertisementList.map(advertisement =>
                         {
-                            const advertisementObj = new AdvertisementObject.Advertisement(
-                                advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE],
-                                advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL],
-                                advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME],
-                            );
+                            const {
+                                [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: advertisementId,
+                                [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: advertisementType,
+                                [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: advertisementPreviewUrl,
+                                [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: advertisementName,
+                            } = advertisement;
                             return (
                                 <div className={Style.advertisementWrapper}
-                                     key={advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]}>
-                                    <Advertisement advertisement={advertisementObj} />
+                                     key={advertisementId}>
+                                    <Advertisement advertisementType={advertisementType}
+                                                   advertisementPreviewUrl={advertisementPreviewUrl}
+                                                   advertisementName={advertisementName} />
                                 </div>);
                         })
                     }

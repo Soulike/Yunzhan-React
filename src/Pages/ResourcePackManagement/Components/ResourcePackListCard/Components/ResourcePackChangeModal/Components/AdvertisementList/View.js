@@ -3,10 +3,7 @@ import Style from './Style.module.scss';
 import {connect} from 'react-redux';
 import RequestProcessor from '../../../../../../../../RequestProcessor';
 import NAMESPACE from '../../../../../../../../Namespace';
-import {
-    Object as AdvertisementObject,
-    View as Advertisement,
-} from '../../../../../../../AdvertisementManagement/Components/AdvertisementListCard/Components/Advertisement';
+import {View as Advertisement} from '../../../../../../../../Components/Advertisement';
 import {resourcePackSelectAdvertisement, resourcePackUnselectAdvertisement} from '../../../../../../Function';
 import Function from '../../../../../../../../Function';
 
@@ -60,15 +57,17 @@ class AdvertisementList extends Component
                     allAdvertisementList.map(advertisement =>
                     {
                         const {
-                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: id, // 广告的 ID
-                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: type, // 广告类型，枚举值
-                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: name, // 文件名
-                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: url, // 预览 URL
+                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: advertisementId, // 广告的 ID
+                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: advertisementType, // 广告类型，枚举值
+                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: advertisementName, // 文件名
+                            [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: advertisementPreviewUrl, // 预览 URL
                         } = advertisement;
                         return (
-                            <div className={`${Style.advertisementWrapper} ${resourcePackSelectedAdvertisementIdSet.has(id) ? Style.selected : null}`}
-                                 onClick={this.onAdvertisementWrapperClick(id)} key={id}>
-                                <Advertisement advertisement={new AdvertisementObject.Advertisement(type, url, name)} />
+                            <div className={`${Style.advertisementWrapper} ${resourcePackSelectedAdvertisementIdSet.has(advertisementId) ? Style.selected : null}`}
+                                 onClick={this.onAdvertisementWrapperClick(advertisementId)} key={advertisementId}>
+                                <Advertisement advertisementType={advertisementType}
+                                               advertisementPreviewUrl={advertisementPreviewUrl}
+                                               advertisementName={advertisementName} />
                             </div>
                         );
                     })

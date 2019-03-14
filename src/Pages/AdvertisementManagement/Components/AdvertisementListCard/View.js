@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Style from './Style.module.scss';
-import {ADVERTISEMENT_TYPE, Object as AdvertisementObject, View as Advertisement} from './Components/Advertisement';
 import {MODAL_ID} from '../../../../Config';
+import {ADVERTISEMENT_TYPE, View as Advertisement} from '../../../../Components/Advertisement';
 import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
 import {QRCodePositionId} from '../UploaderCard/Components/ImageUploader/QRCodePosition';
 import NAMESPACE from '../../../../Namespace';
@@ -9,7 +9,7 @@ import RequestProcessor from '../../../../RequestProcessor';
 import {connect} from 'react-redux';
 import {View as ListCard} from '../../../../Components/ListCard';
 import Function from '../../../../Function';
-import AdvertisementInfoModal from './Components/AdvertisementInfoModal/View';
+import {View as AdvertisementInfoModal} from './Components/AdvertisementInfoModal';
 
 class AdvertisementListCard extends Component
 {
@@ -81,16 +81,16 @@ class AdvertisementListCard extends Component
                             const {
                                 [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.ID]: advertisementId,
                                 [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE]: advertisementType,
+                                [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]: advertisementPreviewUrl,
+                                [NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME]: advertisementName,
                             } = advertisement;
                             return (
                                 <div className={Style.advertisementWrapper}
                                      key={advertisementId}
                                      onClick={this.onAdvertisementClick(advertisementId, advertisementType)}>
-                                    <Advertisement advertisement={new AdvertisementObject.Advertisement(
-                                        advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.TYPE],
-                                        advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL],
-                                        advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.NAME],
-                                    )} key={advertisement[NAMESPACE.ADVERTISEMENT_MANAGEMENT.ADVERTISEMENT.URL]} />
+                                    <Advertisement advertisementType={advertisementType}
+                                                   advertisementPreviewUrl={advertisementPreviewUrl}
+                                                   advertisementName={advertisementName} />
                                 </div>);
                         })
                     }
