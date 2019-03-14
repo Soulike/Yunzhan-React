@@ -43,26 +43,26 @@ class Menu extends Component
                             if (i === currentActiveItemId)
                             {
                                 return (
-                                    <span onClick={this.onItemClick(i)} key={i}>
-                                    <Item {...item} isActive={true} />
-                                </span>
+                                    <div onClick={this.onItemClick(i)} key={i} className={Style.itemWrapper}>
+                                        <Item {...item} isActive={true} />
+                                    </div>
                                 );
                             }
                             else
                             {
                                 return (
-                                    <span onClick={this.onItemClick(i)} key={i}>
-                                    <Item {...item} isActive={false} />
-                                </span>
+                                    <div onClick={this.onItemClick(i)} key={i} className={Style.itemWrapper}>
+                                        <Item {...item} isActive={false} />
+                                    </div>
                                 );
                             }
                         }
                         else
                         {
                             return (
-                                <span key={i}>
+                                <div key={i} className={Style.itemWrapper}>
                                     <Item {...item} isActive={false} />
-                                </span>
+                                </div>
                             );
                         }
                     })
