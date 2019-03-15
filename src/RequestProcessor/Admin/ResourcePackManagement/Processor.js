@@ -4,6 +4,7 @@ import Function from '../../../Function';
 import {DangerAlert, SuccessAlert, WarningAlert} from '../../../Components/Bootstrap/Alerts';
 import {
     CHANGE_RESOURCE_PACK_INFO,
+    DELETE_RESOURCE_PACKS,
     GET_BASIC_INFO,
     GET_RESOURCE_PACK_ADVERTISEMENT_LIST,
     GET_RESOURCE_PACK_LIST,
@@ -26,6 +27,7 @@ export default {
     sendGetResourcePackUnbindingTagListRequestAsync,
     sendGetResourcePackUnbindingAdvertisementListRequestAsync,
     sendPostChangeResourcePackInfoRequestAsync,
+    sendPostDeleteResourcePacksRequestAsync,
 };
 
 async function sendGetResourcePackManagementBasicInfoRequestAsync()
@@ -485,6 +487,66 @@ async function sendPostChangeResourcePackInfoRequestAsync(resourcePackId, resour
     {
         WarningAlert.pop('修改资源包失败');
         console.log(e);
+        return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
+}
+
+async function sendPostDeleteResourcePacksRequestAsync(resourcePackIdList)
+{
+    try
+    {
+        SpinnerFunction.showSpinner();
+        const {code} = await Function.postAsync(DELETE_RESOURCE_PACKS, {
+            [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK_ID]: [...resourcePackIdList],
+        });
+
+        switch (code)
+        {
+            case STATUS_CODE.SUCCESS:
+            {
+                SuccessAlert.pop('删除成功');
+                return true;
+            }
+            case STATUS_CODE.CONTENT_NOT_FOUND:
+            {
+                WarningAlert.pop('被删除资源包不存在');
+                return null;
+            }
+            case STATUS_CODE.INVALID_SESSION:
+            {
+                WarningAlert.pop('请先登录');
+                redirectToLogin();
+                return null;
+            }
+            case STATUS_CODE.REJECTION:
+            {
+                WarningAlert.pop('无权删除某些资源包');
+                return null;
+            }
+            case STATUS_CODE.WRONG_PARAMETER:
+            {
+                WarningAlert.pop('参数错误');
+                return null;
+            }
+            case STATUS_CODE.INTERNAL_SERVER_ERROR:
+            {
+                DangerAlert.pop('服务器错误');
+                return null;
+            }
+            default:
+            {
+                WarningAlert.pop('删除资源包失败');
+                return null;
+            }
+        }
+    }
+    catch (e)
+    {
+        WarningAlert.pop('删除资源包失败');
         return null;
     }
     finally
