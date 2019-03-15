@@ -10,12 +10,51 @@ import {TOOLTIP_POSITION, View as ToolTip} from '../../../../Components/Bootstra
 import {View as ModalTriggerButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
 import {MODAL_ID} from '../../../../Config';
 import {View as AddScreenModal} from './Components/AddScreenModal';
+import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
+import ChangeScreenModal from './Components/ChangeScreenModal/View';
 
 class ScreenListCard extends Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            currentScreenIdInModal: 0,
+            currentScreenUuidInModal: 0,
+            currentScreenNameInModal: '',
+            currentScreenIsRunningInModal: false,
+            currentResourcePackNameOfScreenInModal: '',
+        };
+    }
+
+    onScreenChangeButtonClick = (screenId, screenUuid, screenName, screenIsRunning, resourcePackNameOfScreen) =>
+    {
+        return () =>
+        {
+            this.setState({
+                currentScreenIdInModal: screenId,
+                currentScreenUuidInModal: screenUuid,
+                currentScreenNameInModal: screenName,
+                currentScreenIsRunningInModal: screenIsRunning,
+                currentResourcePackNameOfScreenInModal: resourcePackNameOfScreen,
+            }, () =>
+            {
+                ModalFunction.showModal(MODAL_ID.CHANGE_SCREEN_MODAL);
+            });
+        };
+    };
+
+
     render()
     {
         const {screenList} = this.props;
+        const {
+            currentScreenIdInModal,
+            currentScreenUuidInModal,
+            currentScreenNameInModal,
+            currentScreenIsRunningInModal,
+            currentResourcePackNameOfScreenInModal,
+        } = this.state;
         return [
             <ListCard title={'屏幕列表'} className={Style.ScreenListCard} key={'ScreenListCard'}>
                 <div className={Style.screenListTableWrapper}>
@@ -46,6 +85,7 @@ class ScreenListCard extends Component
                                                screenName={screenName}
                                                screenIsRunning={screenIsRunning}
                                                resourcePackNameOfScreen={resourcePackNameOfScreen}
+                                               onChangeButtonClick={this.onScreenChangeButtonClick(screenId, uuid, screenName, screenIsRunning, resourcePackNameOfScreen)}
                                                key={screenId} />;
                             })
                         }
@@ -61,6 +101,11 @@ class ScreenListCard extends Component
                 </div>
             </ListCard>,
             <AddScreenModal key={MODAL_ID.ADD_SCREEN_MODAL} />,
+            <ChangeScreenModal screenId={currentScreenIdInModal}
+                               uuid={currentScreenUuidInModal}
+                               screenName={currentScreenNameInModal}
+                               screenIsRunning={currentScreenIsRunningInModal}
+                               resourcePackNameOfScreen={currentResourcePackNameOfScreenInModal} />,
         ];
     }
 }

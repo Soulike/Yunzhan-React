@@ -340,13 +340,12 @@ async function sendPostStartScreenRequestAsync(screenIdListArray)
         });
         if (code === STATUS_CODE.SUCCESS)
         {
-            SuccessAlert.pop('全部开始播放成功');
-
+            SuccessAlert.pop('开始播放成功，请耐心等待');
             return true;
         }
         else if (code === STATUS_CODE.REJECTION)
         {
-            WarningAlert.pop('部分开始播放失败，请确认所有屏幕上 APP 处于运行状态');
+            WarningAlert.pop('开始播放失败，请确认屏幕上 APP 处于运行状态');
 
             return null;
         }
@@ -363,7 +362,7 @@ async function sendPostStartScreenRequestAsync(screenIdListArray)
         }
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
         {
-            WarningAlert.pop('部分开始播放屏幕不存在');
+            WarningAlert.pop('屏幕不存在');
 
             return null;
         }
@@ -395,13 +394,13 @@ async function sendPostStopScreenRequestAsync(screenIdListArray)
         });
         if (code === STATUS_CODE.SUCCESS)
         {
-            SuccessAlert.pop('全部停止播放成功');
+            SuccessAlert.pop('停止播放成功，请耐心等待');
 
             return true;
         }
         else if (code === STATUS_CODE.REJECTION)
         {
-            WarningAlert.pop('部分停止播放失败，请确认所有屏幕的网络状态');
+            WarningAlert.pop('停止播放失败，请确认所有屏幕的网络状态');
 
             return null;
         }
@@ -418,7 +417,7 @@ async function sendPostStopScreenRequestAsync(screenIdListArray)
         }
         else if (code === STATUS_CODE.CONTENT_NOT_FOUND)
         {
-            WarningAlert.pop('部分停止播放屏幕不存在');
+            WarningAlert.pop('屏幕不存在');
 
             return null;
         }

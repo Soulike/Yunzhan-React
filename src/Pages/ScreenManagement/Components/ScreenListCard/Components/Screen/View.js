@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import Style from './Style.module.scss';
 import PropTypes from 'prop-types';
 import {TOOLTIP_POSITION, View as ToolTip} from '../../../../../../Components/Bootstrap/Tooltip';
+import {View as RunningSign} from '../RunningSign';
 
 class Screen extends Component
 {
     render()
     {
-        const {uuid, screenName, screenIsRunning, resourcePackNameOfScreen} = this.props;
+        const {uuid, screenName, screenIsRunning, resourcePackNameOfScreen, onChangeButtonClick} = this.props;
         return (
             <tr className={Style.Screen}>
                 <th scope="row" className={Style.uuidGrid}>{uuid}</th>
@@ -16,10 +17,9 @@ class Screen extends Component
                         {screenName}
                     </ToolTip>
                 </td>
-                <td className={Style.screenIsRunningGrid}>{screenIsRunning ?
-                    <div className={Style.runningSign}><span className={Style.circle} /> 运行中</div> :
-                    <div className={Style.notRunningSign}><span className={Style.circle} /> 未运行</div>
-                }</td>
+                <td className={Style.screenIsRunningGrid}>
+                    <RunningSign isRunning={screenIsRunning} />
+                </td>
                 <td className={Style.resourcePackNameOfScreenGrid}>
                     <ToolTip placement={TOOLTIP_POSITION.TOP}
                              title={resourcePackNameOfScreen}
@@ -28,7 +28,7 @@ class Screen extends Component
                     </ToolTip>
                 </td>
                 <td className={Style.changeScreenButtonGrid}>
-                    <button className={Style.changeScreenButton}>编辑</button>
+                    <button className={Style.changeScreenButton} onClick={onChangeButtonClick}>编辑</button>
                 </td>
             </tr>
         );
@@ -41,6 +41,7 @@ Screen.propTypes = {
     screenName: PropTypes.string.isRequired,
     screenIsRunning: PropTypes.bool.isRequired,
     resourcePackNameOfScreen: PropTypes.string,
+    onChangeButtonClick: PropTypes.func.isRequired,
 };
 
 export default Screen;
