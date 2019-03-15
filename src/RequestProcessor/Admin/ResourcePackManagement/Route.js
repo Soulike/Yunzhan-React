@@ -17,3 +17,5 @@ export const GET_RESOURCE_PACK_UNBINDING_TAG_LIST = resourcePackManagementPrefix
 export const GET_RESOURCE_PACK_UNBINDING_ADVERTISEMENT_LIST = resourcePackManagementPrefix('/getResourcePackUnbindingAdvertisementList');
 
 export const CHANGE_RESOURCE_PACK_INFO = resourcePackManagementPrefix('/changeResourcePackInfo');
+
+export const DELETE_RESOURCE_PACKS = resourcePackManagementPrefix('/deleteResourcePacks');

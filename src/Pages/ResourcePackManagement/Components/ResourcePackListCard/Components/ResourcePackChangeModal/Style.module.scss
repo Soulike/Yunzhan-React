@@ -16,7 +16,7 @@
         }
 
         .topWrapper {
-            height: 20rem;
+            height: 17.5rem;
             box-sizing: border-box;
             display: flex;
             justify-content: space-around;
@@ -50,8 +50,7 @@
         }
 
         .bottomWrapper {
-            margin: 1rem 0;
-            height: 5rem;
+            margin: 1rem 0 0;
             display: flex;
             justify-content: space-around;
 
@@ -64,6 +63,17 @@
                     @extend .form-control;
                     resize: none;
                 }
+            }
+        }
+
+        .deleteResourcePackButtonWrapper {
+            display: flex;
+            justify-content: flex-end;
+            width: 98%;
+            margin: 1rem auto 0;
+
+            .deleteResourcePackButton {
+                @extend .btn, .btn-danger;
             }
         }
     }

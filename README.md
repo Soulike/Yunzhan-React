@@ -8,7 +8,7 @@
 
 # TODO List
 
-- 删除资源包功能
+- ~~删除资源包功能~~
 - 修改屏幕信息功能
 - ~~Tag、Advertisement 组件抽取合并~~
 - ~~修复创建资源包不检查资源包名的问题~~
@@ -834,3 +834,16 @@ export const QRCodePositionIdToName = {
 ```
 - 响应体：无
 - 其他说明：无
+
+#### `/deleteResourcePacks`
+
+- 功能说明：根据资源包 ID 删除资源包
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.RESOURCE_PACK_MANAGEMENT.LIST.RESOURCE_PACK_ID]: Array // 被删除的资源包 ID 数组
+}
+```
+- 响应体：无
+- 其他说明：绑定屏幕的资源包不允许删除

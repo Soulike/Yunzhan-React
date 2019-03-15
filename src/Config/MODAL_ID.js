@@ -19,4 +19,5 @@ export default {
     RESOURCE_PACK_ADVERTISEMENT_LIST_MODAL: 'resourcePackAdvertisementListModal',
     RESOURCE_PACK_SCREEN_LIST_MODAL: 'resourcePackScreenNameListModal',
     RESOURCE_PACK_CHANGE_MODAL: 'resourcePackChangeModal',
+    DELETE_RESOURCE_PACK_MODAL: 'deleteResourcePackModal',
 };

@@ -13,6 +13,7 @@ import {
     resourcePackUnselectAllTags,
 } from '../../../../Function';
 import {connect} from 'react-redux';
+import {View as DeleteResourcePackModal} from './Components/DeleteResourcePackModal';
 
 class ResourcePackChangeModal extends Component
 {
@@ -57,13 +58,20 @@ class ResourcePackChangeModal extends Component
         }
     };
 
+    onDeleteResourcePackButtonClick = async () =>
+    {
+        await ModalFunction.hideModalAsync(MODAL_ID.RESOURCE_PACK_CHANGE_MODAL);
+        ModalFunction.showModal(MODAL_ID.DELETE_RESOURCE_PACK_MODAL);
+    };
+
     render()
     {
-        const {resourcePackName} = this.props;
-        return (
+        const {resourcePackId, resourcePackName} = this.props;
+        return [
             <ExtraLargeModal id={MODAL_ID.RESOURCE_PACK_CHANGE_MODAL}
                              title={`编辑资源包 ${resourcePackName}`}
                              className={Style.ResourcePackChangeModal}
+                             key={MODAL_ID.RESOURCE_PACK_CHANGE_MODAL}
                              onConfirmButtonClick={this.onResourcePackChangeModalConfirmButtonClick}>
                 <div className={Style.resourcePackChangeModalContentWrapper}>
                     <div className={Style.topWrapper}>
@@ -80,7 +88,7 @@ class ResourcePackChangeModal extends Component
                             </div>
                         </div>
                     </div>
-                    {<div className={Style.bottomWrapper}>
+                    <div className={Style.bottomWrapper}>
                         <label className={Style.inputWrapper}>
                             <span className={Style.label}>资源包名</span>
                             <ToolTip placement={'top'} title={REGEX_TEXT.RESOURCE_PACK_NAME}>
@@ -94,10 +102,18 @@ class ResourcePackChangeModal extends Component
                             <textarea placeholder={'请在此输入备注'}
                                       ref={this.resourcePackDescriptionRef} />
                         </label>
-                    </div>}
+                    </div>
+                    <div className={Style.deleteResourcePackButtonWrapper}>
+                        <button className={Style.deleteResourcePackButton}
+                                onClick={this.onDeleteResourcePackButtonClick}>删除该资源包
+                        </button>
+                    </div>
                 </div>
-            </ExtraLargeModal>
-        );
+            </ExtraLargeModal>,
+            <DeleteResourcePackModal resourcePackId={resourcePackId}
+                                     resourcePackName={resourcePackName}
+                                     key={MODAL_ID.DELETE_RESOURCE_PACK_MODAL} />,
+        ];
     }
 }
 
