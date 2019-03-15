@@ -1,0 +1,67 @@
+@import "../../../../ModuleConfig/Bootstrap/Bootstrap";
+
+.ScreenListCard {
+
+    .screenListTableWrapper {
+        height: 90%;
+
+        .screenListTable {
+            text-align: center;
+            height: 100%;
+
+            thead {
+                position: absolute;
+                z-index: 1;
+            }
+
+            tbody {
+                display: block;
+                margin-top: 3.125rem;
+                height: calc(100% - 3.125rem);
+                overflow: auto;
+            }
+
+            th, td {
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .buttonWrapper {
+        width: 100%;
+        height: 10%;
+        border-top: 1px solid #DDD;
+        padding-top: 1rem;
+        @extend .btn-group;
+
+        .addScreenButton {
+            @extend .btn, .btn-primary;
+        }
+    }
+}
+
+.uuidHeader {
+    min-width: 7rem;
+    max-width: 7rem;
+}
+
+.screenNameHeader {
+    min-width: 12rem;
+    max-width: 12rem;
+    overflow: hidden;
+}
+
+.screenIsRunningHeader {
+    min-width: 6rem;
+    max-width: 6rem;
+}
+
+.resourcePackNameOfResourcePackHeader {
+    min-width: 11rem;
+    max-width: 11rem;
+}
+
+.changeScreenButtonHeader {
+    min-width: 6.25rem;
+    max-width: 6.25rem;
+}

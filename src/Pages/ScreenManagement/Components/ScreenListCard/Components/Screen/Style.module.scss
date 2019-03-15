@@ -1,0 +1,61 @@
+@import "../../../../../../ModuleConfig/Bootstrap/Bootstrap";
+@import "../../Style.module";
+
+.Screen {
+
+    .uuidGrid {
+        @extend .uuidHeader;
+    }
+
+    .screenNameGrid {
+        @extend .screenNameHeader;
+
+        .screenNameWrapper {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .screenIsRunningGrid {
+        @extend .screenIsRunningHeader;
+
+        .runningSign {
+            color: rgb(0, 153, 0);
+        }
+
+        .notRunningSign {
+            color: #F00;
+        }
+
+        .circle {
+            display: inline-block;
+            width: 0.5rem;
+            height: 0.5rem;
+            box-sizing: border-box;
+            border-radius: 1rem;
+            border: 0.5rem solid;
+            vertical-align: middle;
+            box-shadow: 0 0 0.75rem;
+            margin-right: 0.25rem;
+        }
+    }
+
+    .resourcePackNameOfScreenGrid {
+        @extend .resourcePackNameOfResourcePackHeader;
+
+        .resourcePackNameOfScreenWrapper {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .changeScreenButtonGrid {
+        @extend .changeScreenButtonHeader;
+
+        .changeScreenButton {
+            @extend .btn, .btn-primary;
+        }
+    }
+}

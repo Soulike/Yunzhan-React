@@ -232,12 +232,15 @@ async function sendPostBindResourcePackRequestAsync(screenIdListArray, resourceP
     }
 }
 
-async function sendPostAddScreenRequestAsync(uuid)
+async function sendPostAddScreenRequestAsync(uuid, screenName)
 {
     try
     {
         SpinnerFunction.showSpinner();
-        const {code} = await Function.postAsync(ADD_SCREEN, {[NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid});
+        const {code} = await Function.postAsync(ADD_SCREEN, {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid,
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: screenName,
+        });
         if (code === STATUS_CODE.SUCCESS)
         {
             SuccessAlert.pop('添加成功');

@@ -303,7 +303,8 @@
 - 请求体：
 ```js
 {
-    uuid: xxx
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: String,  // 被添加屏幕的 UUID
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: String,  // 被添加屏幕的名字
 }
 ```
 - 响应体：无
