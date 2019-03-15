@@ -6,7 +6,9 @@ import {MODAL_ID} from '../../../../../../Config';
 import {View as RunningSign} from '../RunningSign';
 import RequestProcessor from '../../../../../../RequestProcessor';
 import {getScreenList} from '../../../../Function';
-import UnbindResourcePackModal from './Components/UnbindResourcePackModal/View';
+import {View as UnbindResourcePackModal} from './Components/UnbindResourcePackModal';
+import {View as DeleteScreenModal} from './Components/DeleteScreenModal';
+import {View as BindResourcePackModal} from './Components/BindResourcePackModal';
 
 class ChangeScreenModal extends Component
 {
@@ -18,11 +20,31 @@ class ChangeScreenModal extends Component
 
     componentDidUpdate(prevProps, prevState, snapshot)
     {
-        if (prevProps.screenId !== this.props.screenId)
+        if (prevProps.screenName !== this.props.screenName)
         {
             this.screenNameInputRef.current.value = this.props.screenName;
         }
     }
+
+    onConfirmButtonClick = async () =>
+    {
+        const {screenId, originalScreenName} = this.props;
+        const screenName = this.screenNameInputRef.current.value;
+
+        if (screenName !== originalScreenName)
+        {
+            const requestIsSuccessful = await RequestProcessor.sendPostChangeScreenInfoRequestAsync(screenId, screenName);
+            if (requestIsSuccessful)
+            {
+                getScreenList();
+                ModalFunction.hideModal(MODAL_ID.CHANGE_SCREEN_MODAL);
+            }
+        }
+        else
+        {
+            ModalFunction.hideModal(MODAL_ID.CHANGE_SCREEN_MODAL);
+        }
+    };
 
     onStopRunningButtonClick = async () =>
     {
@@ -44,17 +66,32 @@ class ChangeScreenModal extends Component
         }
     };
 
+    onBindResourcePackButton = async () =>
+    {
+        await ModalFunction.hideModalAsync(MODAL_ID.CHANGE_SCREEN_MODAL);
+        ModalFunction.showModal(MODAL_ID.BIND_RESOURCE_PACK_MODAL);
+    };
+
     onUnbindResourcePackButtonClick = async () =>
     {
         await ModalFunction.hideModalAsync(MODAL_ID.CHANGE_SCREEN_MODAL);
         ModalFunction.showModal(MODAL_ID.UNBIND_RESOURCE_PACK_MODAL);
     };
 
+    onDeleteScreenButtonClick = async () =>
+    {
+        await ModalFunction.hideModalAsync(MODAL_ID.CHANGE_SCREEN_MODAL);
+        ModalFunction.showModal(MODAL_ID.DELETE_SCREEN_MODAL);
+    };
+
     render()
     {
         const {uuid, screenId, screenName, screenIsRunning, resourcePackNameOfScreen} = this.props;
         return [
-            <Modal id={MODAL_ID.CHANGE_SCREEN_MODAL} title={`修改屏幕 ${screenName}`} className={Style.ChangeScreenModal}>
+            <Modal id={MODAL_ID.CHANGE_SCREEN_MODAL}
+                   title={`修改屏幕 ${screenName}`}
+                   className={Style.ChangeScreenModal}
+                   onConfirmButtonClick={this.onConfirmButtonClick}>
                 <div className={Style.changeScreenModalContent}>
                     <div className={Style.item}>
                         <div className={Style.label}>UUID：</div>
@@ -92,16 +129,24 @@ class ChangeScreenModal extends Component
                                     resourcePackNameOfScreen ?
                                         <button className={Style.unbindResourcePackButton}
                                                 onClick={this.onUnbindResourcePackButtonClick}>解绑资源包</button> :
-                                        <button className={Style.bindResourcePackButton}>绑定资源包</button>
+                                        <button className={Style.bindResourcePackButton}
+                                                onClick={this.onBindResourcePackButton}>绑定资源包</button>
                                 }
                             </div>
                         </div>
                     </div>
+                    <div className={Style.deleteScreenButtonWrapper}>
+                        <button className={Style.deleteScreenButton}
+                                onClick={this.onDeleteScreenButtonClick}>删除该屏幕
+                        </button>
+                    </div>
                 </div>
             </Modal>,
+            <BindResourcePackModal screenId={screenId} screenName={screenName} />,
             <UnbindResourcePackModal screenId={screenId}
                                      screenName={screenName}
                                      resourcePackNameOfScreen={resourcePackNameOfScreen} />,
+            <DeleteScreenModal screenId={screenId} screenName={screenName} />,
         ];
     }
 }

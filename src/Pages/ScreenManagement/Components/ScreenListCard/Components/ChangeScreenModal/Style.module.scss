@@ -67,6 +67,17 @@
                 }
             }
         }
+
+        .deleteScreenButtonWrapper {
+            display: flex;
+            justify-content: flex-end;
+            width: 25rem;
+            margin: 0 auto;
+
+            .deleteScreenButton {
+                @extend .btn, .btn-danger;
+            }
+        }
     }
 
 

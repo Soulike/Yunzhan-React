@@ -4,6 +4,7 @@ import Function from '../../../Function';
 import {
     ADD_SCREEN,
     BIND_RESOURCE_PACK,
+    CHANGE_SCREEN_INFO,
     DELETE_SCREEN,
     GET_BASIC_INFO,
     GET_LOG_LIST,
@@ -26,6 +27,7 @@ export default {
     sendPostDeleteScreenRequestAsync,
     sendPostStartScreenRequestAsync,
     sendPostStopScreenRequestAsync,
+    sendPostChangeScreenInfoRequestAsync,
 };
 
 async function sendGetScreenBasicInfoRequestAsync()
@@ -431,6 +433,67 @@ async function sendPostStopScreenRequestAsync(screenIdListArray)
     {
         WarningAlert.pop('停止播放失败');
         console.log(e);
+        return null;
+    }
+    finally
+    {
+        SpinnerFunction.hideSpinner();
+    }
+}
+
+async function sendPostChangeScreenInfoRequestAsync(screenId, screenName)
+{
+    try
+    {
+        SpinnerFunction.showSpinner();
+        const {code} = await Function.postAsync(CHANGE_SCREEN_INFO, {
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId,  // 被修改屏幕的 ID
+            [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: screenName,  // 被修改屏幕的新名字
+        });
+
+        switch (code)
+        {
+            case STATUS_CODE.SUCCESS:
+            {
+                SuccessAlert.pop('修改成功');
+                return true;
+            }
+            case STATUS_CODE.CONTENT_NOT_FOUND:
+            {
+                WarningAlert.pop('被修改屏幕不存在');
+                return null;
+            }
+            case STATUS_CODE.INVALID_SESSION:
+            {
+                WarningAlert.pop('请先登录');
+                redirectToLogin();
+                return null;
+            }
+            case STATUS_CODE.REJECTION:
+            {
+                WarningAlert.pop('修改操作被拒绝');
+                return null;
+            }
+            case STATUS_CODE.WRONG_PARAMETER:
+            {
+                WarningAlert.pop('参数错误');
+                return null;
+            }
+            case STATUS_CODE.INTERNAL_SERVER_ERROR:
+            {
+                DangerAlert.pop('服务器错误');
+                return null;
+            }
+            default:
+            {
+                WarningAlert.pop('修改失败');
+                return null;
+            }
+        }
+    }
+    catch (e)
+    {
+        WarningAlert.pop('修改失败');
         return null;
     }
     finally

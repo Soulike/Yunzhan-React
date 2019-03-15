@@ -20,7 +20,7 @@ class ScreenListCard extends Component
         super(props);
         this.state = {
             currentScreenIdInModal: 0,
-            currentScreenUuidInModal: 0,
+            currentScreenUuidInModal: '',
             currentScreenNameInModal: '',
             currentScreenIsRunningInModal: false,
             currentResourcePackNameOfScreenInModal: '',
@@ -105,7 +105,8 @@ class ScreenListCard extends Component
                                uuid={currentScreenUuidInModal}
                                screenName={currentScreenNameInModal}
                                screenIsRunning={currentScreenIsRunningInModal}
-                               resourcePackNameOfScreen={currentResourcePackNameOfScreenInModal} />,
+                               resourcePackNameOfScreen={currentResourcePackNameOfScreenInModal}
+                               key={MODAL_ID.CHANGE_SCREEN_MODAL} />,
         ];
     }
 }

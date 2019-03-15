@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Style from './ResourcePackList.module.scss';
 import {View as ResourcePack} from './Components/ResourcePack';
 import {View as Header} from './Components/Header';
-import NAMESPACE from '../../../../../../Namespace';
+import NAMESPACE from '../../../../../../../../../../Namespace';
 import {connect} from 'react-redux';
 
 class ResourcePackList extends Component

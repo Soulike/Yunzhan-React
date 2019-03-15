@@ -2,6 +2,8 @@ export default {
     LOGOUT_MODAL: 'logoutModal',
     ADD_SCREEN_MODAL: 'addScreenModal',
     CHANGE_SCREEN_MODAL: 'changeScreenModal',
+    DELETE_SCREEN_MODAL: 'deleteScreenModal',
+    BIND_RESOURCE_PACK_MODAL: 'bindResourcePackModal',
     UNBIND_RESOURCE_PACK_MODAL: 'unbindResourcePackModal',
     UPLOAD_VIDEO_INFO_MODAL: 'uploadVideoModal',
     UPLOAD_IMAGE_INFO_MODAL: 'uploadImageModal',
