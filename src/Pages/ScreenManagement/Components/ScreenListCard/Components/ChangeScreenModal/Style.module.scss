@@ -1,0 +1,84 @@
+@import "../../../../../../ModuleConfig/Bootstrap/Bootstrap";
+
+.ChangeScreenModal {
+    .changeScreenModalContent {
+
+        .item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 0;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            .label {
+                display: inline-block;
+                width: 4rem;
+                text-align: right;
+                margin-right: 1rem;
+            }
+
+            .content {
+                display: inline-flex;
+                width: 20rem;
+                justify-content: space-between;
+                align-items: center;
+
+                input {
+                    @extend .form-control;
+                    width: 100%;
+                }
+
+                .screenRunningStateWrapper {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .changeScreenRunningStateButtonWrapper {
+
+                    .stopRunningButton {
+                        @extend .btn, .btn-sm, .btn-danger;
+                    }
+
+                    .startRunningButton {
+                        @extend .btn, .btn-sm, .btn-primary;
+                    }
+                }
+
+                .resourcePackNameOfScreen {
+
+                }
+
+                .resourcePackButtonWrapper {
+
+                    .bindResourcePackButton {
+                        @extend .btn, .btn-sm, .btn-primary;
+                    }
+
+                    .unbindResourcePackButton {
+                        @extend .btn, .btn-sm, .btn-danger;
+                    }
+                }
+            }
+        }
+
+        .deleteScreenButtonWrapper {
+            display: flex;
+            justify-content: flex-end;
+            width: 25rem;
+            margin: 0 auto;
+
+            .deleteScreenButton {
+                @extend .btn, .btn-danger;
+            }
+        }
+    }
+
+
+}

@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Style from './ResourcePack.module.scss';
 import {connect} from 'react-redux';
-import NAMESPACE from '../../../../../../../../Namespace';
-import Functions from '../../../../../../../../Function';
-import {View as Radio} from '../../../../../../../../Components/Bootstrap/Radio';
-import {selectResourcePack} from '../../../../../../Function';
+import NAMESPACE from '../../../../../../../../../../../../Namespace';
+import Functions from '../../../../../../../../../../../../Function';
+import {View as Radio} from '../../../../../../../../../../../../Components/Bootstrap/Radio';
+import {selectResourcePack} from '../../../../../../../../../../Function';
 
 class ResourcePack extends Component
 {
@@ -60,7 +60,7 @@ class ResourcePack extends Component
                 <Radio id={`a${randomString}${id}`} className={Style.radioInput} onClick={this.onRadioInputClick} />
                 <div className={Style.name}>{name}</div>
                 <div className={Style.advertiseNumber}>{advertisementNumber}</div>
-                <div className={Style.description}>{description | ''}</div>
+                <div className={Style.description}>{description || ''}</div>
             </div>
         );
     }

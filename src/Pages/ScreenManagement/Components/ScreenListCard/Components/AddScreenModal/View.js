@@ -12,36 +12,33 @@ class AddScreenModal extends Component
     constructor(props)
     {
         super(props);
-        this.state = {
-            uuid: '',
-        };
+        this.uuidInputRef = React.createRef();
+        this.screenNameInputRef = React.createRef();
     }
 
-    onAddScreenModalInputChange = e =>
-    {
-        this.setState({uuid: e.target.value});
-    };
 
     onAddScreenModalConfirmButtonClick = async () =>
     {
-        const {uuid} = this.state;
+        const uuid = this.uuidInputRef.current.value;
+        const screenName = this.screenNameInputRef.current.value;
         if (!REGEX.UUID.test(uuid))
         {
             WarningAlert.pop('UUID 对应的屏幕不存在');
         }
+        else if (!REGEX.SCREEN_NAME.test(screenName))
+        {
+            WarningAlert.pop('屏幕名不合法');
+        }
         else
         {
-            const requestIsSuccessful = await RequestProcessor.sendPostAddScreenRequestAsync(uuid);
+            const requestIsSuccessful = await RequestProcessor.sendPostAddScreenRequestAsync(uuid, screenName);
             if (requestIsSuccessful)
             {
-                this.setState({uuid: ''}, () =>
-                {
-                    const $uuidInput = document.getElementsByClassName(Style.uuidInput);
-                    $uuidInput.value = '';
-                    ModalFunction.hideModal(MODAL_ID.ADD_SCREEN_MODAL);
-                    getScreenManagementBasicInfo();
-                    getScreenList(); // 刷新屏幕列表
-                });
+                this.uuidInputRef.current.value = '';
+                this.screenNameInputRef.current.value = '';
+                ModalFunction.hideModal(MODAL_ID.ADD_SCREEN_MODAL);
+                getScreenManagementBasicInfo();
+                getScreenList(); // 刷新屏幕列表
             }
         }
     };
@@ -54,13 +51,23 @@ class AddScreenModal extends Component
                         onConfirmButtonClick={this.onAddScreenModalConfirmButtonClick}
                         className={Style.AddScreenModal}>
                 <div className={Style.addScreenModalContent}>
-                    <ToolTip placement={'top'} title={REGEX_TEXT.UUID}>
-                        <input type="text"
-                               className={Style.uuidInput}
-                               placeholder={'被添加屏幕的 UUID'}
-                               autoFocus={true}
-                               onChange={this.onAddScreenModalInputChange} />
-                    </ToolTip>
+                    <div className={Style.inputWrapper}>
+                        <ToolTip placement={'top'} title={REGEX_TEXT.UUID}>
+                            <input type="text"
+                                   className={Style.uuidInput}
+                                   placeholder={'被添加屏幕的 UUID'}
+                                   autoFocus={true}
+                                   ref={this.uuidInputRef} />
+                        </ToolTip>
+                    </div>
+                    <div className={Style.inputWrapper}>
+                        <ToolTip placement={'top'} title={REGEX_TEXT.SCREEN_NAME}>
+                            <input type="text"
+                                   className={Style.screenNameInput}
+                                   placeholder={'被添加屏幕的名字'}
+                                   ref={this.screenNameInputRef} />
+                        </ToolTip>
+                    </div>
                 </div>
             </SmallModal>
         );

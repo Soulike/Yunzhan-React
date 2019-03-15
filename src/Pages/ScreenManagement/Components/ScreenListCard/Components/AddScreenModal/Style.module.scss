@@ -3,14 +3,17 @@
 .AddScreenModal {
     .addScreenModalContent {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 7rem;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 6rem;
 
-        .uuidInput {
-            @extend .form-control;
-            text-align: center;
-            font-size: 1.25rem;
+        .inputWrapper {
+            display: block;
+
+            .uuidInput, .screenNameInput {
+                @extend .form-control;
+                text-align: center;
+            }
         }
     }
 }

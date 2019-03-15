@@ -1,0 +1,32 @@
+.RunningSign {
+
+    .runningSign {
+        color: rgb(0, 153, 0);
+    }
+
+    .notRunningSign {
+        color: #F00;
+    }
+
+    .runningSign, .notRunningSign {
+        display: flex;
+        vertical-align: center;
+    }
+
+    .circle {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        box-sizing: border-box;
+        border-radius: 1rem;
+        border: 0.5rem solid;
+        box-shadow: 0 0 0.75rem;
+        margin-right: 0.25rem;
+    }
+
+    .text {
+        display: inline-block;
+        font-size: 1rem;
+        line-height: 1em;
+    }
+}

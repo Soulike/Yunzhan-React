@@ -5,12 +5,12 @@ module.exports = {
     },
 
     RESOURCE_PACK: {
-        ID: 'id',
-        NAME: 'name',
-        TAG_NAME: 'tagName',
+        ID: 'resourcePackId',
+        NAME: 'resourcePackName',
+        TAG_NAME: 'tagNameOfResourcePack',
         ADVERTISEMENT_AMOUNT: 'advertisementAmount',
         SCREEN_AMOUNT: 'screenAmount',
-        DESCRIPTION: 'description',
+        DESCRIPTION: 'descriptionOfResourcePack',
     },
 
     LIST: {

@@ -1,180 +1,121 @@
 import React, {Component} from 'react';
-import Style from './ScreenListCard.module.scss';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import * as solidIcon from '@fortawesome/free-solid-svg-icons';
-import {View as Screen} from './Components/Screen';
-import {View as Header} from './Components/Header';
-import {connect} from 'react-redux';
-import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
-import {MODAL_ID} from '../../../../Config';
-import {WarningAlert} from '../../../../Components/Bootstrap/Alerts';
-import {View as ModalTriggeringButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
-import {unselectAllResourcePacks} from '../../Function';
-import {View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
+import Style from './Style.module.scss';
 import {View as ListCard} from '../../../../Components/ListCard';
+import {connect} from 'react-redux';
+import NAMESPACE from '../../../../Namespace';
+import {View as Screen} from './Components/Screen';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import * as SolidIcon from '@fortawesome/free-solid-svg-icons';
+import {TOOLTIP_POSITION, View as ToolTip} from '../../../../Components/Bootstrap/Tooltip';
+import {View as ModalTriggerButton} from '../../../../Components/Bootstrap/ModalTriggeringButton';
+import {MODAL_ID} from '../../../../Config';
 import {View as AddScreenModal} from './Components/AddScreenModal';
-import {View as DeleteScreenModal} from './Components/DeleteScreenModal';
-import {View as StartScreenRunningModal} from './Components/StartScreenRunningModal';
-import {View as StopScreenRunningModal} from './Components/StopScreenRunningModal';
-import BatchBindResourcePackModal from './Components/BatchBindResourcePackModal/View';
-import BatchUnbindResourcePackModal from './Components/BatchUnbindResourcePackModal/View';
+import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
+import {View as ChangeScreenModal} from './Components/ChangeScreenModal';
 
 class ScreenListCard extends Component
 {
-    onStartRunningButtonClick = e =>
+    constructor(props)
     {
-        e.preventDefault();
-        const {selectedScreenIdSet} = this.props;
-        if (selectedScreenIdSet.size === 0)
+        super(props);
+        this.state = {
+            currentScreenIdInModal: 0,
+            currentScreenUuidInModal: '',
+            currentScreenNameInModal: '',
+            currentScreenIsRunningInModal: false,
+            currentResourcePackNameOfScreenInModal: '',
+        };
+    }
+
+    onScreenChangeButtonClick = (screenId, screenUuid, screenName, screenIsRunning, resourcePackNameOfScreen) =>
+    {
+        return () =>
         {
-            WarningAlert.pop('未选中任何屏幕');
-        }
-        else
-        {
-            ModalFunction.showModal(MODAL_ID.START_SCREEN_RUNNING_MODAL);
-        }
+            this.setState({
+                currentScreenIdInModal: screenId,
+                currentScreenUuidInModal: screenUuid,
+                currentScreenNameInModal: screenName,
+                currentScreenIsRunningInModal: screenIsRunning,
+                currentResourcePackNameOfScreenInModal: resourcePackNameOfScreen,
+            }, () =>
+            {
+                ModalFunction.showModal(MODAL_ID.CHANGE_SCREEN_MODAL);
+            });
+        };
     };
 
-    onStopRunningButtonClick = e =>
-    {
-        e.preventDefault();
-        const {selectedScreenIdSet} = this.props;
-        if (selectedScreenIdSet.size === 0)
-        {
-            WarningAlert.pop('未选中任何屏幕');
-        }
-        else
-        {
-            ModalFunction.showModal(MODAL_ID.STOP_SCREEN_RUNNING_MODAL);
-        }
-    };
-
-    onDeleteScreenButtonClick = e =>
-    {
-        e.preventDefault();
-        const {selectedScreenIdSet} = this.props;
-        if (selectedScreenIdSet.size === 0)
-        {
-            WarningAlert.pop('未选中任何屏幕');
-        }
-        else
-        {
-            ModalFunction.showModal(MODAL_ID.DELETE_SCREEN_MODAL);
-        }
-    };
-
-    onBatchBindResourcePackButtonClick = e =>
-    {
-        e.preventDefault();
-        const {selectedScreenIdSet} = this.props;
-        if (selectedScreenIdSet.size === 0)
-        {
-            WarningAlert.pop('未选中任何屏幕');
-        }
-        else
-        {
-            unselectAllResourcePacks();
-            ModalFunction.showModal(MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL);
-        }
-    };
-
-    onBatchUnbindResourcePackButtonClick = e =>
-    {
-        e.preventDefault();
-        const {selectedScreenIdSet} = this.props;
-        if (selectedScreenIdSet.size === 0)
-        {
-            WarningAlert.pop('未选中任何屏幕');
-        }
-        else
-        {
-            ModalFunction.showModal(MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL);
-        }
-    };
 
     render()
     {
-        const {screenList, selectedScreenIdSet, selectedResourcePackId} = this.props;
-        const allScreenIdSet = new Set();
-        screenList.forEach(screen =>
-        {
-            allScreenIdSet.add(screen.id);
-        });
-
+        const {screenList} = this.props;
+        const {
+            currentScreenIdInModal,
+            currentScreenUuidInModal,
+            currentScreenNameInModal,
+            currentScreenIsRunningInModal,
+            currentResourcePackNameOfScreenInModal,
+        } = this.state;
         return [
-            <ListCard className={Style.ScreenListCard} title={'屏幕列表'} key={Style.ScreenListCard}>
-                <div className={Style.headerWrapper}><Header allScreenIdSet={allScreenIdSet} /></div>
-                <div className={Style.screenListWrapper}>
-                    {screenList.map(screen =>
-                    {
-                        return <Screen {...screen} key={screen.id} />;
-                    })}
+            <ListCard title={'屏幕列表'} className={Style.ScreenListCard} key={'ScreenListCard'}>
+                <div className={Style.screenListTableWrapper}>
+                    <table className={`table ${Style.screenListTable}`}>
+                        <thead className={'thead-dark'}>
+                        <tr>
+                            <th scope="col" className={Style.uuidHeader}>UUID</th>
+                            <th scope="col" className={Style.screenNameHeader}>屏幕名</th>
+                            <th scope="col" className={Style.screenIsRunningHeader}>状态</th>
+                            <th scope="col" className={Style.resourcePackNameOfResourcePackHeader}>资源包</th>
+                            <th scope="col" className={Style.changeScreenButtonHeader} />
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            screenList.map(screen =>
+                            {
+                                const {
+                                    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: screenId,
+                                    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: uuid,
+                                    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: screenName,
+                                    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.IS_RUNNING]: screenIsRunning,
+                                    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.RESOURCE_PACK_NAME]: resourcePackNameOfScreen,
+                                } = screen;
+
+                                return <Screen screenId={screenId}
+                                               uuid={uuid}
+                                               screenName={screenName}
+                                               screenIsRunning={screenIsRunning}
+                                               resourcePackNameOfScreen={resourcePackNameOfScreen}
+                                               onChangeButtonClick={this.onScreenChangeButtonClick(screenId, uuid, screenName, screenIsRunning, resourcePackNameOfScreen)}
+                                               key={screenId} />;
+                            })
+                        }
+                        </tbody>
+                    </table>
                 </div>
-                <div className={Style.buttonWrapper}>
-                    <ToolTip placement={'top'} title={'添加屏幕'}>
-                        <ModalTriggeringButton modalId={MODAL_ID.ADD_SCREEN_MODAL}
-                                               className={Style.addScreenButton}>
-                            <FontAwesomeIcon icon={solidIcon.faPlus} />
-                        </ModalTriggeringButton>
-                    </ToolTip>
-                    <ToolTip placement={'top'} title={'删除屏幕'}>
-                        <button className={Style.deleteScreenButton}
-                                onClick={this.onDeleteScreenButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faTrash} />
-                        </button>
-                    </ToolTip>
-                    <ToolTip placement={'top'} title={'开始播放'}>
-                        <button className={Style.startRunningButton}
-                                onClick={this.onStartRunningButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faPlay} />
-                        </button>
-                    </ToolTip>
-                    <ToolTip placement={'top'} title={'停止播放'}>
-                        <button className={Style.stopRunningButton}
-                                onClick={this.onStopRunningButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faPowerOff} />
-                        </button>
-                    </ToolTip>
-                    <ToolTip placement={'top'} title={'批量绑定资源包'}>
-                        <button
-                            className={Style.batchBindResourcePackButton}
-                            onClick={this.onBatchBindResourcePackButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faFileArchive} />
-                        </button>
-                    </ToolTip>
-                    <ToolTip placement={'top'} title={'批量解绑资源包'}>
-                        <button
-                            className={Style.batchUnbindResourcePackButton}
-                            onClick={this.onBatchUnbindResourcePackButtonClick}>
-                            <FontAwesomeIcon icon={solidIcon.faTrashAlt} />
-                        </button>
-                    </ToolTip>
+                <div className={Style.buttonWrapper} role="group">
+                    <ModalTriggerButton modalId={MODAL_ID.ADD_SCREEN_MODAL} className={Style.addScreenButton}>
+                        <ToolTip placement={TOOLTIP_POSITION.TOP} title={'添加新屏幕'}>
+                            <FontAwesomeIcon icon={SolidIcon.faPlus} />
+                        </ToolTip>
+                    </ModalTriggerButton>
                 </div>
             </ListCard>,
             <AddScreenModal key={MODAL_ID.ADD_SCREEN_MODAL} />,
-            <DeleteScreenModal selectedScreenIdSet={selectedScreenIdSet} key={MODAL_ID.DELETE_SCREEN_MODAL} />,
-            <StartScreenRunningModal selectedScreenIdSet={selectedScreenIdSet}
-                                     key={MODAL_ID.START_SCREEN_RUNNING_MODAL} />,
-            <StopScreenRunningModal selectedScreenIdSet={selectedScreenIdSet}
-                                    key={MODAL_ID.STOP_SCREEN_RUNNING_MODAL} />,
-            <BatchBindResourcePackModal selectedResourcePackId={selectedResourcePackId}
-                                        selectedScreenIdSet={selectedScreenIdSet}
-                                        key={MODAL_ID.BATCH_BIND_RESOURCE_PACK_MODAL} />,
-            <BatchUnbindResourcePackModal selectedScreenIdSet={selectedScreenIdSet}
-                                          key={MODAL_ID.BATCH_UNBIND_RESOURCE_PACK_MODAL} />,
+            <ChangeScreenModal screenId={currentScreenIdInModal}
+                               uuid={currentScreenUuidInModal}
+                               screenName={currentScreenNameInModal}
+                               screenIsRunning={currentScreenIsRunningInModal}
+                               resourcePackNameOfScreen={currentResourcePackNameOfScreenInModal}
+                               key={MODAL_ID.CHANGE_SCREEN_MODAL} />,
         ];
     }
 }
 
 const mapStateToProps = state =>
 {
-    const {
-        ScreenManagement: {screenList, selectedScreenIdSet, selectedResourcePackId},
-    } = state;
+    const {ScreenManagement: {screenList}} = state;
     return {
         screenList,
-        selectedScreenIdSet,
-        selectedResourcePackId,
     };
 };
 

@@ -17,3 +17,5 @@ export const START_SCREEN = screenManagementPrefix('/startScreen');
 export const STOP_SCREEN = screenManagementPrefix('/stopScreen');
 
 export const BIND_RESOURCE_PACK = screenManagementPrefix('/bindResourcePack');
+
+export const CHANGE_SCREEN_INFO = screenManagementPrefix('/changeScreenInfo');

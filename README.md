@@ -303,7 +303,8 @@
 - 请求体：
 ```js
 {
-    uuid: xxx
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.UUID]: String,  // 被添加屏幕的 UUID
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: String,  // 被添加屏幕的名字
 }
 ```
 - 响应体：无
@@ -361,6 +362,20 @@
 ```
 - 响应体：无
 - 其他说明：如果原来绑定别的资源包，就解绑并绑定现在的资源包。如果资源包或屏幕不存在，返回 404，如果存在资源包或屏幕不属于当前用户，返回 403。
+
+#### `/changeScreenInfo`
+
+- 功能说明：修改屏幕信息
+- 请求方法：POST
+- 请求体：
+```js
+{
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.ID]: String,  // 被修改屏幕的 ID
+    [NAMESPACE.SCREEN_MANAGEMENT.SCREEN.NAME]: String,  // 被修改屏幕的新名字
+}
+```
+- 响应体：无
+- 其他说明：无
 
 ### 广告管理（前缀为 `/advertisementManagement`
 
