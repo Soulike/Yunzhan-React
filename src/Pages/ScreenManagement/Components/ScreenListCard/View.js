@@ -11,7 +11,7 @@ import {View as ModalTriggerButton} from '../../../../Components/Bootstrap/Modal
 import {MODAL_ID} from '../../../../Config';
 import {View as AddScreenModal} from './Components/AddScreenModal';
 import {Function as ModalFunction} from '../../../../Components/Bootstrap/Modal';
-import ChangeScreenModal from './Components/ChangeScreenModal/View';
+import {View as ChangeScreenModal} from './Components/ChangeScreenModal';
 
 class ScreenListCard extends Component
 {
